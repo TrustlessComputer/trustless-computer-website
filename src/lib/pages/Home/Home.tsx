@@ -70,8 +70,10 @@ const Home = () => {
           <RightContainer>
             <p className="title">TRUSTLESS COMPUTER</p>
             <p className="subTitle">Build dapps on Bitcoin.</p>
-            <a className="button" href="https://docs.trustless.computer">
-              <p className="text">{`Let's build`}</p>
+            <a href="https://docs.trustless.computer">
+              <div className="button">
+                <p className="text">{`Let's build`}</p>
+              </div>
             </a>
           </RightContainer>
         </div>

@@ -182,6 +182,10 @@ const RightContainer = styled.div`
     margin-top: 16px;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .button {
     display: flex;
     flex-direction: row;

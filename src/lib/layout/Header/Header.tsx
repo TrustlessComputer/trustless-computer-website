@@ -6,11 +6,11 @@ const Header = ({ height }: { height: number }) => {
       {/* <BoltIcon>
         <Image size="40px" src={BoltLogo} />
       </BoltIcon> */}
-      <a href="https://explorer.trustless.computer">
+      {/* <a href="https://explorer.trustless.computer">
         <div>
           <p className="networkText">Explorer</p>
         </div>
-      </a>
+      </a> */}
     </Wrapper>
   );
 };
