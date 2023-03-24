@@ -5,8 +5,8 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   /* min-height: 180vh; */
-  padding-left: 180px;
-  padding-right: 180px;
+  padding-left: 10vw;
+  padding-right: 10vw;
 
   .container {
     height: 92vh;
@@ -105,14 +105,9 @@ const CopyContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-top: 24px;
-  width: 90%;
+  width: 100%;
 
   position: relative;
-
-  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
-    .deprecated_upToExtraSmall`
-    width: 320px;
-  `};
 
   .icCopy {
     position: absolute;
@@ -129,26 +124,39 @@ const CopyContainer = styled.div`
   margin-top: rem(16px);
 
   .pre {
-    max-height: 60vh;
+    height: 55vh;
+    width: 40vw;
     overflow: auto;
     word-break: normal !important;
     word-wrap: normal !important;
     white-space: pre !important;
     background: #333333;
 
-    padding: 32px 24px;
+    padding: 16px 0px;
 
     .code {
       font-style: normal;
       font-weight: 500;
-      font-size: 16px;
-      line-height: 30px;
+      font-size: 14px;
+      line-height: 200%;
+      /* or 250% */
+
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.01em;
 
       color: #e5e5e5;
 
-      /* font-family: Inter !important; */
+      font-family: Source Code Pro !important;
     }
   }
+
+  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
+    .deprecated_upToLarge`
+      .pre {
+          width: 90vw;
+      }
+  `};
 `;
 
 const RightContainer = styled.div`
