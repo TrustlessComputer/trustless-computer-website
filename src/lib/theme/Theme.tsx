@@ -145,7 +145,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const ThemedGlobalStyle = createGlobalStyle`
   #root {
-    font-family: Inter, sans-serif !important;
+    font-family: Bandeins Strange Variable !important;
   }
 
   button, p, input {

@@ -2,18 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="preload"
-      href="/fonts/Inter-Regular.ttf"
+      href="/fonts/BandeinsStrange-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/eot"
       crossorigin
     />
     <style>
       * {
-        font-family: "Inter", sans-serif;
+        font-family: "Bandeins Strange Variable";
         box-sizing: border-box;
       }
 
@@ -21,17 +21,17 @@
             Explicitly load Inter var from public/ so it does not block LCP's critical path.
           */
       @font-face {
-        font-family: "Inter";
+        font-family: "Bandeins Strange Variable";
         font-weight: 500;
         font-style: normal;
         font-display: block;
         font-named-instance: "Regular";
-        src: url(/fonts/Inter-Regular.ttf) format("ttf");
+        src: url(/fonts/BandeinsStrange-Regular.woff2) format("woff2");
       }
 
       @supports (font-variation-settings: normal) {
         * {
-          font-family: "Inter", sans-serif;
+          font-family: "Bandeins Strange Variable";
           font-weight: 600;
         }
       }

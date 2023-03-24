@@ -10,7 +10,7 @@ type LayoutProps = {
 };
 
 const HEADER_HEIGHT = 80;
-const FO0TER_HEIGHT = 60;
+const FO0TER_HEIGHT = 80;
 
 const Container = styled.div`
   min-height: 100vh;

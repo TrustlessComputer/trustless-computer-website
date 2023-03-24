@@ -4,6 +4,5 @@ export * from "./Image";
 export * from "./Loading";
 export * from "./Modal";
 export * from "./Portal";
-export * from "./ReduxForm";
 export * from "./Row";
 export * from "./Text";

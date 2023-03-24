@@ -1,22 +1,45 @@
-import styled from "styled-components";
+import styled, { ITheme } from "styled-components";
 
 const Wrapper = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.border1};
-  padding-left: 120px;
-  padding-right: 120px;
+  /* border-bottom: 1px solid ${({ theme }) => theme.border1}; */
+  padding-left: 80px;
+  padding-right: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-`;
+  justify-content: flex-end;
 
-const BoltIcon = styled.div`
-  transition: transform 0.3s ease;
-  :hover {
-    transform: rotate(-20deg);
+  a {
+    text-decoration: unset;
   }
 
-  position: relative;
+  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
+    .deprecated_upToExtraSmall`
+      padding-left: 8px;
+      padding-right: 8px;
+  `};
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 42px;
+  }
+
+  .networkText {
+    cursor: pointer;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+
+    color: #898989;
+
+    :hover {
+      opacity: 0.7;
+    }
+  }
 `;
 
-export { BoltIcon, Wrapper };
+export { Wrapper };
