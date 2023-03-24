@@ -58,9 +58,7 @@ const Container = styled.div`
         flex-direction: column-reverse;
       }
 
-      .btnFaq {
-        visibility: hidden;
-      }
+     
     `};
 `;
 
@@ -124,7 +122,7 @@ const CopyContainer = styled.div`
   margin-top: rem(16px);
 
   .pre {
-    height: 55vh;
+    height: 500px;
     width: 40vw;
     overflow: auto;
     word-break: normal !important;
