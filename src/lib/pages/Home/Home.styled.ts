@@ -58,6 +58,9 @@ const Container = styled.div`
         flex-direction: column-reverse;
       }
 
+      .btnFaq {
+        margin-top: 32px;
+      }
      
     `};
 `;
@@ -109,7 +112,7 @@ const CopyContainer = styled.div`
 
   .icCopy {
     position: absolute;
-    right: 32px;
+    right: 24px;
     bottom: 24px;
     width: 24px;
     height: 24px;
@@ -122,7 +125,7 @@ const CopyContainer = styled.div`
   margin-top: rem(16px);
 
   .pre {
-    height: 500px;
+    height: 480px;
     width: 40vw;
     overflow: auto;
     word-break: normal !important;
@@ -130,14 +133,13 @@ const CopyContainer = styled.div`
     white-space: pre !important;
     background: #333333;
 
-    padding: 16px 0px;
-
     .code {
       font-style: normal;
       font-weight: 500;
       font-size: 14px;
       line-height: 200%;
       /* or 250% */
+      margin: 16px 0px;
 
       display: flex;
       align-items: center;
@@ -146,6 +148,10 @@ const CopyContainer = styled.div`
       color: #e5e5e5;
 
       font-family: Source Code Pro !important;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
     }
   }
 
@@ -253,7 +259,7 @@ const FAQContainer = styled.div`
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
     .deprecated_upToLarge`
-      margin-top: 160px;
+      margin-top: 20px;
 
       .faqContent {
         width: 90%;
@@ -263,6 +269,7 @@ const FAQContainer = styled.div`
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
     .deprecated_upToSmall`
+      margin-top: 55px;
 
       .faqContent {
         width: 96%;
