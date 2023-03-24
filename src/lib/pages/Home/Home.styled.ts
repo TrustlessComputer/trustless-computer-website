@@ -21,7 +21,7 @@ const Container = styled.div`
     height: 85vh;
     flex-direction: row;
     align-items: center;
-    gap: 24px;
+    gap: 8px;
   }
 
   .btnFaq {
@@ -80,6 +80,11 @@ const LeftContainer = styled.div`
   .headerTitle {
     display: flex;
   }
+
+  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
+    .deprecated_upToLarge`
+    margin-top: 24px;
+    `}
 `;
 
 const TitleDoc = styled.div<{ isSelected: boolean }>`
@@ -109,6 +114,8 @@ const CopyContainer = styled.div`
   width: 100%;
 
   position: relative;
+  background: #333333;
+  padding: 16px 0px;
 
   .icCopy {
     position: absolute;
@@ -131,7 +138,6 @@ const CopyContainer = styled.div`
     word-break: normal !important;
     word-wrap: normal !important;
     white-space: pre !important;
-    background: #333333;
 
     .code {
       font-style: normal;
