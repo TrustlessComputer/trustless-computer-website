@@ -47,8 +47,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{DOCKER_REGISTRY}}/${{DOCKER_IMAGE_NAME}}:latest
-            ${{DOCKER_REGISTRY}}/${{DOCKER_IMAGE_NAME}}:${{ env.IMAGE_TAG }}
+            ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_IMAGE_NAME}}:latest
+            ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_IMAGE_NAME}}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: BUILD_ENV=${{ env.BUILD_ENV }}
