@@ -113,24 +113,24 @@ contract BFS {
 
 const FaqData = [
   {
+    question: "What is Trustless Computer?",
+    answer:
+      "Trustless Computer was created to make Bitcoin as generalized as possible — usable for far more than just a currency. It enables developers to create DAO, DEX, NFT, token, auction, lending, data storage, and many other use cases on Bitcoin.",
+  },
+  {
     question: "What programming language does Trustless Computer use?",
     answer:
-      "Solidity. If you are experienced with developing smart contracts on Ethereum, you’ll find it home here. You can use the same development environment, such as Truffle and Hardhat.",
+      "Solidity. If you are experienced with developing smart contracts on Ethereum, you’ll find it home here. You can use the same development environment, such as Hardhat and Truffle, and the same wallet, such as MetaMask.",
   },
   {
     question: "Is Trustless Computer Layer 1 or Layer 2?",
     answer:
-      "Layer 1. Unlike other Layer 2 protocols like Taro and Stacks, Trustless Computer is a Layer 1 protocol. Trustless Computer stores smart contracts and transactions directly on the Bitcoin network.",
+      "Trustless Computer is a Layer 1 protocol. Trustless Computer stores smart contracts and transactions directly on the Bitcoin network.",
   },
   {
     question: "How is Trustless Computer different from Ordinals?",
     answer:
-      "While both Ordinals and Trustless Computer are Layer 1 protocols, they are entirely different. Ordinals lets users inscribe content like images and texts onto Bitcoin. Trustless Protocol allows developers to deploy smart contracts and users to use decentralized applications on Bitcoin.",
-  },
-  {
-    question: "What is BVM?",
-    answer:
-      "Bitcoin Virtual Machine (BVM) is at the heart of Trustless Computer architecture. BVM is Turing-Complete. BVM enables developers to create decentralized applications for Bitcoin, such as DEX, lending, auction, and DAO.",
+      "While both Ordinals and Trustless Computer are Layer 1 protocols, they are entirely different. Ordinals lets users inscribe content like images and texts onto Bitcoin. Trustless Protocol allows developers to deploy smart contracts and decentralized applications onto Bitcoin.",
   },
   {
     question: "What is the transaction size limit?",
