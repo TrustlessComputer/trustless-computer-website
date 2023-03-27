@@ -18,8 +18,6 @@ import IcCopy from "./icons/ic-copy.svg";
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [currentIndexFaq, setCurrentIndexFaq] = useState(0);
-
   const onClickFAQ = () => {
     if (window.document) {
       window.document.getElementById("faq")?.scrollIntoView({
