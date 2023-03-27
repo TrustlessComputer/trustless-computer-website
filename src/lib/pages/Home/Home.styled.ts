@@ -9,7 +9,7 @@ const Container = styled.div`
   padding-right: 10vw;
 
   .container {
-    height: 92vh;
+    /* height: 92vh; */
     display: flex;
     flex-direction: column;
     padding-top: 8px;
@@ -18,14 +18,14 @@ const Container = styled.div`
   .content {
     display: flex;
     position: relative;
-    height: 85vh;
+    height: 80vh;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
   }
 
   .btnFaq {
-    height: 8vh;
+    height: 13vh;
 
     display: flex;
     flex-direction: row;
@@ -48,9 +48,15 @@ const Container = styled.div`
       color: #898989;
     }
   }
-
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
     .deprecated_upToLarge`
+    padding-left: 5vw;
+    padding-right: 5vw;
+  
+    `}
+
+  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
+    .deprecated_upToMedium`
     padding-left: 40px;
     padding-right: 40px;
       .content {
@@ -115,7 +121,7 @@ const CopyContainer = styled.div`
 
   position: relative;
   background: #333333;
-  padding: 16px 0px;
+  padding: 16px 16px;
 
   .icCopy {
     position: absolute;
@@ -145,7 +151,7 @@ const CopyContainer = styled.div`
       font-size: 14px;
       line-height: 200%;
       /* or 250% */
-      margin: 16px 0px;
+      margin: 16px 16px;
 
       display: flex;
       align-items: center;
@@ -162,7 +168,7 @@ const CopyContainer = styled.div`
   }
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
-    .deprecated_upToLarge`
+    .deprecated_upToMedium`
       .pre {
           width: 90vw;
       }
@@ -260,11 +266,11 @@ const FAQContainer = styled.div`
     align-items: center;
     text-align: center;
     color: #ffffff;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
   }
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
-    .deprecated_upToLarge`
+    .deprecated_upToMedium`
       margin-top: 20px;
 
       .faqContent {
