@@ -46,31 +46,19 @@ const Wrapper = styled.div`
 `;
 
 const Footer = ({ height }: { height: number }) => {
-  const onClickLink = (link: string) => {
-    window.open(link);
-  };
   return (
     <Wrapper style={{ height }}>
       <p className="text">Open-source software. Made with ❤️ on Bitcoin.</p>
       <div className="buttonContainer">
-        <img
-          alt="icon"
-          className="icon"
-          src={IcGithub}
-          onClick={() => onClickLink("https://github.com/trustlesscomputer")}
-        />
-        <img
-          alt="icon"
-          className="icon"
-          src={IcDiscord}
-          onClick={() => onClickLink("https://discord.gg/tscNGxEw2s")}
-        />
-        <img
-          alt="icon"
-          className="icon"
-          src={IcTwitter}
-          onClick={() => onClickLink("https://twitter.com/trustless_bvm")}
-        />
+        <a href="https://github.com/trustlesscomputer">
+          <img alt="icon" className="icon" src={IcGithub} />
+        </a>
+        <a href="https://discord.gg/tscNGxEw2s">
+          <img alt="icon" className="icon" src={IcDiscord} />
+        </a>
+        <a href="https://twitter.com/trustless_bvm">
+          <img alt="icon" className="icon" src={IcTwitter} />
+        </a>
       </div>
     </Wrapper>
   );
