@@ -1,114 +1,114 @@
 const DocumentData = [
   {
     title: "BRC-20",
-    code: `    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.0;
+    code: `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    contract MyERC20 is ERC20, ERC20Burnable, Ownable {
-        constructor() ERC20("TestToken", "TTK") {
-            _mint(msg.sender, 10000 * 10 ** decimals());
-        }
-    
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }`,
+contract MyERC20 is ERC20, ERC20Burnable, Ownable {
+    constructor() ERC20("TestToken", "TTK") {
+        _mint(msg.sender, 10000 * 10 ** decimals());
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+}`,
   },
   {
     title: "BRC-721",
-    code: `    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.0;
-    
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-    import "@openzeppelin/contracts/access/AccessControl.sol";
-    import "@openzeppelin/contracts/utils/Strings.sol";
-    import "hardhat/console.sol";
-    
-    contract NFT is ERC721, ERC721URIStorage, AccessControl {
-        bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    
-        address public fileStorage;
-    
-        constructor(address _store) ERC721("MyToken", "MTK") {
-            fileStorage = _store;
-            _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-            _grantRole(MINTER_ROLE, msg.sender);
-        }
-    
-        function _baseURI() internal view override returns (string memory) {
-            return string.concat("bfs://22213/", Strings.toHexString(address(fileStorage)), "/");
-        }
-    
-        function safeMint(address to, uint256 tokenId, string memory uri)
-            public
-            onlyRole(MINTER_ROLE)
-        {
-            _safeMint(to, tokenId);
-            _setTokenURI(tokenId, uri);
-        }
-    
-        // The following functions are overrides required by Solidity.
-    
-        function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
-            super._burn(tokenId);
-        }
-    
-        function tokenURI(uint256 tokenId)
-            public
-            view
-            override(ERC721, ERC721URIStorage)
-            returns (string memory)
-        {
-            return super.tokenURI(tokenId);
-        }
-    
-        function supportsInterface(bytes4 interfaceId)
-            public
-            view
-            override(ERC721, AccessControl)
-            returns (bool)
-        {
-            return super.supportsInterface(interfaceId);
-        }
-    }`,
+    code: `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "hardhat/console.sol";
+
+contract NFT is ERC721, ERC721URIStorage, AccessControl {
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+
+    address public fileStorage;
+
+    constructor(address _store) ERC721("MyToken", "MTK") {
+        fileStorage = _store;
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
+    }
+
+    function _baseURI() internal view override returns (string memory) {
+        return string.concat("bfs://22213/", Strings.toHexString(address(fileStorage)), "/");
+    }
+
+    function safeMint(address to, uint256 tokenId, string memory uri)
+        public
+        onlyRole(MINTER_ROLE)
+    {
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, AccessControl)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}`,
   },
   {
     title: "Bitcoin File System",
-    code: `    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.0;
-    
-    contract BFS {
-      mapping(address => mapping(string => mapping(uint256 => bytes))) public dataStorage;
-      mapping(address => mapping(string => uint256)) public chunks; // max chunk index
-    
-      function store(string memory filename, uint256 chunkIndex, bytes memory _data) 
-      external {
-        dataStorage[msg.sender][filename][chunkIndex] = _data;
-        if (chunks[msg.sender][filename] < chunkIndex) {
-          chunks[msg.sender][filename] = chunkIndex;
-        }
-      }
-    
-      function load(address addr, string memory filename, uint256 chunkIndex)
-          public
-          view 
-          returns (bytes memory, int256) 
-      {
-        uint256 temp = chunkIndex + 1;
-        int256 nextChunk = (temp > chunks[addr][filename]) ? -1 : int256(temp);
-        return (dataStorage[addr][filename][chunkIndex], nextChunk);
-      }
-    
-      function count(address addr, string memory filename) public view returns (uint256) {
-        return chunks[addr][filename];
-      }
-    
-    }`,
+    code: `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract BFS {
+  mapping(address => mapping(string => mapping(uint256 => bytes))) public dataStorage;
+  mapping(address => mapping(string => uint256)) public chunks; // max chunk index
+
+  function store(string memory filename, uint256 chunkIndex, bytes memory _data) 
+  external {
+    dataStorage[msg.sender][filename][chunkIndex] = _data;
+    if (chunks[msg.sender][filename] < chunkIndex) {
+      chunks[msg.sender][filename] = chunkIndex;
+    }
+  }
+
+  function load(address addr, string memory filename, uint256 chunkIndex)
+      public
+      view 
+      returns (bytes memory, int256) 
+  {
+    uint256 temp = chunkIndex + 1;
+    int256 nextChunk = (temp > chunks[addr][filename]) ? -1 : int256(temp);
+    return (dataStorage[addr][filename][chunkIndex], nextChunk);
+  }
+
+  function count(address addr, string memory filename) public view returns (uint256) {
+    return chunks[addr][filename];
+  }
+
+}`,
   },
 ];
 
