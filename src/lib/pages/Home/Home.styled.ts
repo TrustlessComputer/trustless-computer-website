@@ -9,7 +9,8 @@ const Container = styled.div`
   padding-right: 10vw;
 
   .container {
-    /* height: 92vh; */
+    min-height: 700px;
+    height: 95vh;
     display: flex;
     flex-direction: column;
     padding-top: 8px;
@@ -18,14 +19,15 @@ const Container = styled.div`
   .content {
     display: flex;
     position: relative;
-    height: 80vh;
+    min-height: 600px;
+    height: 85vh;
     flex-direction: row;
     align-items: center;
     gap: 16px;
   }
 
   .btnFaq {
-    height: 13vh;
+    height: 15vh;
 
     display: flex;
     flex-direction: row;
@@ -59,7 +61,15 @@ const Container = styled.div`
     .deprecated_upToMedium`
     padding-left: 40px;
     padding-right: 40px;
+
+    .container {
+      min-height: auto;
+
+      height: auto;
+    }
       .content {
+        min-height: auto;
+
         height: auto;
         flex-direction: column-reverse;
       }
@@ -182,11 +192,6 @@ const RightContainer = styled.div`
   align-items: center;
   margin-top: -24px;
 
-  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
-    .deprecated_upToLarge`
-      margin-top: 0;
-  `};
-
   .title {
     font-style: normal;
     font-weight: 500;
@@ -200,10 +205,10 @@ const RightContainer = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 56px;
-    line-height: 66px;
     color: #ffffff;
     text-align: center;
     margin-top: 16px;
+    line-height: 66px;
   }
 
   a {
@@ -238,6 +243,20 @@ const RightContainer = styled.div`
       text-align: center;
     }
   }
+
+  ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
+    .deprecated_upToLarge`
+      margin-top: 0;
+
+      .title {
+        font-size: 20px;
+      }
+    
+      .subTitle {
+        font-size: 44px;
+        line-height: 56px;
+      }
+  `};
 `;
 
 const FAQContainer = styled.div`
@@ -245,8 +264,8 @@ const FAQContainer = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
-  margin-top: 140px;
+  /* min-height: 80vh; */
+  margin-top: 40px;
   margin-bottom: 40px;
 
   .faqContent {
@@ -281,7 +300,6 @@ const FAQContainer = styled.div`
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
     .deprecated_upToSmall`
-      margin-top: 55px;
 
       .faqContent {
         width: 96%;
