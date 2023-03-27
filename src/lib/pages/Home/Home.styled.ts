@@ -308,7 +308,7 @@ const FAQContainer = styled.div`
   `};
 `;
 
-const FAQItem = styled.div<{ isSelected: boolean }>`
+const StyledFAQItem = styled.div<{ isSelected: boolean }>`
   border-bottom: 1px solid #2c2c2c;
 
   padding-top: 8px;
@@ -320,6 +320,11 @@ const FAQItem = styled.div<{ isSelected: boolean }>`
     flex-direction: row;
     justify-content: space-between;
     cursor: pointer;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 
     :hover {
       opacity: 0.9;
@@ -336,8 +341,10 @@ const FAQItem = styled.div<{ isSelected: boolean }>`
     .icon {
       width: 32px;
       height: 32px;
-      transform: ${({ isSelected }) =>
-        isSelected ? "rotate(90deg)" : "rotate(0deg)"};
+      transform: rotate(0deg);
+      overflow: hidden;
+      transition: all 0.15s ease-out;
+      ${({ isSelected }) => isSelected && `transform: rotate(90deg)`};
     }
   }
 
@@ -357,8 +364,8 @@ export {
   Container,
   CopyContainer,
   FAQContainer,
-  FAQItem,
   LeftContainer,
   RightContainer,
+  StyledFAQItem,
   TitleDoc,
 };

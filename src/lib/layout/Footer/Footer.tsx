@@ -56,7 +56,7 @@ const Footer = ({ height }: { height: number }) => {
         <a href="https://discord.gg/tscNGxEw2s">
           <img alt="icon" className="icon" src={IcDiscord} />
         </a>
-        <a href="https://twitter.com/trustless_bvm">
+        <a href="https://twitter.com/DappsOnBitcoin">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
       </div>
