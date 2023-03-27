@@ -6,9 +6,9 @@ import {
   Container,
   CopyContainer,
   FAQContainer,
-  FAQItem,
   LeftContainer,
   RightContainer,
+  StyledFAQItem,
   TitleDoc,
 } from "./Home.styled";
 import IcChevronDown from "./icons/ic-chevron-down.svg";
@@ -87,23 +87,40 @@ const Home = () => {
         <p className="title"></p>
         <div className="faqContent">
           {FaqData.map((data, index) => {
-            const isOpen = currentIndexFaq === index;
+            const initOpen = index === 0;
             return (
-              <FAQItem key={index.toString()} isSelected={isOpen}>
-                <div
-                  className="header"
-                  onClick={() => setCurrentIndexFaq(index)}
-                >
-                  <p className="question">{data.question}</p>
-                  <img alt="icon" className="icon" src={IcChevronRight} />
-                </div>
-                {isOpen && <p className="answer">{data.answer}</p>}
-              </FAQItem>
+              <FAQItem
+                key={index.toString()}
+                answer={data.answer}
+                initOpen={initOpen}
+                question={data.question}
+              />
             );
           })}
         </div>
       </FAQContainer>
     </Container>
+  );
+};
+
+const FAQItem = ({
+  initOpen,
+  question,
+  answer,
+}: {
+  initOpen: boolean;
+  question: string;
+  answer: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(initOpen);
+  return (
+    <StyledFAQItem isSelected={isOpen}>
+      <div className="header" onClick={() => setIsOpen(!isOpen)}>
+        <p className="question">{question}</p>
+        <img alt="icon" className="icon" src={IcChevronRight} />
+      </div>
+      {isOpen && <p className="answer">{answer}</p>}
+    </StyledFAQItem>
   );
 };
 
