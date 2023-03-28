@@ -76,7 +76,7 @@ const Home = () => {
           </RightContainer>
         </div>
         <div className="btnFaq" onClick={onClickFAQ}>
-          <p className="text">FAQ</p>
+          <p className="text">What is Trustless Computer?</p>
           <img alt="icon" className="icon" src={IcChevronDown} />
         </div>
       </div>
