@@ -20,20 +20,19 @@ const Container = styled.div`
     display: flex;
     position: relative;
     min-height: 600px;
-    height: 85vh;
+    height: 88vh;
     flex-direction: row;
     align-items: center;
     gap: 16px;
   }
 
   .btnFaq {
-    height: 15vh;
+    height: 12vh;
 
     display: flex;
     flex-direction: row;
     align-self: center;
     align-items: center;
-    margin-bottom: 8px;
 
     cursor: pointer;
 
