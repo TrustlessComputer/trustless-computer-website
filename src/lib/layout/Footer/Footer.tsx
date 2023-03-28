@@ -1,16 +1,17 @@
 import styled, { ITheme } from "styled-components";
 
-import IcDiscord from "./icons/ic-discord.svg";
-import IcGithub from "./icons/ic-github.svg";
-import IcTwitter from "./icons/ic-twitter.svg";
+// import IcDiscord from "./icons/ic-discord.svg";
+// import IcGithub from "./icons/ic-github.svg";
+// import IcTwitter from "./icons/ic-twitter.svg";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-left: 80px;
   padding-right: 80px;
+  margin-top: 40px;
 
   ${({ theme }: { theme: ITheme }) => theme.deprecated_mediaWidth
     .deprecated_upToExtraSmall`
@@ -49,7 +50,7 @@ const Footer = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
       <p className="text">Open-source software. Made with ❤️ on Bitcoin.</p>
-      <div className="buttonContainer">
+      {/* <div className="buttonContainer">
         <a href="https://github.com/trustlesscomputer">
           <img alt="icon" className="icon" src={IcGithub} />
         </a>
@@ -59,7 +60,7 @@ const Footer = ({ height }: { height: number }) => {
         <a href="https://twitter.com/DappsOnBitcoin">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
-      </div>
+      </div> */}
     </Wrapper>
   );
 };
