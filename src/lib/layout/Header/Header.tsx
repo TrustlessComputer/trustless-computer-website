@@ -1,11 +1,13 @@
 import { Wrapper } from "./Header.styled";
+import IcLogo from "./icons/logo.svg";
 
 const Header = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
-      {/* <BoltIcon>
-        <Image size="40px" src={BoltLogo} />
-      </BoltIcon> */}
+      <a href="https://trustless.computer">
+        <img alt="logo" src={IcLogo} />
+      </a>
+      <div />
       {/* <a href="https://explorer.trustless.computer">
         <div>
           <p className="networkText">Explorer</p>

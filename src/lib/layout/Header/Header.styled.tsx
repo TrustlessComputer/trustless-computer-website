@@ -1,13 +1,13 @@
 import styled, { ITheme } from "styled-components";
 
 const Wrapper = styled.div`
-  /* border-bottom: 1px solid ${({ theme }) => theme.border1}; */
+  border-bottom: 1px solid #2e2e2e;
   padding-left: 80px;
   padding-right: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   a {
     text-decoration: unset;
