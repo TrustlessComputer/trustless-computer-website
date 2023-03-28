@@ -61,6 +61,7 @@ const Container = styled.div`
     .deprecated_upToMedium`
     padding-left: 40px;
     padding-right: 40px;
+    padding-top: 32px;
 
     .container {
       min-height: auto;
