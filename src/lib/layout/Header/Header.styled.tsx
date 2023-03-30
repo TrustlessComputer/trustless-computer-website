@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     font-weight: 500;
     font-size: 16px;
     line-height: 26px;
-    margin-right: 16px;
+    margin-right: 12px;
 
     color: #898989;
 

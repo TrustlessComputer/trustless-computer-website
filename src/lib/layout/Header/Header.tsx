@@ -12,6 +12,11 @@ const Header = ({ height }: { height: number }) => {
       </a> */}
       <div />
       <div className="row">
+        <a href="https://nft.trustless.computer/">
+          <div>
+            <p className="networkText">NFT</p>
+          </div>
+        </a>
         <a href="https://explorer.trustless.computer/">
           <div>
             <p className="networkText">Explorer</p>
