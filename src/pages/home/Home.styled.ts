@@ -103,7 +103,7 @@ const TitleDoc = styled.div<{ isSelected: boolean }>`
     line-height: 28px;
     letter-spacing: -0.01em;
 
-    color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#898989')};
+    color: ${({ isSelected, theme }) => (isSelected ? theme.white : theme.text2)};
   }
 `;
 
@@ -116,7 +116,7 @@ const CopyContainer = styled.div`
   width: 100%;
 
   position: relative;
-  background: #333333;
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.bg2};
   padding: 16px 16px;
 
   .icCopy {
@@ -153,7 +153,7 @@ const CopyContainer = styled.div`
       align-items: center;
       letter-spacing: -0.01em;
 
-      color: #e5e5e5;
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
 
       font-family: Source Code Pro !important;
     }
@@ -183,7 +183,7 @@ const RightContainer = styled.div`
     font-size: 24px;
     /* line-height: 34px; */
     text-align: center;
-    color: #c6c7f8;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.text4};
     width: max-content;
   }
 
@@ -191,7 +191,7 @@ const RightContainer = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 56px;
-    color: #ffffff;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     text-align: center;
     margin-top: 16px;
     line-height: 66px;
@@ -210,7 +210,7 @@ const RightContainer = styled.div`
     gap: 10px;
 
     height: 64px;
-    background: #4f43e2;
+    background: ${({ theme }: { theme: DefaultTheme }) => theme.text5};
     border-radius: 2px;
     margin-top: 32px;
 
@@ -225,7 +225,7 @@ const RightContainer = styled.div`
       font-weight: 500;
       font-size: 18px;
       line-height: 26px;
-      color: #ffffff;
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       text-align: center;
     }
   }
@@ -269,7 +269,7 @@ const FAQContainer = styled.div`
     display: flex;
     align-items: center;
     text-align: center;
-    color: #ffffff;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     /* margin-bottom: 25px; */
   }
 
@@ -292,7 +292,7 @@ const FAQContainer = styled.div`
 `;
 
 const StyledFAQItem = styled.div<{ isSelected: boolean }>`
-  border-bottom: 1px solid #2c2c2c;
+  border-bottom: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.border1};
 
   padding-top: 8px;
   padding-bottom: 24px;
@@ -318,7 +318,7 @@ const StyledFAQItem = styled.div<{ isSelected: boolean }>`
       font-weight: 500;
       font-size: 24px;
       line-height: 34px;
-      color: #ffffff;
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     }
 
     .icon {
@@ -337,7 +337,7 @@ const StyledFAQItem = styled.div<{ isSelected: boolean }>`
     font-size: 20px;
     line-height: 30px;
 
-    color: #898989;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
 
     margin-top: 8px;
   }

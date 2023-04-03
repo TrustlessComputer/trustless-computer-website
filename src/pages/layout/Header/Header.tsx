@@ -1,8 +1,7 @@
 import { Wrapper } from './Header.styled';
-import IcDiscord from './icons/ic_discord.svg';
-// import IcGithub from "./icons/ic-github.svg";
-import IcTwitter from './icons/ic_twitter.svg';
-import IcLogo from './icons/logo.svg';
+import IcDiscord from '@/assets/icons/ic_discord.svg';
+import IcTwitter from '@/assets/icons/ic_twitter.svg';
+import IcLogo from '@/assets/icons/logo.svg';
 
 const Header = ({ height }: { height: number }) => {
   return (

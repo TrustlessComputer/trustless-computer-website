@@ -11,9 +11,9 @@ import {
   StyledFAQItem,
   TitleDoc,
 } from './Home.styled';
-import IcChevronDown from './icons/ic-chevron-down.svg';
-import IcChevronRight from './icons/ic-chevron-right.svg';
-import IcCopy from './icons/ic-copy.svg';
+import IcChevronDown from '@/assets/icons/ic-chevron-down.svg';
+import IcChevronRight from '@/assets/icons/ic-chevron-right.svg';
+import IcCopy from '@/assets/icons/ic-copy.svg';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
