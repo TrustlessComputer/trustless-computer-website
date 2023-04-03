@@ -13,22 +13,6 @@
     "prepare": "husky install",
     "test": "vitest"
   },
-  "bin": "./bin/react-vite-ts-boilerplate.js",
-  "keywords": [
-    "react",
-    "boilerplate",
-    "typescript",
-    "starter"
-  ],
-  "author": "sohyun-choi <sohyun4283@naver.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/choisohyun/react-vite-ts-boilerplate.git"
-  },
-  "bugs": {
-    "url": "https://github.com/choisohyun/react-vite-ts-boilerplate/issues"
-  },
-  "homepage": "https://github.com/choisohyun/react-vite-ts-boilerplate#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@web3-react/core": "^8.1.2-beta.0",
