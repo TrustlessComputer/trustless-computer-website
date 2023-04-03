@@ -14,16 +14,18 @@ export const darkTheme = {
   ...commonTheme,
   // Background
   bg1: '#1C1C1C',
-  bg2: '#303030',
+  bg2: '#333333',
   bg3: '#404040',
 
   // Text
   text1: '#F5F5F5',
-  text2: '#C9C9C9',
-  text3: '#1A73E8',
+  text2: '#898989',
+  text3: '#e5e5e5',
+  text4: '#c6c7f8',
+  text5: '#4f43e2',
 
   // Border
-  border1: '#585858',
+  border1: '#2c2c2c',
   border2: '#686868',
   border3: '#1A73E8',
 
@@ -54,6 +56,8 @@ export const lightTheme = {
   text1: commonTheme.black,
   text2: '#BFBFBF',
   text3: '#9C9C9C',
+  text4: '#c6c7f8',
+  text5: '#4f43e2',
 
   // Border
   border1: '#e3e2e2',
