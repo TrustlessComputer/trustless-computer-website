@@ -1,5 +1,5 @@
 # build environment
-FROM node:16 as build
+FROM node:18 as build
 ARG BUILD_ENV=production
 
 WORKDIR /app
