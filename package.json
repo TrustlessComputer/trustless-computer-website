@@ -1,8 +1,8 @@
 {
-  "name": "react-vite-ts-boilerplate",
-  "description": "Very Fast React + Vite Boilerplate",
-  "version": "1.2.4",
-  "license": "MIT",
+  "name": "trustless-computer-website",
+  "version": "0.1.0",
+  "private": true,
+  "author": "bolt",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
