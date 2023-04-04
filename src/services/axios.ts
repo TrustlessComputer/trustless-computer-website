@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { camelCaseKeys } from '@/utils';
 
-const TIMEOUT = 60000;
+const TIMEOUT = 2 * 60000;
 
 const HEADERS = { 'Content-Type': 'application/json' };
 
