@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import SVG from 'react-inlinesvg';
-import styled, { css } from 'styled-components';
 import { StyledIconSVG } from './IconSVG.styled';
 
 export type IconSVGProps = {
