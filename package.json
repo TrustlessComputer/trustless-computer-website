@@ -32,7 +32,9 @@
     "react-share": "^4.4.1",
     "redux": "^4.2.1",
     "redux-localstorage-simple": "^2.5.1",
-    "styled-components": "^5.3.9"
+    "sats-connect": "^0.1.11",
+    "styled-components": "^5.3.9",
+    "trustless-computer-sdk": "https://github.com/TrustlessComputer/tc-sdk"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
