@@ -4,6 +4,7 @@ import Layout from '@/pages/layout';
 import Home from '@/pages/home';
 // import Faucet from '@/pages/faucet';
 import NotFound from '@/pages/404';
+import Dapps from '@/pages/dapps';
 
 export default [
   {
@@ -16,6 +17,11 @@ export default [
   //   element: <Layout />,
   //   children: [{ index: true, element: <Faucet /> }],
   // },
+  {
+    path: '/dapps',
+    element: <Layout />,
+    children: [{ index: true, element: <Dapps /> }],
+  },
   {
     path: '/*',
     element: <NotFound />,
