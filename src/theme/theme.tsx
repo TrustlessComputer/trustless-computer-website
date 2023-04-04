@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { createGlobalStyle, ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
+import { createGlobalStyle, DefaultTheme, ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { getTheme } from '@/theme/index';
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -11,6 +11,10 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
 export const ThemedGlobalStyle = createGlobalStyle`
   #root {
     font-family: Source Code Pro !important;
+  }
+
+  p {
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   }
 
   summary::-webkit-details-marker {

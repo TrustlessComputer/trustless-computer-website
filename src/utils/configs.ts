@@ -3,11 +3,13 @@ import isEmpty from 'lodash/isEmpty';
 interface IENVS {
   REACT_APP_ENV: string;
   REACT_APP_API_SERVICE: string;
+  REACT_APP_API_FAUCET: string;
 }
 
 const defaultEnvs = {
   REACT_APP_ENV: 'production',
   REACT_APP_API_SERVICE: '',
+  REACT_APP_API_FAUCET: '',
 };
 
 export const getEnvs = () => {
@@ -39,3 +41,4 @@ export const ENVS: IENVS = getEnvs();
 export const isMainnet: boolean = ENVS.REACT_APP_ENV === 'production';
 
 export const API_SERVICE = ENVS.REACT_APP_API_SERVICE;
+export const API_FAUCET = ENVS.REACT_APP_API_FAUCET;
