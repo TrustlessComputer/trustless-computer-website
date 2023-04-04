@@ -1,4 +1,4 @@
-import icCloseModal from '@/assets/icons/ic-close-circle.svg';
+import icCloseModal from '@/assets/icons/ic-close.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { MINT_TOOL_MAX_FILE_SIZE } from '@/constants/config';
