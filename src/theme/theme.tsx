@@ -25,8 +25,10 @@ export const ThemedGlobalStyle = createGlobalStyle`
       font-size: ${({ theme }: { theme: DefaultTheme }) => theme.fontSizes.h5};
       line-height: ${({ theme }: { theme: DefaultTheme }) => theme.lineHeight.h5};
     }
-
-  }
+    p {
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    }
+}
 
   summary::-webkit-details-marker {
     display:none;
