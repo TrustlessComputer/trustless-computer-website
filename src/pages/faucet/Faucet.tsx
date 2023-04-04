@@ -7,6 +7,7 @@ import { TwitterShareButton } from 'react-share';
 import { useCallback } from 'react';
 import faucetClient from '@/services/faucet';
 import Spinner from '@/components/Spinner';
+import { capitalizeFirstLetter } from '@/utils/string';
 
 interface IStep {
   title: string;
@@ -31,7 +32,6 @@ const Faucet = () => {
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
   const [linkContract, setLinkContract] = useState('');
 
   const onVerify = useCallback((token: string) => {
@@ -141,18 +141,22 @@ const Faucet = () => {
     };
 
     const handleSubmit = async (values: IFormTweetValue): Promise<void> => {
-      if (!token) return;
-
-      try {
-        setErrorMsg('');
-        setLoading(true);
-        const data = await faucetClient.requestFaucet(values.link, token);
-        setLinkContract(data);
-        setCurrentStep(3);
-      } catch (error) {
-        setErrorMsg('Could not verify the tweet, please try again later.');
-      } finally {
-        setLoading(false);
+      if (token) {
+        try {
+          setLoading(true);
+          setErrorMsg('');
+          const data = await faucetClient.requestFaucet(values.link, token);
+          setLinkContract(data);
+          setCurrentStep(3);
+        } catch (error: any) {
+          if (error && error.message) {
+            setErrorMsg(capitalizeFirstLetter(error.message));
+          } else {
+            setErrorMsg('Could not verify the tweet, please try again later.');
+          }
+        } finally {
+          setLoading(false);
+        }
       }
     };
 
@@ -178,9 +182,10 @@ const Faucet = () => {
                   value={values.link}
                   className="input"
                   placeholder={`Tweet URL`}
+                  disabled={currentStep != 2}
                 />
               </div>
-              <button type="submit" className="postBtn">
+              <button disabled={currentStep != 2 || loading} type="submit" className="postBtn">
                 {loading ? <Spinner /> : <p className="text">Confirm</p>}
               </button>
             </PostStep>
@@ -224,12 +229,14 @@ const Faucet = () => {
 
   return (
     <Container>
-      <p className="title">Faucet</p>
-      <p className="subTitle">
-        To receive free JUICE for our Trustless Computer, simply enter your wallet address, share on twitter and copy
-        and paste the twitter URL back into the field below.
-      </p>
-      <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
+      <div className="wrap-content">
+        <p className="title">Faucet</p>
+        <p className="subTitle">
+          To receive free JUICE for our Trustless Computer, simply enter your wallet address, share on twitter and copy
+          and paste the twitter URL back into the field below.
+        </p>
+        <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
+      </div>
     </Container>
   );
 };
