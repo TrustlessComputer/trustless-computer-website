@@ -106,7 +106,7 @@ const Faucet = () => {
               </div>
               <TwitterShareButton
                 disabled={!addressInput || !validateEVMAddress(addressInput)}
-                url={`I'm verifying my @DappsOnBitcoin address for the testnet ${addressInput}`}
+                url={`I'm verifying my @DappsOnBitcoin address for the ${addressInput}`}
                 disabledStyle={{}}
                 title={''}
                 hashtags={[]}
