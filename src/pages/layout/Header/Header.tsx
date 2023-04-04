@@ -16,8 +16,11 @@ const Header = ({ height }: { height: number }) => {
         <a className="networkText" href="https://explorer.trustless.computer/">
           Explorer
         </a>
-        <a className="networkText" href="/dapps">
+        {/* <a className="networkText" href="/dapps">
           Bitcoin Dapps
+        </a> */}
+        <a className="networkText" href="/faucet">
+          Faucet
         </a>
         <a className="iconContainer" href="https://discord.gg/tscNGxEw2s">
           <img alt="icon" className="icon" src={IcDiscord} />

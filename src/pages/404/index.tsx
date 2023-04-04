@@ -1,7 +1,14 @@
-import React from 'react';
+// import { useNavigate } from "react-router-dom";
+import { Container } from './404.styled';
 
-const NotFound = () => {
-  return <div>Not Found</div>;
+const Page404 = () => {
+  // const navigate = useNavigate();
+  // const handleBackToHome = () => navigate("/");
+  return (
+    <Container>
+      <p className="title">Page not found</p>
+    </Container>
+  );
 };
 
-export default NotFound;
+export default Page404;
