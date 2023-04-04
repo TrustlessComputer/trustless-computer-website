@@ -18,7 +18,7 @@ function renderChunks(deps) {
 }
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, 'env');
+  const env = loadEnv(mode, process.cwd(), 'REACT_');
 
   return {
     server: { hmr: true, port: 3000 },

@@ -8,5 +8,7 @@ export interface EthereumProvider {
 declare global {
   interface Window {
     ethereum?: EthereumProvider;
+
+    grecaptcha?: any;
   }
 }
