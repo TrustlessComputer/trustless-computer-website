@@ -1,3 +1,4 @@
+import px2rem from '@/utils/px2rem';
 import styled from 'styled-components';
 
 const BaseText = styled.p<{ color: string | undefined; align: string }>`
@@ -6,19 +7,19 @@ const BaseText = styled.p<{ color: string | undefined; align: string }>`
 
   // FONT-SIZE
   &.size-extra-small {
-    font-size: 11px;
+    font-size: ${px2rem(11)};
     line-height: 160%;
   }
   &.size-small {
-    font-size: 12px;
+    font-size: ${px2rem(12)};
     line-height: 160%;
   }
   &.size-regular {
-    font-size: 14px;
+    font-size: ${px2rem(14)};
     line-height: 160%;
   }
   &.size-medium {
-    font-size: 16px;
+    font-size: ${px2rem(16)};
     line-height: 160%;
   }
 
