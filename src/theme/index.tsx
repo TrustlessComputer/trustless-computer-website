@@ -56,6 +56,30 @@ const fonts = {
   code: 'serif',
 };
 
+const fontSizes = {
+  xs: '12px',
+  sm: '14px',
+  md: '16px',
+  lg: '18px',
+  xl: '20px',
+  xxl: '24px',
+  h1: '40px',
+  h3: ' 34px',
+  h5: ' 24px',
+};
+
+const lineHeight = {
+  xs: '16px',
+  sm: '18px',
+  md: '20px',
+  lg: '22px',
+  xl: '24px',
+  xxl: '28px',
+  h1: '48px',
+  h3: '44px',
+  h5: '34px',
+};
+
 function getSettings(darkMode: boolean) {
   return {
     grids: {
@@ -66,6 +90,8 @@ function getSettings(darkMode: boolean) {
       xl: '32px',
     },
     fonts,
+    fontSizes,
+    lineHeight,
 
     // shadows
     shadow1: darkMode ? '#000' : '#2F80ED',

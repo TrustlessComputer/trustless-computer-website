@@ -32,6 +32,11 @@ const ContentWrapper = styled.div`
   min-height: calc(100vh - 140px);
   display: flex;
   align-self: center;
+  width: 100%;
+
+  > div {
+    width: 100%;
+  }
 `;
 
 const Layout = () => {
