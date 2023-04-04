@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { Container, StepBox, Step } from './Faucet.styled';
+import { useEffect, useState } from 'react';
+import { Container, StepBox, Step, PostStep } from './Faucet.styled';
 import { Formik } from 'formik';
-import { validateEVMAddress } from '@/utils';
+import { validateEVMAddress, validateTwitterUrl } from '@/utils';
 import IcTwitter from '@/assets/icons/ic_twitter_black.svg';
+import { TwitterShareButton } from 'react-share';
+import { useCallback } from 'react';
+import faucetClient from '@/services/faucet';
+import Spinner from '@/components/Spinner';
 
 interface IStep {
   title: string;
-  desc?: string;
+  desc?: any;
   HTMLContent?: any;
 }
 
@@ -14,23 +18,67 @@ interface IFormValue {
   address: string;
 }
 
+interface IFormTweetValue {
+  link: string;
+}
+
+const siteKey = '6LfM-cckAAAAALcEcvQGz1klpPruM-gvrBJRir1l';
+
 const Faucet = () => {
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [addressInput, setAddressInput] = useState<string>('');
+
+  const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const [linkContract, setLinkContract] = useState('');
+
+  const onVerify = useCallback((token: string) => {
+    setToken(token);
+  }, []);
+
+  const handleLoaded = () => {
+    window.grecaptcha.ready(() => {
+      window.grecaptcha.execute(siteKey, { action: 'homepage' }).then((token: string) => {
+        onVerify(token);
+      });
+    });
+  };
+
+  useEffect(() => {
+    // Add reCaptcha
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+    script.addEventListener('load', handleLoaded);
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const renderStep1 = () => {
     const validateForm = (values: IFormValue): Record<string, string> => {
       const errors: Record<string, string> = {};
 
       if (!values.address) {
-        // errors.address = 'Wallet address is required.';
-      } else if (validateEVMAddress(values.address)) {
+        errors.address = 'Wallet address is required.';
+      } else if (!validateEVMAddress(values.address)) {
         errors.address = 'Invalid wallet address.';
+      } else {
+        if (addressInput !== values.address) {
+          setAddressInput(values.address);
+        }
       }
 
       return errors;
     };
 
-    const handleSubmit = async (values: IFormValue): Promise<void> => {};
+    const handleSubmit = async (values: IFormValue): Promise<void> => {
+      if (addressInput !== values.address) {
+        setAddressInput(values.address);
+      }
+    };
 
     return (
       <Formik
@@ -43,7 +91,7 @@ const Faucet = () => {
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div className="post">
+            <PostStep className="post" disable={currentStep > 1}>
               <div className="inputContainer">
                 <input
                   id="address"
@@ -56,11 +104,22 @@ const Faucet = () => {
                   placeholder={`Enter wallet address`}
                 />
               </div>
-              <button type="submit" className="postBtn">
-                <img alt="ic-twitter" src={IcTwitter} />
-                <p className="text">Post Tweet</p>
-              </button>
-            </div>
+              <TwitterShareButton
+                disabled={!addressInput || !validateEVMAddress(addressInput)}
+                url={`I'm verifying my @DappsOnBitcoin address for the testnet ${addressInput}`}
+                disabledStyle={{}}
+                title={''}
+                hashtags={[]}
+                onClick={() => {
+                  setCurrentStep(2);
+                }}
+              >
+                <div className="postBtn">
+                  <img alt="ic-twitter" src={IcTwitter} />
+                  <p className="text">Post Tweet</p>
+                </div>
+              </TwitterShareButton>
+            </PostStep>
             {errors.address && touched.address && <p className="error">{errors.address}</p>}
           </form>
         )}
@@ -69,49 +128,63 @@ const Faucet = () => {
   };
 
   const renderStep2 = () => {
-    const validateForm = (values: IFormValue): Record<string, string> => {
+    const validateForm = (values: IFormTweetValue): Record<string, string> => {
       const errors: Record<string, string> = {};
-
-      if (!values.address) {
-        // errors.address = 'Wallet address is required.';
-      } else if (validateEVMAddress(values.address)) {
-        errors.address = 'Invalid wallet address.';
+      setErrorMsg('');
+      if (!values.link) {
+        errors.link = 'Tweet URL is required.';
+      } else if (!validateTwitterUrl(values.link)) {
+        errors.link = 'Invalid Tweet URL.';
       }
 
       return errors;
     };
 
-    const handleSubmit = async (values: IFormValue): Promise<void> => {};
+    const handleSubmit = async (values: IFormTweetValue): Promise<void> => {
+      if (!token) return;
+
+      try {
+        setErrorMsg('');
+        setLoading(true);
+        const data = await faucetClient.requestFaucet(values.link, token);
+        setLinkContract(data);
+        setCurrentStep(3);
+      } catch (error) {
+        setErrorMsg('Could not verify the tweet, please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
     return (
       <Formik
         key="step2"
         initialValues={{
-          address: '',
+          link: '',
         }}
         validate={validateForm}
         onSubmit={handleSubmit}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div className="post">
+            <PostStep className="post" disable={currentStep > 2}>
               <div className="inputContainer">
                 <input
-                  id="address"
+                  id="link"
                   type="text"
-                  name="address"
+                  name="link"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.address}
+                  value={values.link}
                   className="input"
-                  placeholder={`Enter wallet address`}
+                  placeholder={`Tweet URL`}
                 />
               </div>
               <button type="submit" className="postBtn">
-                <p className="text">Create</p>
+                {loading ? <Spinner /> : <p className="text">Confirm</p>}
               </button>
-            </div>
-            {errors.address && touched.address && <p className="error">{errors.address}</p>}
+            </PostStep>
+            {((errors.link && touched.link) || errorMsg) && <p className="error">{errors.link || errorMsg}</p>}
           </form>
         )}
       </Formik>
@@ -121,17 +194,21 @@ const Faucet = () => {
   const steps: IStep[] = [
     {
       title: 'Step 1',
-      desc: 'Enter wallet address and post a public tweet',
+      desc: <p className="decs">Enter wallet address and post a public tweet</p>,
       HTMLContent: renderStep1(),
     },
     {
       title: 'Step 2',
-      desc: 'Paste the URL of the tweet',
+      desc: <p className="decs">Paste the URL of the tweet</p>,
       HTMLContent: renderStep2(),
     },
     {
       title: 'Step 3',
-      desc: 'Receive JUICE in your wallet',
+      desc: (
+        <a className="link" href={linkContract}>
+          Receive JUICE in your wallet
+        </a>
+      ),
     },
   ];
 

@@ -27,6 +27,7 @@
     "react-helmet": "^6.1.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "6.4.3",
+    "react-share": "^4.4.1",
     "redux": "^4.2.1",
     "redux-localstorage-simple": "^2.5.1",
     "styled-components": "^5.3.9"

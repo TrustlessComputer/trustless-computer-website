@@ -67,13 +67,38 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     margin-top: 8px;
   }
 
-  .post {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  .error {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
     margin-top: 8px;
-    gap: 16px;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
   }
+
+  .link {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    margin-top: 8px;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+
+    :hover {
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.text4};
+    }
+  }
+`;
+
+const PostStep = styled.div<{ disable: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 8px;
+  gap: 16px;
+
+  opacity: ${({ disable }) => (!disable ? 1 : 0.3)};
+
+  pointer-events: ${({ disable }) => (!disable ? 'auto' : 'none')};
 
   .postBtn {
     display: flex;
@@ -84,9 +109,14 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     gap: 6px;
 
     height: 48px;
+    min-width: 98px;
 
     background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     border-radius: 2px;
+
+    :hover {
+      background: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+    }
 
     .text {
       font-weight: 500;
@@ -114,14 +144,6 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
       width: 100%;
     }
   }
-
-  .error {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    margin-top: 8px;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
-  }
 `;
 
-export { Container, StepBox, Step };
+export { Container, StepBox, Step, PostStep };

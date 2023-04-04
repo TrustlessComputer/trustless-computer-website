@@ -16,6 +16,7 @@ export const darkTheme = {
   bg1: '#1C1C1C',
   bg2: '#333333',
   bg3: '#404040',
+  bg4: '#cecece',
 
   // Text
   text1: '#F5F5F5',
@@ -53,6 +54,7 @@ export const lightTheme = {
   bg1: '#EFEFEF',
   bg2: commonTheme.white,
   bg3: '#F8F8F8',
+  bg4: '#cecece',
 
   // Text
   text1: commonTheme.black,

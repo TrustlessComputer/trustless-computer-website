@@ -21,3 +21,7 @@ export const validateBTCAddress = (_address: string): boolean => {
 export const validateEVMAddress = (_address: string): boolean => {
   return ethers.utils.isAddress(_address);
 };
+
+export const validateTwitterUrl = (url: string): boolean => {
+  return url.startsWith('https://twitter.com/');
+};
