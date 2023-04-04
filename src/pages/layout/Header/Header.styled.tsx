@@ -1,4 +1,4 @@
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   /* border-bottom: 1px solid #2e2e2e; */
