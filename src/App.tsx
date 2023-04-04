@@ -8,6 +8,7 @@ import { WalletProvider } from '@/contexts/wallet-context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeProvider, { ThemedGlobalStyle } from '@/theme/theme';
 import './reset.scss';
+import '@/styles/index.scss';
 
 const App = () => {
   const element = useRoutes(routes);
