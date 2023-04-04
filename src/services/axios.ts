@@ -23,7 +23,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.response.use(
     res => {
-      const result = res?.data?.result;
+      const result = res?.data?.data || res?.data?.result;
       const error = res?.data?.error;
       if (error) {
         return Promise.reject(camelCaseKeys(error));
