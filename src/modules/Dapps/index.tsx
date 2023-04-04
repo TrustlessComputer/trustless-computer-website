@@ -1,15 +1,27 @@
 import IcUploadFile from '@/assets/icons/ic-upload-file.svg';
 import Button from '@/components/Button';
 import Text from '@/components/Text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
+import { FileUploader } from 'react-drag-drop-files';
 import { DappsContainer, TabContainer, UploadFileContainer } from './Dapps.styled';
 import ModalUpload from './ModalUpload';
 
-type Props = {};
-
-const Dapps = (props: Props) => {
+const Dapps = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+
+  const onChangeFile = (file: File): void => {
+    setFile(file);
+    // setError('');
+    // onChange(file);
+  };
+
+  useEffect(() => {
+    if (file) {
+      setShowUploadModal(true);
+    }
+  }, [file]);
 
   return (
     <DappsContainer>
@@ -49,14 +61,25 @@ const Dapps = (props: Props) => {
           </div>
         </div>
         <div className="upload_right">
-          <Button bg={'white'} onClick={() => setShowUploadModal(true)}>
+          <Button bg={'white'}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Upload file
             </Text>
           </Button>
+          <FileUploader
+            handleChange={onChangeFile}
+            name={'fileUploader'}
+            // maxSize={MINT_TOOL_MAX_FILE_SIZE}
+            // onSizeError={onSizeError}
+            // onTypeError={onTypeError}
+            // fileOrFiles={fileOrFiles}
+            classes={'file-uploader'}
+            // classes={s.dropZone}
+            // types={fileTypes}
+          />
         </div>
       </UploadFileContainer>
-      <ModalUpload show={showUploadModal} handleClose={() => setShowUploadModal(false)} />
+      <ModalUpload show={showUploadModal} handleClose={() => setShowUploadModal(false)} file={file} setFile={setFile} />
     </DappsContainer>
   );
 };
