@@ -1,4 +1,4 @@
-import { convertIpfsToHttp } from 'lib/utils/image';
+import { convertIpfsToHttp } from '@/utils/image';
 import React from 'react';
 
 import Placeholder from './icons/placeholder.svg';
