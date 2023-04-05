@@ -5383,6 +5383,11 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
+filter-obj@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-5.1.0.tgz#5bd89676000a713d7db2e197f660274428e524ed"
+  integrity sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==
+
 finalhandler@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.2.0.tgz#7d23fe5731b207b4640e4fcd00aec1f9207a7b32"
@@ -10586,6 +10591,11 @@ spdx-license-ids@^3.0.0:
   version "3.0.13"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.13.tgz#7189a474c46f8d47c7b0da4b987bb45e908bd2d5"
   integrity sha512-XkD+zwiqXHikFZm4AX/7JSCXA98U5Db4AFd5XUg/+9UNtnH75+Z9KxtpYiJZx36mUDVOwH83pl7yvCer6ewM3w==
+
+split-on-first@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-3.0.0.tgz#f04959c9ea8101b9b0bbf35a61b9ebea784a23e7"
+  integrity sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==
 
 split2@^3.0.0:
   version "3.2.2"
