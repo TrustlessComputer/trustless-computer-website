@@ -33,7 +33,8 @@
     "react-share": "^4.4.1",
     "redux": "^4.2.1",
     "redux-localstorage-simple": "^2.5.1",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "swr": "^2.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
