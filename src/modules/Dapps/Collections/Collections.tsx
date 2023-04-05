@@ -2,7 +2,6 @@
 import { List, Spin } from 'antd';
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
-import { shortenAddress } from '@/utils/helpers';
 import { debounce } from 'lodash';
 import React from 'react';
 import { useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
+import { shortenAddress } from '@/utils';
 
 const LIMIT_PAGE = 32;
 
