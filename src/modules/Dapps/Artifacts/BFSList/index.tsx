@@ -1,5 +1,6 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import WrapImage from '@/components/WrapImage';
+import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
@@ -28,21 +29,16 @@ const BFSList = () => {
 
   const { data: inscriptions, isLoading } = useSWR(
     getApiKey(getCollectionNfts, { contractAddress: contract, limit: pageSize, page: page }),
-    getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
+    () => getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
   );
 
-  console.log('🚀 ~ BFSList ~ inscriptions:', inscriptions);
-
-  const { data: collection } = useSWR(
-    getApiKey(getCollectionDetail, {
-      contractAddress: contract,
-    }),
+  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${contract}`, () =>
     getCollectionDetail({
       contractAddress: contract,
     }),
   );
 
-  console.log('🚀 ~ BFSList ~ collection:', collection);
+  console.log(collection);
 
   const debounceLoadMore = () => {
     setpage(page + 1);
@@ -70,7 +66,7 @@ const BFSList = () => {
                 <div className="row">
                   <div>
                     <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.totalItems}</p>
+                    <p className="address">{collection?.total_items}</p>
                   </div>
                 </div>
               </div>
@@ -80,14 +76,14 @@ const BFSList = () => {
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={inscriptions?.data.length || 0}
+            dataLength={inscriptions?.length || 0}
             hasMore={true}
             loader={isLoading && <Spin />}
             next={debounceLoadMore}
           >
-            {inscriptions?.data.length > 0 && (
+            {inscriptions && inscriptions.length > 0 && (
               <List
-                dataSource={inscriptions?.data}
+                dataSource={inscriptions}
                 grid={{
                   gutter: 0,
                   xs: 1,

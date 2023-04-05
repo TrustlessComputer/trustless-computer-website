@@ -77,7 +77,7 @@ const Collections = () => {
                             <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
                           </div>
                           <div className="card-info">
-                            <p className="card-title">{item.name}</p>
+                            <p className="card-title">{item.name || shortenAddress(item.contract, 4)}</p>
                             <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
                           </div>
                         </div>
