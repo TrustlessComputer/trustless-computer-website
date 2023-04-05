@@ -38,8 +38,6 @@ const BFSList = () => {
     }),
   );
 
-  console.log(collection);
-
   const debounceLoadMore = () => {
     setpage(page + 1);
     setpageSize(pageSize + LIMIT);
@@ -66,7 +64,7 @@ const BFSList = () => {
                 <div className="row">
                   <div>
                     <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.total_items}</p>
+                    <p className="address">{collection?.totalItems}</p>
                   </div>
                 </div>
               </div>
@@ -96,7 +94,10 @@ const BFSList = () => {
                 renderItem={(item: any, index: number) => {
                   return (
                     <List.Item key={index.toString()} className="item">
-                      <a className="card" href={`/inscription/${collection?.contract}/${item.tokenId}`}>
+                      <div
+                        className="card"
+                        // href={`/inscription/${collection?.contract}/${item.tokenId}`}
+                      >
                         <div className="card-content">
                           <div className="card-image">
                             <NFTDisplayBox
@@ -111,7 +112,7 @@ const BFSList = () => {
                             <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
                           </div>
                         </div>
-                      </a>
+                      </div>
                     </List.Item>
                   );
                 }}

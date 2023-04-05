@@ -4,15 +4,14 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-left: 16px;
-  padding-right: 16px;
+  align-self: center;
   padding-bottom: 40px;
 
   .content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: 52px;
+    margin-top: 8px;
 
     .title {
       font-style: normal;
@@ -80,7 +79,7 @@ const Container = styled.div`
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
-        height: 30px;
+        line-height: 30px;
         letter-spacing: -0.01em;
         color: #ffffff;
       }
@@ -97,7 +96,6 @@ const Container = styled.div`
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     .content {
-      width: 85%;
 
       .card-image {
         .image {
@@ -113,17 +111,6 @@ const Container = styled.div`
         .card-subTitle {
           
         }
-      }
-    }
-  `}
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
-    .content {
-      width: 95%;
-      margin-top: 28px;
-
-      .list {
-        margin-top: 20px;
       }
     }
   `}
