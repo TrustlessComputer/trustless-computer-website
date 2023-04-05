@@ -47,7 +47,7 @@ const Collections = () => {
   return (
     <Container>
       <div className="content">
-        <p className="title">Collections</p>
+        {/* <p className="title">Collections</p> */}
         <div>
           <InfiniteScroll
             className="list"
