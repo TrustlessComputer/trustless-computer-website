@@ -1,25 +1,50 @@
+import NFTDisplayBox from '@/components/NFTDisplayBox';
+import Spinner from '@/components/Spinner';
+import WrapImage from '@/components/WrapImage';
+import { NFT_EXPLORER_CONTRACT_ADDRESS } from '@/constants/config';
 import { fetchBFSFiles, getCollections } from '@/services/bfs';
+import { getCollectionDetail } from '@/services/nft-explorer';
+import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
+import { Container } from './BFSList.styled';
+import { List, Spin } from 'antd';
 
 const LIMIT_PAGE = 32;
 
 const MOCK_ADDRESS = 'test';
 
 const BFSList = () => {
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const { id }: any = useParams();
 
-  const [collection, setCollection] = useState<any | undefined>();
+  //   const [collection, setCollection] = useState<any | undefined>();
 
+  // TODO: Update correct wallet address
   const walletAdress = MOCK_ADDRESS;
 
-  const { data, error, isLoading } = useSWR<{ address: string }>(
-    getApiKey(fetchBFSFiles, { walletAdress }),
-    fetchBFSFiles({ address: walletAdress }),
+  const {
+    data: inscriptions,
+    error,
+    isLoading,
+  } = useSWR(getApiKey(fetchBFSFiles, { walletAdress }), fetchBFSFiles({ address: walletAdress }));
+
+  const {
+    data: collection,
+    error: collectionError,
+    isLoading: collectionLoading,
+  } = useSWR(
+    getApiKey(getCollectionDetail, {
+      contractAddress: NFT_EXPLORER_CONTRACT_ADDRESS,
+      tokenID: id,
+    }),
+    getCollectionDetail({
+      contractAddress: NFT_EXPLORER_CONTRACT_ADDRESS,
+      tokenID: id,
+    }),
   );
 
   //   const { data, error, isLoading } = useSWR(
@@ -44,9 +69,11 @@ const BFSList = () => {
   // const localDate = new Date();
   // const utcDate = localDate.toISOString().replace(/T/, " ").replace(/\..+/, "");
 
+  // if (!bfsList) return null;
+
   return (
     <Container>
-      {/* <div className="content">
+      <div className="content">
         <div className="header">
           {collection && (
             <div className="infor">
@@ -68,10 +95,10 @@ const BFSList = () => {
                     <p className="address">{collection?.totalItems}</p>
                   </div>
                   {/* <div>
-                    <p className="owner">CREATE DATE</p>
-                    <p className="address">{utcDate} UTC</p>
-                  </div> */}
-      {/* </div>
+                  <p className="owner">CREATE DATE</p>
+                  <p className="address">{utcDate} UTC</p>
+                </div> */}
+                </div>
               </div>
             </div>
           )}
@@ -81,8 +108,8 @@ const BFSList = () => {
             className="list"
             dataLength={inscriptions.length}
             hasMore={true}
-            loader={isFetching && <Spin className="loading" />}
-            next={debounceLoadMore}
+            loader={collectionLoading && <Spinner />}
+            // next={debounceLoadMore}
           >
             {inscriptions.length > 0 && (
               <List
@@ -122,7 +149,7 @@ const BFSList = () => {
             )}
           </InfiniteScroll>
         </div>
-      </div> */}
+      </div>
     </Container>
   );
 };
