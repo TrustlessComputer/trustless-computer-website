@@ -38,8 +38,6 @@ const BFSList = () => {
     }),
   );
 
-  console.log(collection);
-
   const debounceLoadMore = () => {
     setpage(page + 1);
     setpageSize(pageSize + LIMIT);
