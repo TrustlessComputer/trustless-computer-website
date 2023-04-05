@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { camelCaseKeys } from '@/utils';
 
-const TIMEOUT = 20000;
+const TIMEOUT = 2 * 60000;
 
 const HEADERS = { 'Content-Type': 'application/json' };
 
@@ -23,7 +23,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.response.use(
     res => {
-      const result = res?.data?.result;
+      const result = res?.data?.data || res?.data?.result;
       const error = res?.data?.error;
       if (error) {
         return Promise.reject(camelCaseKeys(error));
