@@ -1,9 +1,11 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import WrapImage from '@/components/WrapImage';
+import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
+import queryString from 'query-string';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
@@ -14,7 +16,8 @@ const LIMIT = 32;
 
 const BFSList = () => {
   //   const navigate = useNavigate();
-  const { contract }: any = useParams();
+  // const { contract }: any = useParams()
+  const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [page, setpage] = useState(1);
   const [pageSize, setpageSize] = useState(LIMIT);
@@ -26,17 +29,16 @@ const BFSList = () => {
 
   const { data: inscriptions, isLoading } = useSWR(
     getApiKey(getCollectionNfts, { contractAddress: contract, limit: pageSize, page: page }),
-    getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
+    () => getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
   );
 
-  const { data: collection } = useSWR(
-    getApiKey(getCollectionDetail, {
-      contractAddress: contract,
-    }),
+  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${contract}`, () =>
     getCollectionDetail({
       contractAddress: contract,
     }),
   );
+
+  console.log(collection);
 
   const debounceLoadMore = () => {
     setpage(page + 1);
@@ -64,7 +66,7 @@ const BFSList = () => {
                 <div className="row">
                   <div>
                     <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.totalItems}</p>
+                    <p className="address">{collection?.total_items}</p>
                   </div>
                 </div>
               </div>
@@ -74,14 +76,14 @@ const BFSList = () => {
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={inscriptions?.data.length}
+            dataLength={inscriptions?.length || 0}
             hasMore={true}
             loader={isLoading && <Spin />}
             next={debounceLoadMore}
           >
-            {inscriptions?.data.length > 0 && (
+            {inscriptions && inscriptions.length > 0 && (
               <List
-                dataSource={inscriptions?.data}
+                dataSource={inscriptions}
                 grid={{
                   gutter: 0,
                   xs: 1,

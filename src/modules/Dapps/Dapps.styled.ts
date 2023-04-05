@@ -12,10 +12,15 @@ export const TabContainer = styled.div`
     align-items: center;
     justify-content: center;
 
+    .nav-link {
+      opacity: 0.5;
+    }
+
     .nav-link.active {
       background-color: transparent;
       border: none;
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+      opacity: 1;
     }
   }
 
