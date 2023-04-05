@@ -1,25 +1,59 @@
-import { fetchBFSFiles, getCollections } from '@/services/bfs';
+import NFTDisplayBox from '@/components/NFTDisplayBox';
+import Spinner from '@/components/Spinner';
+import WrapImage from '@/components/WrapImage';
+import { NFT_EXPLORER_CONTRACT_ADDRESS } from '@/constants/config';
+import { getCollections } from '@/services/bfs';
+import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
+import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
+import { Container } from './BFSList.styled';
+import { List, Spin } from 'antd';
+import useSWRInfinite from 'swr/infinite';
 
 const LIMIT_PAGE = 32;
 
-const MOCK_ADDRESS = 'test';
+// const MOCK_ADDRESS = 'test';
+
+const MOCK_CONTRACT_ADDRESS = '0x9841faa1133da03b9ae09e8daa1a725bc15575f0';
+
+const LIMIT = 10;
 
 const BFSList = () => {
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const { id }: any = useParams();
 
-  const [collection, setCollection] = useState<any | undefined>();
+  const [page, setpage] = useState(1);
+  const [pageSize, setpageSize] = useState(LIMIT);
 
-  const walletAdress = MOCK_ADDRESS;
+  //   const [collection, setCollection] = useState<any | undefined>();
 
-  const { data, error, isLoading } = useSWR<{ address: string }>(
-    getApiKey(fetchBFSFiles, { walletAdress }),
-    fetchBFSFiles({ address: walletAdress }),
+  // TODO: Update correct wallet address
+  // const walletAdress = MOCK_ADDRESS;
+
+  const {
+    data: inscriptions,
+    error,
+    isLoading,
+  } = useSWR(
+    getApiKey(getCollectionNfts, { contractAddress: MOCK_CONTRACT_ADDRESS, limit: pageSize, page: page }),
+    getCollectionNfts({ contractAddress: MOCK_CONTRACT_ADDRESS, limit: pageSize, page: page }),
+  );
+
+  const {
+    data: collection,
+    error: collectionError,
+    isLoading: collectionLoading,
+  } = useSWR(
+    getApiKey(getCollectionDetail, {
+      contractAddress: MOCK_CONTRACT_ADDRESS,
+    }),
+    getCollectionDetail({
+      contractAddress: MOCK_CONTRACT_ADDRESS,
+    }),
   );
 
   //   const { data, error, isLoading } = useSWR(
@@ -44,9 +78,16 @@ const BFSList = () => {
   // const localDate = new Date();
   // const utcDate = localDate.toISOString().replace(/T/, " ").replace(/\..+/, "");
 
+  // if (!bfsList) return null;
+
+  const debounceLoadMore = () => {
+    setpage(page + 1);
+    setpageSize(pageSize + LIMIT);
+  };
+
   return (
     <Container>
-      {/* <div className="content">
+      <div className="content">
         <div className="header">
           {collection && (
             <div className="infor">
@@ -68,10 +109,10 @@ const BFSList = () => {
                     <p className="address">{collection?.totalItems}</p>
                   </div>
                   {/* <div>
-                    <p className="owner">CREATE DATE</p>
-                    <p className="address">{utcDate} UTC</p>
-                  </div> */}
-      {/* </div>
+                  <p className="owner">CREATE DATE</p>
+                  <p className="address">{utcDate} UTC</p>
+                </div> */}
+                </div>
               </div>
             </div>
           )}
@@ -81,7 +122,7 @@ const BFSList = () => {
             className="list"
             dataLength={inscriptions.length}
             hasMore={true}
-            loader={isFetching && <Spin className="loading" />}
+            loader={isLoading && <Spin />}
             next={debounceLoadMore}
           >
             {inscriptions.length > 0 && (
@@ -96,7 +137,7 @@ const BFSList = () => {
                   xl: 3,
                   xxl: 4,
                 }}
-                renderItem={(item: IInscription, index: number) => {
+                renderItem={(item: any, index: number) => {
                   return (
                     <List.Item key={index.toString()} className="item">
                       <a className="card" href={`/inscription/${collection?.contract}/${item.tokenId}`}>
@@ -122,7 +163,7 @@ const BFSList = () => {
             )}
           </InfiniteScroll>
         </div>
-      </div> */}
+      </div>
     </Container>
   );
 };
