@@ -2,8 +2,9 @@ import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import Text from '@/components/Text';
 import { Tab, Tabs } from 'react-bootstrap';
-import Artifacts from './Artifacts';
+// import Artifacts from './Artifacts';
 import { DappsContainer, TabContainer } from './Dapps.styled';
+import Collections from './Collections';
 
 const Dapps = () => {
   return (
@@ -19,8 +20,7 @@ const Dapps = () => {
               </div>
             }
           >
-            {/* <Add Component Here /> */}
-            <p>NFT</p>
+            <Collections />
           </Tab>
           {/* <Tab eventKey="tokens" title="Tokens"> */}
           {/* <Add Component Here /> */}
@@ -34,7 +34,7 @@ const Dapps = () => {
               </div>
             }
           >
-            <Artifacts />
+            {/* <Artifacts /> */}
           </Tab>
           {/* <Tab eventKey="names" title="Names"> */}
           {/* <Add Component Here /> */}
