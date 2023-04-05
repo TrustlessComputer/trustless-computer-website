@@ -1,7 +1,4 @@
 {
-  "_format": "hh-sol-artifact-1",
-  "contractName": "ERC721Drive",
-  "sourceName": "contracts/nfts/ERC721Drive.sol",
   "abi": [
     {
       "inputs": [

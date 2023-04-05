@@ -20,14 +20,6 @@ export const shortCryptoAddress = (address = '', toLength?: number) => {
   return `${address?.substr(0, 8)}...${address?.substr(address?.length - 8)}`;
 };
 
-export function shortenAddress(address: string, chars = 7, charsFirst = 5): string {
-  const parsed = isAddress(address);
-  if (!parsed) {
-    throw Error(`Invalid 'address' parameter '${address}'.`);
-  }
-  return `${parsed.substring(0, charsFirst)}...${parsed.substring(address.length - chars)}`;
-}
-
 export const camelCaseKeys = (obj: any): any => {
   if (Array.isArray(obj)) {
     return obj.map(v => camelCaseKeys(v));
