@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { List, Spin } from 'antd';
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
 import { debounce } from 'lodash';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
+import Spinner from '@/components/Spinner';
 
 const LIMIT_PAGE = 32;
 
@@ -53,24 +54,23 @@ const Collections = () => {
             className="list"
             dataLength={collections.length}
             hasMore={true}
-            loader={isFetching && <Spin className="loading" />}
+            loader={isFetching && <Spinner />}
             next={debounceLoadMore}
           >
-            {collections.length > 0 && (
-              <List
-                dataSource={collections}
-                grid={{
-                  gutter: 0,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 4,
-                }}
-                renderItem={(item: ICollection, index: number) => {
-                  return (
-                    <List.Item key={index.toString()} className="item">
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{
+                350: 1,
+                750: 2,
+                900: 3,
+                1240: 4,
+                2500: 5,
+                3000: 5,
+              }}
+            >
+              <Masonry gutter="24px">
+                {collections.length > 0 &&
+                  collections.map((item, index) => {
+                    return (
                       <a className="card" href={`/dapps?tab=artifact&contract=${item.contract}`}>
                         <div className="card-content">
                           <div className="card-image">
@@ -82,11 +82,10 @@ const Collections = () => {
                           </div>
                         </div>
                       </a>
-                    </List.Item>
-                  );
-                }}
-              />
-            )}
+                    );
+                  })}
+              </Masonry>
+            </ResponsiveMasonry>
           </InfiniteScroll>
         </div>
       </div>

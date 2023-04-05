@@ -4,6 +4,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-self: center;
   padding-left: 16px;
   padding-right: 16px;
   padding-bottom: 40px;
@@ -80,7 +81,7 @@ const Container = styled.div`
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
-        height: 30px;
+        line-height: 30px;
         letter-spacing: -0.01em;
         color: #ffffff;
       }

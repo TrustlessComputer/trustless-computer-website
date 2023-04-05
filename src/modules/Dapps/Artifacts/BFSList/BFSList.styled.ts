@@ -5,16 +5,13 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding-left: 16px;
-  padding-right: 16px;
   padding-bottom: 40px;
 
   .content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    width: 80%;
-    margin-top: 42px;
+    margin-top: 24px;
 
     .header {
       display: flex;
@@ -120,6 +117,8 @@ const Container = styled.div`
     .card {
       width: 100%;
       height: auto;
+      text-decoration: none;
+      --bs-card-bg: none;
     }
 
     .card-content {
