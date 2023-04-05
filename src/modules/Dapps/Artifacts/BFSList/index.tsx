@@ -96,7 +96,10 @@ const BFSList = () => {
                 renderItem={(item: any, index: number) => {
                   return (
                     <List.Item key={index.toString()} className="item">
-                      <a className="card" href={`/inscription/${collection?.contract}/${item.tokenId}`}>
+                      <div
+                        className="card"
+                        // href={`/inscription/${collection?.contract}/${item.tokenId}`}
+                      >
                         <div className="card-content">
                           <div className="card-image">
                             <NFTDisplayBox
@@ -111,7 +114,7 @@ const BFSList = () => {
                             <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
                           </div>
                         </div>
-                      </a>
+                      </div>
                     </List.Item>
                   );
                 }}
