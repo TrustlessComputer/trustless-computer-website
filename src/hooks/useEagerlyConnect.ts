@@ -30,6 +30,7 @@ export default function useEagerlyConnect() {
       dispatch(updateSelectedWallet({ wallet: undefined }));
     }
   }
+
   useEffect(() => {
     if (selectedConnection) {
       connect(selectedConnection.connector);
