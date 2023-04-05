@@ -2,18 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="preload"
-      href="/fonts/BandeinsStrange-Regular.woff2"
-      as="font"
-      type="font/eot"
-      crossorigin
-    />
+    <link rel="preload" href="/fonts/BandeinsStrange-Regular.woff2" as="font" type="font/eot" crossorigin />
     <style>
       * {
-        font-family: "Bandeins Strange Variable";
+        font-family: 'Bandeins Strange Variable';
         box-sizing: border-box;
       }
 
@@ -21,26 +15,26 @@
             Explicitly load Inter var from public/ so it does not block LCP's critical path.
           */
       @font-face {
-        font-family: "Bandeins Strange Variable";
+        font-family: 'Bandeins Strange Variable';
         font-weight: 500;
         font-style: normal;
         font-display: block;
-        font-named-instance: "Regular";
-        src: url(/fonts/BandeinsStrange-Regular.woff2) format("woff2");
+        font-named-instance: 'Regular';
+        src: url(/fonts/BandeinsStrange-Regular.woff2) format('woff2');
       }
 
       @font-face {
-        font-family: "Source Code Pro";
+        font-family: 'Source Code Pro';
         font-weight: 500;
         font-style: normal;
         font-display: block;
-        font-named-instance: "Regular";
-        src: url(/fonts/SourceCodePro-Regular.woff2) format("woff2");
+        font-named-instance: 'Regular';
+        src: url(/fonts/SourceCodePro-Regular.woff2) format('woff2');
       }
 
       @supports (font-variation-settings: normal) {
         * {
-          font-family: "Bandeins Strange Variable";
+          font-family: 'Bandeins Strange Variable';
           font-weight: 600;
         }
       }

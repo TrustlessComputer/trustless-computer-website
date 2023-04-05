@@ -124,7 +124,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -136,7 +136,7 @@ table {
 div,
 button,
 p,
-//a,
+  //a,
 input {
   box-sizing: border-box;
   border: none;
@@ -157,6 +157,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
