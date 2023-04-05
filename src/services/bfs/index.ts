@@ -7,8 +7,6 @@ export const fetcher = (url: string) => axios.get(API_BASE_URL + url).then(res =
 
 export const getCollections = () => fetcher(`/nft-explorer/collections`);
 
-export const fetchBFSFiles = ({ address }: { address: string }): any => {
-  console.log('fetchBFSFiles', address);
-
-  return fetcher(`${API_PATH}/files/${address}`);
-};
+// export const fetchBFSFiles = ({ address }: { address: string }): any => {
+//   return fetcher(`${API_PATH}/files/${address}`);
+// };
