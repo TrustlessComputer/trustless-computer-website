@@ -6,7 +6,6 @@ import Artifacts from './Artifacts';
 import { DappsContainer, TabContainer } from './Dapps.styled';
 import Collections from './Collections';
 import IconSVG from '@/components/IconSVG';
-import Artifacts from './Artifacts';
 
 const Dapps = () => {
   return (
