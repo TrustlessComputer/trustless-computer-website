@@ -5,6 +5,8 @@ import Home from '@/pages/home';
 import Faucet from '@/pages/faucet';
 import NotFound from '@/pages/404';
 import Dapps from '@/pages/dapps';
+import Collection from '@/pages/collection';
+import Inscription from '@/pages/inscription';
 
 export default [
   {
@@ -21,6 +23,16 @@ export default [
     path: '/dapps',
     element: <Layout />,
     children: [{ index: true, element: <Dapps /> }],
+  },
+  {
+    path: '/collection',
+    element: <Layout />,
+    children: [{ index: true, element: <Collection /> }],
+  },
+  {
+    path: '/inscription',
+    element: <Layout />,
+    children: [{ index: true, element: <Inscription /> }],
   },
   {
     path: '/faucet',

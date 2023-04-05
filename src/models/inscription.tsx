@@ -5,11 +5,7 @@ export interface IInscription {
   collection: string;
   name: string;
   tokenId: string;
-  metadata: {
-    description: string;
-    name: string;
-    attributes: [{ traitType: string; value: string }];
-  };
+  attributes: [{ traitType: string; value: string }];
   metadataType: string;
   contentType: IMAGE_TYPE;
   createdAt: string;
