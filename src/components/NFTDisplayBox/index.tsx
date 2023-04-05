@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/iframe-has-title */
+import { getURLContent } from '@/lib';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { IMAGE_TYPE } from './constant';
@@ -25,7 +26,7 @@ const NFTDisplayBox = ({
   const [HTMLContentRender, setHTMLContentRender] = useState<JSX.Element>();
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // const getURLContent = () => rpcClient.getURLContent(collectionID || '', tokenID || '');
+  // const getURLContent = '';
 
   const renderIframe = (content: string) => {
     return (
@@ -73,8 +74,8 @@ const NFTDisplayBox = ({
 
   useEffect(() => {
     if (collectionID && tokenID) {
-      // const content = getURLContent();
-      const content = '';
+      const content = getURLContent(collectionID, tokenID);
+      // const content = '';
       switch (type) {
         case 'audio/mpeg':
         case 'audio/wav':
