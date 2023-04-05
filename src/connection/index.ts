@@ -17,7 +17,7 @@ export interface Connection {
   overrideActivate?: () => void;
 }
 
-const MetamaskConnection: Omit<Connection, 'icon'> = {
+export const MetamaskConnection: Omit<Connection, 'icon'> = {
   name: 'MetaMask',
   connector: metaMask,
   hooks: metaMaskHooks,

@@ -29,16 +29,12 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   }, [connector, dispatch]);
 
   const connect = React.useCallback(async () => {
-    try {
-      const connection = getConnection(connector);
-      if (!connection) {
-        throw new Error('Get connection error.');
-      }
-      await connection.connector.activate();
-      dispatch(updateSelectedWallet({ wallet: connection.type }));
-    } catch (error) {
-      // TODO handle connect error
+    const connection = getConnection(connector);
+    if (!connection) {
+      throw new Error('Get connection error.');
     }
+    await connection.connector.activate();
+    dispatch(updateSelectedWallet({ wallet: connection.type }));
   }, [dispatch, connector]);
 
   const contextValues = useMemo((): IWalletContext => {

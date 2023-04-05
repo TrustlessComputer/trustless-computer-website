@@ -1,10 +1,10 @@
-import { API_BASE_URL } from '@/utils/configs';
+import { API_URL } from '@/configs';
 import axios from 'axios';
 import { ICollection } from '@/models/collection';
 
 const API_PATH = '/nft-explorer';
 
-export const fetcher = (url: string) => axios.get(API_BASE_URL + url).then(res => res.data.data);
+export const fetcher = (url: string) => axios.get(API_URL + url).then(res => res.data.data);
 
 export const getCollections = (page: number, limit: number): Promise<ICollection[]> =>
   fetcher(`${API_PATH}/collections?limit=${limit}&page=${page}`);

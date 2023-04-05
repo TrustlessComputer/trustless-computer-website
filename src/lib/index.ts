@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@/utils/configs';
+import { API_URL } from '@/configs';
 
 export const getURLContent = (contractAddress: string, tokenId: string) => {
-  return API_BASE_URL + `/collection/${contractAddress}/nft/${tokenId}/content`;
+  return API_URL + `/collection/${contractAddress}/nft/${tokenId}/content`;
 };
