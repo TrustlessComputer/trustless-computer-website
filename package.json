@@ -11,7 +11,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
-    "test": "vitest"
+    "test": "vitest",
+    "commit-msg": "commitlint --edit \"$1\"",
+    "pre-commit": "lint-staged && yarn build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

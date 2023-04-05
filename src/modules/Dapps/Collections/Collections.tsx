@@ -71,7 +71,7 @@ const Collections = () => {
                 renderItem={(item: ICollection, index: number) => {
                   return (
                     <List.Item key={index.toString()} className="item">
-                      <a className="card" href={`/collection/${item.contract}`}>
+                      <a className="card" href={`/dapps?tab=artifact&contract=${item.contract}`}>
                         <div className="card-content">
                           <div className="card-image">
                             <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
