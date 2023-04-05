@@ -96,7 +96,6 @@ const Container = styled.div`
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     .content {
-      width: 85%;
 
       .card-image {
         .image {
@@ -112,17 +111,6 @@ const Container = styled.div`
         .card-subTitle {
           
         }
-      }
-    }
-  `}
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
-    .content {
-      width: 95%;
-      margin-top: 28px;
-
-      .list {
-        margin-top: 20px;
       }
     }
   `}

@@ -48,13 +48,18 @@ const Collections = () => {
   return (
     <Container>
       <div className="content">
-        {/* <p className="title">Collections</p> */}
         <div>
           <InfiniteScroll
             className="list"
             dataLength={collections.length}
             hasMore={true}
-            loader={isFetching && <Spinner />}
+            loader={
+              isFetching && (
+                <div className="loading">
+                  <Spinner />
+                </div>
+              )
+            }
             next={debounceLoadMore}
           >
             <ResponsiveMasonry
@@ -71,7 +76,7 @@ const Collections = () => {
                 {collections.length > 0 &&
                   collections.map((item, index) => {
                     return (
-                      <a className="card" href={`/dapps?tab=artifact&contract=${item.contract}`}>
+                      <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                         <div className="card-content">
                           <div className="card-image">
                             <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
