@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './../constants/config';
+import { API_BASE_URL } from '@/utils/configs';
 import { AxiosInstance } from 'axios';
 import { createAxiosInstance } from '@/services';
 
