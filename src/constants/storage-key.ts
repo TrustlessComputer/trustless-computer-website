@@ -1,1 +1,1 @@
-export const XVERSE_WALLET = 'xverse_wallet';
+export const XVERSE_WALLET_ADDRESS = 'xverse_wallet';

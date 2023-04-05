@@ -2,6 +2,7 @@ import React, { PropsWithChildren, useMemo } from 'react';
 import { Address, getAddress, GetAddressOptions } from 'sats-connect';
 import isEmpty from 'lodash/isEmpty';
 import { AddressPurposes } from 'sats-connect/dist/src/address/types';
+import { removeXVerseWallet, setXVerseWallet } from '@/utils/xverse-wallet-storage';
 
 export interface IXVerseContext {
   onConnect: () => Promise<void>;
@@ -16,18 +17,19 @@ const initialValue: IXVerseContext = {
 export const XVerseContext = React.createContext<IXVerseContext>(initialValue);
 
 export const XVerseProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren): React.ReactElement => {
-  const checkXVerseInstalled = () => {
+  const isInstalled = (): boolean => {
     const installed = window.BitcoinProvider;
     if (!installed) {
-      walletBTCStorage.removeWallet();
+      removeXVerseWallet();
       window.open('https://www.xverse.app/download', '_blank');
+      return false;
     }
-    return installed;
+    return true;
   };
 
   const onConnect = async () => {
     try {
-      const installed = checkXVerseInstalled();
+      const installed = isInstalled();
       if (!installed) return;
       const getAddressOptions = {
         payload: {
@@ -37,22 +39,23 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
             type: 'Mainnet',
           },
         },
+
         onFinish: (response: never) => {
           const accounts = response as { addresses: Address[] };
           if (!!accounts && !isEmpty(accounts.addresses)) {
             const account = accounts.addresses.find(_account => _account.purpose === AddressPurposes.ORDINALS);
             if (account) {
-              // set account storage
-              walletBTCStorage.setWallet({
+              setXVerseWallet({
                 address: account.address,
                 publicKey: account.publicKey,
-                type: WalletType.xverse,
               });
             }
           }
         },
-        onCancel: (_: unknown) => {
+
+        onCancel: (err: unknown) => {
           console.log('reject to connect xverse');
+          console.log(err);
         },
       } as GetAddressOptions;
 
@@ -63,7 +66,7 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   };
 
   const onDisconnect = async () => {
-    walletBTCStorage.removeWallet();
+    removeXVerseWallet();
   };
 
   const contextValues = useMemo((): IXVerseContext => {
