@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.9.3",
     "@web3-react/core": "^8.1.2-beta.0",
     "@web3-react/metamask": "^8.1.2-beta.0",
+    "antd": "^5.4.0",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
     "copy-to-clipboard": "^3.3.3",
@@ -26,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-drag-drop-files": "^2.3.9",
     "react-helmet": "^6.1.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-inlinesvg": "^3.0.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "6.4.3",
@@ -34,7 +36,8 @@
     "redux-localstorage-simple": "^2.5.1",
     "sats-connect": "^0.1.11",
     "styled-components": "^5.3.9",
-    "trustless-computer-sdk": "https://github.com/TrustlessComputer/tc-sdk"
+    "trustless-computer-sdk": "https://github.com/TrustlessComputer/tc-sdk",
+    "swr": "^2.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",

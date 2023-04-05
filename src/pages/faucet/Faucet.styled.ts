@@ -1,10 +1,11 @@
 import styled, { DefaultTheme } from 'styled-components';
+import px2rem from '@/utils/px2rem';
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-top: 50px;
+  padding-top: ${px2rem(50)};
 
   .wrap-content {
     display: flex;
@@ -30,7 +31,7 @@ const Container = styled.div`
     font-size: 24px;
     line-height: 34px;
     text-align: center;
-    margin-top: 16px;
+    margin-top: ${px2rem(16)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
   }
 
@@ -42,12 +43,12 @@ const Container = styled.div`
 const StepBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 48px;
-  gap: 36px;
+  padding: ${px2rem(48)};
+  gap: ${px2rem(36)};
   border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.border2};
   border-radius: 4px;
 
-  margin-top: 60px;
+  margin-top: ${px2rem(60)};
 `;
 
 const Step = styled.div<{ active: boolean; isEnd: boolean }>`
@@ -70,7 +71,7 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
-    margin-top: 8px;
+    margin-top: ${px2rem(8)};
   }
 
   .error {
@@ -86,7 +87,7 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
-    margin-top: 8px;
+    margin-top: ${px2rem(8)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
 
     :hover {
@@ -99,8 +100,8 @@ const PostStep = styled.div<{ disable: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 8px;
-  gap: 16px;
+  margin-top: ${px2rem(8)};
+  gap: ${px2rem(16)};
 
   opacity: ${({ disable }) => (!disable ? 1 : 0.3)};
 
@@ -145,7 +146,7 @@ const PostStep = styled.div<{ disable: boolean }>`
     border-radius: 2px;
 
     .input {
-      padding: 11px 14px;
+      padding: ${px2rem(11)} ${px2rem(14)};
 
       font-weight: 400;
       font-size: 16px;
