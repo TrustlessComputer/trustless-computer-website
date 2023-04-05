@@ -40,5 +40,6 @@ jobs:
             ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_IMAGE_NAME}}:cache-${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          target: deps
           build-args: |
             BUILD_ENV=${{ env.BUILD_ENV }}
