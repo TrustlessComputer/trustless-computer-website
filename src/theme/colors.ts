@@ -39,6 +39,7 @@ const commonTheme = {
     a: '#FFE899',
     b: '#F9D03F',
   },
+  red: '#FF4747',
 };
 
 export const darkTheme = {
@@ -56,7 +57,7 @@ export const darkTheme = {
   text3: '#e5e5e5',
   text4: commonTheme.purple.b,
   text5: '#4f43e2',
-  text6: '#ff4747',
+  text6: commonTheme.red,
   text7: commonTheme.primary.brand,
 
   // Border
@@ -67,9 +68,6 @@ export const darkTheme = {
   // Button
   btn1: '#1A73E8',
   btn2: '#404040',
-
-  red: '#FF4343',
-  yellow: '#E3A507',
 
   // Icons
   icon1: '#D9D9D9',
@@ -106,9 +104,6 @@ export const lightTheme = {
   // Button
   btn1: '#282828',
   btn2: commonTheme.white,
-
-  red: '#FF4343',
-  yellow: '#E3A507',
 
   // Icons
   icon1: commonTheme.black,
