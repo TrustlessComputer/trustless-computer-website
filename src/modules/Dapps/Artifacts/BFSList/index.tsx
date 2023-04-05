@@ -74,14 +74,14 @@ const BFSList = () => {
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={inscriptions.length}
+            dataLength={inscriptions?.data.length}
             hasMore={true}
             loader={isLoading && <Spin />}
             next={debounceLoadMore}
           >
-            {inscriptions.length > 0 && (
+            {inscriptions?.data.length > 0 && (
               <List
-                dataSource={inscriptions}
+                dataSource={inscriptions?.data}
                 grid={{
                   gutter: 0,
                   xs: 1,

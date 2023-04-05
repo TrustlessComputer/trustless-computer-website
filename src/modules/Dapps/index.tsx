@@ -5,17 +5,19 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Artifacts from './Artifacts';
 import { DappsContainer, TabContainer } from './Dapps.styled';
 import Collections from './Collections';
+import IconSVG from '@/components/IconSVG';
+import Artifacts from './Artifacts';
 
 const Dapps = () => {
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
-        <Tabs defaultActiveKey="files" id="uncontrolled-tab">
+        <Tabs defaultActiveKey="nfts" id="uncontrolled-tab">
           <Tab
             eventKey="nfts"
             title={
               <div className="tab-item">
-                <img src={IcHexagon} alt="hexagon icon" />
+                <IconSVG src={IcHexagon} color="white" type="stroke"></IconSVG>
                 <Text size="regular">NFTs</Text>
               </div>
             }
