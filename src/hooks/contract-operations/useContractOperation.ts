@@ -13,8 +13,13 @@ interface IParams<P, R> {
   chainId?: SupportedChainId;
 }
 
-const useContractOperation = <P, R>(params: IParams<P, R>) => {
-  const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER } = params;
+interface IContractOperationReturn<P, R> {
+  run: (p: P) => Promise<R>;
+}
+
+const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
+  const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER } = args;
+  const { call } = operation();
   const { account, chainId: walletChainId, connector } = useWeb3React();
   const { onConnect: onConnectMetamask } = useContext(WalletContext);
   const { onConnect: onConnectXverse, isConnected: isXverseConnected } = useContext(XverseContext);
@@ -45,7 +50,7 @@ const useContractOperation = <P, R>(params: IParams<P, R>) => {
     return tx.Hex;
   };
 
-  const run = async (): Promise<R> => {
+  const run = async (params: P): Promise<R> => {
     // This function does not handle error
     // It delegates error to caller
 
@@ -56,6 +61,7 @@ const useContractOperation = <P, R>(params: IParams<P, R>) => {
     await checkAndSwitchChainIfNecessary();
 
     // Make TC transaction
+    call(params);
 
     // Get transaction hex from TC transaction hash
 

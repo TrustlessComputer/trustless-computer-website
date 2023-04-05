@@ -5,21 +5,21 @@ import { ARTIFACT_CONTRACT } from '@/configs';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback } from 'react';
 
-interface IParams {
+export interface IPreserveChunkParams {
   address: string;
-  chunks: Array<Buffer>;
+  chunks: ArrayBuffer;
 }
 
-const usePreserveChunks: ContractOperationHook<IParams, any> = () => {
+const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, any> = () => {
   const { account, provider } = useWeb3React();
-  provider?.getTransaction;
-  const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi);
+  const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi, true);
 
   const call = useCallback(
-    async (params: IParams) => {
+    async (params: IPreserveChunkParams) => {
       if (account && provider && contract) {
         const { address, chunks } = params;
-        return await contract.connect(provider).functions.preserveChunks(address, chunks);
+        const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, chunks);
+        return transaction;
       }
     },
     [account, provider, contract],
