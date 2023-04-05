@@ -1,30 +1,20 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import Spinner from '@/components/Spinner';
 import WrapImage from '@/components/WrapImage';
-import { NFT_EXPLORER_CONTRACT_ADDRESS } from '@/constants/config';
-import { getCollections } from '@/services/bfs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
-import React, { useEffect, useState } from 'react';
+import { List, Spin } from 'antd';
+import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
-import { List, Spin } from 'antd';
-import useSWRInfinite from 'swr/infinite';
 
-const LIMIT_PAGE = 32;
-
-// const MOCK_ADDRESS = 'test';
-
-const MOCK_CONTRACT_ADDRESS = '0x9841faa1133da03b9ae09e8daa1a725bc15575f0';
-
-const LIMIT = 10;
+const LIMIT = 32;
 
 const BFSList = () => {
   //   const navigate = useNavigate();
-  const { id }: any = useParams();
+  const { contract }: any = useParams();
 
   const [page, setpage] = useState(1);
   const [pageSize, setpageSize] = useState(LIMIT);
@@ -34,51 +24,19 @@ const BFSList = () => {
   // TODO: Update correct wallet address
   // const walletAdress = MOCK_ADDRESS;
 
-  const {
-    data: inscriptions,
-    error,
-    isLoading,
-  } = useSWR(
-    getApiKey(getCollectionNfts, { contractAddress: MOCK_CONTRACT_ADDRESS, limit: pageSize, page: page }),
-    getCollectionNfts({ contractAddress: MOCK_CONTRACT_ADDRESS, limit: pageSize, page: page }),
+  const { data: inscriptions, isLoading } = useSWR(
+    getApiKey(getCollectionNfts, { contractAddress: contract, limit: pageSize, page: page }),
+    getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
   );
 
-  const {
-    data: collection,
-    error: collectionError,
-    isLoading: collectionLoading,
-  } = useSWR(
+  const { data: collection } = useSWR(
     getApiKey(getCollectionDetail, {
-      contractAddress: MOCK_CONTRACT_ADDRESS,
+      contractAddress: contract,
     }),
     getCollectionDetail({
-      contractAddress: MOCK_CONTRACT_ADDRESS,
+      contractAddress: contract,
     }),
   );
-
-  //   const { data, error, isLoading } = useSWR(
-  //     getApiKey(getCollections),
-  //     getCollections,
-  //   );
-
-  //   useEffect(() => {
-  //     fetchCollectionDetail();
-  //     // fetchInscriptions();
-  //   }, []);
-
-  //   const fetchCollectionDetail = async () => {
-  //     try {
-  //       const data = await rpcClient.getCollectionDetail(id);
-  //       setCollection(data);
-  //     } catch (error) {
-  //       navigate('/404');
-  //     }
-  //   };
-
-  // const localDate = new Date();
-  // const utcDate = localDate.toISOString().replace(/T/, " ").replace(/\..+/, "");
-
-  // if (!bfsList) return null;
 
   const debounceLoadMore = () => {
     setpage(page + 1);
@@ -108,10 +66,6 @@ const BFSList = () => {
                     <p className="owner">ITEMS</p>
                     <p className="address">{collection?.totalItems}</p>
                   </div>
-                  {/* <div>
-                  <p className="owner">CREATE DATE</p>
-                  <p className="address">{utcDate} UTC</p>
-                </div> */}
                 </div>
               </div>
             </div>
