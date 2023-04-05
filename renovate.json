@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "excludePackagePatterns": ["^eslint-", "^prettier-", "stylelint-"],
+      "automerge": true,
+      "major": {
+        "automerge": false
+      }
+    },
+    {
+      "groupName": "EPS",
+      "packageNames": ["eslint", "prettier", "stylelint"],
+      "packagePatterns": ["^eslint-", "^prettier-", "stylelint-"]
+    }
+  ]
+}
