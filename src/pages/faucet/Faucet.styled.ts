@@ -5,9 +5,15 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   padding-top: 50px;
-  width: 30%;
-  max-width: 600px;
-  min-width: 345px;
+
+  .wrap-content {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    max-width: 600px;
+    min-width: 345px;
+  }
 
   .title {
     font-weight: 500;
@@ -116,6 +122,10 @@ const PostStep = styled.div<{ disable: boolean }>`
 
     :hover {
       background: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+    }
+
+    :disabled {
+      background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     }
 
     .text {
