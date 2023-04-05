@@ -8,7 +8,7 @@ import { FileUploader } from 'react-drag-drop-files';
 import { StyledModalUpload } from './ModalUpload.styled';
 import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import IcCheck from '@/assets/icons/ic-check.svg';
-import IcCloseModal from '@/assets/icons/ic-close-circle.svg';
+import IcCloseModal from '@/assets/icons/ic-close.svg';
 import Button from '@/components/Button';
 import { WalletContext } from '@/contexts/wallet-context';
 
