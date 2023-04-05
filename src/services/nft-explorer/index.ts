@@ -8,8 +8,19 @@ export const fetcher = (url: string) => axios.get(API_BASE_URL + url).then(res =
 export const getCollections = () => fetcher(API_PATH);
 
 // TODO: Add iterface for response
-export const getCollectionDetail = ({ contractAddress, tokenID }: { contractAddress: string; tokenID: string }): any =>
-  fetcher(`${API_PATH}/${contractAddress}/nfts/${tokenID}`);
+export const getCollectionDetail = ({ contractAddress }: { contractAddress: string }): any =>
+  fetcher(`${API_PATH}/${contractAddress}}`);
+
+// TODO: Add iterface for response
+export const getCollectionNfts = ({
+  contractAddress,
+  limit = 10,
+  page = 1,
+}: {
+  contractAddress: string;
+  limit?: number;
+  page?: number;
+}): any => fetcher(`${API_PATH}/${contractAddress}/nfts?limit=${limit}&page=${page}`);
 
 // export const fetchBFSFiles = ({ address }: { address: string }): any => {
 //   return fetcher(`${API_PATH}/files/${address}`);
