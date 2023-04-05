@@ -56,7 +56,7 @@ const Artifacts = (props: Props) => {
           />
         </div>
       </UploadFileContainer>
-      {/* <BFSList /> */}
+      <BFSList />
       <ModalUpload show={showUploadModal} handleClose={() => setShowUploadModal(false)} file={file} setFile={setFile} />
     </>
   );

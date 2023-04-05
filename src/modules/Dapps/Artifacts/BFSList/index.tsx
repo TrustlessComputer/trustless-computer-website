@@ -4,6 +4,7 @@ import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer'
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
+import queryString from 'query-string';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
@@ -14,7 +15,8 @@ const LIMIT = 32;
 
 const BFSList = () => {
   //   const navigate = useNavigate();
-  const { contract }: any = useParams();
+  // const { contract }: any = useParams()
+  const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [page, setpage] = useState(1);
   const [pageSize, setpageSize] = useState(LIMIT);
