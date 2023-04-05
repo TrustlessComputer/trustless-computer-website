@@ -5,7 +5,7 @@ import Web3Provider from '@/components/Web3Provider';
 import { Provider } from 'react-redux';
 import store from '@/state';
 import { WalletProvider } from '@/contexts/wallet-context';
-import { XVerseProvider } from '@/contexts/xverse-context';
+import { XverseProvider } from '@/contexts/xverse-context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeProvider, { ThemedGlobalStyle } from '@/theme/theme';
 import './reset.scss';
@@ -17,11 +17,11 @@ const App: React.FC = (): React.ReactElement => {
     <Provider store={store}>
       <ThemeProvider>
         <ThemedGlobalStyle />
-        <XVerseProvider>
-          <Web3Provider>
+        <Web3Provider>
+          <XverseProvider>
             <WalletProvider>{element}</WalletProvider>
-          </Web3Provider>
-        </XVerseProvider>
+          </XverseProvider>
+        </Web3Provider>
       </ThemeProvider>
     </Provider>
   );
