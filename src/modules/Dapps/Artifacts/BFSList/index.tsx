@@ -1,7 +1,6 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import Spinner from '@/components/Spinner';
 import WrapImage from '@/components/WrapImage';
-import { NFT_EXPLORER_CONTRACT_ADDRESS } from '@/constants/config';
 import { getCollections } from '@/services/bfs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
@@ -120,14 +119,14 @@ const BFSList = () => {
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={inscriptions.length}
+            dataLength={inscriptions?.data.length}
             hasMore={true}
             loader={isLoading && <Spin />}
             next={debounceLoadMore}
           >
-            {inscriptions.length > 0 && (
+            {inscriptions?.data.length > 0 && (
               <List
-                dataSource={inscriptions}
+                dataSource={inscriptions?.data}
                 grid={{
                   gutter: 0,
                   xs: 1,
