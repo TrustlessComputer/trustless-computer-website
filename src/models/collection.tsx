@@ -1,0 +1,16 @@
+export interface ICollection {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  slug: string;
+  contract: string;
+  createdAt: string;
+  updatedAt: string;
+  totalItems: number;
+  totalOwners: number;
+  cover: string;
+  indexed: boolean;
+  indexedAt: string;
+  creator: string;
+}

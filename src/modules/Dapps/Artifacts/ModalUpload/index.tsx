@@ -1,14 +1,16 @@
-import icCloseModal from '@/assets/icons/ic-close.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { MINT_TOOL_MAX_FILE_SIZE } from '@/constants/config';
 import { prettyPrintBytes } from '@/utils/units';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FileUploader } from 'react-drag-drop-files';
 import { StyledModalUpload } from './ModalUpload.styled';
 import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import IcCheck from '@/assets/icons/ic-check.svg';
+import IcCloseModal from '@/assets/icons/ic-close.svg';
+import Button from '@/components/Button';
+import { WalletContext } from '@/contexts/wallet-context';
 
 type Props = {
   show: boolean;
@@ -19,6 +21,8 @@ type Props = {
 
 const ModalUpload = (props: Props) => {
   const { show = false, handleClose, file, setFile } = props;
+
+  const { onConnect } = useContext(WalletContext);
 
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +52,7 @@ const ModalUpload = (props: Props) => {
   return (
     <StyledModalUpload show={show} onHide={handleClose} centered>
       <Modal.Header>
-        <IconSVG className="cursor-pointer" onClick={handleClose} src={icCloseModal} maxWidth={'22px'} />
+        <IconSVG className="cursor-pointer" onClick={handleClose} src={IcCloseModal} maxWidth={'22px'} />
       </Modal.Header>
       <Modal.Body>
         <h5 className="font-medium">Upload file</h5>
@@ -81,12 +85,20 @@ const ModalUpload = (props: Props) => {
           </>
         </FileUploader>
         {file && !error && (
-          <div className="upload-fee">
-            <Text size="regular">Fee upload</Text>
-            <Text size="regular" fontWeight="semibold">
-              0.000214 BTC + 0.000214 Juice
-            </Text>
-          </div>
+          <>
+            <div className="upload-fee">
+              <Text size="regular">Fee upload</Text>
+              {/* TODO: Update to correct price */}
+              <Text size="regular" fontWeight="semibold">
+                0.000214 BTC + 0.000214 Juice
+              </Text>
+            </div>
+            <Button className="confirm-btn" onClick={() => onConnect()}>
+              <Text size="medium" fontWeight="medium" className="confirm-text">
+                Confirm
+              </Text>
+            </Button>
+          </>
         )}
       </Modal.Body>
       <Modal.Footer>{/* <Button onClick={handleClose}>Save Changes</Button> */}</Modal.Footer>
