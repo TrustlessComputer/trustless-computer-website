@@ -1,13 +1,13 @@
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
-import Text from '@/components/Text';
-import { Tab, Tabs } from 'react-bootstrap';
-import { DappsContainer, TabContainer } from './Dapps.styled';
-import Collections from './Collections';
 import IconSVG from '@/components/IconSVG';
-import Artifacts from './Artifacts';
-import { useEffect, useState } from 'react';
+import Text from '@/components/Text';
 import queryString from 'query-string';
+import { useEffect, useState } from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
+import Artifacts from './Artifacts';
+import Collections from './Collections';
+import { DappsContainer, TabContainer } from './Dapps.styled';
 
 const Dapps = () => {
   const { tab } = queryString.parse(location.search) as { tab: string };
