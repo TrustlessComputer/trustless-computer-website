@@ -10,15 +10,16 @@ interface IParams {
   chunks: Array<Buffer>;
 }
 
-const usePreserveChunks: ContractOperationHook<IParams, void> = () => {
+const usePreserveChunks: ContractOperationHook<IParams, any> = () => {
   const { account, provider } = useWeb3React();
+  provider?.getTransaction;
   const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi);
 
   const call = useCallback(
     async (params: IParams) => {
       if (account && provider && contract) {
         const { address, chunks } = params;
-        await contract.connect(provider).functions.preserveChunks(address, chunks);
+        return await contract.connect(provider).functions.preserveChunks(address, chunks);
       }
     },
     [account, provider, contract],
