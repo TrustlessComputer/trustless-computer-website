@@ -76,7 +76,7 @@ const BFSList = () => {
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={inscriptions?.data.length}
+            dataLength={inscriptions?.data.length || 0}
             hasMore={true}
             loader={isLoading && <Spin />}
             next={debounceLoadMore}
