@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './../../constants/config';
+import { API_BASE_URL } from '@/utils/configs';
 import axios from 'axios';
 
 const API_PATH = '/bfs-service';

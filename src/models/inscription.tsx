@@ -1,4 +1,4 @@
-import { IMAGE_TYPE } from 'lib/components/NFTDisplayBox/constant';
+import { IMAGE_TYPE } from '@/components/NFTDisplayBox/constant';
 
 export interface IInscription {
   id: string;
