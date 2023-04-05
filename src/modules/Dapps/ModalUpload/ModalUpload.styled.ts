@@ -63,9 +63,23 @@ export const StyledModalUpload = styled(Modal)`
     align-items: center;
     justify-content: space-between;
     margin-top: ${px2rem(16)};
+    padding: ${px2rem(16)};
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
+    border: 1px solid;
+    border-color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
+    margin-bottom: ${px2rem(40)};
 
     p {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
+    }
+  }
+
+  .confirm-btn {
+    width: 100%;
+
+    .confirm-text {
+      padding-top: ${px2rem(11)};
+      padding-bottom: ${px2rem(11)};
     }
   }
 `;
