@@ -55,7 +55,7 @@ const Faucet = () => {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  }, [currentStep, loading]);
 
   const renderStep1 = () => {
     const validateForm = (values: IFormValue): Record<string, string> => {
