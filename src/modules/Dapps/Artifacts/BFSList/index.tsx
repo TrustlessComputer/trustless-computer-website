@@ -31,6 +31,8 @@ const BFSList = () => {
     getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
   );
 
+  console.log('🚀 ~ BFSList ~ inscriptions:', inscriptions);
+
   const { data: collection } = useSWR(
     getApiKey(getCollectionDetail, {
       contractAddress: contract,
@@ -39,6 +41,8 @@ const BFSList = () => {
       contractAddress: contract,
     }),
   );
+
+  console.log('🚀 ~ BFSList ~ collection:', collection);
 
   const debounceLoadMore = () => {
     setpage(page + 1);
