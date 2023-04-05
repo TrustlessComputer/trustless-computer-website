@@ -38,8 +38,6 @@ const BFSList = () => {
     }),
   );
 
-  console.log(collection);
-
   const debounceLoadMore = () => {
     setpage(page + 1);
     setpageSize(pageSize + LIMIT);
@@ -66,7 +64,7 @@ const BFSList = () => {
                 <div className="row">
                   <div>
                     <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.total_items}</p>
+                    <p className="address">{collection?.totalItems}</p>
                   </div>
                 </div>
               </div>
