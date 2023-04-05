@@ -5,15 +5,13 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-self: center;
-  padding-left: 16px;
-  padding-right: 16px;
   padding-bottom: 40px;
 
   .content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: 52px;
+    margin-top: 8px;
 
     .title {
       font-style: normal;
