@@ -12,7 +12,7 @@ import { MENU_HEADER } from '@/constants/header';
 import MenuMobile from './MenuMobile';
 import { gsap } from 'gsap';
 import IconSVG from '@/components/IconSVG';
-import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
+import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
 
 const ConnectWalletButton = styled(Button)`
   background: #4f43e2;
@@ -67,22 +67,16 @@ const Header = ({ height }: { height: number }) => {
           );
         })}
       </div>
-      <MenuMobile ref={refMenu} />
-      <div>
+      <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
+      <div className="rightContainer">
         {isAuthenticated ? (
           <WalletAddress>{shortenAddress(account, 4, 4)}</WalletAddress>
         ) : (
           <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
         )}
 
-        <button
-          className={`btnMenuMobile ${isOpenMenu ? 'isOpenMenu' : ''}`}
-          onClick={() => setIsOpenMenu(!isOpenMenu)}
-        >
-          <span className="btnMenuMobile_inner">
-            <IconSVG src={IcFolderOpen} />
-            <IconSVG src={IcFolderOpen} />
-          </span>
+        <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
+          <img src={IcOpenMenu} />
         </button>
       </div>
     </Wrapper>
