@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 
 export const StyledButton = styled.button<{ bg: string }>`
-  --bg-color: ${({ bg }) => bg};
+  --bg-color: ${({ bg, theme }: { bg: string; theme: DefaultTheme }) => (theme as any)[bg] || theme.white};
 
   border-radius: 2px !important;
   background-color: var(--bg-color);

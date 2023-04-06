@@ -19,6 +19,7 @@ const ConnectWalletButton = styled(Button)`
   color: #fff;
   font-size: ${px2rem(14)};
   line-height: ${px2rem(24)};
+  font-weight: 400;
 `;
 
 const WalletAddress = styled.span`
@@ -29,7 +30,7 @@ const WalletAddress = styled.span`
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  const { onConnect } = useContext(WalletContext);
+  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const isAuthenticated = !!account;
 
   const refMenu = useRef<HTMLDivElement | null>(null);
@@ -37,6 +38,12 @@ const Header = ({ height }: { height: number }) => {
 
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
+
+  const handleConnect = async () => {
+    const address = await onConnect();
+    const taproot = await generateBitcoinKey();
+    console.log(address, taproot);
+  };
 
   useEffect(() => {
     if (refMenu.current) {

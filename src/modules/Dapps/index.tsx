@@ -12,22 +12,37 @@ import Collections from './Collections';
 import Names from './Names';
 import { DappsContainer, TabContainer } from './Dapps.styled';
 import Tokens from './Tokens';
+import { useSearchParams } from 'react-router-dom';
+
+enum DappsTabs {
+  NFT = 'nfts',
+  TOKEN = 'tokens',
+  ARTIFACT = 'artifacts',
+}
 
 const Dapps = () => {
   const { tab } = queryString.parse(location.search) as { tab: string };
 
-  const [activeTab, setActiveTab] = useState(tab || 'nfts');
+  const [_, setSearchParams] = useSearchParams();
+
+  const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
 
   useEffect(() => {
-    if (tab) setActiveTab(tab);
+    if (tab) {
+      setActiveTab(tab);
+    }
   }, [tab]);
+
+  useEffect(() => {
+    setSearchParams({ tab: activeTab });
+  }, [activeTab]);
 
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
-        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab">
+        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
           <Tab
-            eventKey="nfts"
+            eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
                 <IconSVG src={IcHexagon} color="white" type="stroke"></IconSVG>
@@ -38,7 +53,7 @@ const Dapps = () => {
             <Collections />
           </Tab>
           <Tab
-            eventKey="tokens"
+            eventKey={DappsTabs.TOKEN}
             title={
               <div className="tab-item">
                 <IconSVG src={IcCoinTokens} color="white" type="stroke"></IconSVG>
@@ -50,7 +65,7 @@ const Dapps = () => {
             <Tokens />
           </Tab>
           <Tab
-            eventKey="files"
+            eventKey={DappsTabs.ARTIFACT}
             // className={tab === 'files' ? 'active' : ''}
             title={
               <div className="tab-item">

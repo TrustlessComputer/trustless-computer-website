@@ -6,13 +6,11 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-self: center;
-  padding-bottom: ${px2rem(40)};
 
   .content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: ${px2rem(8)};
 
     .title {
       font-style: normal;
@@ -24,7 +22,7 @@ const Container = styled.div`
     }
 
     .list {
-      margin-top: ${px2rem(50)};
+      margin-top: ${px2rem(0)};
       min-height: 60vh;
 
       -ms-overflow-style: none; /* IE and Edge */
@@ -63,6 +61,7 @@ const Container = styled.div`
 
     .card-image {
       background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
+      min-height: ${px2rem(280)};
       .image {
         width: 100%;
         min-height: 100px;
@@ -79,17 +78,24 @@ const Container = styled.div`
       .card-title {
         font-style: normal;
         font-weight: 500;
-        font-size: 20px;
-        line-height: 30px;
-        letter-spacing: -0.01em;
+        font-size: ${px2rem(20)};
+        line-height: ${px2rem(22)};
         color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       }
 
       .card-subTitle {
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 28px;
+        font-size: ${px2rem(18)};
+        line-height: ${px2rem(20)};
+        color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
+      }
+
+      .card-index {
+        font-style: normal;
+        font-weight: 500;
+        font-size: ${px2rem(14)};
+        margin-top: ${px2rem(12)};
         color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
       }
     }

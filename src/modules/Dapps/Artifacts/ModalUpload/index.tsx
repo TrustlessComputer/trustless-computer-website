@@ -10,6 +10,10 @@ import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import IcCheck from '@/assets/icons/ic-check.svg';
 import IcCloseModal from '@/assets/icons/ic-close.svg';
 import Button from '@/components/Button';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import usePreserveChunks, { IPreserveChunkParams } from '@/hooks/contract-operations/artifacts/usePreserveChunks';
+import { useWeb3React } from '@web3-react/core';
+import { readFileAsBuffer } from '@/utils';
 import { WalletContext } from '@/contexts/wallet-context';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 
@@ -21,20 +25,30 @@ type Props = {
 };
 
 const ModalUpload = (props: Props) => {
+  const { account } = useWeb3React();
   const { show = false, handleClose, file, setFile } = props;
-
-  const { onConnect } = useContext(WalletContext);
-
   const [preview, setPreview] = useState<string | null>(null);
-  console.log('🚀 ~ ModalUpload ~ preview:', preview);
   const [error, setError] = useState<string | null>(null);
+  const { run } = useContractOperation<IPreserveChunkParams, string | null>({
+    operation: usePreserveChunks,
+  });
+
+  const handleUploadFile = async () => {
+    if (!account || !file) return;
+
+    const fileBuffer = await readFileAsBuffer(file);
+
+    run({
+      address: account,
+      chunks: fileBuffer,
+    });
+  };
 
   const onChangeFile = (file: File): void => {
     setFile(file);
     setError('');
     // onChange(file);
   };
-  console.log('🚀 ~ onChangeFile ~ file:', file);
 
   const onSizeError = (): void => {
     setError(`File size error, maximum file size is ${MINT_TOOL_MAX_FILE_SIZE * 1000}KB.`);
@@ -62,7 +76,7 @@ const ModalUpload = (props: Props) => {
         <FileUploader
           handleChange={onChangeFile}
           name={'fileUploader'}
-          // maxSize={MINT_TOOL_MAX_FILE_SIZE}
+          maxSize={0.35}
           onSizeError={onSizeError}
           // onTypeError={onTypeError}
           // fileOrFiles={fileOrFiles}
@@ -99,7 +113,7 @@ const ModalUpload = (props: Props) => {
                 0.000214 BTC + 0.000214 Juice
               </Text>
             </div>
-            <Button className="confirm-btn" onClick={() => onConnect()}>
+            <Button className="confirm-btn" onClick={handleUploadFile}>
               <Text size="medium" fontWeight="medium" className="confirm-text">
                 Confirm
               </Text>

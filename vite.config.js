@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'REACT_');
 
   return {
-    server: { hmr: true, port: 3000 },
+    server: { hmr: true, port: 6969 },
     plugins: [
       visualizer({
         template: 'treemap', // or sunburst
@@ -58,7 +58,10 @@ export default defineConfig(({ mode }) => {
       checker({ typescript: true }),
     ],
     resolve: {
-      alias: { '@': path.resolve(__dirname, 'src/') },
+      alias: {
+        '@': path.resolve(__dirname, 'src/'),
+        stream: 'stream-browserify'
+      },
     },
     css: {
       postcss: ctx => ({
@@ -78,6 +81,7 @@ export default defineConfig(({ mode }) => {
       __CLIENT__: true,
     },
     build: {
+      target: ["esnext"], // 👈 build.target
       sourcemap: false,
       rollupOptions: {
         output: {
@@ -96,6 +100,19 @@ export default defineConfig(({ mode }) => {
       coverage: {
         reporter: ['text', 'json', 'html'],
       },
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: "esnext",
+        define: {
+          global: 'globalThis'
+        },
+        supported: {
+          bigint: true
+        },
+      },
+      plugins: [
+      ]
     },
   };
 });

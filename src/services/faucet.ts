@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
-import { createAxiosInstance } from '@/services';
 import { API_FAUCET } from '@/configs';
+import createAxiosInstance from './http-client';
 
 class Client {
   http: AxiosInstance;

@@ -8,7 +8,7 @@ function getProviderOrSigner(provider: JsonRpcProvider, account?: string): JsonR
 }
 
 function getSigner(provider: JsonRpcProvider, account: string): JsonRpcSigner {
-  return provider.getSigner(account).connectUnchecked();
+  return provider.getSigner(account);
 }
 
 export function getContract(address: string, ABI: any, provider: JsonRpcProvider, account?: string): Contract {

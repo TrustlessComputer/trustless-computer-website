@@ -3,6 +3,21 @@ import { IMAGE_EXTENSIONS, NAIVE_MIMES, SUPPORTED_FILE_EXT, SUPPORT_INSCRIBE_IMA
 import { unzip } from 'unzipit';
 import { MASOX_SYSTEM_PREFIX } from '@/constants/sandbox';
 import { MediaType } from '@/enums/file';
+import { Buffer } from 'buffer';
+
+export const readFileAsBuffer = (file: File): Promise<Buffer> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const buffer = Buffer.from(reader.result as string);
+      resolve(buffer);
+    };
+    reader.onerror = (err: unknown) => {
+      reject(err);
+    };
+    reader.readAsArrayBuffer(file);
+  });
+};
 
 export function getNaiveMimeType(filename: string): string | false {
   const ext = filename.split('.').pop();
