@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { List } from 'antd';
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import { IInscription } from '@/models/inscription';
 import { getNFTDetail } from '@/services/nft-explorer';
@@ -9,6 +8,7 @@ import queryString from 'query-string';
 import { useNavigate } from 'react-router-dom';
 
 import { Container, Information } from './Inscription.styled';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 const Inscription = () => {
   const navigate = useNavigate();
@@ -47,29 +47,28 @@ const Inscription = () => {
   const renderProperties = (attributes: any[]) => (
     <div className="list-container">
       <p className="list-name">Attributes</p>
-      <List
-        className="list-properties"
-        dataSource={attributes}
-        grid={{
-          gutter: 0,
-          xs: 2,
-          sm: 2,
-          md: 3,
-          lg: 2,
-          xl: 3,
-          xxl: 3,
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{
+          350: 2,
+          750: 2,
+          900: 2,
+          1240: 3,
+          2500: 3,
+          3000: 3,
         }}
-        renderItem={(trait, index: number) => {
-          return (
-            <List.Item key={index.toString()} className="list-item">
-              <div key={index.toString()} className="properties-item">
-                <p className="properties-trait-type">{trait.traitType}</p>
-                <p className="properties-trait-value">{trait.value}</p>
-              </div>
-            </List.Item>
-          );
-        }}
-      />
+      >
+        <Masonry gutter="16px">
+          {attributes.length > 0 &&
+            attributes.map((trait, index) => {
+              return (
+                <div key={index.toString()} className="properties-item">
+                  <p className="properties-trait-type">{trait.traitType}</p>
+                  <p className="properties-trait-value">{trait.value}</p>
+                </div>
+              );
+            })}
+        </Masonry>
+      </ResponsiveMasonry>
     </div>
   );
 
