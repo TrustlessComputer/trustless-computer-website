@@ -1,19 +1,20 @@
 import { API_URL } from '@/configs';
-import axios from 'axios';
 import { ICollection } from '@/models/collection';
-import { camelCaseKeys } from '@/utils';
 import { IInscription } from '@/models/inscription';
+import { swrFetcher } from '@/utils/swr';
 
 const API_PATH = '/nft-explorer';
 
-export const fetcher = (url: string) => axios.get(API_URL + url).then(res => camelCaseKeys(res.data.data));
-
 export const getCollections = (page: number, limit: number): Promise<ICollection[]> =>
-  fetcher(`${API_PATH}/collections?limit=${limit}&page=${page}`);
+  swrFetcher(`${API_URL}${API_PATH}/collections?limit=${limit}&page=${page}`, {
+    method: 'GET',
+  });
 
 // TODO: Add iterface for response
 export const getCollectionDetail = ({ contractAddress }: { contractAddress: string }): Promise<ICollection> =>
-  fetcher(`${API_PATH}/collections/${contractAddress}`);
+  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}`, {
+    method: 'GET',
+  });
 
 // TODO: Add iterface for response
 export const getCollectionNfts = ({
@@ -24,7 +25,10 @@ export const getCollectionNfts = ({
   contractAddress: string;
   limit?: number;
   page?: number;
-}): Promise<IInscription[]> => fetcher(`${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}`);
+}): Promise<IInscription[]> =>
+  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}`, {
+    method: 'GET',
+  });
 
 export const getNFTDetail = ({
   contractAddress,
@@ -32,7 +36,10 @@ export const getNFTDetail = ({
 }: {
   contractAddress: string;
   tokenId: string;
-}): Promise<IInscription> => fetcher(`${API_PATH}/collections/${contractAddress}/nfts/${tokenId}`);
+}): Promise<IInscription> =>
+  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}/nfts/${tokenId}`, {
+    method: 'GET',
+  });
 
 // export const fetchBFSFiles = ({ address }: { address: string }): any => {
 //   return fetcher(`${API_PATH}/files/${address}`);
