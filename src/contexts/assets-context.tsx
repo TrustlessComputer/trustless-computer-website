@@ -7,6 +7,7 @@ import { comingAmountBuilder, currentAssetsBuilder } from '@/utils/utxo';
 import debounce from 'lodash/debounce';
 import { getBtcBalance } from '@/services/quicknode';
 import useAsyncEffect from 'use-async-effect';
+import { useWeb3React } from '@web3-react/core';
 
 export interface IAssetsContext {
   btcBalance: number;
@@ -53,6 +54,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const currentAddress = React.useMemo(() => {
     return user?.walletAddressBtcTaproot || '';
   }, [user?.walletAddressBtcTaproot]);
+  const { provider } = useWeb3React();
 
   // UTXOs
   const [assets, setAssets] = useState<ICollectedUTXOResp | undefined>();
@@ -182,7 +184,12 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     }
   };
 
-  useAsyncEffect(async () => {}, []);
+  useAsyncEffect(async () => {
+    if (user?.walletAddress && provider) {
+      const balance = await provider.getBalance(user.walletAddress);
+      setJuiceBalance(balance.toNumber());
+    }
+  }, [user, provider]);
 
   useEffect(() => {
     if (currentAddress) {
