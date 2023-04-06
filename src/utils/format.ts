@@ -1,3 +1,6 @@
+import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
+
 export const exponentialToDecimal = (exponential: number): string => {
   let decimal = exponential.toString().toLowerCase();
   if (decimal.includes('e+')) {
@@ -36,20 +39,49 @@ export const exponentialToDecimal = (exponential: number): string => {
 };
 
 export const decimalToExponential = (decimal: number): number => {
-  return parseFloat(`10e${decimal}`);
+  return parseFloat(`1e${decimal}`);
 };
 
 export const formatCurrency = (value: number): string => {
-  if (!value) return '-';
   function getDecimalPart(num: number): number {
     if (Number.isInteger(num)) {
       return 0;
     }
 
     const decimalStr = exponentialToDecimal(num).split('.')[1];
-    return decimalStr?.length;
+    return decimalStr.length;
   }
 
   const decimalLength = getDecimalPart(value);
-  return value.toFixed(decimalLength > 2 ? decimalLength : 2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return value.toFixed(decimalLength > 2 ? decimalLength : 2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};
+
+export const formatBTCPrice = (price: number | string, emptyStr?: string, precision = 5): string => {
+  if (!price) return emptyStr || '-';
+  const priceNumb = new BigNumber(price).dividedBy(1e8).toNumber();
+  return ceilPrecised(priceNumb, precision).toString().replace(',', '.');
+};
+
+export const formatPrice = (price: number | string, emptyStr?: string): string => {
+  if (!price) return emptyStr || '-';
+  const priceNumb = new BigNumber(price).toNumber();
+  return ceilPrecised(priceNumb, 4).toString().replace(',', '.');
+};
+
+export const formatEthPrice = (price: string | number | null, emptyStr?: string, precision = 4): string => {
+  if (!price) return emptyStr || '-';
+  return ceilPrecised(parseFloat(Web3.utils.fromWei(`${price}`, 'ether')), precision)
+    .toString()
+    .replace(',', '.');
+};
+
+export const formatEthPriceInput = (price: string | null, emptyStr?: string): string => {
+  if (!price) return emptyStr || '-';
+  const priceNumb = new BigNumber(price).dividedBy(1e18).toNumber();
+  return ceilPrecised(priceNumb, 4).toString().replace(',', '.');
+};
+
+export const ceilPrecised = (number: number, precision = 6) => {
+  const power = Math.pow(10, precision);
+  return Math.ceil(Number(number) * power) / power;
 };

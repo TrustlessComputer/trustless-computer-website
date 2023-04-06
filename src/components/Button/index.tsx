@@ -6,6 +6,7 @@ export type ButtonProps = {
   bg?: CSSProperties['backgroundColor'];
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
   props?: HTMLButtonElement;
 };
 
