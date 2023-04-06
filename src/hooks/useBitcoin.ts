@@ -71,13 +71,21 @@ const useBitcoin = () => {
   };
 
   const createInscribeTx = async ({ tcTxID, feeRatePerByte }: ICreateInscribeParams) => {
-    const assets = await getAvailableAssetsCreateTx();
-    if (!assets) throw new Error('Can not load assets');
+    // const assets = await getAvailableAssetsCreateTx();
+    // if (!assets) throw new Error('Can not load assets');
     const { privateKey } = await signKey();
     const { commitTxHex, commitTxID, revealTxHex, revealTxID } = await TC_SDK.createInscribeTx({
       senderPrivateKey: privateKey,
-      utxos: assets.txrefs,
-      inscriptions: assets.inscriptions_by_outputs,
+      // utxos: assets.txrefs,
+      // inscriptions: assets.inscriptions_by_outputs,
+      inscriptions: {},
+      utxos: [
+        {
+          tx_hash: '57f538e2a4d4ebdbb0bc0edddc2523f1b656c2c24b2cc030d67f5d9c9a96bbff',
+          tx_output_n: 0,
+          value: new BigNumber(80000),
+        },
+      ],
       tcTxID,
       feeRatePerByte,
       tcClient,
