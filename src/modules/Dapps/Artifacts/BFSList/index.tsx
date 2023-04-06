@@ -1,18 +1,16 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import WrapImage from '@/components/WrapImage';
 import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
 import { debounce } from 'lodash';
-import queryString from 'query-string';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
 
-const LIMIT = 32;
+const LIMIT_PAGE = 32;
 
 const ARTIFACTS_CONTRACT_ADDRESS = '0x16EfDc6D3F977E39DAc0Eb0E123FefFeD4320Bc0';
 
@@ -20,7 +18,8 @@ const BFSList = () => {
   // const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [page, setpage] = useState(1);
-  const [pageSize, setpageSize] = useState(LIMIT);
+  const [pageSize, setpageSize] = useState(LIMIT_PAGE);
+  const [isFetching, setIsFetching] = useState(false);
 
   const { data: inscriptions, isLoading } = useSWR(
     getApiKey(getCollectionNfts, { contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
@@ -33,10 +32,18 @@ const BFSList = () => {
     }),
   );
 
-  const debounceLoadMore = debounce(() => {
-    setpage(page + 1);
-    setpageSize(pageSize + LIMIT);
+  const debounceLoadMore = debounce(nextPage => {
+    setpage(nextPage);
+    setpageSize(pageSize + LIMIT_PAGE);
   }, 300);
+
+  const onLoadMoreNfts = () => {
+    if (isFetching || (inscriptions && inscriptions.length % LIMIT_PAGE !== 0)) return;
+    if (inscriptions) {
+      const nextPage = Math.floor(inscriptions?.length / LIMIT_PAGE) + 1;
+      debounceLoadMore(nextPage);
+    }
+  };
 
   return (
     <Container>
@@ -72,7 +79,7 @@ const BFSList = () => {
             dataLength={inscriptions?.length || 0}
             hasMore={true}
             loader={isLoading && <Spin />}
-            next={debounceLoadMore}
+            next={onLoadMoreNfts}
           >
             {inscriptions && inscriptions.length > 0 && (
               <List
