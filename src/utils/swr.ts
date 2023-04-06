@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
 import { BareFetcher, unstable_serialize } from 'swr';
+import { camelCaseKeys } from './helpers';
 
 export const reorderKeys = (obj = {} as any) => {
   const newObj = {} as any;
@@ -13,4 +15,15 @@ export const reorderKeys = (obj = {} as any) => {
 
 export const getApiKey = (fetcher: BareFetcher, params?: string | string[] | Record<string, unknown>): string => {
   return unstable_serialize([fetcher.name, typeof params === 'string' ? params : reorderKeys(params)]);
+};
+
+export const swrFetcher = async (url: string, options: any) => {
+  const { method, data, ...rest } = options;
+
+  try {
+    const response = await axios.request({ url, method, data, ...rest });
+    return camelCaseKeys(response.data.data);
+  } catch (error: any) {
+    throw new Error(error.config?.error || 'Something went wrong');
+  }
 };
