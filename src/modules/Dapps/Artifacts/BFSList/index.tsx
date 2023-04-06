@@ -48,56 +48,54 @@ const BFSList = () => {
   return (
     <Container>
       <div className="content">
-        <div>
-          <InfiniteScroll
-            className="list"
-            dataLength={inscriptions?.length || 0}
-            hasMore={true}
-            loader={isLoading && <Spin />}
-            next={onLoadMoreNfts}
-          >
-            {inscriptions && inscriptions.length > 0 && (
-              <List
-                dataSource={inscriptions}
-                grid={{
-                  gutter: 0,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 4,
-                }}
-                renderItem={(item: any, index: number) => {
-                  return (
-                    <List.Item key={index.toString()} className="item">
-                      <div
-                        className="card"
-                        // href={`/inscription/${collection?.contract}/${item.tokenId}`}
-                      >
-                        <div className="card-content">
-                          <div className="card-image">
-                            <NFTDisplayBox
-                              collectionID={collection?.contract}
-                              contentClass="image"
-                              tokenID={item.tokenId}
-                              type={item.contentType}
-                            />
-                          </div>
-                          <div className="card-info">
-                            <p className="card-title">{item.name}</p>
-                            <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                            <p className="card-subTitle">File #{item.tokenId}</p>
-                          </div>
+        <InfiniteScroll
+          className="list"
+          dataLength={inscriptions?.length || 0}
+          hasMore={true}
+          loader={isLoading && <Spin />}
+          next={onLoadMoreNfts}
+        >
+          {inscriptions && inscriptions.length > 0 && (
+            <List
+              dataSource={inscriptions}
+              grid={{
+                gutter: 0,
+                xs: 1,
+                sm: 2,
+                md: 2,
+                lg: 3,
+                xl: 3,
+                xxl: 4,
+              }}
+              renderItem={(item: any, index: number) => {
+                return (
+                  <List.Item key={index.toString()} className="item">
+                    <div
+                      className="card"
+                      // href={`/inscription/${collection?.contract}/${item.tokenId}`}
+                    >
+                      <div className="card-content">
+                        <div className="card-image">
+                          <NFTDisplayBox
+                            collectionID={collection?.contract}
+                            contentClass="image"
+                            tokenID={item.tokenId}
+                            type={item.contentType}
+                          />
+                        </div>
+                        <div className="card-info">
+                          <p className="card-title">{item.name}</p>
+                          <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
+                          <p className="card-subTitle">File #{item.tokenId}</p>
                         </div>
                       </div>
-                    </List.Item>
-                  );
-                }}
-              />
-            )}
-          </InfiniteScroll>
-        </div>
+                    </div>
+                  </List.Item>
+                );
+              }}
+            />
+          )}
+        </InfiniteScroll>
       </div>
     </Container>
   );

@@ -34,9 +34,10 @@ const Container = styled.div`
         width: 65%;
 
         .image {
-          width: 160px;
-          height: 160px;
-          margin-right: 20px;
+          width: 168px;
+          height: 168px;
+          margin-right: 24px;
+          object-fit: cover;
         }
       }
 
@@ -44,8 +45,7 @@ const Container = styled.div`
         width: 35%;
         display: flex;
         flex-direction: column;
-        gap: 32px;
-        margin-top: 16px;
+        gap: 12px;
 
         .owner {
           font-style: normal;
@@ -62,6 +62,20 @@ const Container = styled.div`
           line-height: 28px;
           letter-spacing: -0.01em;
           color: #ffffff;
+        }
+
+        .link {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 28px;
+          letter-spacing: -0.01em;
+          text-decoration: none;
+          color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+
+          :hover {
+            color: ${({ theme }: { theme: DefaultTheme }) => theme.purple.b};
+          }
         }
 
         .row {
@@ -185,7 +199,6 @@ const Container = styled.div`
 
         .infor-right {
           width: 100%;
-          gap: 16px;
 
           .row {
             display: flex;
@@ -221,7 +234,7 @@ const Container = styled.div`
       }
 
       .list {
-        margin-top: 184px;
+        margin-top: 204px;
       } 
     }
   `}

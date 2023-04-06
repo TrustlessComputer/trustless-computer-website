@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from '@/state';
 import { WalletProvider } from '@/contexts/wallet-context';
 import { XverseProvider } from '@/contexts/xverse-context';
+import { AssetsProvider } from './contexts/assets-context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeProvider, { ThemedGlobalStyle } from '@/theme/theme';
 import './reset.scss';
@@ -19,7 +20,9 @@ const App: React.FC = (): React.ReactElement => {
         <ThemedGlobalStyle />
         <Web3Provider>
           <XverseProvider>
-            <WalletProvider>{element}</WalletProvider>
+            <WalletProvider>
+              <AssetsProvider>{element}</AssetsProvider>
+            </WalletProvider>
           </XverseProvider>
         </Web3Provider>
       </ThemeProvider>
