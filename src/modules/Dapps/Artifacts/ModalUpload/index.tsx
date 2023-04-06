@@ -26,7 +26,6 @@ const ModalUpload = (props: Props) => {
   const { onConnect } = useContext(WalletContext);
 
   const [preview, setPreview] = useState<string | null>(null);
-  console.log('🚀 ~ ModalUpload ~ preview:', preview);
   const [error, setError] = useState<string | null>(null);
 
   const onChangeFile = (file: File): void => {
@@ -34,7 +33,6 @@ const ModalUpload = (props: Props) => {
     setError('');
     // onChange(file);
   };
-  console.log('🚀 ~ onChangeFile ~ file:', file);
 
   const onSizeError = (): void => {
     setError(`File size error, maximum file size is ${MINT_TOOL_MAX_FILE_SIZE * 1000}KB.`);

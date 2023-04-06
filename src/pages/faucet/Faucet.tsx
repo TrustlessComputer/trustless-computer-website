@@ -186,7 +186,13 @@ const Faucet = () => {
                 />
               </div>
               <button disabled={currentStep != 2 || loading} type="submit" className="postBtn">
-                {loading ? <Spinner /> : <p className="text">Confirm</p>}
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <p className="text" style={{ paddingLeft: 21, paddingRight: 21 }}>
+                    Confirm
+                  </p>
+                )}
               </button>
             </PostStep>
             {((errors.link && touched.link) || errorMsg) && <p className="error">{errors.link || errorMsg}</p>}
@@ -211,7 +217,7 @@ const Faucet = () => {
       title: 'Step 3',
       desc: (
         <a className="link" href={linkContract}>
-          Receive JUICE in your wallet
+          Receive TC in your wallet
         </a>
       ),
     },
@@ -232,8 +238,8 @@ const Faucet = () => {
       <div className="wrap-content">
         <p className="title">Faucet</p>
         <p className="subTitle">
-          To receive free JUICE for our Trustless Computer, simply enter your wallet address, share on twitter and copy
-          and paste the twitter URL back into the field below.
+          To receive free TC for our Trustless Computer, simply enter your wallet address, share on twitter and copy and
+          paste the twitter URL back into the field below.
         </p>
         <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
       </div>

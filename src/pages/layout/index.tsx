@@ -12,8 +12,8 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-left: 11%;
-  padding-right: 11%;
+  padding-left: 10%;
+  padding-right: 10%;
   background-color: ${({ theme }) => theme.bg1};
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`

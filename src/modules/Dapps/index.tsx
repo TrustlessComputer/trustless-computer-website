@@ -1,5 +1,6 @@
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
+import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import queryString from 'query-string';
@@ -8,22 +9,38 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Artifacts from './Artifacts';
 import Collections from './Collections';
 import { DappsContainer, TabContainer } from './Dapps.styled';
+import Tokens from './Tokens';
+import { useSearchParams } from 'react-router-dom';
+
+enum DappsTabs {
+  NFT = 'nfts',
+  TOKEN = 'tokens',
+  ARTIFACT = 'artifacts',
+}
 
 const Dapps = () => {
   const { tab } = queryString.parse(location.search) as { tab: string };
 
-  const [activeTab, setActiveTab] = useState(tab || 'nfts');
+  const [_, setSearchParams] = useSearchParams();
+
+  const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
 
   useEffect(() => {
-    if (tab) setActiveTab(tab);
+    if (tab) {
+      setActiveTab(tab);
+    }
   }, [tab]);
+
+  useEffect(() => {
+    setSearchParams({ tab: activeTab });
+  }, [activeTab]);
 
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
-        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab">
+        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
           <Tab
-            eventKey="nfts"
+            eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
                 <IconSVG src={IcHexagon} color="white" type="stroke"></IconSVG>
@@ -33,15 +50,24 @@ const Dapps = () => {
           >
             <Collections />
           </Tab>
-          {/* <Tab eventKey="tokens" title="Tokens"> */}
-          {/* <Add Component Here /> */}
-          {/* </Tab> */}
           <Tab
-            eventKey="files"
+            eventKey={DappsTabs.TOKEN}
+            title={
+              <div className="tab-item">
+                <IconSVG src={IcCoinTokens} color="white" type="stroke"></IconSVG>
+                <Text size="regular">Tokens</Text>
+              </div>
+            }
+          >
+            {/* <Add Component Here /> */}
+            <Tokens />
+          </Tab>
+          <Tab
+            eventKey={DappsTabs.ARTIFACT}
             // className={tab === 'files' ? 'active' : ''}
             title={
               <div className="tab-item">
-                <img src={IcFolderOpen} alt="files open icon" />
+                <IconSVG src={IcFolderOpen} color="white" type="stroke"></IconSVG>
                 <Text size="regular">Artifacts</Text>
               </div>
             }

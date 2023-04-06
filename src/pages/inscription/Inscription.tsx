@@ -91,7 +91,7 @@ const Inscription = () => {
             {/* <p className="subTitle">Inscriptions #number</p> */}
           </div>
 
-          <a className="tag" href={`/collection/${inscription?.collectionAddress}`}>
+          <a className="tag" href={`/collection?contract=${inscription?.collectionAddress}`}>
             <p className="tag-title">Collection</p>
             <p className="subTitle">{inscription?.collectionAddress}</p>
           </a>
@@ -102,6 +102,7 @@ const Inscription = () => {
               {/* {renderListItem("Owner", inscription?.collectionAddress)} */}
               {renderListItem('Content type', inscription?.contentType)}
               {inscription &&
+                inscription.attributes &&
                 inscription.attributes.length > 0 &&
                 renderProperties(
                   inscription.attributes.sort(function (a, b) {
