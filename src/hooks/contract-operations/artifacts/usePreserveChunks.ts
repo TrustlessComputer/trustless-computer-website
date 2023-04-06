@@ -1,4 +1,4 @@
-import { ContractOperationHook } from '@/interfaces/contract-operation';
+import { ContractOperationHook, IOperationRequiredParams } from '@/interfaces/contract-operation';
 import { useContract } from '@/hooks/useContract';
 import ArtifactABIJson from '@/abis/artifacts.json';
 import { ARTIFACT_CONTRACT } from '@/configs';
@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 
 export interface IPreserveChunkParams {
   address: string;
-  chunks: ArrayBuffer;
+  chunks: Buffer;
 }
 
 const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, any> = () => {
@@ -15,10 +15,13 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, any> = () =
   const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi, true);
 
   const call = useCallback(
-    async (params: IPreserveChunkParams) => {
+    async (params: IPreserveChunkParams & IOperationRequiredParams) => {
       if (account && provider && contract) {
-        const { address, chunks } = params;
-        const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, [chunks]);
+        const { address, chunks, gasPrice, nonce } = params;
+        const transaction = await contract.connect(provider).preserveChunks(address, [chunks], {
+          gasPrice,
+          nonce,
+        });
         return transaction;
       }
     },

@@ -26,8 +26,14 @@ const WalletAddress = styled.span`
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  const { onConnect } = useContext(WalletContext);
+  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const isAuthenticated = !!account;
+
+  const handleConnect = async () => {
+    const address = await onConnect();
+    const taproot = await generateBitcoinKey();
+    console.log(address, taproot);
+  };
 
   return (
     <Wrapper style={{ height }}>
@@ -53,13 +59,12 @@ const Header = ({ height }: { height: number }) => {
         <a className="iconContainer" href="https://twitter.com/DappsOnBitcoin">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
-        <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
 
-        {/* {isAuthenticated ? (
+        {isAuthenticated ? (
           <WalletAddress>{shortenAddress(account, 4, 4)}</WalletAddress>
         ) : (
           <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
-        )} */}
+        )}
       </div>
     </Wrapper>
   );

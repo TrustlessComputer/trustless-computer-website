@@ -8,7 +8,6 @@ import { List, Spin } from 'antd';
 import queryString from 'query-string';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
 
