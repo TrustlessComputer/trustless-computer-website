@@ -26,7 +26,6 @@ const BFSList = () => {
     () => getCollectionNfts({ contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
   );
 
-  console.log('🚀 ~ BFSList ~ inscriptions:', inscriptions);
   const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${ARTIFACTS_CONTRACT_ADDRESS}`, () =>
     getCollectionDetail({
       contractAddress: ARTIFACTS_CONTRACT_ADDRESS,

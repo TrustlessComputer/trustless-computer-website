@@ -42,7 +42,7 @@ const Dapps = () => {
             title={
               <div className="tab-item">
                 <img src={IcFolderOpen} alt="files open icon" />
-                <Text size="regular">Files</Text>
+                <Text size="regular">Artifacts</Text>
               </div>
             }
           >
