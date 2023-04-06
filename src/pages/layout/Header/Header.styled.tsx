@@ -2,12 +2,20 @@ import styled, { DefaultTheme } from 'styled-components';
 import px2rem from '@/utils/px2rem';
 
 const Wrapper = styled.div`
-  /* border-bottom: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.border3}; */
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .indicator {
+    position: absolute;
+    height: ${px2rem(1)};
+    top: ${px2rem(80)};
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
+  }
 
   .logo {
     z-index: 999;
@@ -21,7 +29,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: ${px2rem(32)};
+    gap: ${px2rem(28)};
   }
 
   .rightContainer {
@@ -56,8 +64,7 @@ const Link = styled.a<{ active: boolean }>`
   cursor: pointer;
   font-weight: 400;
   font-size: ${px2rem(18)};
-  line-height: 28px;
-  letter-spacing: -0.01em;
+  line-height: ${px2rem(28)};
 
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
 

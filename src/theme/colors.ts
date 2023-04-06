@@ -28,6 +28,9 @@ const commonTheme = {
   primary: {
     '333': '#333333',
     brand: '#1C1C1C',
+    '2e': '#2e2e2e',
+    '5b': '#5b5b5b',
+    d9: '#d9d9d9',
   },
 
   green: {

@@ -11,7 +11,6 @@ import { useLocation } from 'react-router-dom';
 import { MENU_HEADER } from '@/constants/header';
 import MenuMobile from './MenuMobile';
 import { gsap } from 'gsap';
-import IconSVG from '@/components/IconSVG';
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
 
 const ConnectWalletButton = styled(Button)`
@@ -55,6 +54,7 @@ const Header = ({ height }: { height: number }) => {
 
   return (
     <Wrapper style={{ height }}>
+      <div className="indicator" />
       <a className="logo" href="/">
         <img alt="logo" src={IcLogo} />
       </a>
