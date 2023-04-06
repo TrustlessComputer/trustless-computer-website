@@ -45,6 +45,7 @@ export const UploadFileContainer = styled.div`
     display: flex;
     gap: ${px2rem(20)};
     align-items: center;
+    flex: 1;
   }
 
   .upload_right {

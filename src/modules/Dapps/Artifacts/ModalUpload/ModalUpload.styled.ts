@@ -37,6 +37,11 @@ export const StyledModalUpload = styled(Modal)`
   }
 
   .preview-wrapper {
+    .thumbnail-wrapper {
+      min-height: ${px2rem(200)};
+      position: relative;
+    }
+
     img {
       background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
       max-height: ${px2rem(281)};
@@ -56,6 +61,7 @@ export const StyledModalUpload = styled(Modal)`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: ${px2rem(13)};
   }
 
   .upload-fee {
