@@ -3,7 +3,7 @@ import { ROUTE_PATH } from '@/constants/route-path';
 import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import { useContext } from 'react';
-import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button } from './UseTrustless.styled';
+import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button, Link } from './UseTrustless.styled';
 
 const UseTrustless = () => {
   const { account } = useWeb3React();
@@ -21,22 +21,14 @@ const UseTrustless = () => {
       name: 'Step 2',
       title: 'Get TC',
       content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
-      element: (
-        <Button>
-          <a href={ROUTE_PATH.FAUCET}>Get TC</a>
-        </Button>
-      ),
+      element: <Link href={ROUTE_PATH.FAUCET}>Get TC</Link>,
       image: '/images/use-trustless-banner-2.png',
     },
     {
       name: 'Step 3',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
-      element: (
-        <Button>
-          <a href={ROUTE_PATH.DAPPS}>Explore Dapp Store</a>
-        </Button>
-      ),
+      element: <Link href={ROUTE_PATH.DAPPS}>Explore Dapp Store</Link>,
       image: '/images/use-trustless-banner-3.png',
     },
   ];
