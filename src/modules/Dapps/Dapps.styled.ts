@@ -10,9 +10,17 @@ export const TabContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: ${px2rem(40)};
+    margin-top: ${px2rem(40)};
 
     .nav-link {
       opacity: 0.5;
+      padding: 0 ${px2rem(37.5)};
+      border: none;
+      transition: 0.2s ease;
+
+      &:hover {
+        opacity: 0.75;
+      }
     }
 
     .nav-link.active {
