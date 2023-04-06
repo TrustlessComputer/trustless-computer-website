@@ -10,7 +10,6 @@ const commonTheme = {
   black: colors.black,
 
   // colors system
-  light: '#F7F9FB',
 
   blue: {
     primary: '#E3F5FF',
@@ -31,6 +30,7 @@ const commonTheme = {
     '2e': '#2e2e2e',
     '5b': '#5b5b5b',
     d9: '#d9d9d9',
+    light: '#F7F9FB',
   },
 
   green: {
