@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 
-export const readFileAsBuffer = (file: File): Promise<string | ArrayBuffer | null> => {
+export const readFileAsBuffer = (file: File): Promise<Buffer> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {

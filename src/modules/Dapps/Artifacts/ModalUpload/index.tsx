@@ -34,7 +34,7 @@ const ModalUpload = (props: Props) => {
   const handleUploadFile = async () => {
     if (!account || !file) return;
 
-    const fileBuffer = (await readFileAsBuffer(file)) as ArrayBuffer;
+    const fileBuffer = await readFileAsBuffer(file);
 
     run({
       address: account,

@@ -7,9 +7,14 @@ import { ContractOperationHook } from '@/interfaces/contract-operation';
 import { switchChain } from '@/utils';
 import { useWeb3React } from '@web3-react/core';
 import { useContext } from 'react';
+import useBitcoin from '../useBitcoin';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
+import { AssetsContext } from '@/contexts/assets-context';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
+  inscribeable?: boolean;
   chainId?: SupportedChainId;
 }
 
@@ -18,20 +23,20 @@ interface IContractOperationReturn<P, R> {
 }
 
 const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
-  const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER } = args;
+  const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
   const { call } = operation();
-  const { account, chainId: walletChainId, connector } = useWeb3React();
+  const { feeRate } = useContext(AssetsContext);
+  const { chainId: walletChainId, connector } = useWeb3React();
   const { onConnect: onConnectMetamask } = useContext(WalletContext);
-  const { onConnect: onConnectXverse, isConnected: isXverseConnected } = useContext(XverseContext);
+  const user = useSelector(getUserSelector);
+  const { getNonceInscribeable, createInscribeTx } = useBitcoin();
 
-  const connectWallet = async (): Promise<void> => {
+  const connectWallet = async () => {
     try {
-      if (!account) {
-        await onConnectMetamask();
+      if (!user?.walletAddress) {
+        return await onConnectMetamask();
       }
-      if (!isXverseConnected) {
-        await onConnectXverse();
-      }
+      return user.walletAddress;
     } catch (err: unknown) {
       console.log(err);
       throw Error('Failed to connect wallet');
@@ -51,22 +56,50 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
   };
 
   const run = async (params: P): Promise<R> => {
-    // This function does not handle error
-    // It delegates error to caller
+    try {
+      // This function does not handle error
+      // It delegates error to caller
 
-    // Connect Metamask & Xverse
-    await connectWallet();
+      // Connect Metamask & Xverse
+      const address = await connectWallet();
+      if (!address) {
+        throw Error('Wallet address not found');
+      }
 
-    // Check & switch network if necessary
-    await checkAndSwitchChainIfNecessary();
+      // Check & switch network if necessary
+      await checkAndSwitchChainIfNecessary();
 
-    // Make TC transaction
-    call(params);
+      const { nonce, gasPrice } = await getNonceInscribeable(address);
 
-    // Get transaction hex from TC transaction hash
+      console.log('nonce', nonce);
+      console.log('gasPrice', gasPrice);
 
-    // Make inscribe transaction
-    return {} as R;
+      // Make TC transaction
+      const tx: any = await call({
+        ...params,
+        nonce,
+        gasPrice,
+      });
+
+      console.log('tcTX', tx);
+
+      if (!inscribeable) {
+        return tx;
+      }
+
+      // Get transaction hex from TC transaction hash
+
+      // Make inscribe transaction
+      await createInscribeTx({
+        tcTxID: tx.hash,
+        feeRatePerByte: feeRate.fastestFee,
+      });
+
+      return {} as R;
+    } catch (err) {
+      console.log(err);
+      return {} as R;
+    }
   };
 
   return {

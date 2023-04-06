@@ -13,16 +13,13 @@ import { comingAmountBuilder, currentAssetsBuilder } from '@/utils/utxo';
 import debounce from 'lodash/debounce';
 
 export interface IAssetsContext {
+  btcBalance: number;
   currentAssets: ICollectedUTXOResp | undefined;
   assets: ICollectedUTXOResp | undefined;
   isLoadingAssets: boolean;
   isLoadedAssets: boolean;
   history: ITxHistory[];
-  txsETH: ITxHistoryBuyInsETH[];
-  txsPurchase: ITxHistoryPurchase[];
-  isLoadingHistory: boolean;
-  isLoadedHistory: boolean;
-  feeRate: IFeeRate | undefined;
+  feeRate: IFeeRate;
   comingAmount: number;
   eth2btcRate: number;
   fetchAssets: () => void;
@@ -32,16 +29,17 @@ export interface IAssetsContext {
 }
 
 const initialValue: IAssetsContext = {
+  btcBalance: 0,
   currentAssets: undefined,
   assets: undefined,
   isLoadingAssets: false,
   isLoadedAssets: false,
   history: [],
-  txsETH: [],
-  txsPurchase: [],
-  isLoadingHistory: false,
-  isLoadedHistory: false,
-  feeRate: undefined,
+  feeRate: {
+    fastestFee: 25,
+    halfHourFee: 20,
+    hourFee: 15,
+  },
   comingAmount: 0,
   eth2btcRate: 0,
   fetchAssets: () => new Promise<void>(r => r()),
@@ -63,16 +61,17 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [currentAssets, setCurrentAssets] = useState<ICollectedUTXOResp | undefined>();
   const [isLoadingAssets, setIsLoadingAssets] = useState<boolean>(false);
   const [isLoadedAssets, setIsLoadedAssets] = useState<boolean>(false);
+  const [btcBalance, setBtcBalance] = useState(0);
 
   // History
   const [history, setHistory] = useState<ITxHistory[]>([]);
-  const [txsETH, setTxsETH] = useState<ITxHistoryBuyInsETH[]>([]);
-  const [txsPurchase, setTxsPurchase] = useState<ITxHistoryPurchase[]>([]);
-  const [isLoadingHistory, setIsLoadingHistory] = useState<boolean>(false);
-  const [isLoadedHistory, setIsLoadedHistory] = useState<boolean>(false);
 
   // Fee rate
-  const [feeRate, setFeeRate] = useState<IFeeRate | undefined>();
+  const [feeRate, setFeeRate] = useState<IFeeRate>({
+    fastestFee: 25,
+    halfHourFee: 20,
+    hourFee: 15,
+  });
   const [comingAmount, setcomingAmount] = useState<number>(0);
   const [eth2btcRate, setEth2BtcRate] = useState<number>(0);
 
@@ -114,9 +113,9 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
   const fetchFeeRate = async () => {
     let _feeRate = {
-      fastestFee: 15,
-      halfHourFee: 10,
-      hourFee: 5,
+      fastestFee: 25,
+      halfHourFee: 20,
+      hourFee: 15,
     };
     try {
       _feeRate = await getFeeRate();
@@ -174,15 +173,12 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
   const contextValues = useMemo((): IAssetsContext => {
     return {
+      btcBalance,
       currentAssets,
       assets,
       isLoadingAssets,
       isLoadedAssets,
       history,
-      txsETH,
-      txsPurchase,
-      isLoadingHistory,
-      isLoadedHistory,
       feeRate,
       comingAmount,
       debounceFetchData,
@@ -192,15 +188,12 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       getAvailableAssetsCreateTx,
     };
   }, [
+    btcBalance,
     currentAssets,
     assets,
     isLoadingAssets,
     isLoadedAssets,
     history,
-    txsETH,
-    txsPurchase,
-    isLoadingHistory,
-    isLoadedHistory,
     feeRate,
     comingAmount,
     debounceFetchData,
