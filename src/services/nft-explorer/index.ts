@@ -3,16 +3,16 @@ import { ICollection } from '@/models/collection';
 import { IInscription } from '@/models/inscription';
 import { swrFetcher } from '@/utils/swr';
 
-const API_PATH = '/nft-explorer';
+const API_PATH = API_URL + '/nft-explorer';
 
 export const getCollections = (page: number, limit: number): Promise<ICollection[]> =>
-  swrFetcher(`${API_URL}${API_PATH}/collections?limit=${limit}&page=${page}`, {
+  swrFetcher(`${API_PATH}/collections?limit=${limit}&page=${page}`, {
     method: 'GET',
   });
 
 // TODO: Add iterface for response
 export const getCollectionDetail = ({ contractAddress }: { contractAddress: string }): Promise<ICollection> =>
-  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}`, {
+  swrFetcher(`${API_PATH}/collections/${contractAddress}`, {
     method: 'GET',
   });
 
@@ -26,7 +26,7 @@ export const getCollectionNfts = ({
   limit?: number;
   page?: number;
 }): Promise<IInscription[]> =>
-  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}`, {
+  swrFetcher(`${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}`, {
     method: 'GET',
   });
 
@@ -37,7 +37,7 @@ export const getNFTDetail = ({
   contractAddress: string;
   tokenId: string;
 }): Promise<IInscription> =>
-  swrFetcher(`${API_URL}${API_PATH}/collections/${contractAddress}/nfts/${tokenId}`, {
+  swrFetcher(`${API_PATH}/collections/${contractAddress}/nfts/${tokenId}`, {
     method: 'GET',
   });
 

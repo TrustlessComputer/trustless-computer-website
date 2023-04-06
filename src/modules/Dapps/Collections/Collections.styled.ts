@@ -22,7 +22,7 @@ const Container = styled.div`
     }
 
     .list {
-      margin-top: ${px2rem(0)};
+      margin-top: ${px2rem(8)};
       min-height: 60vh;
 
       -ms-overflow-style: none; /* IE and Edge */
