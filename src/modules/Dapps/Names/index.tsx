@@ -13,12 +13,14 @@ const Names = (props: Props) => {
   const [valueInput, setValueInput] = useState('');
 
   const handleValidate = (name: string) => {
+    // todo validate name call smart contract
     console.log(name);
     if (name) {
       setNameValidate(true);
     }
   };
   const handleClick = () => {
+    // todo register name call smart contract
     console.log(valueInput);
   };
   return (
