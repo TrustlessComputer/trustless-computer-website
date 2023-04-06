@@ -5,13 +5,13 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 0px 16px;
 
   .content {
     display: flex;
     flex-direction: row;
     gap: 60px;
     margin-top: 60px;
+    width: 100%;
   }
 
   .left-container {
@@ -82,15 +82,7 @@ const Container = styled.div`
         line-height: 28px;
         letter-spacing: -0.01em;
         color: #898989;
-      }
-    }
-
-    .list-properties {
-      margin-top: 16px;
-      display: flex;
-
-      .list-item {
-        padding: 0px !important;
+        margin-bottom: 12px;
       }
     }
 
@@ -102,7 +94,6 @@ const Container = styled.div`
       align-items: center;
       justify-content: center;
       height: 88px;
-      margin-right: 16px;
     }
 
     .properties-trait-type {
@@ -118,8 +109,12 @@ const Container = styled.div`
       font-weight: 500;
       font-size: 15px;
       line-height: 140%;
-      margin-top: 2px;
+      margin-top: 4px;
       text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 90%;
     }
   }
 

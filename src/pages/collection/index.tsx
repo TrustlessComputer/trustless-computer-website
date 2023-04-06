@@ -1,10 +1,10 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import Spinner from '@/components/Spinner';
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
 import { IInscription } from '@/models/inscription';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
+import Spinner from 'react-bootstrap/Spinner';
 import { debounce } from 'lodash';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
@@ -97,7 +97,7 @@ const Collection = () => {
             loader={
               isFetching && (
                 <div className="loading">
-                  <Spinner />
+                  <Spinner animation="border" variant="primary" />
                 </div>
               )
             }
