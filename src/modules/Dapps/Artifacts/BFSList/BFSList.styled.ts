@@ -12,6 +12,7 @@ const Container = styled.div`
     flex-direction: column;
     flex: 1;
     margin-top: 24px;
+    width: 100%;
 
     .header {
       display: flex;
