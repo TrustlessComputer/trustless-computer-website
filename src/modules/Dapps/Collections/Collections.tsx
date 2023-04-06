@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { List, Spin } from 'antd';
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
 import { debounce } from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
+import Spinner from 'react-bootstrap/Spinner';
+import { ARTIFACT_CONTRACT } from '@/configs';
 
 const LIMIT_PAGE = 32;
 
@@ -44,34 +46,43 @@ const Collections = () => {
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
 
+  const showCollections = useMemo(
+    () => collections.filter(item => item.totalItems > 0 && item.contract !== ARTIFACT_CONTRACT),
+    [collections],
+  );
+
   return (
     <Container>
       <div className="content">
-        {/* <p className="title">Collections</p> */}
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={collections.length}
+            dataLength={showCollections.length}
             hasMore={true}
-            loader={isFetching && <Spin className="loading" />}
+            loader={
+              isFetching && (
+                <div className="loading">
+                  <Spinner animation="border" variant="primary" />
+                </div>
+              )
+            }
             next={debounceLoadMore}
           >
-            {collections.length > 0 && (
-              <List
-                dataSource={collections}
-                grid={{
-                  gutter: 0,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 4,
-                }}
-                renderItem={(item: ICollection, index: number) => {
-                  return (
-                    <List.Item key={index.toString()} className="item">
-                      <a className="card" href={`/dapps?tab=artifact&contract=${item.contract}`}>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{
+                350: 1,
+                750: 2,
+                900: 3,
+                1240: 4,
+                2500: 5,
+                3000: 5,
+              }}
+            >
+              <Masonry gutter="24px">
+                {showCollections.length > 0 &&
+                  showCollections.map((item, index) => {
+                    return (
+                      <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                         <div className="card-content">
                           <div className="card-image">
                             <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
@@ -82,11 +93,10 @@ const Collections = () => {
                           </div>
                         </div>
                       </a>
-                    </List.Item>
-                  );
-                }}
-              />
-            )}
+                    );
+                  })}
+              </Masonry>
+            </ResponsiveMasonry>
           </InfiniteScroll>
         </div>
       </div>
