@@ -77,13 +77,19 @@ const Collection = () => {
               <div className="infor-right">
                 <div>
                   <p className="owner">OWNER</p>
-                  <p className="address">{collection?.creator}</p>
+                  <a href={`https://explorer.trustless.computer/address/${collection?.creator}`} className="link">
+                    {collection?.creator}
+                  </a>
                 </div>
-                <div className="row">
-                  <div>
-                    <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.totalItems}</p>
-                  </div>
+                <div>
+                  <p className="owner">CONTRACT</p>
+                  <a href={`https://explorer.trustless.computer/address/${collection?.contract}`} className="link">
+                    {collection?.contract}
+                  </a>
+                </div>
+                <div>
+                  <p className="owner">ITEMS</p>
+                  <p className="address">{collection?.totalItems}</p>
                 </div>
               </div>
             </div>
