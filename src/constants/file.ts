@@ -128,4 +128,8 @@ export const SUPPORTED_FILE_EXT: Array<{ mediaType: MediaType; ext: string }> = 
     mediaType: MediaType.TEXT,
     ext: 'json',
   },
+  {
+    mediaType: MediaType.TEXT,
+    ext: 'txt',
+  },
 ];
