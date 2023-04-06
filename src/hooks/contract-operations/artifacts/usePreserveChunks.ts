@@ -18,7 +18,7 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, any> = () =
     async (params: IPreserveChunkParams) => {
       if (account && provider && contract) {
         const { address, chunks } = params;
-        const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, chunks);
+        const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, [chunks]);
         return transaction;
       }
     },
