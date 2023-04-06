@@ -1,9 +1,7 @@
-import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import { ButtonProps } from './index';
 
-export const StyledButton = styled(Button)<ButtonProps>`
-  --bg-color: ${({ bg, theme }) => (bg ? (theme as any)[bg] : theme.white)};
+export const StyledButton = styled.button<{ bg: string }>`
+  --bg-color: ${({ bg }) => bg};
 
   border-radius: 2px !important;
   background-color: var(--bg-color);

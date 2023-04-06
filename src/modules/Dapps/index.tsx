@@ -1,6 +1,7 @@
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcNames from '@/assets/icons/ic-names.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
+import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import queryString from 'query-string';
@@ -10,6 +11,7 @@ import Artifacts from './Artifacts';
 import Collections from './Collections';
 import Names from './Names';
 import { DappsContainer, TabContainer } from './Dapps.styled';
+import Tokens from './Tokens';
 
 const Dapps = () => {
   const { tab } = queryString.parse(location.search) as { tab: string };
@@ -35,15 +37,24 @@ const Dapps = () => {
           >
             <Collections />
           </Tab>
-          {/* <Tab eventKey="tokens" title="Tokens"> */}
-          {/* <Add Component Here /> */}
-          {/* </Tab> */}
+          <Tab
+            eventKey="tokens"
+            title={
+              <div className="tab-item">
+                <IconSVG src={IcCoinTokens} color="white" type="stroke"></IconSVG>
+                <Text size="regular">Tokens</Text>
+              </div>
+            }
+          >
+            {/* <Add Component Here /> */}
+            <Tokens />
+          </Tab>
           <Tab
             eventKey="files"
             // className={tab === 'files' ? 'active' : ''}
             title={
               <div className="tab-item">
-                <img src={IcFolderOpen} alt="files open icon" />
+                <IconSVG src={IcFolderOpen} color="white" type="stroke"></IconSVG>
                 <Text size="regular">Artifacts</Text>
               </div>
             }

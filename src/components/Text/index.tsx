@@ -10,6 +10,7 @@ type TText = {
   align?: 'center' | 'left' | 'right' | 'unset';
   color?: keyof ColorsTheme;
   className?: string;
+  maxWidth?: CSSProperties['maxWidth'];
   onClick?: () => void;
 };
 
@@ -21,6 +22,7 @@ const Text = ({
   style,
   color,
   className,
+  maxWidth = 'none',
   onClick,
   ...props
 }: PropsWithChildren<TText>) => {
@@ -32,6 +34,7 @@ const Text = ({
       className={cs(`size-${size}`, `weight-${fontWeight}`, className)}
       color={color}
       align={align}
+      maxWidth={maxWidth}
       style={{ ...style }}
       onClick={onClick}
     >

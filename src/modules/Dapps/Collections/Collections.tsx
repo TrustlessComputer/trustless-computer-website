@@ -2,7 +2,7 @@
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
 import { debounce } from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -11,6 +11,7 @@ import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import Spinner from 'react-bootstrap/Spinner';
+import { ARTIFACT_CONTRACT } from '@/configs';
 
 const LIMIT_PAGE = 32;
 
@@ -45,13 +46,18 @@ const Collections = () => {
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
 
+  const showCollections = useMemo(
+    () => collections.filter(item => item.totalItems > 0 && item.contract !== ARTIFACT_CONTRACT),
+    [collections],
+  );
+
   return (
     <Container>
       <div className="content">
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={collections.length}
+            dataLength={showCollections.length}
             hasMore={true}
             loader={
               isFetching && (
@@ -73,8 +79,8 @@ const Collections = () => {
               }}
             >
               <Masonry gutter="24px">
-                {collections.length > 0 &&
-                  collections.map((item, index) => {
+                {showCollections.length > 0 &&
+                  showCollections.map((item, index) => {
                     return (
                       <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                         <div className="card-content">
