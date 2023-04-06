@@ -5,50 +5,45 @@ import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer'
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
+import { debounce } from 'lodash';
 import queryString from 'query-string';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
 
 const LIMIT = 32;
 
+const ARTIFACTS_CONTRACT_ADDRESS = '0x16EfDc6D3F977E39DAc0Eb0E123FefFeD4320Bc0';
+
 const BFSList = () => {
-  //   const navigate = useNavigate();
-  // const { contract }: any = useParams()
-  const { contract } = queryString.parse(location.search) as { contract: string };
+  // const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [page, setpage] = useState(1);
   const [pageSize, setpageSize] = useState(LIMIT);
 
-  //   const [collection, setCollection] = useState<any | undefined>();
-
-  // TODO: Update correct wallet address
-  // const walletAdress = MOCK_ADDRESS;
-
   const { data: inscriptions, isLoading } = useSWR(
-    getApiKey(getCollectionNfts, { contractAddress: contract, limit: pageSize, page: page }),
-    () => getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
+    getApiKey(getCollectionNfts, { contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
+    () => getCollectionNfts({ contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
   );
 
-  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${contract}`, () =>
+  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${ARTIFACTS_CONTRACT_ADDRESS}`, () =>
     getCollectionDetail({
-      contractAddress: contract,
+      contractAddress: ARTIFACTS_CONTRACT_ADDRESS,
     }),
   );
 
   console.log(collection);
 
-  const debounceLoadMore = () => {
+  const debounceLoadMore = debounce(() => {
     setpage(page + 1);
     setpageSize(pageSize + LIMIT);
-  };
+  }, 300);
 
   return (
     <Container>
       <div className="content">
-        <div className="header">
+        {/* <div className="header">
           {collection && (
             <div className="infor">
               <div className="infor-left">
@@ -72,7 +67,7 @@ const BFSList = () => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
         <div>
           <InfiniteScroll
             className="list"
