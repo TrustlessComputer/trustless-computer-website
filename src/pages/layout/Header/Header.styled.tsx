@@ -24,61 +24,17 @@ const Wrapper = styled.div`
     gap: ${px2rem(32)};
   }
 
-  .iconContainer {
+  .rightContainer {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    width: 30px;
-    height: 30px;
-  }
+    gap: ${px2rem(16)};
 
-  .icon {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-
-    :hover {
-      opacity: 0.8;
-    }
-  }
-
-  .btnMenuMobile {
-    display: block;
-    background: none;
-    padding: rem(8px) 0;
-    margin-left: rem(15px);
-
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .btnMenuMobile_inner {
-      position: relative;
-      display: block;
-
-      > div:nth-child(1) {
-        opacity: 0;
-      }
-
-      > div:nth-child(2) {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
-    }
-
-    .isOpenMenu {
-      .btnMenuMobile_inner {
-        > div:nth-child(2) {
-          opacity: 0;
-        }
-
-        > div:nth-child(1) {
-          opacity: 1;
-        }
+    .btnMenuMobile {
+      display: none;
+      img {
+        width: 24px;
+        height: 24px;
       }
     }
   }
@@ -86,6 +42,12 @@ const Wrapper = styled.div`
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     .rowLink {
       display: none;
+    }
+
+    .rightContainer {
+      .btnMenuMobile {
+        display: flex;
+      }
     }
   `};
 `;

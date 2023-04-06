@@ -12,16 +12,29 @@ const Wrapper = styled.div`
     background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg1};
     width: 100vw;
     height: 100vh;
-    display: block;
-    position: relative;
-    overflow: auto;
-    padding: {
-      top: ${px2rem(120)};
-      left: ${px2rem(16)};
-      right: ${px2rem(16)};
-      bottom: ${px2rem(40)};
+    gap: ${px2rem(8)};
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: ${px2rem(24)};
+    padding-right: 11%;
+  }
+
+  .btnMenuMobile {
+    margin-bottom: ${px2rem(20)};
+    margin-top: ${px2rem(4)};
+
+    img {
+      width: 24px;
+      height: 24px;
     }
   }
+
+  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    .inner {
+      padding-right: 7%;
+    }
+  `}
 `;
 
 export { Wrapper };
