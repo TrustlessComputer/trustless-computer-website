@@ -1,19 +1,16 @@
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
-import {
-  ICollectedUTXOResp,
-  ITxHistory,
-  ITxHistoryBuyInsETH,
-  ITxHistoryPurchase,
-  IFeeRate,
-} from '@/interfaces/api/bitcoin';
+import { ICollectedUTXOResp, ITxHistory, IFeeRate } from '@/interfaces/api/bitcoin';
 import { useAppSelector } from '@/state/hooks';
 import { getUserSelector } from '@/state/user/selector';
 import { getCollectedUTXO, getFeeRate, getPendingUTXOs, getTokenRate } from '@/services/bitcoin';
 import { comingAmountBuilder, currentAssetsBuilder } from '@/utils/utxo';
 import debounce from 'lodash/debounce';
+import { getBtcBalance } from '@/services/quicknode';
+import useAsyncEffect from 'use-async-effect';
 
 export interface IAssetsContext {
   btcBalance: number;
+  juiceBalance: number;
   currentAssets: ICollectedUTXOResp | undefined;
   assets: ICollectedUTXOResp | undefined;
   isLoadingAssets: boolean;
@@ -30,6 +27,7 @@ export interface IAssetsContext {
 
 const initialValue: IAssetsContext = {
   btcBalance: 0,
+  juiceBalance: 0,
   currentAssets: undefined,
   assets: undefined,
   isLoadingAssets: false,
@@ -62,6 +60,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [isLoadingAssets, setIsLoadingAssets] = useState<boolean>(false);
   const [isLoadedAssets, setIsLoadedAssets] = useState<boolean>(false);
   const [btcBalance, setBtcBalance] = useState(0);
+  const [juiceBalance, setJuiceBalance] = useState(0);
 
   // History
   const [history, setHistory] = useState<ITxHistory[]>([]);
@@ -126,6 +125,18 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     return _feeRate;
   };
 
+  const fetchBalance = async () => {
+    try {
+      if (currentAddress) {
+        const balance = await getBtcBalance(currentAddress);
+        setBtcBalance(balance);
+      }
+    } catch (err) {
+      console.log(err);
+      setBtcBalance(0);
+    }
+  };
+
   const getAvailableAssetsCreateTx = async () => {
     const [assets, pendingUTXOs] = await Promise.all([await fetchAssets(), await getPendingUTXOs(currentAddress)]);
 
@@ -151,6 +162,28 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     }
   };
 
+  const fetchAssetsData = () => {
+    try {
+      fetchFeeRate();
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      getETH2BTCRate();
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      fetchBalance();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useAsyncEffect(async () => {}, []);
+
   useEffect(() => {
     if (currentAddress) {
       debounceFetchData();
@@ -160,16 +193,16 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   }, [currentAddress]);
 
   useEffect(() => {
-    fetchFeeRate().then().catch();
-    getETH2BTCRate().then().catch();
+    fetchAssetsData();
+
     const intervalID = setInterval(() => {
-      fetchFeeRate().then().catch();
-      getETH2BTCRate().then().catch();
+      fetchAssetsData();
     }, 60 * 2 * 1000); // 2 mins
+
     return () => {
       clearInterval(intervalID);
     };
-  }, []);
+  }, [currentAddress]);
 
   const contextValues = useMemo((): IAssetsContext => {
     return {
@@ -183,11 +216,13 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       comingAmount,
       debounceFetchData,
       eth2btcRate,
+      juiceBalance,
       fetchAssets,
       fetchFeeRate,
       getAvailableAssetsCreateTx,
     };
   }, [
+    juiceBalance,
     btcBalance,
     currentAssets,
     assets,

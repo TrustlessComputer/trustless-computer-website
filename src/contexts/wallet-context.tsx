@@ -1,9 +1,11 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useAppDispatch } from '@/state/hooks';
 import { resetUser, updateEVMWallet, updateSelectedWallet, updateTaprootWallet } from '@/state/user/reducer';
 import { getConnection } from '@/connection';
 import { generateBitcoinTaprootKey } from '@/utils/derive-key';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -20,15 +22,16 @@ const initialValue: IWalletContext = {
 export const WalletContext = React.createContext<IWalletContext>(initialValue);
 
 export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren): React.ReactElement => {
-  const { connector, provider } = useWeb3React();
+  const { connector, provider, account } = useWeb3React();
   const dispatch = useAppDispatch();
+  const user = useSelector(getUserSelector);
 
   const disconnect = React.useCallback(() => {
     if (connector && connector.deactivate) {
       connector.deactivate();
     }
     connector.resetState();
-    dispatch(resetUser);
+    dispatch(resetUser());
   }, [connector, dispatch]);
 
   const connect = React.useCallback(async () => {
@@ -63,6 +66,12 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     }
     return null;
   }, [connector]);
+
+  useEffect(() => {
+    if (user?.walletAddress && !user.walletAddressBtcTaproot) {
+      generateBitcoinKey();
+    }
+  }, [user, generateBitcoinKey]);
 
   const contextValues = useMemo((): IWalletContext => {
     return {

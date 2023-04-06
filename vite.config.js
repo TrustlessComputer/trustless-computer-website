@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'REACT_');
 
   return {
-    server: { hmr: true, port: 3000 },
+    server: { hmr: true, port: 6969 },
     plugins: [
       visualizer({
         template: 'treemap', // or sunburst
