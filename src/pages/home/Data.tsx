@@ -141,13 +141,13 @@ const FaqData = [
       '400 kB. In theory, the transaction size could go up to the entire Bitcoin block of 4 MB. But we recommend staying under 400 kB.',
   },
   {
-    question: 'What is JUICE?',
+    question: 'What is TC?',
     answer:
-      'JUICE is the currency of Trustless Computer. You can use it in decentralized applications running on Bitcoin.',
+      'TC is the currency of Trustless Computer. You can use it in decentralized applications running on Bitcoin.',
   },
   {
     question: 'What is the block gas limit?',
-    answer: '2.5 billion JUICE.',
+    answer: '2.5 billion TC.',
   },
   {
     question: 'What is the chain id?',

@@ -14,6 +14,8 @@ import useContractOperation from '@/hooks/contract-operations/useContractOperati
 import usePreserveChunks, { IPreserveChunkParams } from '@/hooks/contract-operations/artifacts/usePreserveChunks';
 import { useWeb3React } from '@web3-react/core';
 import { readFileAsBuffer } from '@/utils';
+import { WalletContext } from '@/contexts/wallet-context';
+import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 
 type Props = {
   show: boolean;
@@ -26,6 +28,7 @@ const ModalUpload = (props: Props) => {
   const { account } = useWeb3React();
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
+  console.log('🚀 ~ ModalUpload ~ preview:', preview);
   const [error, setError] = useState<string | null>(null);
   const { run } = useContractOperation<IPreserveChunkParams, string | null>({
     operation: usePreserveChunks,
@@ -47,6 +50,7 @@ const ModalUpload = (props: Props) => {
     setError('');
     // onChange(file);
   };
+  console.log('🚀 ~ onChangeFile ~ file:', file);
 
   const onSizeError = (): void => {
     setError(`File size error, maximum file size is ${MINT_TOOL_MAX_FILE_SIZE * 1000}KB.`);
@@ -85,7 +89,10 @@ const ModalUpload = (props: Props) => {
             {file && (
               <div className="preview-wrapper">
                 {preview ? (
-                  <img src={preview} alt="thumbnail preview" />
+                  // <img src={preview} alt="thumbnail preview" />
+                  <div className="thumbnail-wrapper">
+                    <MediaPreview previewExt={file?.name?.split('.')?.pop() || ''} previewUrl={preview} />
+                  </div>
                 ) : (
                   <img src={DefaultUploadImage} alt="default upload image"></img>
                 )}

@@ -1,9 +1,10 @@
 import px2rem from '@/utils/px2rem';
 import styled from 'styled-components';
 
-const BaseText = styled.p<{ color: string | undefined; align: string }>`
+const BaseText = styled.p<{ color: string | undefined; align: string; maxWidth: string | number }>`
   color: ${({ color, theme }) => (color ? (theme as any)[color] : theme.white)};
   text-align: ${({ align }) => align};
+  max-width: ${({ maxWidth }) => maxWidth};
 
   // FONT-SIZE
   &.size-extra-small {

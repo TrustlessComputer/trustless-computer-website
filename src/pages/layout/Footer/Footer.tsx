@@ -1,24 +1,23 @@
 import styled, { DefaultTheme } from 'styled-components';
+import px2rem from '@/utils/px2rem';
 
-// import IcDiscord from "./icons/ic-discord.svg";
-// import IcGithub from "./icons/ic-github.svg";
-// import IcTwitter from "./icons/ic-twitter.svg";
+import IcDiscord from '@/assets/icons/ic_discord.svg';
+import IcTwitter from '@/assets/icons/ic_twitter.svg';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  padding-left: 80px;
-  padding-right: 80px;
-  margin-top: 140px;
+  justify-content: space-between;
+  margin-top: ${px2rem(140)};
 
   .text {
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 26px;
-    color: #ffffff;
+    font-size: ${px2rem(16)};
+    line-height: ${px2rem(26)};
+    margin-right: ${px2rem(16)};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   }
 
   .buttonContainer {
@@ -26,11 +25,11 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
 
-    gap: 8px;
+    gap: ${px2rem(8)};
 
     .icon {
-      width: 34px;
-      height: 34px;
+      width: ${px2rem(34)};
+      height: ${px2rem(34)};
       cursor: pointer;
 
       :hover {
@@ -38,33 +37,23 @@ const Wrapper = styled.div`
       }
     }
   }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-      margin-top: 100px;
-  `};
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
-      margin-top: 80px;
-      padding-left: 8px;
-      padding-right: 8px;
-  `};
 `;
 
 const Footer = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
       <p className="text">Open-source software. Made with ❤️ on Bitcoin.</p>
-      {/* <div className="buttonContainer">
-        <a href="https://github.com/trustlesscomputer">
+      <div className="buttonContainer">
+        {/* <a href="https://github.com/trustlesscomputer">
           <img alt="icon" className="icon" src={IcGithub} />
-        </a>
+        </a> */}
         <a href="https://discord.gg/tscNGxEw2s">
           <img alt="icon" className="icon" src={IcDiscord} />
         </a>
         <a href="https://twitter.com/DappsOnBitcoin">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
-      </div> */}
+      </div>
     </Wrapper>
   );
 };

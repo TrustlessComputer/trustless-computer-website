@@ -1,82 +1,60 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import WrapImage from '@/components/WrapImage';
 import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
-import queryString from 'query-string';
+import { debounce } from 'lodash';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
 
-const LIMIT = 32;
+const LIMIT_PAGE = 32;
+
+const ARTIFACTS_CONTRACT_ADDRESS = '0x16EfDc6D3F977E39DAc0Eb0E123FefFeD4320Bc0';
 
 const BFSList = () => {
-  //   const navigate = useNavigate();
-  // const { contract }: any = useParams()
-  const { contract } = queryString.parse(location.search) as { contract: string };
+  // const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [page, setpage] = useState(1);
-  const [pageSize, setpageSize] = useState(LIMIT);
-
-  //   const [collection, setCollection] = useState<any | undefined>();
-
-  // TODO: Update correct wallet address
-  // const walletAdress = MOCK_ADDRESS;
+  const [pageSize, setpageSize] = useState(LIMIT_PAGE);
+  const [isFetching, setIsFetching] = useState(false);
 
   const { data: inscriptions, isLoading } = useSWR(
-    getApiKey(getCollectionNfts, { contractAddress: contract, limit: pageSize, page: page }),
-    () => getCollectionNfts({ contractAddress: contract, limit: pageSize, page: page }),
+    getApiKey(getCollectionNfts, { contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
+    () => getCollectionNfts({ contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
   );
 
-  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${contract}`, () =>
+  const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${ARTIFACTS_CONTRACT_ADDRESS}`, () =>
     getCollectionDetail({
-      contractAddress: contract,
+      contractAddress: ARTIFACTS_CONTRACT_ADDRESS,
     }),
   );
 
-  const debounceLoadMore = () => {
-    setpage(page + 1);
-    setpageSize(pageSize + LIMIT);
+  const debounceLoadMore = debounce(nextPage => {
+    setpage(nextPage);
+    setpageSize(pageSize + LIMIT_PAGE);
+  }, 300);
+
+  const onLoadMoreNfts = () => {
+    if (isFetching || (inscriptions && inscriptions.length % LIMIT_PAGE !== 0)) return;
+    if (inscriptions) {
+      const nextPage = Math.floor(inscriptions?.length / LIMIT_PAGE) + 1;
+      debounceLoadMore(nextPage);
+    }
   };
 
   return (
     <Container>
       <div className="content">
-        <div className="header">
-          {collection && (
-            <div className="infor">
-              <div className="infor-left">
-                <WrapImage alt="collection" className="image" src={collection?.thumbnail} />
-                <div>
-                  <p className="title">{collection?.name}</p>
-                  <p className="subTitle">{collection?.description}</p>
-                </div>
-              </div>
-              <div className="infor-right">
-                <div>
-                  <p className="owner">OWNER</p>
-                  <p className="address">{collection?.creator}</p>
-                </div>
-                <div className="row">
-                  <div>
-                    <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.total_items}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
         <div>
           <InfiniteScroll
             className="list"
             dataLength={inscriptions?.length || 0}
             hasMore={true}
             loader={isLoading && <Spin />}
-            next={debounceLoadMore}
+            next={onLoadMoreNfts}
           >
             {inscriptions && inscriptions.length > 0 && (
               <List
@@ -93,7 +71,10 @@ const BFSList = () => {
                 renderItem={(item: any, index: number) => {
                   return (
                     <List.Item key={index.toString()} className="item">
-                      <a className="card" href={`/inscription/${collection?.contract}/${item.tokenId}`}>
+                      <div
+                        className="card"
+                        // href={`/inscription/${collection?.contract}/${item.tokenId}`}
+                      >
                         <div className="card-content">
                           <div className="card-image">
                             <NFTDisplayBox
@@ -106,9 +87,10 @@ const BFSList = () => {
                           <div className="card-info">
                             <p className="card-title">{item.name}</p>
                             <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
+                            <p className="card-subTitle">File #{item.tokenId}</p>
                           </div>
                         </div>
-                      </a>
+                      </div>
                     </List.Item>
                   );
                 }}
