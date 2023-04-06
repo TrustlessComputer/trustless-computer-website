@@ -26,6 +26,7 @@ const BFSList = () => {
     () => getCollectionNfts({ contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
   );
 
+  console.log('🚀 ~ BFSList ~ inscriptions:', inscriptions);
   const { data: collection } = useSWR(`${API_URL}/nft-explorer/collections/${ARTIFACTS_CONTRACT_ADDRESS}`, () =>
     getCollectionDetail({
       contractAddress: ARTIFACTS_CONTRACT_ADDRESS,
@@ -112,6 +113,7 @@ const BFSList = () => {
                           <div className="card-info">
                             <p className="card-title">{item.name}</p>
                             <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
+                            <p className="card-subTitle">File #{item.tokenId}</p>
                           </div>
                         </div>
                       </div>
