@@ -1,36 +1,31 @@
-import { Wrapper, Link } from './Header.styled';
-import IcLogo from '@/assets/icons/logo.svg';
-import Button from '@/components/Button';
-import styled from 'styled-components';
-import px2rem from '@/utils/px2rem';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { WalletContext } from '@/contexts/wallet-context';
-import { useWeb3React } from '@web3-react/core';
-import { shortenAddress } from '@/utils';
-import { useLocation } from 'react-router-dom';
-import { MENU_HEADER } from '@/constants/header';
-import MenuMobile from './MenuMobile';
-import { gsap } from 'gsap';
+import IcAvatarDefault from '@/assets/icons/ic-avatar.svg';
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
+import IcLogo from '@/assets/icons/logo.svg';
+import Text from '@/components/Text';
+import { MENU_HEADER } from '@/constants/header';
+import { AssetsContext } from '@/contexts/assets-context';
+import { WalletContext } from '@/contexts/wallet-context';
+import { shortenAddress } from '@/utils';
+import { formatBTCPrice, formatEthPrice } from '@/utils/format';
+import { useWeb3React } from '@web3-react/core';
+import { gsap } from 'gsap';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { OverlayTrigger } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import { ConnectWalletButton, Link, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
+import MenuMobile from './MenuMobile';
 
-const ConnectWalletButton = styled(Button)`
-  background: #4f43e2;
-  padding: ${px2rem(4)} ${px2rem(12)};
-  color: #fff;
-  font-size: ${px2rem(14)};
-  line-height: ${px2rem(24)};
-  font-weight: 400;
-`;
-
-const WalletAddress = styled.span`
-  font-size: ${px2rem(14)};
-  line-height: ${px2rem(24)};
-  color: #fff;
-`;
+// const WalletAddress = styled.span`
+//   font-size: ${px2rem(14)};
+//   line-height: ${px2rem(24)};
+//   color: #fff;
+// `;
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
+  console.log('🚀 ~ Header ~ account:', account);
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
+  const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
 
   const refMenu = useRef<HTMLDivElement | null>(null);
@@ -43,6 +38,14 @@ const Header = ({ height }: { height: number }) => {
     const address = await onConnect();
     const taproot = await generateBitcoinKey();
     console.log(address, taproot);
+  };
+
+  const handleShowAddress = (address: string) => {
+    return (
+      <WalletAdress className="balance">
+        <Text size="regular">{shortenAddress(address, 4, 4)}</Text>
+      </WalletAdress>
+    );
   };
 
   useEffect(() => {
@@ -68,7 +71,7 @@ const Header = ({ height }: { height: number }) => {
       <div className="rowLink">
         {MENU_HEADER.map(item => {
           return (
-            <Link active={activePath === item.activePath} href={item.route}>
+            <Link active={activePath === item.activePath} href={item.route} key={item.id}>
               {item.name}
             </Link>
           );
@@ -77,11 +80,24 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         {isAuthenticated ? (
-          <WalletAddress>{shortenAddress(account, 4, 4)}</WalletAddress>
+          <div className="wallet">
+            <WalletBalance>
+              <div className="balance">
+                <p>{formatBTCPrice(btcBalance)} BTC</p>
+                <span className="divider"></span>
+                <p>{formatEthPrice(juiceBalance)} TC</p>
+              </div>
+              <OverlayTrigger trigger="hover" placement="bottom" overlay={handleShowAddress(account)}>
+                <div className="avatar">
+                  <img src={IcAvatarDefault} alt="default avatar" />
+                </div>
+              </OverlayTrigger>
+            </WalletBalance>
+            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
+          </div>
         ) : (
           <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
         )}
-
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />
         </button>

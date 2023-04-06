@@ -1,9 +1,14 @@
-import { MENU_HEADER } from '@/constants/header';
-import React, { ForwardedRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Link } from '../Header.styled';
-import { Wrapper } from './MenuMobile.styled';
+import IcAvatarDefault from '@/assets/icons/ic-avatar.svg';
 import IcMenuClose from '@/assets/icons/ic_close_menu.svg';
+import { MENU_HEADER } from '@/constants/header';
+import { AssetsContext } from '@/contexts/assets-context';
+import { WalletContext } from '@/contexts/wallet-context';
+import { formatBTCPrice, formatEthPrice } from '@/utils/format';
+import { useWeb3React } from '@web3-react/core';
+import React, { ForwardedRef, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ConnectWalletButton, Link, WalletBalance } from '../Header.styled';
+import { Wrapper } from './MenuMobile.styled';
 
 interface IProp {
   onCloseMenu: () => void;
@@ -13,6 +18,11 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
 
+  const { account } = useWeb3React();
+  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
+  const { btcBalance, juiceBalance } = useContext(AssetsContext);
+  const isAuthenticated = !!account;
+
   return (
     <Wrapper ref={ref}>
       <div className="inner">
@@ -21,11 +31,28 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
         </button>
         {MENU_HEADER.map(item => {
           return (
-            <Link active={activePath === item.activePath} href={item.route}>
+            <Link active={activePath === item.activePath} href={item.route} key={item.id}>
               {item.name}
             </Link>
           );
         })}
+        {isAuthenticated ? (
+          <div className="wallet mobile">
+            <WalletBalance>
+              <div className="balance">
+                <p>{formatBTCPrice('10000000000')} BTC</p>
+                <span className="divider"></span>
+                <p>{formatEthPrice('10000000000')} TC</p>
+              </div>
+              <div className="avatar">
+                <img src={IcAvatarDefault} alt="default avatar" />
+              </div>
+            </WalletBalance>
+            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
+          </div>
+        ) : (
+          <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
+        )}
       </div>
     </Wrapper>
   );
