@@ -26,7 +26,17 @@ export const ThemedGlobalStyle = createGlobalStyle`
       line-height: ${({ theme }: { theme: DefaultTheme }) => theme.lineHeight.h5};
     }
     p {
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.text1};
+    }
+
+    a{
+      color: inherit;
+      text-decoration: none;
+
+      &:hover{
+        color: inherit;
+        text-decoration: underline;
+      }
     }
 }
 

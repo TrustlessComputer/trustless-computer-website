@@ -10,16 +10,17 @@ import Table from '@/components/Table';
 import { shortenAddress } from '@/utils';
 import { decimalToExponential, exponentialToDecimal, formatCurrency } from '@/utils/format';
 import { log } from 'console';
+import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
+import Spinner from '@/components/Spinner';
 
 type Props = {};
+
+const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
 const Tokens = (props: Props) => {
   const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', 'Creator'];
 
   const { data, error, isLoading } = useSWR(getApiKey(getTokens), getTokens);
-  console.log('🚀 ~ Tokens ~ data:', data);
-
-  // if (!error) return null;
 
   const tokenDatas =
     data &&
@@ -27,15 +28,26 @@ const Tokens = (props: Props) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (token: any, index: number) => {
         const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
+        const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
+        const linkToOwnerExplorer = `${EXPLORER_URL}/address/${token?.owner}`;
 
         return {
           id: `token-${token?.address}}`,
           render: {
             number: index + 1,
-            name: token?.name || '-',
+            name: (
+              <a href={linkTokenExplorer} rel="rel=”noopener noreferrer”" target="_blank">
+                {token?.name || '-'}
+              </a>
+            ),
+
             symbol: token?.symbol || '-',
             supply: totalSupply.toLocaleString(),
-            creator: shortenAddress(token?.owner, 4) || '-',
+            creator: (
+              <a href={linkToOwnerExplorer} rel="rel=”noopener noreferrer”" target="_blank">
+                {shortenAddress(token?.owner, 4) || '-'}
+              </a>
+            ),
           },
         };
       },
@@ -62,7 +74,13 @@ const Tokens = (props: Props) => {
           </Button>
         </div>
       </UploadFileContainer>
-      <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
+      {isLoading ? (
+        <div className="loading">
+          <Spinner />
+        </div>
+      ) : (
+        <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
+      )}
     </StyledTokens>
   );
 };
