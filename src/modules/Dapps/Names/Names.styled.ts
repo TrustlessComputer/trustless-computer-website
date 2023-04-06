@@ -66,7 +66,12 @@ export const FormContainer = styled.div`
 
   .btn {
     margin-left: ${px2rem(24)};
+    padding: 0;
     height: ${px2rem(60)};
+
+    button {
+      height: 100%;
+    }
 
     .button-text {
       padding: ${px2rem(11)} ${px2rem(36)};

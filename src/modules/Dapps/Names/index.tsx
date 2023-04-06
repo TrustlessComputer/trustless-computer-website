@@ -49,7 +49,7 @@ const Names = (props: Props) => {
                 }}
               />
             </div>
-            <div className="btn-sub">
+            <div className="btn">
               <Button bg={'white'} disabled={!nameValidate} onClick={handleClick}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
                   Register

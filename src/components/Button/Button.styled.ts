@@ -9,6 +9,11 @@ export const StyledButton = styled.button<{ bg: string }>`
   padding: 0;
   outline: none;
 
+  &:disabled {
+    background-color: var(--bg-color);
+    opacity: 0.8;
+    cursor: auto;
+  }
   &:hover {
     background-color: var(--bg-color);
     opacity: 0.8;
