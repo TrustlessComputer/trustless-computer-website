@@ -1,25 +1,25 @@
-import { getTokens } from '@/services/token-explorer';
-import { getApiKey } from '@/utils/swr';
-import useSWR from 'swr';
-import { StyledTokens } from './Tokens.styled';
-import { UploadFileContainer } from '../Dapps.styled';
-import Text from '@/components/Text';
-import Button from '@/components/Button';
 import IcBitcoinCloud from '@/assets/icons/ic-bitcoin-cloud.svg';
-import Table from '@/components/Table';
-import { shortenAddress } from '@/utils';
-import { decimalToExponential, exponentialToDecimal, formatCurrency } from '@/utils/format';
-import { log } from 'console';
-import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
+import Button from '@/components/Button';
 import Spinner from '@/components/Spinner';
-
-type Props = {};
+import Table from '@/components/Table';
+import Text from '@/components/Text';
+import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
+import { getTokens } from '@/services/token-explorer';
+import { shortenAddress } from '@/utils';
+import { decimalToExponential } from '@/utils/format';
+import { getApiKey } from '@/utils/swr';
+import { useState } from 'react';
+import useSWR from 'swr';
+import { UploadFileContainer } from '../Dapps.styled';
+import ModalCreateToken from './ModalCreateToken';
+import { StyledTokens } from './Tokens.styled';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
-const Tokens = (props: Props) => {
+const Tokens = () => {
   const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', 'Creator'];
 
+  const [showModal, setShowModal] = useState(false);
   const { data, error, isLoading } = useSWR(getApiKey(getTokens), getTokens);
 
   const tokenDatas =
@@ -67,7 +67,7 @@ const Tokens = (props: Props) => {
           </div>
         </div>
         <div className="upload_right">
-          <Button bg={'white'}>
+          <Button bg={'white'} onClick={() => setShowModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Create BRC-20
             </Text>
@@ -81,6 +81,7 @@ const Tokens = (props: Props) => {
       ) : (
         <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
       )}
+      <ModalCreateToken show={showModal} handleClose={() => setShowModal(false)} />
     </StyledTokens>
   );
 };
