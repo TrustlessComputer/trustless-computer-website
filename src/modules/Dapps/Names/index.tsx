@@ -1,14 +1,26 @@
-import React from 'react';
+import { useState } from 'react';
 import Text from '@/components/Text';
 import Button from '@/components/Button';
 
 import NamesList from './NamesList';
-import { NamesContainer } from '../Dapps.styled';
+import { NamesContainer, FormContainer } from './Names.styled';
 import IcImgName from '@/assets/icons/ic-img-names.svg';
 
 type Props = {};
 
 const Names = (props: Props) => {
+  const [nameValidate, setNameValidate] = useState(false);
+  const [valueInput, setValueInput] = useState('');
+
+  const handleValidate = (name: string) => {
+    console.log(name);
+    if (name) {
+      setNameValidate(true);
+    }
+  };
+  const handleClick = () => {
+    console.log(valueInput);
+  };
   return (
     <>
       <NamesContainer>
@@ -23,6 +35,30 @@ const Names = (props: Props) => {
           </div>
         </div>
       </NamesContainer>
+      <FormContainer>
+        <div className="block_search">
+          <div className="form">
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Enter name, address"
+                value={valueInput}
+                onChange={e => {
+                  setValueInput(e.target.value || '');
+                  handleValidate(e.target.value);
+                }}
+              />
+            </div>
+            <div className="btn-sub">
+              <Button bg={'white'} disabled={!nameValidate} onClick={handleClick}>
+                <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
+                  Register
+                </Text>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </FormContainer>
       <NamesList />
     </>
   );
