@@ -6,6 +6,7 @@ import { getConnection } from '@/connection';
 import { generateBitcoinTaprootKey } from '@/utils/derive-key';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
+import bitcoinStorage from '@/utils/bitcoin-storage';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -69,7 +70,8 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
   useEffect(() => {
     if (user?.walletAddress && !user.walletAddressBtcTaproot) {
-      generateBitcoinKey();
+      const taprootAddress = bitcoinStorage.getUserTaprootAddress(user?.walletAddress);
+      dispatch(updateTaprootWallet(taprootAddress));
     }
   }, [user, generateBitcoinKey]);
 
