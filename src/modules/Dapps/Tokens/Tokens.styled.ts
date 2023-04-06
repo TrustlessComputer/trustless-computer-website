@@ -19,4 +19,10 @@ export const StyledTokens = styled.div`
       padding-bottom: ${px2rem(26)};
     }
   }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
