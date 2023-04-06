@@ -9,15 +9,15 @@ export const MENU_HEADER = [
   },
   {
     id: 'menu-2',
-    name: 'Bitcoin Dapps',
-    route: ROUTE_PATH.DAPPS,
-    activePath: 'dapps',
+    name: 'Use Trustless Computer',
+    route: ROUTE_PATH.USE_TRUSTLESS,
+    activePath: 'use-trustless-computer',
   },
   {
     id: 'menu-3',
-    name: 'Faucet',
-    route: ROUTE_PATH.FAUCET,
-    activePath: 'faucet',
+    name: 'Bitcoin Dapps',
+    route: ROUTE_PATH.DAPPS,
+    activePath: 'dapps',
   },
   {
     id: 'menu-4',

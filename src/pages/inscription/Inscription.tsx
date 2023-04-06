@@ -102,6 +102,7 @@ const Inscription = () => {
               {/* {renderListItem("Owner", inscription?.collectionAddress)} */}
               {renderListItem('Content type', inscription?.contentType)}
               {inscription &&
+                inscription.attributes &&
                 inscription.attributes.length > 0 &&
                 renderProperties(
                   inscription.attributes.sort(function (a, b) {
