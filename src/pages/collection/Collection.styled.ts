@@ -12,6 +12,7 @@ const Container = styled.div`
     flex-direction: column;
     flex: 1;
     margin-top: 24px;
+    width: 100%;
 
     .header {
       display: flex;
@@ -24,6 +25,7 @@ const Container = styled.div`
         flex-direction: row;
         gap: 6vw;
         height: 160px;
+        width: 100%;
       }
 
       .infor-left {
@@ -164,7 +166,6 @@ const Container = styled.div`
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     .content {
-      width: 85%;
 
       .header {
         .image {
@@ -222,24 +223,6 @@ const Container = styled.div`
       .list {
         margin-top: 184px;
       } 
-    }
-  `}
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
-    .content {
-      width: 95%;
-      margin-top: 28px;
-
-      .header {
-  
-        .card-title {
-          
-        }
-  
-        .card-subTitle {
-
-        }
-      }
     }
   `}
 `;
