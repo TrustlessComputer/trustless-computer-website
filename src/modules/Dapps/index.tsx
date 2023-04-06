@@ -38,7 +38,12 @@ const Dapps = () => {
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
-        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
+        <Tabs
+          mountOnEnter
+          defaultActiveKey={activeTab}
+          id="uncontrolled-tab"
+          onSelect={key => setActiveTab(key || DappsTabs.NFT)}
+        >
           <Tab
             eventKey={DappsTabs.NFT}
             title={

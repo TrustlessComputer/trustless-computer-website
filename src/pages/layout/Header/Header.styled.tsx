@@ -74,4 +74,12 @@ const Link = styled.a<{ active: boolean }>`
   }
 `;
 
-export { Wrapper, Link };
+const WalletBalance = styled.div`
+  min-width: ${px2rem(150)};
+  background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
+  padding: ${px2rem(16)};
+  border-radius: ${px2rem(2)};
+  margin-top: ${px2rem(8)};
+`;
+
+export { Wrapper, Link, WalletBalance };

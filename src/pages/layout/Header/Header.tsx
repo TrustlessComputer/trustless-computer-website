@@ -1,9 +1,9 @@
-import { Wrapper, Link } from './Header.styled';
+import { Wrapper, Link, WalletBalance } from './Header.styled';
 import IcLogo from '@/assets/icons/logo.svg';
 import Button from '@/components/Button';
 import styled from 'styled-components';
 import px2rem from '@/utils/px2rem';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import { shortenAddress } from '@/utils';
@@ -12,6 +12,9 @@ import { MENU_HEADER } from '@/constants/header';
 import MenuMobile from './MenuMobile';
 import { gsap } from 'gsap';
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
+import { OverlayTrigger } from 'react-bootstrap';
+import { AssetsContext } from '@/contexts/assets-context';
+import { formatBTCPrice, formatEthPrice } from '@/utils/format';
 
 const ConnectWalletButton = styled(Button)`
   background: #4f43e2;
@@ -31,6 +34,7 @@ const WalletAddress = styled.span`
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
+  const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
 
   const refMenu = useRef<HTMLDivElement | null>(null);
@@ -44,6 +48,16 @@ const Header = ({ height }: { height: number }) => {
     const taproot = await generateBitcoinKey();
     console.log(address, taproot);
   };
+
+  const handleShowBalance = useMemo(() => {
+    return (
+      <WalletBalance className="balance">
+        <p>Balance: </p>
+        <p>{formatBTCPrice('10000000000')} BTC</p>
+        <p>{formatEthPrice('10000000000')} TC</p>
+      </WalletBalance>
+    );
+  }, [btcBalance, juiceBalance]);
 
   useEffect(() => {
     if (refMenu.current) {
@@ -77,11 +91,14 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         {isAuthenticated ? (
-          <WalletAddress>{shortenAddress(account, 4, 4)}</WalletAddress>
+          <div className="wallet">
+            <OverlayTrigger trigger="hover" placement="bottom" overlay={handleShowBalance}>
+              <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress>
+            </OverlayTrigger>
+          </div>
         ) : (
           <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
         )}
-
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />
         </button>

@@ -39,7 +39,7 @@ export const exponentialToDecimal = (exponential: number): string => {
 };
 
 export const decimalToExponential = (decimal: number): number => {
-  return parseFloat(`10e${decimal}`);
+  return parseFloat(`1e${decimal}`);
 };
 
 export const formatCurrency = (value: number): string => {
