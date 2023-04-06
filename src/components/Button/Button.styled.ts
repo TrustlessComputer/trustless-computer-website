@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import { ButtonProps } from './index';
+import { ButtonProps } from '.';
 
 export const StyledButton = styled(Button)<ButtonProps>`
   --bg-color: ${({ bg, theme }) => (bg ? (theme as any)[bg] : theme.white)};

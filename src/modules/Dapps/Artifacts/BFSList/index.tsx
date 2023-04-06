@@ -48,31 +48,6 @@ const BFSList = () => {
   return (
     <Container>
       <div className="content">
-        {/* <div className="header">
-          {collection && (
-            <div className="infor">
-              <div className="infor-left">
-                <WrapImage alt="collection" className="image" src={collection?.thumbnail} />
-                <div>
-                  <p className="title">{collection?.name}</p>
-                  <p className="subTitle">{collection?.description}</p>
-                </div>
-              </div>
-              <div className="infor-right">
-                <div>
-                  <p className="owner">OWNER</p>
-                  <p className="address">{collection?.creator}</p>
-                </div>
-                <div className="row">
-                  <div>
-                    <p className="owner">ITEMS</p>
-                    <p className="address">{collection?.totalItems}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div> */}
         <div>
           <InfiniteScroll
             className="list"
