@@ -10,8 +10,8 @@ import useAsyncEffect from 'use-async-effect';
 import { useWeb3React } from '@web3-react/core';
 
 export interface IAssetsContext {
-  btcBalance: number;
-  juiceBalance: number;
+  btcBalance: string;
+  juiceBalance: string;
   currentAssets: ICollectedUTXOResp | undefined;
   assets: ICollectedUTXOResp | undefined;
   isLoadingAssets: boolean;
@@ -27,8 +27,8 @@ export interface IAssetsContext {
 }
 
 const initialValue: IAssetsContext = {
-  btcBalance: 0,
-  juiceBalance: 0,
+  btcBalance: '0',
+  juiceBalance: '0',
   currentAssets: undefined,
   assets: undefined,
   isLoadingAssets: false,
@@ -61,8 +61,8 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [currentAssets, setCurrentAssets] = useState<ICollectedUTXOResp | undefined>();
   const [isLoadingAssets, setIsLoadingAssets] = useState<boolean>(false);
   const [isLoadedAssets, setIsLoadedAssets] = useState<boolean>(false);
-  const [btcBalance, setBtcBalance] = useState(0);
-  const [juiceBalance, setJuiceBalance] = useState(0);
+  const [btcBalance, setBtcBalance] = useState('0');
+  const [juiceBalance, setJuiceBalance] = useState('0');
 
   // History
   const [history, setHistory] = useState<ITxHistory[]>([]);
@@ -75,6 +75,9 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   });
   const [comingAmount, setcomingAmount] = useState<number>(0);
   const [eth2btcRate, setEth2BtcRate] = useState<number>(0);
+
+  console.log('btcBalance', btcBalance);
+  console.log('juiceBalance', juiceBalance);
 
   const fetchAssets = async (): Promise<ICollectedUTXOResp | undefined> => {
     if (!currentAddress) return undefined;
@@ -131,11 +134,11 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     try {
       if (currentAddress) {
         const balance = await getBtcBalance(currentAddress);
-        setBtcBalance(balance);
+        setBtcBalance(balance.toString());
       }
     } catch (err) {
       console.log(err);
-      setBtcBalance(0);
+      setBtcBalance('0');
     }
   };
 
@@ -187,7 +190,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   useAsyncEffect(async () => {
     if (user?.walletAddress && provider) {
       const balance = await provider.getBalance(user.walletAddress);
-      setJuiceBalance(balance.toNumber());
+      setJuiceBalance(balance.toString());
     }
   }, [user, provider]);
 
