@@ -15,7 +15,7 @@ const UseTrustless = () => {
       title: 'Setup a wallet',
       content: 'A wallet lets you connect to Trustless Computer and manage your funds.',
       element: <Button onClick={() => !account && onConnect()}>Setup a wallet</Button>,
-      image: '/images/use-trustless-banner-1.jpg',
+      image: '/images/use-trustless-banner-1.png',
     },
     {
       name: 'Step 2',
@@ -26,7 +26,7 @@ const UseTrustless = () => {
           <a href={ROUTE_PATH.FAUCET}>Get TC</a>
         </Button>
       ),
-      image: '/images/use-trustless-banner-2.jpg',
+      image: '/images/use-trustless-banner-2.png',
     },
     {
       name: 'Step 3',
@@ -37,7 +37,7 @@ const UseTrustless = () => {
           <a href={ROUTE_PATH.DAPPS}>Explore Dapp Store</a>
         </Button>
       ),
-      image: '/images/use-trustless-banner-3.jpg',
+      image: '/images/use-trustless-banner-3.png',
     },
   ];
 
