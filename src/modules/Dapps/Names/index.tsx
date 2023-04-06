@@ -19,7 +19,7 @@ const Names = (props: Props) => {
       setNameValidate(true);
     }
   };
-  const handleClick = () => {
+  const handleRegistered = () => {
     // todo register name call smart contract
     console.log(valueInput);
   };
@@ -52,7 +52,7 @@ const Names = (props: Props) => {
               />
             </div>
             <div className="btn">
-              <Button bg={'white'} disabled={!nameValidate} onClick={handleClick}>
+              <Button bg={'white'} disabled={!nameValidate} onClick={handleRegistered}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
                   Register
                 </Text>
