@@ -1,8 +1,10 @@
+import { Buffer } from 'buffer';
+
 export const readFileAsBuffer = (file: File): Promise<string | ArrayBuffer | null> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const buffer = reader.result;
+      const buffer = Buffer.from(reader.result as string);
       resolve(buffer);
     };
     reader.onerror = (err: unknown) => {

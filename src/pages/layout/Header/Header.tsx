@@ -53,11 +53,13 @@ const Header = ({ height }: { height: number }) => {
         <a className="iconContainer" href="https://twitter.com/DappsOnBitcoin">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
-        {isAuthenticated ? (
+        <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
+
+        {/* {isAuthenticated ? (
           <WalletAddress>{shortenAddress(account, 4, 4)}</WalletAddress>
         ) : (
           <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
-        )}
+        )} */}
       </div>
     </Wrapper>
   );
