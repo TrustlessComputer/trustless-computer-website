@@ -19,6 +19,7 @@ const ConnectWalletButton = styled(Button)`
   color: #fff;
   font-size: ${px2rem(14)};
   line-height: ${px2rem(24)};
+  font-weight: 400;
 `;
 
 const WalletAddress = styled.span`

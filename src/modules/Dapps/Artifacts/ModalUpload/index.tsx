@@ -28,7 +28,6 @@ const ModalUpload = (props: Props) => {
   const { account } = useWeb3React();
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
-  console.log('🚀 ~ ModalUpload ~ preview:', preview);
   const [error, setError] = useState<string | null>(null);
   const { run } = useContractOperation<IPreserveChunkParams, string | null>({
     operation: usePreserveChunks,
@@ -50,7 +49,6 @@ const ModalUpload = (props: Props) => {
     setError('');
     // onChange(file);
   };
-  console.log('🚀 ~ onChangeFile ~ file:', file);
 
   const onSizeError = (): void => {
     setError(`File size error, maximum file size is ${MINT_TOOL_MAX_FILE_SIZE * 1000}KB.`);

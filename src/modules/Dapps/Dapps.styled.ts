@@ -4,16 +4,23 @@ import styled, { DefaultTheme } from 'styled-components';
 export const DappsContainer = styled.div``;
 
 export const TabContainer = styled.div`
-  margin-bottom: ${px2rem(40)};
-
   .nav-tabs {
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: ${px2rem(40)};
+    margin-top: ${px2rem(40)};
 
     .nav-link {
       opacity: 0.5;
+      padding: 0 ${px2rem(37.5)};
+      border: none;
+      transition: 0.2s ease;
+
+      &:hover {
+        opacity: 0.75;
+      }
     }
 
     .nav-link.active {

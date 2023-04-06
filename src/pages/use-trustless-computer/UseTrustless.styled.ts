@@ -85,6 +85,26 @@ const RightStep = styled.div`
   `}
 `;
 
+const Link = styled.a`
+  padding: ${px2rem(16)} ${px2rem(24)};
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+  border-radius: ${px2rem(2)};
+  text-decoration: none;
+  width: fit-content;
+
+  font-weight: 500;
+  font-size: ${px2rem(18)};
+  line-height: ${px2rem(26)};
+  align-items: center;
+  letter-spacing: 0.01em;
+  color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
+
+  :hover {
+    background: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.black};
+  }
+`;
+
 const Button = styled.div`
   padding: ${px2rem(16)} ${px2rem(24)};
   background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
@@ -97,21 +117,6 @@ const Button = styled.div`
   align-items: center;
   letter-spacing: 0.01em;
   cursor: pointer;
-
-  a {
-    text-decoration: none;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
-    font-weight: 500;
-    font-size: ${px2rem(18)};
-    line-height: ${px2rem(26)};
-    align-items: center;
-    letter-spacing: 0.01em;
-  }
-
-  :hover {
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.black};
-  }
 `;
 
-export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button };
+export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Link, Button };
