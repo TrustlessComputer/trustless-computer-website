@@ -93,6 +93,7 @@ const NFTDisplayBox = ({
         case 'image/svg':
         case 'image/svg+xml':
         case 'image/webp':
+        case 'link/https':
           setHTMLContentRender(renderImage(content));
           return;
         case 'application/json':

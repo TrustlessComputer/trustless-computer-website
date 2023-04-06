@@ -59,6 +59,7 @@ const Container = styled.div`
 
       height: auto;
       flex-direction: column-reverse;
+      margin-top: 32px;
     }
 
     .btnFaq {
