@@ -11,6 +11,7 @@ import IcCheck from '@/assets/icons/ic-check.svg';
 import IcCloseModal from '@/assets/icons/ic-close.svg';
 import Button from '@/components/Button';
 import { WalletContext } from '@/contexts/wallet-context';
+import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 
 type Props = {
   show: boolean;
@@ -25,6 +26,7 @@ const ModalUpload = (props: Props) => {
   const { onConnect } = useContext(WalletContext);
 
   const [preview, setPreview] = useState<string | null>(null);
+  console.log('🚀 ~ ModalUpload ~ preview:', preview);
   const [error, setError] = useState<string | null>(null);
 
   const onChangeFile = (file: File): void => {
@@ -32,6 +34,7 @@ const ModalUpload = (props: Props) => {
     setError('');
     // onChange(file);
   };
+  console.log('🚀 ~ onChangeFile ~ file:', file);
 
   const onSizeError = (): void => {
     setError(`File size error, maximum file size is ${MINT_TOOL_MAX_FILE_SIZE * 1000}KB.`);
@@ -70,7 +73,10 @@ const ModalUpload = (props: Props) => {
             {file && (
               <div className="preview-wrapper">
                 {preview ? (
-                  <img src={preview} alt="thumbnail preview" />
+                  // <img src={preview} alt="thumbnail preview" />
+                  <div className="thumbnail-wrapper">
+                    <MediaPreview previewExt={file?.name?.split('.')?.pop() || ''} previewUrl={preview} />
+                  </div>
                 ) : (
                   <img src={DefaultUploadImage} alt="default upload image"></img>
                 )}
