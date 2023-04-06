@@ -18,6 +18,7 @@ type IMAGE_TYPE =
   | 'image/svg' // Image
   | 'image/svg+xml' // Image
   | 'image/webp' // Image
+  | 'link/https' // Image
   | 'video/mp4' // https://www.w3schools.com/html/html5_video.asp
   | 'video/webm'; // https://www.w3schools.com/html/html5_video.asp
 

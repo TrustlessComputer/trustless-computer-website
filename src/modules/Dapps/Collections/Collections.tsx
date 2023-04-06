@@ -10,7 +10,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
-import Spinner from '@/components/Spinner';
+import Spinner from 'react-bootstrap/Spinner';
 
 const LIMIT_PAGE = 32;
 
@@ -56,7 +56,7 @@ const Collections = () => {
             loader={
               isFetching && (
                 <div className="loading">
-                  <Spinner />
+                  <Spinner animation="border" variant="primary" />
                 </div>
               )
             }
