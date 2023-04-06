@@ -1,7 +1,7 @@
 import styled, { DefaultTheme } from 'styled-components';
+import px2rem from '@/utils/px2rem';
 
 import IcDiscord from '@/assets/icons/ic_discord.svg';
-// import IcGithub from "./icons/ic-github.svg";
 import IcTwitter from '@/assets/icons/ic_twitter.svg';
 
 const Wrapper = styled.div`
@@ -9,14 +9,15 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 140px;
+  margin-top: ${px2rem(140)};
 
   .text {
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 26px;
-    color: #ffffff;
+    font-size: ${px2rem(16)};
+    line-height: ${px2rem(26)};
+    margin-right: ${px2rem(16)};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   }
 
   .buttonContainer {
@@ -24,11 +25,11 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
 
-    gap: 8px;
+    gap: ${px2rem(8)};
 
     .icon {
-      width: 34px;
-      height: 34px;
+      width: ${px2rem(34)};
+      height: ${px2rem(34)};
       cursor: pointer;
 
       :hover {

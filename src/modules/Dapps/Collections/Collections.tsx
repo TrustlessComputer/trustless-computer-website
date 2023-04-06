@@ -2,7 +2,7 @@
 import WrapImage from '@/components/WrapImage';
 import { ICollection } from '@/models/collection';
 import { debounce } from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -11,6 +11,11 @@ import { Container } from './Collections.styled';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import Spinner from 'react-bootstrap/Spinner';
+import { ARTIFACT_CONTRACT } from '@/configs';
+import Text from '@/components/Text';
+import Button from '@/components/Button';
+import IcBitcoinCloud from '@/assets/icons/ic-bitcoin-721.svg';
+import { UploadFileContainer } from '../Dapps.styled';
 
 const LIMIT_PAGE = 32;
 
@@ -45,13 +50,37 @@ const Collections = () => {
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
 
+  const showCollections = useMemo(
+    () => collections.filter(item => item.totalItems > 0 && item.contract !== ARTIFACT_CONTRACT),
+    [collections],
+  );
+
   return (
     <Container>
+      <UploadFileContainer>
+        <div className="upload_left">
+          <img src={IcBitcoinCloud} alt="upload file icon" />
+          <div className="upload_content">
+            <h3 className="upload_title">BRC-721 on Bitcoin</h3>
+            <Text size="regular" maxWidth="65%">
+              BRC-721 is the standard for Non-Fungible Tokens (NFT) on Bitcoin. You can use it for collectible items,
+              memberships, in-game items, and more.
+            </Text>
+          </div>
+        </div>
+        <div className="upload_right">
+          <Button bg={'white'}>
+            <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
+              Create BRC-721
+            </Text>
+          </Button>
+        </div>
+      </UploadFileContainer>
       <div className="content">
         <div>
           <InfiniteScroll
             className="list"
-            dataLength={collections.length}
+            dataLength={showCollections.length}
             hasMore={true}
             loader={
               isFetching && (
@@ -73,8 +102,8 @@ const Collections = () => {
               }}
             >
               <Masonry gutter="24px">
-                {collections.length > 0 &&
-                  collections.map((item, index) => {
+                {showCollections.length > 0 &&
+                  showCollections.map((item, index) => {
                     return (
                       <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                         <div className="card-content">
@@ -84,6 +113,7 @@ const Collections = () => {
                           <div className="card-info">
                             <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
                             <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
+                            <p className="card-index">Collection #{index + 1}</p>
                           </div>
                         </div>
                       </a>
