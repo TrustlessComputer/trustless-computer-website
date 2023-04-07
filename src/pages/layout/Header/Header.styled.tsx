@@ -78,6 +78,7 @@ const Link = styled.a<{ active: boolean }>`
   text-decoration: none !important;
 
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
+  font-family: 'IBMPlexMono';
 
   :hover {
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};

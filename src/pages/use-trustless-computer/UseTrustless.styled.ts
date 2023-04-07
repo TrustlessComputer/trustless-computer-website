@@ -12,6 +12,7 @@ const Container = styled.div`
     font-size: ${px2rem(54)};
     line-height: ${px2rem(64)};
     text-align: center;
+    font-family: 'IBMPlexMono' !important;
   }
 
   .subTitle {
@@ -69,6 +70,7 @@ const RightStep = styled.div`
   .text {
     font-size: ${px2rem(54)};
     line-height: ${px2rem(64)};
+    font-family: 'IBMPlexMono' !important;
   }
 
   .desc {
@@ -111,6 +113,7 @@ const Button = styled.div`
   background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   border-radius: ${px2rem(2)};
   width: fit-content;
+  font-family: 'IBMPlexMono' !important;
 
   font-weight: 500;
   font-size: ${px2rem(18)};
