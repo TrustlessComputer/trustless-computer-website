@@ -106,16 +106,19 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       esbuildOptions: {
-        target: "esnext",
+        target: 'esnext',
         define: {
-          global: 'globalThis'
+          global: 'globalThis',
         },
         supported: {
-          bigint: true
+          bigint: true,
         },
       },
       plugins: [
-      ]
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
     },
   };
 });
