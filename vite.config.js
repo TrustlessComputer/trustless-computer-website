@@ -6,6 +6,7 @@ import checker from 'vite-plugin-checker';
 import path from 'path';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 
 import { dependencies } from './package.json';
 function renderChunks(deps) {
@@ -60,7 +61,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src/'),
-        stream: 'stream-browserify'
+        stream: 'stream-browserify',
       },
     },
     css: {
@@ -81,7 +82,7 @@ export default defineConfig(({ mode }) => {
       __CLIENT__: true,
     },
     build: {
-      target: ["esnext"], // 👈 build.target
+      target: ['esnext'], // 👈 build.target
       sourcemap: false,
       rollupOptions: {
         output: {
@@ -103,16 +104,19 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       esbuildOptions: {
-        target: "esnext",
+        target: 'esnext',
         define: {
-          global: 'globalThis'
+          global: 'globalThis',
         },
         supported: {
-          bigint: true
+          bigint: true,
         },
       },
       plugins: [
-      ]
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
     },
   };
 });
