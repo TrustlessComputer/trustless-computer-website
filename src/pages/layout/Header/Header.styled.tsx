@@ -31,7 +31,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: ${px2rem(28)};
+    gap: ${px2rem(32)};
   }
 
   .rightContainer {
