@@ -5,8 +5,8 @@ import { swrFetcher } from '@/utils/swr';
 
 const API_PATH = API_URL + '/nft-explorer';
 
-export const getCollections = (page: number, limit: number): Promise<ICollection[]> =>
-  swrFetcher(`${API_PATH}/collections?limit=${limit}&page=${page}`, {
+export const getCollections = (page: number, limit: number, isShowAll: boolean): Promise<ICollection[]> =>
+  swrFetcher(`${API_PATH}/collections?limit=${limit}&page=${page}&allow_empty=${isShowAll}`, {
     method: 'GET',
   });
 

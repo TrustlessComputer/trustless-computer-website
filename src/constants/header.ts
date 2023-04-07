@@ -3,7 +3,7 @@ import { ROUTE_PATH } from '@/constants/route-path';
 export const MENU_HEADER = [
   {
     id: 'menu-1',
-    name: 'Developer',
+    name: 'Developers',
     route: ROUTE_PATH.HOME,
     activePath: '',
   },
@@ -21,6 +21,12 @@ export const MENU_HEADER = [
   },
   {
     id: 'menu-4',
+    name: 'Faucet',
+    route: ROUTE_PATH.FAUCET,
+    activePath: 'faucet',
+  },
+  {
+    id: 'menu-5',
     name: 'Explorer',
     route: 'https://explorer.trustless.computer',
     activePath: 'explorer',

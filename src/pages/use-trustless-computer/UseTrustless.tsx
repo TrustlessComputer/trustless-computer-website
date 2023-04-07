@@ -15,21 +15,21 @@ const UseTrustless = () => {
       title: 'Setup a wallet',
       content: 'A wallet lets you connect to Trustless Computer and manage your funds.',
       element: <Button onClick={() => !account && onConnect()}>Setup a wallet</Button>,
-      image: '/images/use-trustless-banner-1.png',
+      image: '/images/use-trustless-banner1.png',
     },
     {
       name: 'Step 2',
       title: 'Get TC',
       content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
       element: <Link href={ROUTE_PATH.FAUCET}>Get TC</Link>,
-      image: '/images/use-trustless-banner-2.png',
+      image: '/images/use-trustless-banner2.png',
     },
     {
       name: 'Step 3',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
       element: <Link href={ROUTE_PATH.DAPPS}>Explore Dapp Store</Link>,
-      image: '/images/use-trustless-banner-3.png',
+      image: '/images/use-trustless-banner3.png',
     },
   ];
 

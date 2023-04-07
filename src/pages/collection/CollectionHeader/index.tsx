@@ -1,8 +1,8 @@
-import IcTwitter from '@/assets/icons/ic_twitter_black.svg';
 import IcDiscord from '@/assets/icons/ic_discord_black.svg';
+import IcTwitter from '@/assets/icons/ic_twitter_black.svg';
 import IcWebsite from '@/assets/icons/ic_website_black.svg';
 import IconSVG from '@/components/IconSVG';
-import WrapImage from '@/components/WrapImage';
+import NFTDisplayBox from '@/components/NFTDisplayBox';
 import { ICollection } from '@/models/collection';
 import React from 'react';
 import { Container } from './CollectionHeader.styled';
@@ -19,7 +19,7 @@ const CollectionHeader = (props: ICollectionHeader) => {
       {collection && (
         <div className="infor">
           <div className="infor-left">
-            <WrapImage alt="collection" className="image" src={collection?.thumbnail} />
+            <NFTDisplayBox contentClass="image" src={collection?.thumbnail} />
             <div>
               <p className="title">{collection?.name}</p>
               <p className="subTitle">{collection?.description}</p>
@@ -66,13 +66,17 @@ const CollectionHeader = (props: ICollectionHeader) => {
               </a>
             </div>
             <div className="row-bottom">
-              {/* <div>
+              <div>
                 <p className="owner">COLLECTION NUMBER</p>
-                <p className="address">#{collection?.totalItems}</p>
-              </div> */}
+                <p className="address">#{collection?.index}</p>
+              </div>
               <div>
                 <p className="owner">ITEMS</p>
                 <p className="address">{collection?.totalItems}</p>
+              </div>
+              <div>
+                <p className="owner">BLOCK</p>
+                <p className="address">{collection?.deployedAtBlock}</p>
               </div>
             </div>
           </div>
