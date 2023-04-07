@@ -48,52 +48,50 @@ const Collections = () => {
 
   return (
     <Container>
-      <div>
-        <InfiniteScroll
-          className="list"
-          dataLength={showCollections.length}
-          hasMore={true}
-          loader={
-            isFetching && (
-              <div className="loading">
-                <Spinner animation="border" variant="primary" />
-              </div>
-            )
-          }
-          next={debounceLoadMore}
+      <InfiniteScroll
+        className="list"
+        dataLength={showCollections.length}
+        hasMore={true}
+        loader={
+          isFetching && (
+            <div className="loading">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )
+        }
+        next={debounceLoadMore}
+      >
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{
+            350: 1,
+            750: 2,
+            900: 3,
+            1240: 4,
+            2500: 5,
+            3000: 5,
+          }}
         >
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              350: 1,
-              750: 2,
-              900: 3,
-              1240: 4,
-              2500: 5,
-              3000: 5,
-            }}
-          >
-            <Masonry gutter="24px">
-              {showCollections.length > 0 &&
-                showCollections.map((item, index) => {
-                  return (
-                    <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
-                      <div className="card-content">
-                        <div className="card-image">
-                          <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
-                        </div>
-                        <div className="card-info">
-                          <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
-                          <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
-                          <p className="card-index">Collection #{index + 1}</p>
-                        </div>
+          <Masonry gutter="24px">
+            {showCollections.length > 0 &&
+              showCollections.map((item, index) => {
+                return (
+                  <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
+                    <div className="card-content">
+                      <div className="card-image">
+                        <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
                       </div>
-                    </a>
-                  );
-                })}
-            </Masonry>
-          </ResponsiveMasonry>
-        </InfiniteScroll>
-      </div>
+                      <div className="card-info">
+                        <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
+                        <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
+                        <p className="card-index">Collection #{index + 1}</p>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+          </Masonry>
+        </ResponsiveMasonry>
+      </InfiniteScroll>
     </Container>
   );
 };

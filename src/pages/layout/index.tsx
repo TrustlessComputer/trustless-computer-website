@@ -12,15 +12,9 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 6%;
+  padding-right: 6%;
   background-color: ${({ theme }) => theme.bg1};
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-      padding-left: 7%;
-      padding-right: 7%;
-
-  `}
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
       padding-left: 4%;

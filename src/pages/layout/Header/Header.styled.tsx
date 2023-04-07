@@ -89,7 +89,7 @@ const WalletBalance = styled.div`
   display: flex;
   align-items: center;
   gap: ${px2rem(12)};
-  padding: ${px2rem(7)} ${px2rem(12)};
+  padding: ${px2rem(4)} ${px2rem(8)};
   border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 40px;
