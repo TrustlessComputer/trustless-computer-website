@@ -14,7 +14,7 @@ export const TabContainer = styled.div`
 
     .nav-link {
       opacity: 0.5;
-      padding: 0 ${px2rem(37.5)};
+      padding: 0 ${px2rem(24)};
       border: none;
       transition: 0.2s ease;
 

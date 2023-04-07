@@ -5,7 +5,7 @@ import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { List, Spin } from 'antd';
 import { debounce } from 'lodash';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
@@ -45,6 +45,11 @@ const BFSList = () => {
     }
   };
 
+  const formatItemName = (name: string, type: string) => {
+    const fileTypeList = type.split('/');
+    const fileType = fileTypeList[fileTypeList.length - 1];
+    return name ? `${name}.${fileType}` : type;
+  };
   return (
     <Container>
       <div className="content">
@@ -84,7 +89,7 @@ const BFSList = () => {
                           />
                         </div>
                         <div className="card-info">
-                          <p className="card-title">{item.name}</p>
+                          <p className="card-title">{formatItemName(item.name, item.contentType)}</p>
                           <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
                           <p className="card-subTitle">File #{item.tokenId}</p>
                         </div>

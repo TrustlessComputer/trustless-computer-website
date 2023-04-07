@@ -1,9 +1,14 @@
-import { MENU_HEADER } from '@/constants/header';
-import React, { ForwardedRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Link } from '../Header.styled';
-import { Wrapper } from './MenuMobile.styled';
+import IcAvatarDefault from '@/assets/icons/ic-avatar.svg';
 import IcMenuClose from '@/assets/icons/ic_close_menu.svg';
+import { MENU_HEADER } from '@/constants/header';
+import { AssetsContext } from '@/contexts/assets-context';
+import { WalletContext } from '@/contexts/wallet-context';
+import { formatBTCPrice, formatEthPrice } from '@/utils/format';
+import { useWeb3React } from '@web3-react/core';
+import React, { ForwardedRef, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ConnectWalletButton, Link, WalletBalance } from '../Header.styled';
+import { Wrapper } from './MenuMobile.styled';
 
 import IcDiscord from '@/assets/icons/ic_discord.svg';
 import IcTwitter from '@/assets/icons/ic_twitter.svg';
@@ -16,6 +21,11 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
 
+  const { account } = useWeb3React();
+  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
+  const { btcBalance, juiceBalance } = useContext(AssetsContext);
+  const isAuthenticated = !!account;
+
   return (
     <Wrapper ref={ref}>
       <div className="inner">
@@ -24,19 +34,28 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
         </button>
         {MENU_HEADER.map(item => {
           return (
-            <Link active={activePath === item.activePath} href={item.route} target={item.target}>
+            <Link active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
               {item.name}
             </Link>
           );
         })}
-        <div className="social">
-          <a href="https://discord.gg/tscNGxEw2s" target="_blank">
-            <img alt="icon" className="icon" src={IcDiscord} />
-          </a>
-          <a href="https://twitter.com/DappsOnBitcoin" target="_blank">
-            <img alt="icon" className="icon" src={IcTwitter} />
-          </a>
-        </div>
+        {isAuthenticated ? (
+          <div className="wallet mobile">
+            <WalletBalance>
+              <div className="balance">
+                <p>{formatBTCPrice('10000000000')} BTC</p>
+                <span className="divider"></span>
+                <p>{formatEthPrice('10000000000')} TC</p>
+              </div>
+              <div className="avatar">
+                <img src={IcAvatarDefault} alt="default avatar" />
+              </div>
+            </WalletBalance>
+            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
+          </div>
+        ) : (
+          <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
+        )}
       </div>
     </Wrapper>
   );

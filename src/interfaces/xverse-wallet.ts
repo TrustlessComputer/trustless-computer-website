@@ -1,4 +1,4 @@
-export interface IXverseWalletStorage {
+export type XverseWallet = {
   address: string;
   publicKey: string;
-}
+};
