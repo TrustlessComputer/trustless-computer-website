@@ -10,6 +10,7 @@ import Skeleton from '../Skeleton';
 interface IProps {
   className?: string;
   contentClass?: string;
+  src?: string;
   type?: IMAGE_TYPE;
   collectionID?: string;
   tokenID?: string;
@@ -21,6 +22,7 @@ interface IProps {
 const NFTDisplayBox = ({
   className,
   contentClass,
+  src,
   type,
   collectionID,
   tokenID,
@@ -43,7 +45,7 @@ const NFTDisplayBox = ({
   const [HTMLContentRender, setHTMLContentRender] = useState<JSX.Element>();
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const defaultImage = CDN_URL + '/default.png';
+  const defaultImage = CDN_URL + '/images/default_thumbnail.png';
 
   const contentClassName = cs(contentClass);
 
@@ -118,53 +120,48 @@ const NFTDisplayBox = ({
   const renderEmpty = () => <img alt={tokenID} className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (isError) {
-      setHTMLContentRender(renderEmpty());
-    } else {
-      if (collectionID && tokenID) {
-        const content = getURLContent(collectionID, tokenID);
-        switch (type) {
-          case 'audio/mpeg':
-          case 'audio/wav':
-            setHTMLContentRender(renderAudio(content));
-            return;
-          case 'video/mp4':
-          case 'video/webm':
-            setHTMLContentRender(renderVideo(content));
-            return;
-          case 'image/apng':
-          case 'image/avif':
-          case 'image/gif':
-          case 'image/jpeg':
-          case 'image/png':
-          case 'image/svg':
-          case 'image/svg+xml':
-          case 'image/webp':
-          case 'link/https':
-            setHTMLContentRender(renderImage(content));
-            return;
-          case 'application/json':
-          case 'application/pgp-signature':
-          case 'application/yaml':
-          case 'audio/flac':
-          case 'application/pdf':
-          case 'text/plain;charset=utf-8':
-            setHTMLContentRender(renderIframe(content));
-            return;
-          default:
-            setHTMLContentRender(renderIframe(content));
-            return;
-        }
+    if (src) {
+      setHTMLContentRender(renderImage(src));
+    } else if (collectionID && tokenID) {
+      const content = getURLContent(collectionID, tokenID);
+      switch (type) {
+        case 'audio/mpeg':
+        case 'audio/wav':
+          setHTMLContentRender(renderAudio(content));
+          return;
+        case 'video/mp4':
+        case 'video/webm':
+          setHTMLContentRender(renderVideo(content));
+          return;
+        case 'image/apng':
+        case 'image/avif':
+        case 'image/gif':
+        case 'image/jpeg':
+        case 'image/png':
+        case 'image/svg':
+        case 'image/svg+xml':
+        case 'image/webp':
+        case 'link/https':
+          setHTMLContentRender(renderImage(content));
+          return;
+        case 'application/json':
+        case 'application/pgp-signature':
+        case 'application/yaml':
+        case 'audio/flac':
+        case 'application/pdf':
+        case 'text/plain;charset=utf-8':
+          setHTMLContentRender(renderIframe(content));
+          return;
+        default:
+          setHTMLContentRender(renderIframe(content));
+          return;
       }
+    } else {
+      setHTMLContentRender(renderEmpty());
     }
-  }, [collectionID, tokenID]);
+  }, [collectionID, tokenID, src]);
 
-  return (
-    <div className={cs(s.wrapper, className)}>
-      {HTMLContentRender && HTMLContentRender}
-      {!isLoaded && renderLoading()}
-    </div>
-  );
+  return <div className={cs(s.wrapper, className)}>{HTMLContentRender && HTMLContentRender}</div>;
 };
 
 export default React.memo(NFTDisplayBox);
