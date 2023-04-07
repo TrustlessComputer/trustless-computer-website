@@ -91,6 +91,7 @@ export default defineConfig(({ mode }) => {
             ...renderChunks(dependencies),
           },
         },
+        plugins: [inject({ Buffer: ['Buffer', 'Buffer'] })],
       },
       commonjsOptions: {
         transformMixedEsModules: true,
