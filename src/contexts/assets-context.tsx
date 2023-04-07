@@ -76,9 +76,6 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [comingAmount, setcomingAmount] = useState<number>(0);
   const [eth2btcRate, setEth2BtcRate] = useState<number>(0);
 
-  console.log('btcBalance', btcBalance);
-  console.log('juiceBalance', juiceBalance);
-
   const fetchAssets = async (): Promise<ICollectedUTXOResp | undefined> => {
     if (!currentAddress) return undefined;
     let _assets = undefined;
