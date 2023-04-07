@@ -10,6 +10,9 @@ import { useLocation } from 'react-router-dom';
 import { ConnectWalletButton, Link, WalletBalance } from '../Header.styled';
 import { Wrapper } from './MenuMobile.styled';
 
+import IcDiscord from '@/assets/icons/ic_discord.svg';
+import IcTwitter from '@/assets/icons/ic_twitter.svg';
+
 interface IProp {
   onCloseMenu: () => void;
 }
@@ -31,7 +34,7 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
         </button>
         {MENU_HEADER.map(item => {
           return (
-            <Link active={activePath === item.activePath} href={item.route} key={item.id}>
+            <Link active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
               {item.name}
             </Link>
           );
