@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import { getBtcBalance } from '@/services/quicknode';
 import useAsyncEffect from 'use-async-effect';
 import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
 
 export interface IAssetsContext {
   btcBalance: string;
@@ -76,9 +77,6 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [comingAmount, setcomingAmount] = useState<number>(0);
   const [eth2btcRate, setEth2BtcRate] = useState<number>(0);
 
-  console.log('btcBalance', btcBalance);
-  console.log('juiceBalance', juiceBalance);
-
   const fetchAssets = async (): Promise<ICollectedUTXOResp | undefined> => {
     if (!currentAddress) return undefined;
     let _assets = undefined;
@@ -144,10 +142,12 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
   const getAvailableAssetsCreateTx = async () => {
     const [assets, pendingUTXOs] = await Promise.all([await fetchAssets(), await getPendingUTXOs(currentAddress)]);
-
+    console.log('aaaaa', assets);
     // Current assets
     let _currentAssets = undefined;
     if (assets) {
+      console.log('bbbbbb', assets);
+      console.log('bbbbbb', pendingUTXOs);
       _currentAssets = currentAssetsBuilder({
         current: assets,
         pending: pendingUTXOs,

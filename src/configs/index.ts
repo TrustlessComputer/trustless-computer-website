@@ -10,4 +10,4 @@ export const API_FAUCET: string = ENVS.VITE_API_FAUCET;
 // Contract configs
 export const ARTIFACT_CONTRACT: string = ENVS.VITE_ARTIFACT_CONTRACT;
 export const BNS_CONTRACT: string = ENVS.VITE_BNS_CONTRACT;
-export const BFS_ADDRESS: string = ENVS.VITE_BFS_ADDRESS;
+export const BFS_ADDRESS: string = ENVS.VITE_BFS_CONTRACT;

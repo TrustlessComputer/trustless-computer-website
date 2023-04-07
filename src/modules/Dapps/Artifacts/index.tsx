@@ -40,7 +40,8 @@ const Artifacts = (props: Props) => {
         <div className="upload_right">
           <Button
             bg={'white'}
-            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
+            // onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
+            onClick={() => setShowUploadModal(true)}
           >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Upload file

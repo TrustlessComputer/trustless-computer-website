@@ -23,7 +23,6 @@ import MenuMobile from './MenuMobile';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  console.log('🚀 ~ Header ~ account:', account);
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
@@ -33,12 +32,6 @@ const Header = ({ height }: { height: number }) => {
 
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-
-  const handleConnect = async () => {
-    const address = await onConnect();
-    const taproot = await generateBitcoinKey();
-    console.log(address, taproot);
-  };
 
   const handleShowAddress = (address: string) => {
     return (

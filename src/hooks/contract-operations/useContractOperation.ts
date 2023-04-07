@@ -22,11 +22,11 @@ interface IContractOperationReturn<P, R> {
 const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
   const { call } = operation();
-  const { feeRate } = useContext(AssetsContext);
+  const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
   const { chainId: walletChainId, connector } = useWeb3React();
   const { onConnect: onConnectMetamask } = useContext(WalletContext);
   const user = useSelector(getUserSelector);
-  const { getNonceInscribeable, createInscribeTx } = useBitcoin();
+  const { createInscribeTx, getUnInscribedTransactionByAddress } = useBitcoin();
 
   const connectWallet = async () => {
     try {
@@ -46,12 +46,6 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
     }
   };
 
-  // const getTransactionHex = async (txHash: string): Promise<string | null> => {
-  //   const web3 = new CustomWeb3Provider(TC_NETWORK_RPC);
-  //   const tx = await web3.getTransaction(txHash);
-  //   return tx.Hex;
-  // };
-
   const run = async (params: P): Promise<R> => {
     try {
       // This function does not handle error
@@ -65,40 +59,42 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
+      const assets = await getAvailableAssetsCreateTx();
+      console.log(assets);
 
-      const { nonce, gasPrice } = await getNonceInscribeable(address);
+      if (!inscribeable) {
+        // Make TC transaction
+        const tx: any = await call({
+          ...params,
+        });
 
-      console.log('nonce', nonce);
-      console.log('gasPrice', gasPrice);
+        console.log('tcTX', tx);
+        return tx;
+      }
 
-      // Make TC transaction
+      // Check unInscribed transactions
+      const unInscribedTxIDs = await getUnInscribedTransactionByAddress(address);
+
+      console.log('unInscribedTxIDs', unInscribedTxIDs);
+
       const tx: any = await call({
         ...params,
-        nonce,
-        gasPrice,
       });
 
       console.log('tcTX', tx);
 
-      if (!inscribeable) {
-        return tx;
-      }
-
-      console.log('createInscribeTxParams', {
-        tcTxID: tx.hash,
-        feeRatePerByte: feeRate.fastestFee,
-      });
+      console.log('feeRatePerByte', feeRate.fastestFee);
 
       // Make inscribe transaction
       await createInscribeTx({
-        tcTxID: tx.hash,
+        tcTxIDs: [...unInscribedTxIDs, tx.hash],
         feeRatePerByte: feeRate.fastestFee,
       });
 
-      return {} as R;
+      return tx;
     } catch (err) {
       console.log(err);
-      return {} as R;
+      throw err;
     }
   };
 

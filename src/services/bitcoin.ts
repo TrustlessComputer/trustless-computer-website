@@ -13,9 +13,12 @@ export const BINANCE_API_URL = 'https://api.binance.com/api/v3';
 
 // Collected UTXO
 export const getCollectedUTXO = async (btcAddress: string): Promise<ICollectedUTXOResp | undefined> => {
-  const res = await apiClient.get<ICollectedUTXOResp>(`/wallet/wallet-info?address=${btcAddress}`);
-
-  return res.data;
+  try {
+    const res = await apiClient.get<ICollectedUTXOResp>(`/wallets/${btcAddress}`);
+    return res as any;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getPendingUTXOs = async (btcAddress: string): Promise<IPendingUTXO[]> => {
