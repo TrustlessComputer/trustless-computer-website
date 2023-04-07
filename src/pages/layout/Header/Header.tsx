@@ -87,7 +87,7 @@ const Header = ({ height }: { height: number }) => {
                 <span className="divider"></span>
                 <p>{formatEthPrice(juiceBalance)} TC</p>
               </div>
-              <OverlayTrigger trigger="hover" placement="bottom" overlay={handleShowAddress(account)}>
+              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={handleShowAddress(account)}>
                 <div className="avatar">
                   <img src={IcAvatarDefault} alt="default avatar" />
                 </div>
