@@ -40,6 +40,7 @@
     "react-helmet": "^6.1.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-inlinesvg": "^3.0.2",
+    "react-jazzicon": "^1.0.4",
     "react-pdf": "^6.2.2",
     "react-redux": "^8.0.5",
     "react-responsive-masonry": "^2.1.7",
