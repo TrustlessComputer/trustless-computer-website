@@ -65,7 +65,7 @@ const Home = () => {
             <p className="subTitle">Build dapps on Bitcoin.</p>
             <a href="https://docs.trustless.computer" target="_blank">
               <div className="button">
-                <p className="text">{`Let's build`}</p>
+                <p className="text-build">{`Let's build`}</p>
               </div>
             </a>
           </RightContainer>

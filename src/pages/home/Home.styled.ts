@@ -200,7 +200,7 @@ const RightContainer = styled.div`
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .button {
@@ -222,7 +222,7 @@ const RightContainer = styled.div`
       opacity: 0.7;
     }
 
-    .text {
+    .text-build {
       font-style: normal;
       font-weight: 500;
       font-size: 18px;
