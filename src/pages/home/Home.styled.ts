@@ -196,6 +196,7 @@ const RightContainer = styled.div`
     text-align: center;
     margin-top: 16px;
     line-height: 66px;
+    font-family: 'IBMPlexMono' !important;
   }
 
   a {
@@ -228,6 +229,7 @@ const RightContainer = styled.div`
       line-height: 26px;
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       text-align: center;
+      font-family: 'IBMPlexMono' !important;
     }
   }
 

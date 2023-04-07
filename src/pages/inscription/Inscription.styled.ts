@@ -38,6 +38,7 @@ const Container = styled.div`
         font-size: 34px;
         line-height: 44px;
         color: #ffffff;
+        font-family: 'IBMPlexMono' !important;
       }
 
       .subTitle {
@@ -59,6 +60,7 @@ const Container = styled.div`
         line-height: 28px;
         letter-spacing: -0.01em;
         color: #898989;
+        font-family: 'IBMPlexMono' !important;
       }
 
       .subTitle {
