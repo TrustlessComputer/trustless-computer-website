@@ -85,7 +85,7 @@ const Dapps = () => {
             eventKey="names"
             title={
               <div className="tab-item">
-                <img src={IcNames} alt="names" />
+                <IconSVG src={IcNames} color="white" type="stroke" />
                 <Text size="regular">Names</Text>
               </div>
             }

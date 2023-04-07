@@ -25,7 +25,10 @@ const Collections = () => {
           </div>
         </div>
         <div className="upload_right">
-          <Button bg={'white'} onClick={() => setShowModal(true)}>
+          <Button
+            bg={'white'}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/brc-721-nfts')}
+          >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Create BRC-721
             </Text>

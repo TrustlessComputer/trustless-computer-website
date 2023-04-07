@@ -3,7 +3,8 @@ import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
-import { List, Spin } from 'antd';
+import { List } from 'antd';
+import Spinner from 'react-bootstrap/Spinner';
 import { debounce } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -57,14 +58,20 @@ const BFSList = () => {
           className="list"
           dataLength={inscriptions?.length || 0}
           hasMore={true}
-          loader={isLoading && <Spin />}
+          loader={
+            isLoading && (
+              <div className="loading">
+                <Spinner animation="border" variant="primary" />
+              </div>
+            )
+          }
           next={onLoadMoreNfts}
         >
           {inscriptions && inscriptions.length > 0 && (
             <List
               dataSource={inscriptions}
               grid={{
-                gutter: 0,
+                gutter: 24,
                 xs: 1,
                 sm: 2,
                 md: 2,

@@ -12,11 +12,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Collection.styled';
+import { useWeb3React } from '@web3-react/core';
 
 const LIMIT = 32;
 
 const Collection = () => {
   const navigate = useNavigate();
+  const { account } = useWeb3React();
+
   const { contract } = queryString.parse(location.search) as { contract: string };
 
   const [collection, setCollection] = useState<ICollection | undefined>();
@@ -27,7 +30,7 @@ const Collection = () => {
   useEffect(() => {
     fetchCollectionDetail();
     fetchInscriptions();
-  }, [contract]);
+  }, [contract, account]);
 
   const fetchCollectionDetail = async () => {
     try {
@@ -41,7 +44,7 @@ const Collection = () => {
   const fetchInscriptions = async (page = 1, isFetchMore = false) => {
     try {
       setIsFetching(true);
-      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT });
+      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT, owner: account });
       if (isFetchMore) {
         setInscriptions(prev => [...prev, ...data]);
       } else {

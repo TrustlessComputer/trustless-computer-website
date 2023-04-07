@@ -110,7 +110,7 @@ const Container = styled.div`
     }
 
     .item {
-      padding: 6px 12px !important;
+      /* padding: 6px 12px !important; */
     }
 
     .card {

@@ -1,6 +1,6 @@
 import IcBitcoinCloud from '@/assets/icons/ic-bitcoin-cloud.svg';
 import Button from '@/components/Button';
-import Spinner from '@/components/Spinner';
+import Spinner from 'react-bootstrap/Spinner';
 import Table from '@/components/Table';
 import Text from '@/components/Text';
 import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
@@ -67,7 +67,10 @@ const Tokens = () => {
           </div>
         </div>
         <div className="upload_right">
-          <Button bg={'white'} onClick={() => setShowModal(true)}>
+          <Button
+            bg={'white'}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/brc-20-tokens')}
+          >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Create BRC-20
             </Text>
@@ -76,7 +79,7 @@ const Tokens = () => {
       </UploadFileContainer>
       {isLoading ? (
         <div className="loading">
-          <Spinner />
+          <Spinner animation="border" variant="primary" />
         </div>
       ) : (
         <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
