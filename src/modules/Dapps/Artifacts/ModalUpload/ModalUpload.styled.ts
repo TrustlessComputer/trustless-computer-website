@@ -36,6 +36,11 @@ export const StyledModalUpload = styled(Modal)`
     width: 100%;
   }
 
+  label {
+    height: 200px;
+    background: #ff1;
+  }
+
   .preview-wrapper {
     .thumbnail-wrapper {
       min-height: ${px2rem(200)};

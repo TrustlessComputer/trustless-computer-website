@@ -5,6 +5,9 @@ import Text from '@/components/Text';
 import { Formik } from 'formik';
 import { Modal } from 'react-bootstrap';
 import { StyledModalUpload, WrapInput } from '../../Collections/ModalCreate/ModalCreate.styled';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import useCreateToken, { ICreateTokenParams } from '@/hooks/contract-operations/token/useCreateToken';
+import { DeployContractResponse } from '@/interfaces/contract-operation';
 
 type Props = {
   show: boolean;
@@ -19,6 +22,10 @@ interface IFormValue {
 
 const ModalCreateToken = (props: Props) => {
   const { show, handleClose } = props;
+
+  const { run } = useContractOperation<ICreateTokenParams, Promise<DeployContractResponse | null>>({
+    operation: useCreateToken,
+  });
 
   const validateForm = (values: IFormValue): Record<string, string> => {
     const errors: Record<string, string> = {};
@@ -37,7 +44,19 @@ const ModalCreateToken = (props: Props) => {
     return errors;
   };
 
-  const handleSubmit = async (values: IFormValue): Promise<void> => {};
+  const handleSubmit = async (values: IFormValue): Promise<void> => {
+    const { name, symbol, supply } = values;
+
+    try {
+      run({
+        name,
+        symbol,
+        maxSupply: Number(supply),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <StyledModalUpload show={show} onHide={handleClose} centered>

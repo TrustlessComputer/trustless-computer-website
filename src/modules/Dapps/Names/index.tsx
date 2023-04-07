@@ -1,26 +1,53 @@
 import { useState } from 'react';
 import Text from '@/components/Text';
 import Button from '@/components/Button';
-
 import NamesList from './NamesList';
 import { NamesContainer, FormContainer } from './Names.styled';
 import IcImgName from '@/assets/icons/ic-img-names.svg';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import useIsRegistered, { ICheckIfRegisteredNameParams } from '@/hooks/contract-operations/bns/useIsRegistered';
+import useRegister, { IRegisterNameParams } from '@/hooks/contract-operations/bns/useRegister';
+import { Transaction } from 'ethers';
 
-type Props = {};
-
-const Names = (props: Props) => {
+const Names: React.FC = () => {
   const [nameValidate, setNameValidate] = useState(false);
   const [valueInput, setValueInput] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const { run: checkNameIsRegistered } = useContractOperation<ICheckIfRegisteredNameParams, Promise<boolean>>({
+    operation: useIsRegistered,
+    inscribeable: false,
+  });
+  const { run: registerName } = useContractOperation<IRegisterNameParams, Promise<Transaction | null>>({
+    operation: useRegister,
+    inscribeable: false,
+  });
 
   const handleValidate = (name: string) => {
     if (name) {
       setNameValidate(true);
     }
   };
-  const handleRegistered = () => {
-    // todo register name call smart contract
+  const handleRegistered = async () => {
     console.log(valueInput);
+
+    // Check if name has been registered
+    const isRegistered = await checkNameIsRegistered({
+      name: valueInput,
+    });
+    // If name has already been taken
+    if (isRegistered) {
+      setError(`${valueInput} has already been taken. Please choose another one.`);
+      return;
+    }
+
+    // Call contract
+    try {
+      await registerName({
+        name: valueInput,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>

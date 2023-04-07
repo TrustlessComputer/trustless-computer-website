@@ -30,7 +30,7 @@ const ModalUpload = (props: Props) => {
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { run } = useContractOperation<IPreserveChunkParams, Transaction | null>({
+  const { run } = useContractOperation<IPreserveChunkParams, Promise<Transaction | null>>({
     operation: usePreserveChunks,
   });
 
