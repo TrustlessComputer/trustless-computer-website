@@ -35,6 +35,16 @@ const Names = (props: Props) => {
             </Text>
           </div>
         </div>
+        <div className="upload_right">
+          <Button
+            bg={'white'}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bns-bitcoin-name-system')}
+          >
+            <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
+              Register
+            </Text>
+          </Button>
+        </div>
       </NamesContainer>
       {/* <FormContainer>
         <div className="block_search">

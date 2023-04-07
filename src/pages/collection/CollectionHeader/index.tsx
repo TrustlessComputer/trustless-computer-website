@@ -66,13 +66,17 @@ const CollectionHeader = (props: ICollectionHeader) => {
               </a>
             </div>
             <div className="row-bottom">
-              {/* <div>
+              <div>
                 <p className="owner">COLLECTION NUMBER</p>
-                <p className="address">#{collection?.totalItems}</p>
-              </div> */}
+                <p className="address">#{collection?.index}</p>
+              </div>
               <div>
                 <p className="owner">ITEMS</p>
                 <p className="address">{collection?.totalItems}</p>
+              </div>
+              <div>
+                <p className="owner">BLOCK</p>
+                <p className="address">{collection?.deployedAtBlock}</p>
               </div>
             </div>
           </div>
