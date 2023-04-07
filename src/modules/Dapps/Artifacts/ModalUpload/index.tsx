@@ -16,6 +16,7 @@ import { useWeb3React } from '@web3-react/core';
 import { readFileAsBuffer } from '@/utils';
 import { WalletContext } from '@/contexts/wallet-context';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
+import { Transaction } from 'ethers';
 
 type Props = {
   show: boolean;
@@ -29,7 +30,7 @@ const ModalUpload = (props: Props) => {
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { run } = useContractOperation<IPreserveChunkParams, string | null>({
+  const { run } = useContractOperation<IPreserveChunkParams, Transaction | null>({
     operation: usePreserveChunks,
   });
 

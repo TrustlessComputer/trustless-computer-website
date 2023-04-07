@@ -6,6 +6,7 @@ import checker from 'vite-plugin-checker';
 import path from 'path';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import { visualizer } from 'rollup-plugin-visualizer';
+import inject from '@rollup/plugin-inject'
 
 import { dependencies } from './package.json';
 function renderChunks(deps) {
@@ -60,7 +61,8 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src/'),
-        stream: 'stream-browserify'
+        stream: 'stream-browserify',
+        buffer: 'buffer',
       },
     },
     css: {
@@ -81,7 +83,7 @@ export default defineConfig(({ mode }) => {
       __CLIENT__: true,
     },
     build: {
-      target: ["esnext"], // 👈 build.target
+      target: ["esnext"],
       sourcemap: false,
       rollupOptions: {
         output: {
@@ -90,6 +92,7 @@ export default defineConfig(({ mode }) => {
             ...renderChunks(dependencies),
           },
         },
+        plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
       },
       commonjsOptions: {
         transformMixedEsModules: true,

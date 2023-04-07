@@ -11,10 +11,9 @@ type Props = {};
 const Names = (props: Props) => {
   const [nameValidate, setNameValidate] = useState(false);
   const [valueInput, setValueInput] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleValidate = (name: string) => {
-    // todo validate name call smart contract
-    console.log(name);
     if (name) {
       setNameValidate(true);
     }

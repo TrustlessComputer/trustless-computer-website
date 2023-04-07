@@ -5,13 +5,14 @@ import { ARTIFACT_CONTRACT } from '@/configs';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback } from 'react';
 import Web3 from 'web3';
+import { Transaction } from 'ethers';
 
 export interface IPreserveChunkParams {
   address: string;
   chunks: Buffer;
 }
 
-const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, any> = () => {
+const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Transaction> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi, true);
 
