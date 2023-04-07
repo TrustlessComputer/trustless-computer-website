@@ -1,10 +1,14 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/iframe-has-title */
+import { CDN_URL } from '@/configs';
 import { getURLContent } from '@/lib';
 import React, { useEffect, useRef, useState } from 'react';
-
+import cs from 'classnames';
+import s from './styles.module.scss';
 import { IMAGE_TYPE } from './constant';
+import Skeleton from '../Skeleton';
 interface IProps {
+  className?: string;
   contentClass?: string;
   type?: IMAGE_TYPE;
   collectionID?: string;
@@ -15,6 +19,7 @@ interface IProps {
 }
 
 const NFTDisplayBox = ({
+  className,
   contentClass,
   type,
   collectionID,
@@ -23,29 +28,67 @@ const NFTDisplayBox = ({
   loop = false,
   controls = false,
 }: IProps) => {
+  const [isError, setIsError] = React.useState(false);
+  const [isLoaded, serIsLoaded] = React.useState(false);
+
+  const onError = () => {
+    setIsError(true);
+    serIsLoaded(true);
+  };
+
+  const onLoaded = () => {
+    serIsLoaded(true);
+  };
+
   const [HTMLContentRender, setHTMLContentRender] = useState<JSX.Element>();
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // const getURLContent = '';
+  const defaultImage = CDN_URL + '/default.png';
+
+  const contentClassName = cs(contentClass);
+
+  const renderLoading = () => <Skeleton className={s.absolute} fill isLoaded={isLoaded} />;
 
   const renderIframe = (content: string) => {
     return (
       <iframe
-        className={contentClass}
+        className={contentClassName}
         loading="lazy"
         sandbox="allow-scripts allow-pointer-lock allow-downloads"
         scrolling="no"
         src={content}
+        onError={onError}
+        onLoad={onLoaded}
       />
     );
   };
 
   const renderAudio = (content: string) => {
-    return <audio autoPlay={autoPlay} className={contentClass} controls={controls} loop={loop} src={content} />;
+    return (
+      <audio
+        autoPlay={autoPlay}
+        className={contentClassName}
+        controls={controls}
+        loop={loop}
+        src={content}
+        onError={onError}
+        onLoad={onLoaded}
+      />
+    );
   };
 
   const renderVideo = (content: string) => {
-    return <video autoPlay={autoPlay} className={contentClass} controls={controls} loop={loop} src={content} />;
+    return (
+      <video
+        autoPlay={autoPlay}
+        className={contentClassName}
+        controls={controls}
+        loop={loop}
+        src={content}
+        onError={onError}
+        onLoad={onLoaded}
+      />
+    );
   };
 
   const handleOnImgLoaded = (evt: React.SyntheticEvent<HTMLImageElement>): void => {
@@ -54,6 +97,7 @@ const NFTDisplayBox = ({
     if (naturalWidth < 100 && imgRef.current) {
       imgRef.current.style.imageRendering = 'pixelated';
     }
+    serIsLoaded(true);
   };
 
   const renderImage = (content: string) => {
@@ -61,57 +105,66 @@ const NFTDisplayBox = ({
       <img
         ref={imgRef}
         alt={tokenID}
-        className={contentClass}
+        className={contentClassName}
         loading="lazy"
         src={content}
         style={{ objectFit: 'contain' }}
         onLoad={handleOnImgLoaded}
+        onError={onError}
       />
     );
   };
 
-  const renderEmpty = () => <img alt={tokenID} className={contentClass} loading={'lazy'} src={''} />;
+  const renderEmpty = () => <img alt={tokenID} className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (collectionID && tokenID) {
-      const content = getURLContent(collectionID, tokenID);
-      // const content = '';
-      switch (type) {
-        case 'audio/mpeg':
-        case 'audio/wav':
-          setHTMLContentRender(renderAudio(content));
-          return;
-        case 'video/mp4':
-        case 'video/webm':
-          setHTMLContentRender(renderVideo(content));
-          return;
-        case 'image/apng':
-        case 'image/avif':
-        case 'image/gif':
-        case 'image/jpeg':
-        case 'image/png':
-        case 'image/svg':
-        case 'image/svg+xml':
-        case 'image/webp':
-        case 'link/https':
-          setHTMLContentRender(renderImage(content));
-          return;
-        case 'application/json':
-        case 'application/pgp-signature':
-        case 'application/yaml':
-        case 'audio/flac':
-        case 'application/pdf':
-        case 'text/plain;charset=utf-8':
-          setHTMLContentRender(renderIframe(content));
-          return;
-        default:
-          setHTMLContentRender(renderIframe(content));
-          return;
+    if (isError) {
+      setHTMLContentRender(renderEmpty());
+    } else {
+      if (collectionID && tokenID) {
+        const content = getURLContent(collectionID, tokenID);
+        switch (type) {
+          case 'audio/mpeg':
+          case 'audio/wav':
+            setHTMLContentRender(renderAudio(content));
+            return;
+          case 'video/mp4':
+          case 'video/webm':
+            setHTMLContentRender(renderVideo(content));
+            return;
+          case 'image/apng':
+          case 'image/avif':
+          case 'image/gif':
+          case 'image/jpeg':
+          case 'image/png':
+          case 'image/svg':
+          case 'image/svg+xml':
+          case 'image/webp':
+          case 'link/https':
+            setHTMLContentRender(renderImage(content));
+            return;
+          case 'application/json':
+          case 'application/pgp-signature':
+          case 'application/yaml':
+          case 'audio/flac':
+          case 'application/pdf':
+          case 'text/plain;charset=utf-8':
+            setHTMLContentRender(renderIframe(content));
+            return;
+          default:
+            setHTMLContentRender(renderIframe(content));
+            return;
+        }
       }
     }
   }, [collectionID, tokenID]);
 
-  return HTMLContentRender ? HTMLContentRender : renderEmpty();
+  return (
+    <div className={cs(s.wrapper, className)}>
+      {HTMLContentRender && HTMLContentRender}
+      {!isLoaded && renderLoading()}
+    </div>
+  );
 };
 
 export default React.memo(NFTDisplayBox);
