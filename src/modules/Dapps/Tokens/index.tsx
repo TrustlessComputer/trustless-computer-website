@@ -24,6 +24,7 @@ const Tokens = () => {
 
   const tokenDatas =
     data &&
+    data.length > 0 &&
     data.map(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (token: any, index: number) => {
