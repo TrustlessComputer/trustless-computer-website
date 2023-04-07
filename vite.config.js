@@ -6,6 +6,8 @@ import checker from 'vite-plugin-checker';
 import path from 'path';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import inject from '@rollup/plugin-inject';
 
 import { dependencies } from './package.json';
 function renderChunks(deps) {
@@ -21,7 +23,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'REACT_');
 
   return {
-    server: { hmr: true, port: 3000 },
+    server: { hmr: true, port: 6969 },
     plugins: [
       visualizer({
         template: 'treemap', // or sunburst
@@ -58,7 +60,11 @@ export default defineConfig(({ mode }) => {
       checker({ typescript: true }),
     ],
     resolve: {
-      alias: { '@': path.resolve(__dirname, 'src/') },
+      alias: {
+        '@': path.resolve(__dirname, 'src/'),
+        stream: 'stream-browserify',
+        buffer: 'buffer',
+      },
     },
     css: {
       postcss: ctx => ({
@@ -78,6 +84,7 @@ export default defineConfig(({ mode }) => {
       __CLIENT__: true,
     },
     build: {
+      target: ["esnext"],
       sourcemap: false,
       rollupOptions: {
         output: {
@@ -86,6 +93,7 @@ export default defineConfig(({ mode }) => {
             ...renderChunks(dependencies),
           },
         },
+        plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
       },
       commonjsOptions: {
         transformMixedEsModules: true,
@@ -96,6 +104,22 @@ export default defineConfig(({ mode }) => {
       coverage: {
         reporter: ['text', 'json', 'html'],
       },
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: 'esnext',
+        define: {
+          global: 'globalThis',
+        },
+        supported: {
+          bigint: true,
+        },
+      },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
     },
   };
 });

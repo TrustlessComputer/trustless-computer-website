@@ -38,12 +38,15 @@ const Artifacts = (props: Props) => {
           </div>
         </div>
         <div className="upload_right">
-          <Button bg={'white'}>
+          <Button
+            bg={'white'}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
+          >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Upload file
             </Text>
           </Button>
-          <FileUploader
+          {/* <FileUploader
             handleChange={onChangeFile}
             name={'fileUploader'}
             // maxSize={MINT_TOOL_MAX_FILE_SIZE}
@@ -53,7 +56,7 @@ const Artifacts = (props: Props) => {
             classes={'file-uploader'}
             // classes={s.dropZone}
             // types={fileTypes}
-          />
+          /> */}
         </div>
       </UploadFileContainer>
       <BFSList />

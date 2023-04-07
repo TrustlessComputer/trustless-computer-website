@@ -1,12 +1,27 @@
-import styled from 'styled-components';
+import Button from '@/components/Button';
+import px2rem from '@/utils/px2rem';
+import { Tooltip } from 'react-bootstrap';
+import styled, { DefaultTheme } from 'styled-components';
 
 const Wrapper = styled.div`
-  /* border-bottom: 1px solid #2e2e2e; */
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .indicator {
+    position: absolute;
+    height: ${px2rem(1)};
+    top: ${px2rem(80)};
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
+  }
+
+  .logo {
+    z-index: 999;
+  }
 
   a {
     text-decoration: unset;
@@ -16,41 +31,104 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: ${px2rem(28)};
   }
 
-  .networkText {
-    cursor: pointer;
+  .rightContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: ${px2rem(16)};
 
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 26px;
-    margin-right: 16px;
-
-    color: #898989;
-
-    :hover {
-      opacity: 0.7;
+    .btnMenuMobile {
+      display: none;
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 
-  .iconContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
+  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    .rowLink {
+      display: none;
+    }
+
+    .wallet{
+      display: none;
+
+      &.mobile{
+        display: flex;
+      }
+    }
+
+    .rightContainer {
+      .btnMenuMobile {
+        display: flex;
+      }
+    }
+  `};
+`;
+
+const Link = styled.a<{ active: boolean }>`
+  cursor: pointer;
+  font-weight: 400;
+  font-size: ${px2rem(18)};
+  line-height: ${px2rem(28)};
+  text-decoration: none !important;
+
+  color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
+
+  :hover {
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    opacity: 0.7;
   }
+`;
 
-  .icon {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
+const WalletBalance = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${px2rem(12)};
+  padding: ${px2rem(4)} ${px2rem(8)};
+  border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
 
-    :hover {
-      opacity: 0.8;
+  .balance {
+    display: flex;
+    align-items: center;
+    gap: ${px2rem(12)};
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
     }
   }
 `;
 
-export { Wrapper };
+const WalletAdress = styled(Tooltip)`
+  margin-top: ${px2rem(8)};
+
+  .tooltip-inner {
+    background-color: #424242;
+    color: white;
+    padding: ${px2rem(6)} ${px2rem(16)};
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+  }
+  .tooltip-arrow::before {
+    border-bottom-color: #424242;
+  }
+`;
+
+const ConnectWalletButton = styled(Button)`
+  background: #4f43e2;
+  padding: ${px2rem(4)} ${px2rem(12)};
+  color: #fff;
+  font-size: ${px2rem(14)};
+  line-height: ${px2rem(24)};
+  font-weight: 400;
+`;
+
+export { ConnectWalletButton, Wrapper, Link, WalletBalance, WalletAdress };

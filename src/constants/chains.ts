@@ -16,7 +16,7 @@ export const TRUSTLESS_COMPUTER_CHAIN_INFO = {
   faucets: [],
   nativeCurrency: {
     name: 'JUICE',
-    symbol: 'JUICE',
+    symbol: 'TC',
     decimals: 18,
   },
   infoURL: 'https://trustless.computer',

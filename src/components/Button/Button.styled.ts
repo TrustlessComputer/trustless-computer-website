@@ -1,9 +1,7 @@
-import { Button } from 'react-bootstrap';
-import styled from 'styled-components';
-import { ButtonProps } from './index';
+import styled, { DefaultTheme } from 'styled-components';
 
-export const StyledButton = styled(Button)<ButtonProps>`
-  --bg-color: ${({ bg, theme }) => (bg ? (theme as any)[bg] : theme.white)};
+export const StyledButton = styled.button<{ bg: string }>`
+  --bg-color: ${({ bg, theme }: { bg: string; theme: DefaultTheme }) => (theme as any)[bg] || theme.white};
 
   border-radius: 2px !important;
   background-color: var(--bg-color);
@@ -11,6 +9,11 @@ export const StyledButton = styled(Button)<ButtonProps>`
   padding: 0;
   outline: none;
 
+  &:disabled {
+    background-color: var(--bg-color);
+    opacity: 0.8;
+    cursor: auto;
+  }
   &:hover {
     background-color: var(--bg-color);
     opacity: 0.8;
