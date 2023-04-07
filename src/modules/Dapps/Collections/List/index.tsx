@@ -96,7 +96,7 @@ const Collections = () => {
                       <div className="card-info">
                         <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
                         <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
-                        <p className="card-index">Collection #{index + 1}</p>
+                        <p className="card-index">Collection #{item.index}</p>
                       </div>
                     </div>
                   </a>
