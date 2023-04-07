@@ -23,7 +23,6 @@ import MenuMobile from './MenuMobile';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  console.log('🚀 ~ Header ~ account:', account);
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
