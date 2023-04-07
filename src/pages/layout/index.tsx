@@ -16,14 +16,9 @@ const Container = styled.div`
   margin-right: auto;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
   padding: 0 ${px2rem(32)};
   /* padding-left: 6%;
   padding-right: 6%; */
-=======
-  padding-left: 10%;
-  padding-right: 10%;
->>>>>>> f39b0a17d688dabb7ff6e959b076400ae52d7c8f
   background-color: ${({ theme }) => theme.bg1};
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
