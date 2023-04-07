@@ -51,7 +51,9 @@ const Dapps = () => {
             title={
               <div className="tab-item">
                 <IconSVG src={IcHexagon} color="white" type="stroke"></IconSVG>
-                <Text size="regular">NFTs</Text>
+                <Text className="tab-text" size="regular">
+                  NFTs
+                </Text>
               </div>
             }
           >
@@ -62,7 +64,9 @@ const Dapps = () => {
             title={
               <div className="tab-item">
                 <IconSVG src={IcCoinTokens} color="white" type="stroke"></IconSVG>
-                <Text size="regular">Tokens</Text>
+                <Text className="tab-text" size="regular">
+                  Tokens
+                </Text>
               </div>
             }
           >
@@ -75,7 +79,9 @@ const Dapps = () => {
             title={
               <div className="tab-item">
                 <IconSVG src={IcFolderOpen} color="white" type="stroke"></IconSVG>
-                <Text size="regular">Artifacts</Text>
+                <Text className="tab-text" size="regular">
+                  Artifacts
+                </Text>
               </div>
             }
           >
@@ -86,7 +92,9 @@ const Dapps = () => {
             title={
               <div className="tab-item">
                 <IconSVG src={IcNames} color="white" type="stroke" />
-                <Text size="regular">Names</Text>
+                <Text className="tab-text" size="regular">
+                  Names
+                </Text>
               </div>
             }
           >

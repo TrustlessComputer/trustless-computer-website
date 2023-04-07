@@ -37,6 +37,10 @@ export const TabContainer = styled.div`
     justify-content: center;
     gap: 5px;
   }
+
+  .tab-text {
+    font-family: 'IBMPlexMono' !important;
+  }
 `;
 
 export const UploadFileContainer = styled.div`
@@ -65,6 +69,7 @@ export const UploadFileContainer = styled.div`
   }
 
   .button-text {
+    font-family: 'IBMPlexMono' !important;
     padding: ${px2rem(11)} ${px2rem(36)};
   }
 

@@ -13,4 +13,9 @@ export interface ICollection {
   indexed: boolean;
   indexedAt: string;
   creator: string;
+  social: {
+    website?: string;
+    discord?: string;
+    twitter?: string;
+  };
 }
