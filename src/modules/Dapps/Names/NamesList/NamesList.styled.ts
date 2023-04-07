@@ -11,7 +11,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: 24px;
+    /* margin-top: 24px; */
     width: 100%;
 
     .header {
@@ -94,7 +94,7 @@ const Container = styled.div`
     }
 
     .list {
-      margin-top: 64px;
+      margin-top: 52px;
       min-height: 60vh;
 
       -ms-overflow-style: none; /* IE and Edge */
@@ -112,7 +112,7 @@ const Container = styled.div`
     }
 
     .item {
-      padding: 6px 12px !important;
+      /* padding: 6px 12px !important; */
     }
 
     .card {

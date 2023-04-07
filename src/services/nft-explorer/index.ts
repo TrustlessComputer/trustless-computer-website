@@ -21,12 +21,14 @@ export const getCollectionNfts = ({
   contractAddress,
   limit = 10,
   page = 1,
+  owner,
 }: {
   contractAddress: string;
   limit?: number;
   page?: number;
+  owner?: string;
 }): Promise<IInscription[]> =>
-  swrFetcher(`${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}`, {
+  swrFetcher(`${API_PATH}/collections/${contractAddress}/nfts?limit=${limit}&page=${page}&owner=${owner}`, {
     method: 'GET',
   });
 

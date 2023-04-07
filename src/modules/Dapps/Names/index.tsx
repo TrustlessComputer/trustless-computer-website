@@ -36,7 +36,7 @@ const Names = (props: Props) => {
           </div>
         </div>
       </NamesContainer>
-      <FormContainer>
+      {/* <FormContainer>
         <div className="block_search">
           <div className="form">
             <div className="input">
@@ -59,7 +59,7 @@ const Names = (props: Props) => {
             </div>
           </div>
         </div>
-      </FormContainer>
+      </FormContainer> */}
       <NamesList />
     </>
   );

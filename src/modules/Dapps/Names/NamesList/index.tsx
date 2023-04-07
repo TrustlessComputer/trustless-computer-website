@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
 import { Container } from './NamesList.styled';
 import { shortenAddress } from '@/utils/address';
+import Spinner from 'react-bootstrap/Spinner';
 
 const LIMIT_PAGE = 32;
 
@@ -40,14 +41,20 @@ const NamesList = () => {
             className="list"
             dataLength={collection?.length || 0}
             hasMore={true}
-            loader={isLoading && <Spin />}
+            loader={
+              isLoading && (
+                <div className="loading">
+                  <Spinner animation="border" variant="primary" />
+                </div>
+              )
+            }
             next={onLoadMoreNfts}
           >
             {collection && collection.length > 0 && (
               <List
                 dataSource={collection}
                 grid={{
-                  gutter: 0,
+                  gutter: 16,
                   xs: 1,
                   sm: 2,
                   md: 2,
