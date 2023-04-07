@@ -6,15 +6,6 @@ const Container = styled.div`
   flex-direction: column;
   flex: 1;
 
-  .title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 44px;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    padding: 0px 10px;
-  }
-
   .list {
     min-height: 60vh;
 
