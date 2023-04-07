@@ -3,11 +3,11 @@ import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
-import { List } from 'antd';
-import Spinner from 'react-bootstrap/Spinner';
 import { debounce } from 'lodash';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
 import { Container } from './BFSList.styled';
 
@@ -67,22 +67,23 @@ const BFSList = () => {
           }
           next={onLoadMoreNfts}
         >
-          {inscriptions && inscriptions.length > 0 && (
-            <List
-              dataSource={inscriptions}
-              grid={{
-                gutter: 24,
-                xs: 1,
-                sm: 2,
-                md: 2,
-                lg: 3,
-                xl: 3,
-                xxl: 4,
-              }}
-              renderItem={(item: any, index: number) => {
-                return (
-                  <List.Item key={index.toString()} className="item">
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              750: 2,
+              900: 3,
+              1240: 4,
+              2500: 5,
+              3000: 5,
+            }}
+          >
+            <Masonry gutter="24px">
+              {inscriptions &&
+                inscriptions.length > 0 &&
+                inscriptions.map((item, index) => {
+                  return (
                     <div
+                      key={index.toString()}
                       className="card"
                       // href={`/inscription/${collection?.contract}/${item.tokenId}`}
                     >
@@ -98,15 +99,14 @@ const BFSList = () => {
                         <div className="card-info">
                           <p className="card-title">{formatItemName(item.name, item.contentType)}</p>
                           <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-subTitle">File #{item.tokenId}</p>
+                          <p className="card-index">File #{item.tokenId}</p>
                         </div>
                       </div>
                     </div>
-                  </List.Item>
-                );
-              }}
-            />
-          )}
+                  );
+                })}
+            </Masonry>
+          </ResponsiveMasonry>
         </InfiniteScroll>
       </div>
     </Container>

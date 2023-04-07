@@ -1,13 +1,13 @@
 import { getCollectionsBns } from '@/services/bns-explorer';
+import { shortenAddress } from '@/utils/address';
 import { getApiKey } from '@/utils/swr';
-import { List, Spin } from 'antd';
 import { debounce } from 'lodash';
 import React, { useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
 import { Container } from './NamesList.styled';
-import { shortenAddress } from '@/utils/address';
-import Spinner from 'react-bootstrap/Spinner';
 
 const LIMIT_PAGE = 32;
 
@@ -36,51 +36,48 @@ const NamesList = () => {
   return (
     <Container>
       <div className="content">
-        <div>
-          <InfiniteScroll
-            className="list"
-            dataLength={collection?.length || 0}
-            hasMore={true}
-            loader={
-              isLoading && (
-                <div className="loading">
-                  <Spinner animation="border" variant="primary" />
-                </div>
-              )
-            }
-            next={onLoadMoreNfts}
+        <InfiniteScroll
+          className="list"
+          dataLength={collection?.length || 0}
+          hasMore={true}
+          loader={
+            isLoading && (
+              <div className="loading">
+                <Spinner animation="border" variant="primary" />
+              </div>
+            )
+          }
+          next={onLoadMoreNfts}
+        >
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              750: 2,
+              900: 3,
+              1240: 4,
+              2500: 5,
+              3000: 5,
+            }}
           >
-            {collection && collection.length > 0 && (
-              <List
-                dataSource={collection}
-                grid={{
-                  gutter: 16,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 4,
-                }}
-                renderItem={(item: any, index: number) => {
+            <Masonry gutter="16px">
+              {collection &&
+                collection.length > 0 &&
+                collection.map((item, index) => {
                   return (
-                    <List.Item key={index.toString()} className="item">
-                      <div className="card">
-                        <div className="card-content">
-                          <div className="card-info">
-                            <p className="card-title">{item.name}</p>
-                            <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                            <p className="card-subTitle">Name #{item.tokenId}</p>
-                          </div>
+                    <div key={index.toString()} className="card">
+                      <div className="card-content">
+                        <div className="card-info">
+                          <p className="card-title">{item.name}</p>
+                          <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
+                          <p className="card-subTitle">Name #{item.tokenId}</p>
                         </div>
                       </div>
-                    </List.Item>
+                    </div>
                   );
-                }}
-              />
-            )}
-          </InfiniteScroll>
-        </div>
+                })}
+            </Masonry>
+          </ResponsiveMasonry>
+        </InfiniteScroll>
       </div>
     </Container>
   );

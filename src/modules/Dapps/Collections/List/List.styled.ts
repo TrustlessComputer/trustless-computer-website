@@ -16,7 +16,6 @@ const Container = styled.div`
   }
 
   .list {
-    margin-top: ${px2rem(8)};
     min-height: 60vh;
 
     -ms-overflow-style: none; /* IE and Edge */
@@ -55,14 +54,15 @@ const Container = styled.div`
 
   .card-image {
     background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
-    min-height: ${px2rem(280)};
+    min-height: ${px2rem(180)};
+    padding: ${px2rem(32)};
+
     .image {
       width: 100%;
       min-height: 100px;
       aspect-ratio: 1 / 1;
       height: auto;
       object-fit: cover;
-      padding: ${px2rem(32)};
     }
   }
 
@@ -88,7 +88,7 @@ const Container = styled.div`
     .card-index {
       font-style: normal;
       font-weight: 500;
-      font-size: ${px2rem(14)};
+      font-size: ${px2rem(16)};
       margin-top: ${px2rem(12)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
     }
