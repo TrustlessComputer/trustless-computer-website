@@ -21,3 +21,7 @@ export const isNumeric = (str: never | string) => {
 export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+export const stringToBuffer = (str: string): Buffer => {
+  return Buffer.from(str);
+};

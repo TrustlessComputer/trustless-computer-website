@@ -1,15 +1,19 @@
-const localStore = {
-  save(key: string, value: any) {
-    return localStorage.setItem(key, value);
-  },
+class LocalStorage {
+  set(key: string, data: unknown): void {
+    const dataStr = JSON.stringify(data);
+    return localStorage.setItem(key, dataStr);
+  }
 
-  get(key: string): any {
-    return localStorage.getItem(key);
-  },
+  get<T>(key: string): T | null {
+    const dataStr = localStorage.getItem(key);
+    return dataStr ? JSON.parse(dataStr) : null;
+  }
 
-  remove(key: string): any {
+  remove(key: string): void {
     return localStorage.removeItem(key);
-  },
-};
+  }
+}
 
-export default localStore;
+const instance = new LocalStorage();
+
+export default instance;

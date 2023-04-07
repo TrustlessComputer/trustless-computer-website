@@ -10,7 +10,13 @@ import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import IcCheck from '@/assets/icons/ic-check.svg';
 import IcCloseModal from '@/assets/icons/ic-close.svg';
 import Button from '@/components/Button';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import usePreserveChunks, { IPreserveChunkParams } from '@/hooks/contract-operations/artifacts/usePreserveChunks';
+import { useWeb3React } from '@web3-react/core';
+import { readFileAsBuffer } from '@/utils';
 import { WalletContext } from '@/contexts/wallet-context';
+import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
+import { Transaction } from 'ethers';
 
 type Props = {
   show: boolean;
@@ -20,12 +26,24 @@ type Props = {
 };
 
 const ModalUpload = (props: Props) => {
+  const { account } = useWeb3React();
   const { show = false, handleClose, file, setFile } = props;
-
-  const { onConnect } = useContext(WalletContext);
-
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { run } = useContractOperation<IPreserveChunkParams, Transaction | null>({
+    operation: usePreserveChunks,
+  });
+
+  const handleUploadFile = async () => {
+    if (!account || !file) return;
+
+    const fileBuffer = await readFileAsBuffer(file);
+
+    run({
+      address: account,
+      chunks: fileBuffer,
+    });
+  };
 
   const onChangeFile = (file: File): void => {
     setFile(file);
@@ -59,7 +77,7 @@ const ModalUpload = (props: Props) => {
         <FileUploader
           handleChange={onChangeFile}
           name={'fileUploader'}
-          // maxSize={MINT_TOOL_MAX_FILE_SIZE}
+          maxSize={0.35}
           onSizeError={onSizeError}
           // onTypeError={onTypeError}
           // fileOrFiles={fileOrFiles}
@@ -70,7 +88,10 @@ const ModalUpload = (props: Props) => {
             {file && (
               <div className="preview-wrapper">
                 {preview ? (
-                  <img src={preview} alt="thumbnail preview" />
+                  // <img src={preview} alt="thumbnail preview" />
+                  <div className="thumbnail-wrapper">
+                    <MediaPreview previewExt={file?.name?.split('.')?.pop() || ''} previewUrl={preview} />
+                  </div>
                 ) : (
                   <img src={DefaultUploadImage} alt="default upload image"></img>
                 )}
@@ -93,7 +114,7 @@ const ModalUpload = (props: Props) => {
                 0.000214 BTC + 0.000214 Juice
               </Text>
             </div>
-            <Button className="confirm-btn" onClick={() => onConnect()}>
+            <Button className="confirm-btn" onClick={handleUploadFile}>
               <Text size="medium" fontWeight="medium" className="confirm-text">
                 Confirm
               </Text>
