@@ -79,6 +79,7 @@ const Link = styled.a<{ active: boolean }>`
 
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
   font-family: 'IBMPlexMono';
+  letter-spacing: -0.02em;
 
   :hover {
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};

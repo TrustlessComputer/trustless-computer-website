@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import WrapImage from '@/components/WrapImage';
+import IconSVG from '@/components/IconSVG';
+import NFTDisplayBox from '@/components/NFTDisplayBox';
 import { ARTIFACT_CONTRACT } from '@/configs';
 import { ICollection } from '@/models/collection';
 import { getCollections } from '@/services/nft-explorer';
@@ -10,6 +11,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Container } from './List.styled';
+import IcCheckBox from '@/assets/icons/ic-checkbox.svg';
+import IcCheckedBox from '@/assets/icons/ic-checkedbox.svg';
 
 const LIMIT_PAGE = 32;
 
@@ -17,14 +20,16 @@ const Collections = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [collections, setCollections] = useState<ICollection[]>([]);
 
+  const [isShowAll, setIsShowAll] = useState(false);
+
   useEffect(() => {
     fetchCollections();
-  }, []);
+  }, [isShowAll]);
 
   const fetchCollections = async (page = 1, isFetchMore = false) => {
     try {
       setIsFetching(true);
-      const data = await getCollections(page, LIMIT_PAGE);
+      const data = await getCollections(page, LIMIT_PAGE, isShowAll);
       if (isFetchMore) {
         setCollections(prev => [...prev, ...data]);
       } else {
@@ -48,6 +53,14 @@ const Collections = () => {
 
   return (
     <Container>
+      <div className="showAll" onClick={() => setIsShowAll(!isShowAll)}>
+        {isShowAll ? (
+          <IconSVG src={IcCheckedBox} color="white"></IconSVG>
+        ) : (
+          <IconSVG src={IcCheckBox} color="white" type="stroke"></IconSVG>
+        )}
+        <p>Show all</p>
+      </div>
       <InfiniteScroll
         className="list"
         dataLength={showCollections.length}
@@ -78,12 +91,12 @@ const Collections = () => {
                   <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                     <div className="card-content">
                       <div className="card-image">
-                        <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
+                        <NFTDisplayBox contentClass="image" src={item.thumbnail} />
                       </div>
                       <div className="card-info">
                         <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
                         <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
-                        <p className="card-index">Collection #{index + 1}</p>
+                        <p className="card-index">Collection #{item.index}</p>
                       </div>
                     </div>
                   </a>

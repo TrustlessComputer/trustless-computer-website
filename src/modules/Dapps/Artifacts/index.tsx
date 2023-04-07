@@ -31,16 +31,16 @@ const Artifacts = (props: Props) => {
     <>
       <UploadFileContainer>
         <div className="upload_left">
-          <img src={IcUploadFile} alt="upload file icon" />
+          {/* <img src={IcUploadFile} alt="upload file icon" /> */}
           <div className="upload_content">
             <h3 className="upload_title">Bitcoin File System</h3>
-            <Text size="regular">Cheap. Immutable. Fully on-chain. Large files are supported too.</Text>
+            <Text size="medium">Cheap. Immutable. Fully on-chain. Large files are supported too.</Text>
           </div>
         </div>
         <div className="upload_right">
           <Button
             bg={'white'}
-            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/artifacts')}
           >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Upload file
