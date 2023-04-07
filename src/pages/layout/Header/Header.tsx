@@ -71,7 +71,7 @@ const Header = ({ height }: { height: number }) => {
       <div className="rowLink">
         {MENU_HEADER.map(item => {
           return (
-            <Link active={activePath === item.activePath} href={item.route} key={item.id}>
+            <Link active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
               {item.name}
             </Link>
           );

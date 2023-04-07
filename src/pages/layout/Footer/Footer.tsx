@@ -3,6 +3,7 @@ import px2rem from '@/utils/px2rem';
 
 import IcDiscord from '@/assets/icons/ic_discord.svg';
 import IcTwitter from '@/assets/icons/ic_twitter.svg';
+import IcGithub from '@/assets/icons/ic_github.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,13 +45,13 @@ const Footer = ({ height }: { height: number }) => {
     <Wrapper style={{ height }}>
       <p className="text">Open-source software. Made with ❤️ on Bitcoin.</p>
       <div className="buttonContainer">
-        {/* <a href="https://github.com/trustlesscomputer">
+        <a href="https://github.com/trustlesscomputer" target="_blank">
           <img alt="icon" className="icon" src={IcGithub} />
-        </a> */}
-        <a href="https://discord.gg/tscNGxEw2s">
+        </a>
+        <a href="https://discord.gg/tscNGxEw2s" target="_blank">
           <img alt="icon" className="icon" src={IcDiscord} />
         </a>
-        <a href="https://twitter.com/DappsOnBitcoin">
+        <a href="https://twitter.com/DappsOnBitcoin" target="_blank">
           <img alt="icon" className="icon" src={IcTwitter} />
         </a>
       </div>

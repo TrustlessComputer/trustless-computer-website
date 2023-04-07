@@ -29,6 +29,24 @@ const Wrapper = styled.div`
     }
   }
 
+  .social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: ${px2rem(8)};
+    margin-top: ${px2rem(8)};
+
+    .icon {
+      width: ${px2rem(34)};
+      height: ${px2rem(34)};
+      cursor: pointer;
+
+      :hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     .inner {
       padding-right: 7%;

@@ -75,6 +75,7 @@ const Link = styled.a<{ active: boolean }>`
   font-weight: 400;
   font-size: ${px2rem(18)};
   line-height: ${px2rem(28)};
+  text-decoration: none !important;
 
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
 

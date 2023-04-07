@@ -91,6 +91,7 @@ const Link = styled.a`
   border-radius: ${px2rem(2)};
   text-decoration: none;
   width: fit-content;
+  text-decoration: none !important;
 
   font-weight: 500;
   font-size: ${px2rem(18)};

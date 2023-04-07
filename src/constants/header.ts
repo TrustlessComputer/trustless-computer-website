@@ -24,6 +24,7 @@ export const MENU_HEADER = [
     name: 'Explorer',
     route: 'https://explorer.trustless.computer',
     activePath: 'explorer',
+    target: '_blank',
   },
 ];
 
