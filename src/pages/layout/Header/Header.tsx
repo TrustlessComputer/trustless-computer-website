@@ -1,4 +1,3 @@
-import IcAvatarDefault from '@/assets/icons/ic-avatar.svg';
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
 import IcLogo from '@/assets/icons/logo.svg';
 import Text from '@/components/Text';
@@ -9,8 +8,9 @@ import { shortenAddress } from '@/utils';
 import { formatBTCPrice, formatEthPrice } from '@/utils/format';
 import { useWeb3React } from '@web3-react/core';
 import { gsap } from 'gsap';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useLocation } from 'react-router-dom';
 import { ConnectWalletButton, Link, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
@@ -89,7 +89,7 @@ const Header = ({ height }: { height: number }) => {
               </div>
               <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={handleShowAddress(account)}>
                 <div className="avatar">
-                  <img src={IcAvatarDefault} alt="default avatar" />
+                  <Jazzicon diameter={32} seed={jsNumberForAddress(account)} />
                 </div>
               </OverlayTrigger>
             </WalletBalance>

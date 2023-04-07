@@ -105,6 +105,12 @@ const WalletBalance = styled.div`
       background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
     }
   }
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const WalletAdress = styled(Tooltip)`
