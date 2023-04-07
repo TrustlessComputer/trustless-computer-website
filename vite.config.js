@@ -6,7 +6,8 @@ import checker from 'vite-plugin-checker';
 import path from 'path';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import { visualizer } from 'rollup-plugin-visualizer';
-import inject from '@rollup/plugin-inject'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import inject from '@rollup/plugin-inject';
 
 import { dependencies } from './package.json';
 function renderChunks(deps) {
