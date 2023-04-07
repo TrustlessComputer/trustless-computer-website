@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import NFTDisplayBox from '@/components/NFTDisplayBox';
 import WrapImage from '@/components/WrapImage';
 import { ARTIFACT_CONTRACT } from '@/configs';
 import { ICollection } from '@/models/collection';
@@ -78,7 +79,7 @@ const Collections = () => {
                   <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                     <div className="card-content">
                       <div className="card-image">
-                        <WrapImage alt={`thumb-${index.toString()}`} className="image" src={item.thumbnail} />
+                        <NFTDisplayBox contentClass="image" src={item.thumbnail} />
                       </div>
                       <div className="card-info">
                         <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>

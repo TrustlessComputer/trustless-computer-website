@@ -191,7 +191,7 @@ const RightContainer = styled.div`
   .subTitle {
     font-style: normal;
     font-weight: 500;
-    font-size: 56px;
+    font-size: 50px;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     text-align: center;
     margin-top: 16px;
