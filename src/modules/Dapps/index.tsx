@@ -1,4 +1,5 @@
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
+import IcNames from '@/assets/icons/ic-names.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IconSVG from '@/components/IconSVG';
@@ -8,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import Artifacts from './Artifacts';
 import Collections from './Collections';
+import Names from './Names';
 import { DappsContainer, TabContainer } from './Dapps.styled';
 import Tokens from './Tokens';
 import { useSearchParams } from 'react-router-dom';
@@ -38,7 +40,12 @@ const Dapps = () => {
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
-        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
+        <Tabs
+          mountOnEnter
+          defaultActiveKey={activeTab}
+          id="uncontrolled-tab"
+          onSelect={key => setActiveTab(key || DappsTabs.NFT)}
+        >
           <Tab
             eventKey={DappsTabs.NFT}
             title={
@@ -74,9 +81,17 @@ const Dapps = () => {
           >
             <Artifacts />
           </Tab>
-          {/* <Tab eventKey="names" title="Names"> */}
-          {/* <Add Component Here /> */}
-          {/* </Tab> */}
+          <Tab
+            eventKey="names"
+            title={
+              <div className="tab-item">
+                <img src={IcNames} alt="names" />
+                <Text size="regular">Names</Text>
+              </div>
+            }
+          >
+            <Names />
+          </Tab>
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
           {/* <Add Component Here /> */}
           {/* </Tab> */}
