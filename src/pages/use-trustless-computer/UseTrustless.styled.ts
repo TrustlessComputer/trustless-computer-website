@@ -64,11 +64,12 @@ const RightStep = styled.div`
     font-weight: 400;
     font-size: ${px2rem(24)};
     line-height: ${px2rem(32)};
+    text-transform: uppercase;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
   }
 
   .text {
-    font-size: ${px2rem(54)};
+    font-size: ${px2rem(45)};
     line-height: ${px2rem(64)};
     font-family: 'IBMPlexMono' !important;
   }
