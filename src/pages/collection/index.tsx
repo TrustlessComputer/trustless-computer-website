@@ -13,6 +13,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Collection.styled';
 import { useWeb3React } from '@web3-react/core';
+import CollectionHeader from './CollectionHeader';
 
 const LIMIT = 32;
 
@@ -67,45 +68,7 @@ const Collection = () => {
   return (
     <Container>
       <div className="content">
-        <div className="header">
-          {collection && (
-            <div className="infor">
-              <div className="infor-left">
-                <WrapImage alt="collection" className="image" src={collection?.thumbnail} />
-                <div>
-                  <p className="title">{collection?.name}</p>
-                  <p className="subTitle">{collection?.description}</p>
-                </div>
-              </div>
-              <div className="infor-right">
-                <div>
-                  <p className="owner">OWNER</p>
-                  <a
-                    href={`https://explorer.trustless.computer/address/${collection?.creator}`}
-                    target="_blank"
-                    className="link"
-                  >
-                    {collection?.creator}
-                  </a>
-                </div>
-                <div>
-                  <p className="owner">CONTRACT</p>
-                  <a
-                    href={`https://explorer.trustless.computer/address/${collection?.contract}`}
-                    target="_blank"
-                    className="link"
-                  >
-                    {collection?.contract}
-                  </a>
-                </div>
-                <div>
-                  <p className="owner">ITEMS</p>
-                  <p className="address">{collection?.totalItems}</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        <CollectionHeader collection={collection} />
         <div>
           <InfiniteScroll
             className="list"
