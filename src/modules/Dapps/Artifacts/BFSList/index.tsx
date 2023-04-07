@@ -82,10 +82,10 @@ const BFSList = () => {
                 inscriptions.length > 0 &&
                 inscriptions.map((item, index) => {
                   return (
-                    <div
+                    <a
                       key={index.toString()}
                       className="card"
-                      // href={`/inscription/${collection?.contract}/${item.tokenId}`}
+                      href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
                     >
                       <div className="card-content">
                         <div className="card-image">
@@ -102,7 +102,7 @@ const BFSList = () => {
                           <p className="card-index">File #{item.tokenId}</p>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   );
                 })}
             </Masonry>
