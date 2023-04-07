@@ -43,9 +43,9 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
           <div className="wallet mobile">
             <WalletBalance>
               <div className="balance">
-                <p>{formatBTCPrice('10000000000')} BTC</p>
+                <p>{formatBTCPrice(btcBalance)} BTC</p>
                 <span className="divider"></span>
-                <p>{formatEthPrice('10000000000')} TC</p>
+                <p>{formatEthPrice(juiceBalance)} TC</p>
               </div>
               <div className="avatar">
                 <img src={IcAvatarDefault} alt="default avatar" />
