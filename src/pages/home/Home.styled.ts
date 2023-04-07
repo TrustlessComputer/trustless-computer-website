@@ -196,10 +196,11 @@ const RightContainer = styled.div`
     text-align: center;
     margin-top: 16px;
     line-height: 66px;
+    font-family: 'IBMPlexMono' !important;
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .button {
@@ -221,13 +222,14 @@ const RightContainer = styled.div`
       opacity: 0.7;
     }
 
-    .text {
+    .text-build {
       font-style: normal;
       font-weight: 500;
       font-size: 18px;
       line-height: 26px;
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       text-align: center;
+      font-family: 'IBMPlexMono' !important;
     }
   }
 

@@ -38,6 +38,7 @@ const Container = styled.div`
         font-size: 34px;
         line-height: 44px;
         color: #ffffff;
+        font-family: 'IBMPlexMono' !important;
       }
 
       .subTitle {
