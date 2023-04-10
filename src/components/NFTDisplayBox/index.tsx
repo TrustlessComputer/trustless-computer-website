@@ -1,11 +1,16 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/iframe-has-title */
+import { CDN_URL } from '@/configs';
 import { getURLContent } from '@/lib';
 import React, { useEffect, useRef, useState } from 'react';
-
+import cs from 'classnames';
+import s from './styles.module.scss';
 import { IMAGE_TYPE } from './constant';
+import Skeleton from '../Skeleton';
 interface IProps {
+  className?: string;
   contentClass?: string;
+  src?: string;
   type?: IMAGE_TYPE;
   collectionID?: string;
   tokenID?: string;
@@ -15,7 +20,9 @@ interface IProps {
 }
 
 const NFTDisplayBox = ({
+  className,
   contentClass,
+  src,
   type,
   collectionID,
   tokenID,
@@ -23,29 +30,67 @@ const NFTDisplayBox = ({
   loop = false,
   controls = false,
 }: IProps) => {
+  const [isError, setIsError] = React.useState(false);
+  const [isLoaded, serIsLoaded] = React.useState(false);
+
+  const onError = () => {
+    setIsError(true);
+    serIsLoaded(true);
+  };
+
+  const onLoaded = () => {
+    serIsLoaded(true);
+  };
+
   const [HTMLContentRender, setHTMLContentRender] = useState<JSX.Element>();
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // const getURLContent = '';
+  const defaultImage = CDN_URL + '/images/default_thumbnail.png';
+
+  const contentClassName = cs(contentClass);
+
+  const renderLoading = () => <Skeleton className={s.absolute} fill isLoaded={isLoaded} />;
 
   const renderIframe = (content: string) => {
     return (
       <iframe
-        className={contentClass}
+        className={contentClassName}
         loading="lazy"
         sandbox="allow-scripts allow-pointer-lock allow-downloads"
         scrolling="no"
         src={content}
+        onError={onError}
+        onLoad={onLoaded}
       />
     );
   };
 
   const renderAudio = (content: string) => {
-    return <audio autoPlay={autoPlay} className={contentClass} controls={controls} loop={loop} src={content} />;
+    return (
+      <audio
+        autoPlay={autoPlay}
+        className={contentClassName}
+        controls={controls}
+        loop={loop}
+        src={content}
+        onError={onError}
+        onLoad={onLoaded}
+      />
+    );
   };
 
   const renderVideo = (content: string) => {
-    return <video autoPlay={autoPlay} className={contentClass} controls={controls} loop={loop} src={content} />;
+    return (
+      <video
+        autoPlay={autoPlay}
+        className={contentClassName}
+        controls={controls}
+        loop={loop}
+        src={content}
+        onError={onError}
+        onLoad={onLoaded}
+      />
+    );
   };
 
   const handleOnImgLoaded = (evt: React.SyntheticEvent<HTMLImageElement>): void => {
@@ -54,6 +99,7 @@ const NFTDisplayBox = ({
     if (naturalWidth < 100 && imgRef.current) {
       imgRef.current.style.imageRendering = 'pixelated';
     }
+    serIsLoaded(true);
   };
 
   const renderImage = (content: string) => {
@@ -61,21 +107,23 @@ const NFTDisplayBox = ({
       <img
         ref={imgRef}
         alt={tokenID}
-        className={contentClass}
+        className={contentClassName}
         loading="lazy"
         src={content}
         style={{ objectFit: 'contain' }}
         onLoad={handleOnImgLoaded}
+        onError={onError}
       />
     );
   };
 
-  const renderEmpty = () => <img alt={tokenID} className={contentClass} loading={'lazy'} src={''} />;
+  const renderEmpty = () => <img alt={tokenID} className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (collectionID && tokenID) {
+    if (src) {
+      setHTMLContentRender(renderImage(src));
+    } else if (collectionID && tokenID) {
       const content = getURLContent(collectionID, tokenID);
-      // const content = '';
       switch (type) {
         case 'audio/mpeg':
         case 'audio/wav':
@@ -108,10 +156,12 @@ const NFTDisplayBox = ({
           setHTMLContentRender(renderIframe(content));
           return;
       }
+    } else {
+      setHTMLContentRender(renderEmpty());
     }
-  }, [collectionID, tokenID]);
+  }, [collectionID, tokenID, src]);
 
-  return HTMLContentRender ? HTMLContentRender : renderEmpty();
+  return <div className={cs(s.wrapper, className)}>{HTMLContentRender && HTMLContentRender}</div>;
 };
 
 export default React.memo(NFTDisplayBox);

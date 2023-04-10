@@ -76,7 +76,7 @@ const Container = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 32%;
+      gap: 22%;
     }
   }
 
@@ -84,8 +84,9 @@ const Container = styled.div`
     font-style: normal;
     font-weight: 600;
     font-size: 34px;
-    line-height: 44px;
+    line-height: 64px;
     color: #ffffff;
+    font-family: 'IBMPlexMono' !important;
   }
 
   .subTitle {

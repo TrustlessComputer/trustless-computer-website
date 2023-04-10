@@ -14,7 +14,7 @@ export const TabContainer = styled.div`
 
     .nav-link {
       opacity: 0.5;
-      padding: 0 ${px2rem(40)};
+      padding: 0 ${px2rem(24)};
       border: none;
       transition: 0.2s ease;
 
@@ -36,6 +36,10 @@ export const TabContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+  }
+
+  .tab-text {
+    font-family: 'IBMPlexMono' !important;
   }
 `;
 
@@ -65,6 +69,7 @@ export const UploadFileContainer = styled.div`
   }
 
   .button-text {
+    font-family: 'IBMPlexMono' !important;
     padding: ${px2rem(11)} ${px2rem(36)};
   }
 
