@@ -1,7 +1,7 @@
 import { SupportedChainId } from '@/constants/chains';
 import { WalletContext } from '@/contexts/wallet-context';
 import { ContractOperationHook } from '@/interfaces/contract-operation';
-import { switchChain } from '@/utils';
+import { capitalizeFirstLetter, switchChain } from '@/utils';
 import { useWeb3React } from '@web3-react/core';
 import { useContext } from 'react';
 import useBitcoin from '../useBitcoin';
@@ -97,7 +97,9 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       return tx;
     } catch (err) {
-      console.log(err);
+      if (Object(err).reason) {
+        throw Error(capitalizeFirstLetter(Object(err).reason));
+      }
       throw err;
     }
   };
