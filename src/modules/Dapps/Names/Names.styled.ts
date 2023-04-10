@@ -1,5 +1,6 @@
 import px2rem from '@/utils/px2rem';
 import styled, { DefaultTheme } from 'styled-components';
+import Button from '@/components/Button';
 
 export const NamesContainer = styled.div`
   padding: ${px2rem(24)} ${px2rem(32)};
@@ -28,11 +29,12 @@ export const NamesContainer = styled.div`
 
   .button-text {
     font-family: 'IBMPlexMono' !important;
-    padding: ${px2rem(11)} ${px2rem(36)};
   }
 `;
 
 export const FormContainer = styled.div`
+  margin-top: ${px2rem(24)};
+
   .form {
     display: flex;
     justify-content: center;
@@ -66,9 +68,13 @@ export const FormContainer = styled.div`
     button {
       height: 100%;
     }
+  }
+`;
 
-    .button-text {
-      padding: ${px2rem(11)} ${px2rem(36)};
-    }
+export const SubmitButton = styled(Button)`
+  width: ${px2rem(130)};
+
+  p {
+    padding: unset !important;
   }
 `;

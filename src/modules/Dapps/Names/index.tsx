@@ -1,27 +1,62 @@
 import { useState } from 'react';
 import Text from '@/components/Text';
-import Button from '@/components/Button';
-
 import NamesList from './NamesList';
-import { NamesContainer, FormContainer } from './Names.styled';
-import IcImgName from '@/assets/icons/ic-img-names.svg';
+import { NamesContainer, FormContainer, SubmitButton } from './Names.styled';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import useIsRegistered, { ICheckIfRegisteredNameParams } from '@/hooks/contract-operations/bns/useIsRegistered';
+import useRegister, { IRegisterNameParams } from '@/hooks/contract-operations/bns/useRegister';
+import { Transaction } from 'ethers';
+import toast from 'react-hot-toast';
 
-type Props = {};
-
-const Names = (props: Props) => {
+const Names: React.FC = () => {
   const [nameValidate, setNameValidate] = useState(false);
   const [valueInput, setValueInput] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { run: checkNameIsRegistered } = useContractOperation<ICheckIfRegisteredNameParams, Promise<boolean>>({
+    operation: useIsRegistered,
+    inscribeable: false,
+  });
+  const { run: registerName } = useContractOperation<IRegisterNameParams, Promise<Transaction | null>>({
+    operation: useRegister,
+  });
 
   const handleValidate = (name: string) => {
     if (name) {
       setNameValidate(true);
     }
   };
-  const handleRegistered = () => {
-    // todo register name call smart contract
+  const handleRegistered = async () => {
     console.log(valueInput);
+
+    setIsProcessing(true);
+
+    // Check if name has been registered
+    const isRegistered = await checkNameIsRegistered({
+      name: valueInput,
+    });
+
+    // If name has already been taken
+    if (isRegistered) {
+      toast.error(`${valueInput} has already been taken. Please choose another one.`);
+      setIsProcessing(false);
+      return;
+    }
+
+    // Call contract
+    try {
+      await registerName({
+        name: valueInput,
+      });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      setValueInput('');
+    } catch (err) {
+      toast.error((err as Error).message);
+      console.log(err);
+    } finally {
+      setIsProcessing(false);
+    }
   };
+
   return (
     <>
       <NamesContainer>
@@ -35,18 +70,8 @@ const Names = (props: Props) => {
             </Text>
           </div>
         </div>
-        <div className="upload_right">
-          <Button
-            bg={'white'}
-            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bns-bitcoin-name-system')}
-          >
-            <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-              Register
-            </Text>
-          </Button>
-        </div>
       </NamesContainer>
-      {/* <FormContainer>
+      <FormContainer>
         <div className="block_search">
           <div className="form">
             <div className="input">
@@ -61,15 +86,15 @@ const Names = (props: Props) => {
               />
             </div>
             <div className="btn">
-              <Button bg={'white'} disabled={!nameValidate} onClick={handleRegistered}>
+              <SubmitButton bg={'white'} disabled={!nameValidate || isProcessing} onClick={handleRegistered}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-                  Register
+                  {isProcessing ? 'Processing...' : 'Register'}
                 </Text>
-              </Button>
+              </SubmitButton>
             </div>
           </div>
         </div>
-      </FormContainer> */}
+      </FormContainer>
       <NamesList />
     </>
   );

@@ -15,12 +15,10 @@ export type MediaPreviewProps = {
 
 const MediaPreview = (props: MediaPreviewProps) => {
   const { previewExt, previewUrl } = props;
-  console.log('🚀 ~ MediaPreview ~ previewUrl:', previewUrl);
-  console.log('🚀 ~ MediaPreview ~ previewExt:', previewExt);
+
   if (!previewExt) return null;
 
   const mediaType = getMediaTypeFromFileExt(previewExt);
-  console.log('🚀 ~ MediaPreview ~ mediaType:', mediaType);
 
   switch (mediaType) {
     case MediaType.IMAGE:
