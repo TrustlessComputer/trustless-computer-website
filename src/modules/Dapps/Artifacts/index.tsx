@@ -33,7 +33,7 @@ const Artifacts = (props: Props) => {
         <div className="upload_left">
           {/* <img src={IcUploadFile} alt="upload file icon" /> */}
           <div className="upload_content">
-            <h3 className="upload_title">Bitcoin File System</h3>
+            <h3 className="upload_title">Artifacts</h3>
             <Text size="medium">Cheap. Immutable. Fully on-chain. Large files are supported too.</Text>
           </div>
         </div>
@@ -43,7 +43,7 @@ const Artifacts = (props: Props) => {
             onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/artifacts')}
           >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-              Upload file
+              Preserve artifact
             </Text>
           </Button>
           {/* <FileUploader
