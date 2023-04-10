@@ -3,7 +3,7 @@ import { IPagingParams } from '@/interfaces/api/query';
 import { swrFetcher } from '@/utils/swr';
 interface ICollection {
   name: string;
-  tokenId: string;
+  id: string;
   owner: string;
 }
 const API_PATH = '/bns-service/names';

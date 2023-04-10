@@ -22,7 +22,7 @@ const NamesList = () => {
 
   const debounceLoadMore = debounce(nextPage => {
     setpage(nextPage);
-    setpageSize(pageSize + LIMIT_PAGE);
+    // setpageSize(pageSize + LIMIT_PAGE);
   }, 300);
 
   const onLoadMoreNfts = () => {
@@ -69,7 +69,7 @@ const NamesList = () => {
                         <div className="card-info">
                           <p className="card-title">{item.name}</p>
                           <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-subTitle">Name #{item.tokenId}</p>
+                          <p className="card-subTitle">Name #{item.id}</p>
                         </div>
                       </div>
                     </div>

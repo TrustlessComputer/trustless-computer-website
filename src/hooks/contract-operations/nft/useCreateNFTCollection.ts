@@ -7,6 +7,7 @@ import { BFS_ADDRESS } from '@/configs';
 import { AssetsContext } from '@/contexts/assets-context';
 import * as TC_SDK from 'trustless-computer-sdk';
 import BigNumber from 'bignumber.js';
+import { formatBTCPrice } from '@/utils/format';
 
 export interface ICreateNFTCollectionParams {
   name: string;
@@ -36,7 +37,11 @@ const useCreateNFTCollection: ContractOperationHook<
         });
         const balanceInBN = new BigNumber(btcBalance);
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
-          throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
+          throw Error(
+            `Your balance is insufficient. Please top up at least ${formatBTCPrice(
+              estimatedFee.totalFee.toString(),
+            )} BTC to pay network fee.`,
+          );
         }
 
         const factory = new ContractFactory(ERC721ABIJson.abi, byteCode, provider.getSigner());

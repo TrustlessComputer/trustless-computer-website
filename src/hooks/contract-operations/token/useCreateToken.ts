@@ -6,6 +6,7 @@ import { ContractFactory } from 'ethers';
 import { AssetsContext } from '@/contexts/assets-context';
 import * as TC_SDK from 'trustless-computer-sdk';
 import BigNumber from 'bignumber.js';
+import { formatBTCPrice } from '@/utils/format';
 
 export interface ICreateTokenParams {
   name: string;
@@ -41,7 +42,11 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
         console.log('balanceInBN', balanceInBN.toString());
 
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
-          throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
+          throw Error(
+            `Your balance is insufficient. Please top up at least ${formatBTCPrice(
+              estimatedFee.totalFee.toString(),
+            )} BTC to pay network fee.`,
+          );
         }
 
         const factory = new ContractFactory(ERC20ABIJson.abi, ERC20ABIJson.bytecode, provider.getSigner());
