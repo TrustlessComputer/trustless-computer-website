@@ -39,6 +39,8 @@ export const NamesContainer = styled.div`
 `;
 
 export const FormContainer = styled.div`
+  margin-top: ${px2rem(24)};
+
   .form {
     display: flex;
     justify-content: center;

@@ -4,10 +4,11 @@ import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { Formik } from 'formik';
 import { Modal } from 'react-bootstrap';
-import { StyledModalUpload, WrapInput } from '../../Collections/ModalCreate/ModalCreate.styled';
+import { StyledModalUpload, Title, WrapInput } from '../../Collections/ModalCreate/ModalCreate.styled';
 import useContractOperation from '@/hooks/contract-operations/useContractOperation';
 import useCreateToken, { ICreateTokenParams } from '@/hooks/contract-operations/token/useCreateToken';
 import { DeployContractResponse } from '@/interfaces/contract-operation';
+import React, { useState } from 'react';
 
 type Props = {
   show: boolean;
@@ -20,9 +21,9 @@ interface IFormValue {
   supply: string;
 }
 
-const ModalCreateToken = (props: Props) => {
+const ModalCreateToken: React.FC<Props> = (props: Props) => {
   const { show, handleClose } = props;
-
+  const [isProcessing, setIsProcessing] = useState(false);
   const { run } = useContractOperation<ICreateTokenParams, Promise<DeployContractResponse | null>>({
     operation: useCreateToken,
   });
@@ -48,13 +49,16 @@ const ModalCreateToken = (props: Props) => {
     const { name, symbol, supply } = values;
 
     try {
-      run({
+      setIsProcessing(true);
+      await run({
         name,
         symbol,
         maxSupply: Number(supply),
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -64,7 +68,7 @@ const ModalCreateToken = (props: Props) => {
         <IconSVG className="cursor-pointer" onClick={handleClose} src={IcCloseModal} maxWidth={'22px'} />
       </Modal.Header>
       <Modal.Body>
-        <h5 className="font-medium">Create BRC-20</h5>
+        <Title className="font-medium">Create BRC-20</Title>
         <Formik
           key="create"
           initialValues={{
@@ -119,16 +123,15 @@ const ModalCreateToken = (props: Props) => {
                 {errors.supply && <p className="error">{errors.supply}</p>}
               </WrapInput>
 
-              <div className="upload-fee">
+              {/* <div className="upload-fee">
                 <Text size="regular">Fee create</Text>
-                {/* TODO: Update to correct price */}
                 <Text size="regular" fontWeight="semibold">
                   0.000214 BTC + 0.000214 TC
                 </Text>
-              </div>
-              <Button type="submit" className="confirm-btn">
+              </div> */}
+              <Button disabled={isProcessing} type="submit" className="confirm-btn">
                 <Text size="medium" fontWeight="medium" className="confirm-text">
-                  Create
+                  {isProcessing ? 'Processing...' : 'Create'}
                 </Text>
               </Button>
             </form>

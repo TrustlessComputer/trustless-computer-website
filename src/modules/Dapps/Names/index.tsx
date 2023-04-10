@@ -8,11 +8,12 @@ import useContractOperation from '@/hooks/contract-operations/useContractOperati
 import useIsRegistered, { ICheckIfRegisteredNameParams } from '@/hooks/contract-operations/bns/useIsRegistered';
 import useRegister, { IRegisterNameParams } from '@/hooks/contract-operations/bns/useRegister';
 import { Transaction } from 'ethers';
+import toast from 'react-hot-toast';
 
 const Names: React.FC = () => {
   const [nameValidate, setNameValidate] = useState(false);
   const [valueInput, setValueInput] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const { run: checkNameIsRegistered } = useContractOperation<ICheckIfRegisteredNameParams, Promise<boolean>>({
     operation: useIsRegistered,
     inscribeable: false,
@@ -30,13 +31,17 @@ const Names: React.FC = () => {
   const handleRegistered = async () => {
     console.log(valueInput);
 
+    setIsProcessing(true);
+
     // Check if name has been registered
     const isRegistered = await checkNameIsRegistered({
       name: valueInput,
     });
+
     // If name has already been taken
     if (isRegistered) {
-      setError(`${valueInput} has already been taken. Please choose another one.`);
+      toast.error(`${valueInput} has already been taken. Please choose another one.`);
+      setIsProcessing(false);
       return;
     }
 
@@ -47,6 +52,9 @@ const Names: React.FC = () => {
       });
     } catch (err) {
       console.log(err);
+      toast.error((err as Error).message);
+    } finally {
+      setIsProcessing(false);
     }
   };
   return (
@@ -63,7 +71,7 @@ const Names: React.FC = () => {
           </div>
         </div>
       </NamesContainer>
-      {/* <FormContainer>
+      <FormContainer>
         <div className="block_search">
           <div className="form">
             <div className="input">
@@ -78,7 +86,7 @@ const Names: React.FC = () => {
               />
             </div>
             <div className="btn">
-              <Button bg={'white'} disabled={!nameValidate} onClick={handleRegistered}>
+              <Button bg={'white'} disabled={!nameValidate || isProcessing} onClick={handleRegistered}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
                   Register
                 </Text>
@@ -86,7 +94,7 @@ const Names: React.FC = () => {
             </div>
           </div>
         </div>
-      </FormContainer> */}
+      </FormContainer>
       <NamesList />
     </>
   );

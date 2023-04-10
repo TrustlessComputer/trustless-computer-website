@@ -6,9 +6,7 @@ import { getCollectedUTXO, getFeeRate, getPendingUTXOs, getTokenRate } from '@/s
 import { comingAmountBuilder, currentAssetsBuilder } from '@/utils/utxo';
 import debounce from 'lodash/debounce';
 import { getBtcBalance } from '@/services/quicknode';
-import useAsyncEffect from 'use-async-effect';
 import { useWeb3React } from '@web3-react/core';
-import BigNumber from 'bignumber.js';
 
 export interface IAssetsContext {
   btcBalance: string;
@@ -128,10 +126,16 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     return _feeRate;
   };
 
-  const fetchBalance = async () => {
+  const fetchBTCBalance = async () => {
     try {
       if (currentAddress) {
-        const balance = await getBtcBalance(currentAddress);
+        const utxos = await getBtcBalance(currentAddress);
+        const balance = utxos.reduce((prev, cur) => {
+          if (!cur.isOrdinal) {
+            return prev + cur.value;
+          }
+          return prev;
+        }, 0);
         setBtcBalance(balance.toString());
       }
     } catch (err) {
@@ -140,14 +144,18 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     }
   };
 
+  const fetchJuiceBalance = async () => {
+    if (user?.walletAddress && provider) {
+      const balance = await provider.getBalance(user.walletAddress);
+      setJuiceBalance(balance.toString());
+    }
+  };
+
   const getAvailableAssetsCreateTx = async () => {
     const [assets, pendingUTXOs] = await Promise.all([await fetchAssets(), await getPendingUTXOs(currentAddress)]);
-    console.log('aaaaa', assets);
     // Current assets
     let _currentAssets = undefined;
     if (assets) {
-      console.log('bbbbbb', assets);
-      console.log('bbbbbb', pendingUTXOs);
       _currentAssets = currentAssetsBuilder({
         current: assets,
         pending: pendingUTXOs,
@@ -181,18 +189,17 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     }
 
     try {
-      fetchBalance();
+      fetchJuiceBalance();
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      fetchBTCBalance();
     } catch (err) {
       console.log(err);
     }
   };
-
-  useAsyncEffect(async () => {
-    if (user?.walletAddress && provider) {
-      const balance = await provider.getBalance(user.walletAddress);
-      setJuiceBalance(balance.toString());
-    }
-  }, [user, provider]);
 
   useEffect(() => {
     if (currentAddress) {
@@ -200,19 +207,19 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     } else {
       setHistory([]);
     }
-  }, [currentAddress]);
+  }, [user, provider, currentAddress]);
 
   useEffect(() => {
     fetchAssetsData();
 
     const intervalID = setInterval(() => {
       fetchAssetsData();
-    }, 60 * 2 * 1000); // 2 mins
+    }, 60000); // 1min
 
     return () => {
       clearInterval(intervalID);
     };
-  }, [currentAddress]);
+  }, [user, provider, currentAddress]);
 
   const contextValues = useMemo((): IAssetsContext => {
     return {
