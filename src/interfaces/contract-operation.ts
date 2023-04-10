@@ -1,8 +1,11 @@
+import { TransactionResponse } from '@ethersproject/abstract-provider';
+
 export type ContractOperationHook<P, R> = () => {
-  call: (p: P & IOperationRequiredParams) => Promise<R>;
+  call: (args: P) => R;
 };
 
-export interface IOperationRequiredParams {
-  gasPrice: number;
-  nonce: number;
-}
+export type DeployContractResponse = {
+  hash: string;
+  contractAddress: string;
+  deployTransaction: TransactionResponse;
+};
