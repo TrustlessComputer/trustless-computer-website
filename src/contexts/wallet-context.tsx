@@ -12,6 +12,8 @@ import { setAccessToken } from '@/utils/auth-storage';
 import useAsyncEffect from 'use-async-effect';
 import { getAccessToken } from '@/utils/auth-storage';
 import { clearAuthStorage } from '@/utils/auth-storage';
+import Web3 from 'web3';
+import { provider } from 'web3-core';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -56,36 +58,25 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     });
     if (addresses && Array.isArray(addresses)) {
       const evmWalletAddress = addresses[0];
-
-      dispatch(updateEVMWallet(evmWalletAddress));
-      dispatch(updateSelectedWallet({ wallet: connection.type }));
-      return evmWalletAddress;
+      const data = await generateNonceMessage({
+        address: evmWalletAddress,
+      });
+      if (data) {
+        const web3Provider = new Web3(window.ethereum as provider);
+        const signature = await web3Provider.eth.personal.sign(Web3.utils.fromUtf8(data), evmWalletAddress, '');
+        const { token: accessToken, refreshToken } = await verifyNonceMessage({
+          address: evmWalletAddress,
+          signature: signature,
+        });
+        console.log('signature', signature);
+        setAccessToken(accessToken, refreshToken);
+        dispatch(updateEVMWallet(evmWalletAddress));
+        dispatch(updateSelectedWallet({ wallet: connection.type }));
+        return evmWalletAddress;
+      }
     }
     return null;
   }, [dispatch, connector, provider]);
-
-  useAsyncEffect(async () => {
-    const accessToken = getAccessToken();
-    if (!account || accessToken) return;
-    const data = await generateNonceMessage({
-      address: account,
-    });
-
-    if (data) {
-      try {
-        console.log(data);
-        const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-        const { token: accessToken, refreshToken } = await verifyNonceMessage({
-          address: account,
-          signature: ethSignature,
-        });
-        console.log(ethSignature);
-        setAccessToken(accessToken, refreshToken);
-      } catch (err: unknown) {
-        disconnect();
-      }
-    }
-  }, [account, provider]);
 
   const generateBitcoinKey = React.useCallback(async () => {
     const addresses = await connector.provider?.request({
