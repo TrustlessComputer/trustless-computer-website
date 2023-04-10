@@ -21,7 +21,7 @@ export const getCollectionNfts = ({
   contractAddress,
   limit = 10,
   page = 1,
-  owner,
+  owner = '',
 }: {
   contractAddress: string;
   limit?: number;

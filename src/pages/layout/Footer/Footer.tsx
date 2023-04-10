@@ -48,7 +48,7 @@ const Footer = ({ height }: { height: number }) => {
         <a href="https://github.com/trustlesscomputer" target="_blank">
           <img alt="icon" className="icon" src={IcGithub} />
         </a>
-        <a href="https://discord.gg/tscNGxEw2s" target="_blank">
+        <a href="https://discord.com/channels/1052411011036090458/1094649301210239086" target="_blank">
           <img alt="icon" className="icon" src={IcDiscord} />
         </a>
         <a href="https://twitter.com/DappsOnBitcoin" target="_blank">

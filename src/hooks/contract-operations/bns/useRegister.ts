@@ -1,42 +1,42 @@
 import { ContractOperationHook } from '@/interfaces/contract-operation';
 import { useContract } from '@/hooks/useContract';
-import ArtifactABIJson from '@/abis/artifacts.json';
-import { ARTIFACT_CONTRACT } from '@/configs';
+import BNSABIJson from '@/abis/bns.json';
+import { BNS_CONTRACT } from '@/configs';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback, useContext } from 'react';
+import { stringToBuffer } from '@/utils';
 import { Transaction } from 'ethers';
+import * as TC_SDK from 'trustless-computer-sdk';
 import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
-import * as TC_SDK from 'trustless-computer-sdk';
 
-export interface IPreserveChunkParams {
-  address: string;
-  chunks: Buffer;
+export interface IRegisterNameParams {
+  name: string;
 }
 
-const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Promise<Transaction | null>> = () => {
+const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transaction | null>> = () => {
   const { account, provider } = useWeb3React();
-  const contract = useContract(ARTIFACT_CONTRACT, ArtifactABIJson.abi, true);
+  const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, true);
   const { btcBalance, feeRate } = useContext(AssetsContext);
 
   const call = useCallback(
-    async (params: IPreserveChunkParams): Promise<Transaction | null> => {
+    async (params: IRegisterNameParams): Promise<Transaction | null> => {
       if (account && provider && contract) {
-        const { address, chunks } = params;
+        const { name } = params;
+        const byteCode = stringToBuffer(name);
         console.log({
-          tcTxSizeByte: Buffer.byteLength(chunks),
+          tcTxSizeByte: Buffer.byteLength(byteCode),
           feeRatePerByte: feeRate.fastestFee,
         });
         const estimatedFee = TC_SDK.estimateInscribeFee({
-          tcTxSizeByte: Buffer.byteLength(chunks),
+          tcTxSizeByte: Buffer.byteLength(byteCode),
           feeRatePerByte: feeRate.fastestFee,
         });
         const balanceInBN = new BigNumber(btcBalance);
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
           throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
         }
-        const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, [chunks]);
-
+        const transaction = await contract.connect(provider.getSigner()).register(account, byteCode);
         return transaction;
       }
 
@@ -46,8 +46,8 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Promise<Tra
   );
 
   return {
-    call: call,
+    call,
   };
 };
 
-export default usePreserveChunks;
+export default useRegister;

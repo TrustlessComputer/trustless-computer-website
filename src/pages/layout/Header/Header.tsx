@@ -15,15 +15,8 @@ import { useLocation } from 'react-router-dom';
 import { ConnectWalletButton, Link, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
 
-// const WalletAddress = styled.span`
-//   font-size: ${px2rem(14)};
-//   line-height: ${px2rem(24)};
-//   color: #fff;
-// `;
-
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  console.log('🚀 ~ Header ~ account:', account);
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
@@ -34,18 +27,17 @@ const Header = ({ height }: { height: number }) => {
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
 
-  const handleConnect = async () => {
-    const address = await onConnect();
-    const taproot = await generateBitcoinKey();
-    console.log(address, taproot);
-  };
-
   const handleShowAddress = (address: string) => {
     return (
       <WalletAdress className="balance">
         <Text size="regular">{shortenAddress(address, 4, 4)}</Text>
       </WalletAdress>
     );
+  };
+
+  const handleConnectWallet = async () => {
+    await onConnect();
+    await generateBitcoinKey();
   };
 
   useEffect(() => {
@@ -96,7 +88,7 @@ const Header = ({ height }: { height: number }) => {
             {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
           </div>
         ) : (
-          <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
+          <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
         )}
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />

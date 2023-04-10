@@ -91,10 +91,13 @@ const Inscription = () => {
             {/* <p className="subTitle">Inscriptions #number</p> */}
           </div>
 
-          <a className="tag" href={`/collection?contract=${inscription?.collectionAddress}`}>
+          {/* <a className="tag" href={`/collection?contract=${inscription?.collectionAddress}`}>
             <p className="tag-title">Collection</p>
             <p className="subTitle">{inscription?.collectionAddress}</p>
-          </a>
+          </a> */}
+          <div className="tag">
+            <p className="tag-title">Artifact #{inscription?.tokenId}</p>
+          </div>
 
           <Information>
             <p className="title">Information</p>

@@ -29,7 +29,7 @@ export interface ISignKeyResp {
 }
 
 export interface ICreateInscribeParams {
-  tcTxID: string;
+  tcTxIDs: Array<string>;
   feeRatePerByte: number;
 }
 
@@ -70,23 +70,25 @@ const useBitcoin = () => {
     };
   };
 
-  const createInscribeTx = async ({ tcTxID, feeRatePerByte }: ICreateInscribeParams) => {
-    // const assets = await getAvailableAssetsCreateTx();
-    // if (!assets) throw new Error('Can not load assets');
+  const createInscribeTx = async ({ tcTxIDs, feeRatePerByte }: ICreateInscribeParams) => {
+    const assets = await getAvailableAssetsCreateTx();
+    if (!assets) throw new Error('Can not load assets');
     const { privateKey } = await signKey();
+
+    console.log('inside createInscribeTx', {
+      senderPrivateKey: privateKey,
+      utxos: assets.txrefs,
+      inscriptions: {},
+      tcTxIDs,
+      feeRatePerByte,
+      tcClient,
+    });
+
     const { commitTxHex, commitTxID, revealTxHex, revealTxID } = await TC_SDK.createInscribeTx({
       senderPrivateKey: privateKey,
-      // utxos: assets.txrefs,
-      // inscriptions: assets.inscriptions_by_outputs,
+      utxos: assets.txrefs,
       inscriptions: {},
-      utxos: [
-        {
-          tx_hash: '57f538e2a4d4ebdbb0bc0edddc2523f1b656c2c24b2cc030d67f5d9c9a96bbff',
-          tx_output_n: 0,
-          value: new BigNumber(80000),
-        },
-      ],
-      tcTxID,
+      tcTxIDs,
       feeRatePerByte,
       tcClient,
     });
@@ -99,16 +101,28 @@ const useBitcoin = () => {
     return { commitTxHex, commitTxID, revealTxHex, revealTxID };
   };
 
-  const getNonceInscribeable = async (address: string) => {
-    if (!address) throw Error('Address not found');
-    const { nonce, gasPrice } = await tcClient.getNonceInscribeable(address);
+  const getNonceInscribeable = async (
+    tcAddress: string,
+  ): Promise<{
+    nonce: number;
+    gasPrice: number;
+  }> => {
+    if (!tcAddress) throw Error('Address not found');
+    const { nonce, gasPrice } = await tcClient.getNonceInscribeable(tcAddress);
     return { nonce, gasPrice };
+  };
+
+  const getUnInscribedTransactionByAddress = async (tcAddress: string): Promise<Array<string>> => {
+    if (!tcAddress) throw Error('Address not found');
+    const { unInscribedTxIDs } = await tcClient.getUnInscribedTransactionByAddress(tcAddress);
+    return unInscribedTxIDs;
   };
 
   return {
     createInscribeTx,
     signKey,
     getNonceInscribeable,
+    getUnInscribedTransactionByAddress,
   };
 };
 
