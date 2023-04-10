@@ -4,7 +4,7 @@ import { darkTheme, lightTheme } from '@/theme/colors';
 export const MEDIA_WIDTHS = {
   deprecated_upToExtraSmall: 500,
   deprecated_upToSmall: 720,
-  deprecated_upToMedium: 1024,
+  deprecated_upToMedium: 1072,
   deprecated_upToLarge: 1280,
 };
 

@@ -14,6 +14,7 @@ import {
 import IcChevronDown from '@/assets/icons/ic-chevron-down.svg';
 import IcChevronRight from '@/assets/icons/ic-chevron-right.svg';
 import IcCopy from '@/assets/icons/ic-copy.svg';
+import Text from '@/components/Text';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +45,7 @@ const Home = () => {
                       isSelected={currentIndex === index}
                       onClick={() => setCurrentIndex(index)}
                     >
-                      <p className="text">{data.title}</p>
+                      <Text size="medium">{data.title}</Text>
                     </TitleDoc>
                   );
                 })}
@@ -63,9 +64,9 @@ const Home = () => {
           <RightContainer>
             <p className="title">TRUSTLESS COMPUTER</p>
             <p className="subTitle">Build dapps on Bitcoin.</p>
-            <a href="https://docs.trustless.computer">
+            <a href="https://docs.trustless.computer" target="_blank">
               <div className="button">
-                <p className="text">{`Let's build`}</p>
+                <p className="text-build">{`Let's build`}</p>
               </div>
             </a>
           </RightContainer>

@@ -1,3 +1,4 @@
+import px2rem from '@/utils/px2rem';
 import styled, { DefaultTheme } from 'styled-components';
 
 const Container = styled.div`
@@ -136,7 +137,7 @@ const CopyContainer = styled.div`
 
   .pre {
     height: 480px;
-    width: 40vw;
+    /* width: 40vw; */
     overflow: auto;
     word-break: normal !important;
     word-wrap: normal !important;
@@ -145,7 +146,7 @@ const CopyContainer = styled.div`
     .code {
       font-style: normal;
       font-weight: 500;
-      font-size: 14px;
+      font-size: ${px2rem(14)};
       line-height: 200%;
       /* or 250% */
       margin: 16px 16px;
@@ -175,6 +176,8 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
+
   /* margin-top: -24px; */
   width: 100%;
 
@@ -191,15 +194,16 @@ const RightContainer = styled.div`
   .subTitle {
     font-style: normal;
     font-weight: 500;
-    font-size: 56px;
+    font-size: ${px2rem(45)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     text-align: center;
     margin-top: 16px;
     line-height: 66px;
+    font-family: 'IBMPlexMono' !important;
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .button {
@@ -221,13 +225,14 @@ const RightContainer = styled.div`
       opacity: 0.7;
     }
 
-    .text {
+    .text-build {
       font-style: normal;
       font-weight: 500;
       font-size: 18px;
       line-height: 26px;
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       text-align: center;
+      font-family: 'IBMPlexMono' !important;
     }
   }
 

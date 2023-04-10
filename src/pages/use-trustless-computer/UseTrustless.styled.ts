@@ -9,9 +9,10 @@ const Container = styled.div`
   padding-top: ${px2rem(60)};
 
   .title {
-    font-size: ${px2rem(54)};
+    font-size: ${px2rem(45)};
     line-height: ${px2rem(64)};
     text-align: center;
+    font-family: 'IBMPlexMono' !important;
   }
 
   .subTitle {
@@ -63,12 +64,14 @@ const RightStep = styled.div`
     font-weight: 400;
     font-size: ${px2rem(24)};
     line-height: ${px2rem(32)};
+    text-transform: uppercase;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
   }
 
   .text {
-    font-size: ${px2rem(54)};
+    font-size: ${px2rem(45)};
     line-height: ${px2rem(64)};
+    font-family: 'IBMPlexMono' !important;
   }
 
   .desc {
@@ -111,6 +114,7 @@ const Button = styled.div`
   background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   border-radius: ${px2rem(2)};
   width: fit-content;
+  font-family: 'IBMPlexMono' !important;
 
   font-weight: 500;
   font-size: ${px2rem(18)};
