@@ -8,7 +8,7 @@ on:
 
 env:
   DOCKER_REGISTRY: gcr.io
-  DOCKER_IMAGE_NAME: trustless-computer-dev/trustless-computer-website
+  DOCKER_IMAGE_NAME: trustless-computer-dev/website
 
 jobs:
 
