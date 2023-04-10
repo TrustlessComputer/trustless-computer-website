@@ -16,7 +16,7 @@ export interface IVerifyNonceMessagePayload {
   // ethSignature: string;
 
   address: string;
-  ethsignature: string;
+  signature: string;
 }
 
 export interface IVerifyNonceMessageResponse {

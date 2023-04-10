@@ -94,7 +94,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
         const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
         const { accessToken, refreshToken } = await verifyNonceMessage({
           address: account,
-          ethsignature: ethSignature,
+          signature: ethSignature,
         });
         setAccessToken(accessToken, refreshToken);
       }
