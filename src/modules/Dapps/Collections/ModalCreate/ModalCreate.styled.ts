@@ -93,6 +93,7 @@ export const StyledModalUpload = styled(Modal)`
 export const WrapInput = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: ${px2rem(16)};
 
   .input {
     display: flex;
@@ -100,8 +101,6 @@ export const WrapInput = styled.div`
     align-items: center;
     padding: ${px2rem(20)};
     gap: ${px2rem(16)};
-    margin-top: ${px2rem(16)};
-
     font-weight: 400;
     font-size: ${px2rem(16)};
     line-height: ${px2rem(26)};
@@ -117,7 +116,10 @@ export const WrapInput = styled.div`
     font-weight: 400;
     font-size: ${px2rem(14)};
     line-height: ${px2rem(24)};
-    margin-top: ${px2rem(8)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
   }
+`;
+
+export const Title = styled.h5`
+  margin-bottom: ${px2rem(24)};
 `;

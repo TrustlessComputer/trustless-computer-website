@@ -57,11 +57,13 @@ export const StyledModalUpload = styled(Modal)`
   .error-text {
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
   }
+
   .file-upload-name {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: ${px2rem(13)};
+    margin-top: ${px2rem(16)};
+    margin-bottom: ${px2rem(16)};
   }
 
   .upload-fee {

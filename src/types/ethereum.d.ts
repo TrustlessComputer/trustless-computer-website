@@ -1,6 +1,6 @@
 export interface EthereumProvider {
-  on?: (...args: any[]) => void;
-  removeListener?: (...args: any[]) => void;
+  on: (...args: any[]) => void;
+  removeListener: (...args: any[]) => void;
   autoRefreshOnNetworkChange?: boolean;
   isMetaMask?: boolean;
 }

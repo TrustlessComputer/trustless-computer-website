@@ -2,7 +2,7 @@ import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { MINT_TOOL_MAX_FILE_SIZE } from '@/constants/config';
 import { prettyPrintBytes } from '@/utils/units';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FileUploader } from 'react-drag-drop-files';
 import { StyledModalUpload } from './ModalUpload.styled';
@@ -14,9 +14,9 @@ import useContractOperation from '@/hooks/contract-operations/useContractOperati
 import usePreserveChunks, { IPreserveChunkParams } from '@/hooks/contract-operations/artifacts/usePreserveChunks';
 import { useWeb3React } from '@web3-react/core';
 import { readFileAsBuffer } from '@/utils';
-import { WalletContext } from '@/contexts/wallet-context';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 import { Transaction } from 'ethers';
+import toast from 'react-hot-toast';
 
 type Props = {
   show: boolean;
@@ -30,25 +30,34 @@ const ModalUpload = (props: Props) => {
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { run } = useContractOperation<IPreserveChunkParams, Transaction | null>({
+  const { run } = useContractOperation<IPreserveChunkParams, Promise<Transaction | null>>({
     operation: usePreserveChunks,
   });
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleUploadFile = async () => {
     if (!account || !file) return;
+    try {
+      setIsProcessing(true);
+      const fileBuffer = await readFileAsBuffer(file);
 
-    const fileBuffer = await readFileAsBuffer(file);
-
-    run({
-      address: account,
-      chunks: fileBuffer,
-    });
+      await run({
+        address: account,
+        chunks: fileBuffer,
+      });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      handleClose();
+    } catch (err: unknown) {
+      toast.error((err as Error).message);
+      console.log(err);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const onChangeFile = (file: File): void => {
     setFile(file);
     setError('');
-    // onChange(file);
   };
 
   const onSizeError = (): void => {
@@ -79,16 +88,12 @@ const ModalUpload = (props: Props) => {
           name={'fileUploader'}
           maxSize={0.35}
           onSizeError={onSizeError}
-          // onTypeError={onTypeError}
-          // fileOrFiles={fileOrFiles}
           classes={'dropZone'}
-          // types={fileTypes}
         >
           <>
             {file && (
               <div className="preview-wrapper">
                 {preview ? (
-                  // <img src={preview} alt="thumbnail preview" />
                   <div className="thumbnail-wrapper">
                     <MediaPreview previewExt={file?.name?.split('.')?.pop() || ''} previewUrl={preview} />
                   </div>
@@ -107,22 +112,20 @@ const ModalUpload = (props: Props) => {
         </FileUploader>
         {file && !error && (
           <>
-            <div className="upload-fee">
+            {/* <div className="upload-fee">
               <Text size="regular">Fee upload</Text>
-              {/* TODO: Update to correct price */}
               <Text size="regular" fontWeight="semibold">
                 0.000214 BTC + 0.000214 Juice
               </Text>
-            </div>
-            <Button className="confirm-btn" onClick={handleUploadFile}>
+            </div> */}
+            <Button disabled={isProcessing} className="confirm-btn" onClick={handleUploadFile}>
               <Text size="medium" fontWeight="medium" className="confirm-text">
-                Confirm
+                {isProcessing ? 'Processing...' : 'Confirm'}
               </Text>
             </Button>
           </>
         )}
       </Modal.Body>
-      <Modal.Footer>{/* <Button onClick={handleClose}>Save Changes</Button> */}</Modal.Footer>
     </StyledModalUpload>
   );
 };
