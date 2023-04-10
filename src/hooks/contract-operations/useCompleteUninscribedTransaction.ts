@@ -9,19 +9,12 @@ import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
 import { AssetsContext } from '@/contexts/assets-context';
 
-interface IParams<P, R> {
-  operation: ContractOperationHook<P, R>;
-  inscribeable?: boolean;
+interface IParams {
   chainId?: SupportedChainId;
 }
 
-interface IContractOperationReturn<P, R> {
-  run: (p: P) => Promise<R>;
-}
-
-const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
-  const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
-  const { call } = operation();
+const useCompleteUninscribedTransaction = (args: IParams) => {
+  const { chainId = SupportedChainId.TRUSTLESS_COMPUTER } = args;
   const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
   const { chainId: walletChainId, connector } = useWeb3React();
   const { onConnect: onConnectMetamask } = useContext(WalletContext);
@@ -46,7 +39,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
     }
   };
 
-  const run = async (params: P): Promise<R> => {
+  const run = async (): Promise<void> => {
     try {
       // This function does not handle error
       // It delegates error to caller
@@ -60,42 +53,25 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
       const assets = await getAvailableAssetsCreateTx();
+
       console.log(assets);
-
-      if (!inscribeable) {
-        // Make TC transaction
-        const tx: any = await call({
-          ...params,
-        });
-
-        console.log('tcTX', tx);
-        return tx;
-      }
 
       // Check unInscribed transactions
       const unInscribedTxIDs = await getUnInscribedTransactionByAddress(address);
 
-      if (unInscribedTxIDs.length > 0) {
-        throw Error('You have some pending transactions. Please complete all of them before moving on.');
+      if (unInscribedTxIDs.length === 0) {
+        throw Error('No pending transaction found.');
       }
 
       console.log('unInscribedTxIDs', unInscribedTxIDs);
-
-      const tx: any = await call({
-        ...params,
-      });
-
-      console.log('tcTX', tx);
 
       console.log('feeRatePerByte', feeRate.fastestFee);
 
       // Make inscribe transaction
       await createInscribeTx({
-        tcTxIDs: [...unInscribedTxIDs, tx.hash],
+        tcTxIDs: [...unInscribedTxIDs],
         feeRatePerByte: feeRate.fastestFee,
       });
-
-      return tx;
     } catch (err) {
       console.log(err);
       throw err;
@@ -107,4 +83,4 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
   };
 };
 
-export default useContractOperation;
+export default useCompleteUninscribedTransaction;

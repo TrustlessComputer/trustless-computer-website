@@ -11,6 +11,7 @@ import useCreateNFTCollection, {
   ICreateNFTCollectionParams,
 } from '@/hooks/contract-operations/nft/useCreateNFTCollection';
 import { DeployContractResponse } from '@/interfaces/contract-operation';
+import toast from 'react-hot-toast';
 
 interface IFormValue {
   name: string;
@@ -51,7 +52,10 @@ const ModalCreate = (props: Props) => {
         name,
         symbol,
       });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      handleClose();
     } catch (err) {
+      toast.error((err as Error).message);
       console.log(err);
     } finally {
       setIsProcessing(false);

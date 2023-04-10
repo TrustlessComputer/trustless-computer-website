@@ -50,7 +50,7 @@ const useCreateNFTCollection: ContractOperationHook<
 
       return null;
     },
-    [account, provider],
+    [account, provider, btcBalance, feeRate],
   );
 
   return {

@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import Text from '@/components/Text';
-import Button from '@/components/Button';
 import NamesList from './NamesList';
-import { NamesContainer, FormContainer } from './Names.styled';
-import IcImgName from '@/assets/icons/ic-img-names.svg';
+import { NamesContainer, FormContainer, SubmitButton } from './Names.styled';
 import useContractOperation from '@/hooks/contract-operations/useContractOperation';
 import useIsRegistered, { ICheckIfRegisteredNameParams } from '@/hooks/contract-operations/bns/useIsRegistered';
 import useRegister, { IRegisterNameParams } from '@/hooks/contract-operations/bns/useRegister';
@@ -20,7 +18,6 @@ const Names: React.FC = () => {
   });
   const { run: registerName } = useContractOperation<IRegisterNameParams, Promise<Transaction | null>>({
     operation: useRegister,
-    inscribeable: false,
   });
 
   const handleValidate = (name: string) => {
@@ -50,13 +47,16 @@ const Names: React.FC = () => {
       await registerName({
         name: valueInput,
       });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      setValueInput('');
     } catch (err) {
-      console.log(err);
       toast.error((err as Error).message);
+      console.log(err);
     } finally {
       setIsProcessing(false);
     }
   };
+
   return (
     <>
       <NamesContainer>
@@ -69,16 +69,6 @@ const Names: React.FC = () => {
               to receive any token and NFT.
             </Text>
           </div>
-        </div>
-        <div className="upload_right">
-          <Button
-            bg={'white'}
-            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bns-bitcoin-name-system')}
-          >
-            <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-              Register
-            </Text>
-          </Button>
         </div>
       </NamesContainer>
       <FormContainer>
@@ -96,11 +86,11 @@ const Names: React.FC = () => {
               />
             </div>
             <div className="btn">
-              <Button bg={'white'} disabled={!nameValidate || isProcessing} onClick={handleRegistered}>
+              <SubmitButton bg={'white'} disabled={!nameValidate || isProcessing} onClick={handleRegistered}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-                  Register
+                  {isProcessing ? 'Processing...' : 'Register'}
                 </Text>
-              </Button>
+              </SubmitButton>
             </div>
           </div>
         </div>

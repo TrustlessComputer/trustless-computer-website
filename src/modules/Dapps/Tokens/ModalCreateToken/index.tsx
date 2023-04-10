@@ -9,6 +9,7 @@ import useContractOperation from '@/hooks/contract-operations/useContractOperati
 import useCreateToken, { ICreateTokenParams } from '@/hooks/contract-operations/token/useCreateToken';
 import { DeployContractResponse } from '@/interfaces/contract-operation';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type Props = {
   show: boolean;
@@ -55,7 +56,10 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
         symbol,
         maxSupply: Number(supply),
       });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      handleClose();
     } catch (err) {
+      toast.error((err as Error).message);
       console.log(err);
     } finally {
       setIsProcessing(false);
