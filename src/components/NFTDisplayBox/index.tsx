@@ -124,6 +124,7 @@ const NFTDisplayBox = ({
       setHTMLContentRender(renderImage(src));
     } else if (collectionID && tokenID) {
       const content = getURLContent(collectionID, tokenID);
+      console.log('🚀 ~ useEffect ~ content:', content);
       switch (type) {
         case 'audio/mpeg':
         case 'audio/wav':
