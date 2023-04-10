@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { camelCaseKeys } from '@/utils';
 
 const TIMEOUT = 5 * 60000;
 
@@ -26,9 +25,9 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       const result = res?.data?.data || res?.data?.result;
       const error = res?.data?.error;
       if (error) {
-        return Promise.reject(camelCaseKeys(error));
+        return Promise.reject(error);
       }
-      return Promise.resolve(camelCaseKeys(result));
+      return Promise.resolve(result);
     },
     (error: any) => {
       if (!error.response) {
@@ -36,7 +35,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       } else {
         const response = error?.response?.data || error;
         let errorMessage = response?.error || error?.Message || JSON.stringify(error);
-        return Promise.reject(camelCaseKeys(errorMessage));
+        return Promise.reject(errorMessage);
       }
     },
   );

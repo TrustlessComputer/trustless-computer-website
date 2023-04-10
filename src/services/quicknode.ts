@@ -1,13 +1,14 @@
+import { IQuickNodeBalanceRes } from '@/interfaces/api/quicknode';
 import { apiClient } from '.';
 
 const API_PATH = '/quicknode';
 
-export const getBtcBalance = async (btcWalletAddress: string): Promise<number> => {
+export const getBtcBalance = async (btcWalletAddress: string): Promise<Array<IQuickNodeBalanceRes>> => {
   try {
     const res = await apiClient.get(`${API_PATH}/address/${btcWalletAddress}/balance`);
-    return Object(res)[0].value;
+    return Object(res);
   } catch (err: unknown) {
     console.log(err);
-    return 0;
+    return [];
   }
 };
