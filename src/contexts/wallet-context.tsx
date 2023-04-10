@@ -10,6 +10,8 @@ import bitcoinStorage from '@/utils/bitcoin-storage';
 import { generateNonceMessage, verifyNonceMessage } from '@/services/auth';
 import { setAccessToken } from '@/utils/auth-storage';
 import useAsyncEffect from 'use-async-effect';
+import { getAccessToken } from '@/utils/auth-storage';
+import { clearAuthStorage } from '@/utils/auth-storage';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -31,6 +33,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const user = useSelector(getUserSelector);
 
   const disconnect = React.useCallback(() => {
+    console.log('disconnecting...');
     if (connector && connector.deactivate) {
       connector.deactivate();
     }
@@ -38,6 +41,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       bitcoinStorage.removeUserTaprootAddress(user?.walletAddress);
     }
     connector.resetState();
+    clearAuthStorage();
     dispatch(resetUser());
     window.location.reload();
   }, [connector, dispatch, account]);
@@ -54,8 +58,31 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     if (addresses && Array.isArray(addresses)) {
       const evmWalletAddress = addresses[0];
 
+      const data = await generateNonceMessage({
+        address: evmWalletAddress,
+      });
+
+      if (data) {
+        const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
+        const {
+          token: accessToken,
+          refreshToken,
+          error: errorVerify,
+        } = await verifyNonceMessage({
+          address: evmWalletAddress,
+          signature: ethSignature,
+        });
+
+        if (errorVerify) {
+          disconnect();
+        } else {
+          setAccessToken(accessToken, refreshToken);
+        }
+      }
+
       dispatch(updateEVMWallet(evmWalletAddress));
       dispatch(updateSelectedWallet({ wallet: connection.type }));
+
       return evmWalletAddress;
     }
     return null;
@@ -87,22 +114,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       dispatch(updateTaprootWallet(taprootAddress));
     }
   }, [user, generateBitcoinKey]);
-
-  // useAsyncEffect(async () => {
-  //   if (account) {
-  //     const data = await generateNonceMessage({
-  //       address: account,
-  //     });
-  //     if (data) {
-  //       const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-  //       const { accessToken, refreshToken } = await verifyNonceMessage({
-  //         address: account,
-  //         ethsignature: ethSignature,
-  //       });
-  //       setAccessToken(accessToken, refreshToken);
-  //     }
-  //   }
-  // }, [account]);
 
   const contextValues = useMemo((): IWalletContext => {
     return {

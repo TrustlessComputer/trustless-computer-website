@@ -14,6 +14,7 @@ import {
 import IcChevronDown from '@/assets/icons/ic-chevron-down.svg';
 import IcChevronRight from '@/assets/icons/ic-chevron-right.svg';
 import IcCopy from '@/assets/icons/ic-copy.svg';
+import Text from '@/components/Text';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +45,7 @@ const Home = () => {
                       isSelected={currentIndex === index}
                       onClick={() => setCurrentIndex(index)}
                     >
-                      <p className="text">{data.title}</p>
+                      <Text size="medium">{data.title}</Text>
                     </TitleDoc>
                   );
                 })}

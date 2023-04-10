@@ -27,14 +27,8 @@ export const NamesContainer = styled.div`
   }
 
   .button-text {
+    font-family: 'IBMPlexMono' !important;
     padding: ${px2rem(11)} ${px2rem(36)};
-  }
-
-  .file-uploader {
-    opacity: 0;
-    position: absolute;
-    width: ${px2rem(150)};
-    top: 0;
   }
 `;
 

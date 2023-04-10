@@ -61,14 +61,24 @@ const Names: React.FC = () => {
     <>
       <NamesContainer>
         <div className="upload_left">
-          <img src={IcImgName} alt="upload file icon" />
+          {/* <img src={IcImgName} alt="upload file icon" /> */}
           <div className="upload_content">
             <h3 className="upload_title">Bitcoin Name System</h3>
-            <Text size="regular">
+            <Text size="medium" maxWidth="90%">
               BNS is the standard for naming on Bitcoin. No more copying and pasting long addresses. Use your BNS name
               to receive any token and NFT.
             </Text>
           </div>
+        </div>
+        <div className="upload_right">
+          <Button
+            bg={'white'}
+            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bns-bitcoin-name-system')}
+          >
+            <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
+              Register
+            </Text>
+          </Button>
         </div>
       </NamesContainer>
       <FormContainer>
