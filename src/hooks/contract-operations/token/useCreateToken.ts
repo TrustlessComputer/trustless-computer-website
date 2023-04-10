@@ -23,14 +23,17 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
         const { name, symbol, maxSupply } = params;
 
         const byteCode = ERC20ABIJson.bytecode;
+
         console.log({
           tcTxSizeByte: Buffer.byteLength(byteCode),
           feeRatePerByte: feeRate.fastestFee,
         });
+
         const estimatedFee = TC_SDK.estimateInscribeFee({
           tcTxSizeByte: Buffer.byteLength(byteCode),
           feeRatePerByte: feeRate.fastestFee,
         });
+
         const balanceInBN = new BigNumber(btcBalance);
 
         console.log('estimatedFee', estimatedFee.totalFee.toString());
