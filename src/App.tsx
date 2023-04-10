@@ -9,6 +9,7 @@ import { XverseProvider } from '@/contexts/xverse-context';
 import { AssetsProvider } from './contexts/assets-context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeProvider, { ThemedGlobalStyle } from '@/theme/theme';
+import { Toaster } from 'react-hot-toast';
 import './reset.scss';
 import '@/styles/index.scss';
 
@@ -22,6 +23,7 @@ const App: React.FC = (): React.ReactElement => {
           <XverseProvider>
             <WalletProvider>
               <AssetsProvider>{element}</AssetsProvider>
+              <Toaster position="top-center" reverseOrder={false} />
             </WalletProvider>
           </XverseProvider>
         </Web3Provider>

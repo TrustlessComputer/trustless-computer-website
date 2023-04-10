@@ -27,7 +27,6 @@ export const WalletContext = React.createContext<IWalletContext>(initialValue);
 
 export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren): React.ReactElement => {
   const { connector, provider, account } = useWeb3React();
-  console.log('🚀 ~ account:', account);
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
 
@@ -35,9 +34,13 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     if (connector && connector.deactivate) {
       connector.deactivate();
     }
+    if (user?.walletAddress) {
+      bitcoinStorage.removeUserTaprootAddress(user?.walletAddress);
+    }
     connector.resetState();
     dispatch(resetUser());
-  }, [connector, dispatch]);
+    window.location.reload();
+  }, [connector, dispatch, account]);
 
   const connect = React.useCallback(async () => {
     const connection = getConnection(connector);
@@ -50,9 +53,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     });
     if (addresses && Array.isArray(addresses)) {
       const evmWalletAddress = addresses[0];
-
-      // const ethSignature = provider?.getSigner().signMessage(nonceMessage);
-      // console.log('🚀 ~ connect ~ ethSignature:', ethSignature);
 
       dispatch(updateEVMWallet(evmWalletAddress));
       dispatch(updateSelectedWallet({ wallet: connection.type }));
@@ -74,30 +74,35 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       }
     }
     return null;
+  }, [dispatch, connector]);
+
+  useEffect(() => {
+    Object(window.ethereum)?.on('disconnect', disconnect);
   }, [connector]);
 
   useEffect(() => {
     if (user?.walletAddress && !user.walletAddressBtcTaproot) {
       const taprootAddress = bitcoinStorage.getUserTaprootAddress(user?.walletAddress);
+      if (!taprootAddress) return;
       dispatch(updateTaprootWallet(taprootAddress));
     }
   }, [user, generateBitcoinKey]);
 
-  useAsyncEffect(async () => {
-    if (account) {
-      const data = await generateNonceMessage({
-        address: account,
-      });
-      if (data) {
-        const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-        const { accessToken, refreshToken } = await verifyNonceMessage({
-          address: account,
-          ethsignature: ethSignature,
-        });
-        setAccessToken(accessToken, refreshToken);
-      }
-    }
-  }, [account]);
+  // useAsyncEffect(async () => {
+  //   if (account) {
+  //     const data = await generateNonceMessage({
+  //       address: account,
+  //     });
+  //     if (data) {
+  //       const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
+  //       const { accessToken, refreshToken } = await verifyNonceMessage({
+  //         address: account,
+  //         ethsignature: ethSignature,
+  //       });
+  //       setAccessToken(accessToken, refreshToken);
+  //     }
+  //   }
+  // }, [account]);
 
   const contextValues = useMemo((): IWalletContext => {
     return {

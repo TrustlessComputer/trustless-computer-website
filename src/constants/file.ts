@@ -1,5 +1,7 @@
 import { MediaType } from '@/enums/file';
 
+export const BLOCK_CHAIN_FILE_LIMIT = 0.38; // MB
+
 export const ZIP_MIMES = ['application/zip', 'application/x-zip-compressed', 'multipart/x-zip'];
 
 export const NAIVE_MIMES: Record<string, string> = {
