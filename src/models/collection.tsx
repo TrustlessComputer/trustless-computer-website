@@ -10,6 +10,8 @@ export interface ICollection {
   totalItems: number;
   totalOwners: number;
   cover: string;
+  index: number;
+  deployedAtBlock: number;
   indexed: boolean;
   indexedAt: string;
   creator: string;

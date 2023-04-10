@@ -23,6 +23,10 @@ const BaseText = styled.p<{ color: string | undefined; align: string; maxWidth: 
     font-size: ${px2rem(16)};
     line-height: 160%;
   }
+  &.size-large {
+    font-size: ${px2rem(18)};
+    line-height: 160%;
+  }
 
   // FONT-WEIGHT
   &.weight-bold {

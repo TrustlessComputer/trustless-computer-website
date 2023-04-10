@@ -15,10 +15,10 @@ const Collections = () => {
     <Container>
       <UploadFileContainer>
         <div className="upload_left">
-          <img src={IcBitcoinCloud} alt="upload file icon" />
+          {/* <img src={IcBitcoinCloud} alt="upload file icon" /> */}
           <div className="upload_content">
             <h3 className="upload_title">BRC-721 on Bitcoin</h3>
-            <Text size="regular" maxWidth="65%">
+            <Text size="medium" maxWidth="100%">
               BRC-721 is the standard for Non-Fungible Tokens (NFT) on Bitcoin. You can use it for collectible items,
               memberships, in-game items, and more.
             </Text>
