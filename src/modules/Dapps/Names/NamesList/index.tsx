@@ -1,53 +1,75 @@
-import { getCollectionsBns } from '@/services/bns-explorer';
-import { shortenAddress } from '@/utils/address';
+import { getBnsByWallet, getCollectionsBns } from '@/services/bns-explorer';
+import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { debounce } from 'lodash';
-import React, { useState } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import { useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
+import { useParams } from 'react-router-dom';
 import { Container } from './NamesList.styled';
 
-const LIMIT_PAGE = 32;
+const LIMIT_PAGE = 12;
 
-const NamesList = () => {
-  const [page, setpage] = useState(1);
+const NameList = () => {
+  const user = useSelector(getUserSelector);
+
+  // const { profileWallet: paramsWallet } = useParams<{ profileWallet: string }>();
+
+  // const profileWallet = paramsWallet || user?.walletAddress || '';
   const [pageSize, setpageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
+  const [collections, setCollections] = useState<any>();
 
-  const { data: collection, isLoading } = useSWR(getApiKey(getCollectionsBns, { limit: pageSize, page: page }), () =>
-    getCollectionsBns({ limit: pageSize, page: page }),
-  );
+  // const { data: collection, isLoading } = useSWR(
+  //   getApiKey(getBnsByWallet, { limit: pageSize, page: page, walletAddress: profileWallet }),
+  //   () => getBnsByWallet({ limit: pageSize, page: page, walletAddress: profileWallet }),
+  // );
 
-  const debounceLoadMore = debounce(nextPage => {
-    setpage(nextPage);
-    // setpageSize(pageSize + LIMIT_PAGE);
-  }, 300);
-
-  const onLoadMoreNfts = () => {
-    if (isFetching || (collection && collection.length % LIMIT_PAGE !== 0)) return;
-    if (collection) {
-      const nextPage = Math.floor(collection?.length / LIMIT_PAGE) + 1;
-      debounceLoadMore(nextPage);
+  const fetchNames = async (page = 1, isFetchMore = false) => {
+    try {
+      setIsFetching(true);
+      const data = await getCollectionsBns({ limit: pageSize, page: page });
+      if (isFetchMore) {
+        setCollections((prev: any) => [...prev, ...data]);
+      } else {
+        setCollections(data);
+      }
+    } catch (error) {
+    } finally {
+      setIsFetching(false);
     }
   };
+
+  const onLoadMoreNames = () => {
+    if (isFetching || collections?.length % LIMIT_PAGE !== 0) return;
+    const page = Math.floor(collections.length / LIMIT_PAGE) + 1;
+    fetchNames(page, true);
+  };
+  const debounceLoadMore = debounce(onLoadMoreNames, 300);
+
+  useEffect(() => {
+    fetchNames();
+  }, []);
 
   return (
     <Container>
       <div className="content">
         <InfiniteScroll
           className="list"
-          dataLength={collection?.length || 0}
+          dataLength={collections?.length || 500}
           hasMore={true}
           loader={
-            isLoading && (
+            isFetching && (
               <div className="loading">
                 <Spinner animation="border" variant="primary" />
               </div>
             )
           }
-          next={onLoadMoreNfts}
+          next={debounceLoadMore}
         >
           <ResponsiveMasonry
             columnsCountBreakPoints={{
@@ -60,9 +82,9 @@ const NamesList = () => {
             }}
           >
             <Masonry gutter="16px">
-              {collection &&
-                collection.length > 0 &&
-                collection.map((item, index) => {
+              {collections &&
+                collections.length > 0 &&
+                collections.map((item: any, index: number) => {
                   return (
                     <div key={index.toString()} className="card">
                       <div className="card-content">
@@ -83,4 +105,4 @@ const NamesList = () => {
   );
 };
 
-export default React.memo(NamesList);
+export default NameList;
