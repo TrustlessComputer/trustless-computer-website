@@ -8,6 +8,7 @@ import { Transaction } from 'ethers';
 import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import * as TC_SDK from 'trustless-computer-sdk';
+import { formatBTCPrice } from '@/utils/format';
 
 export interface IPreserveChunkParams {
   address: string;
@@ -33,7 +34,11 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Promise<Tra
         });
         const balanceInBN = new BigNumber(btcBalance);
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
-          throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
+          throw Error(
+            `Your balance is insufficient. Please top up at least ${formatBTCPrice(
+              estimatedFee.totalFee.toString(),
+            )} BTC to pay network fee.`,
+          );
         }
         const transaction = await contract.connect(provider.getSigner()).preserveChunks(address, [chunks]);
 
