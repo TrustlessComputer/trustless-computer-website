@@ -17,7 +17,7 @@ import MenuMobile from './MenuMobile';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
+  const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
 
@@ -36,8 +36,13 @@ const Header = ({ height }: { height: number }) => {
   };
 
   const handleConnectWallet = async () => {
-    await onConnect();
-    await generateBitcoinKey();
+    try {
+      await onConnect();
+      await generateBitcoinKey();
+    } catch (err) {
+      console.log(err);
+      onDisconnect();
+    }
   };
 
   useEffect(() => {
@@ -85,7 +90,6 @@ const Header = ({ height }: { height: number }) => {
                 </div>
               </OverlayTrigger>
             </WalletBalance>
-            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
           </div>
         ) : (
           <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
