@@ -42,7 +42,7 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Promise<Tra
 
       return null;
     },
-    [account, provider, contract],
+    [account, provider, contract, btcBalance, feeRate],
   );
 
   return {

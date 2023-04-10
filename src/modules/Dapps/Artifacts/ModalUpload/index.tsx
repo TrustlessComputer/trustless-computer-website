@@ -45,8 +45,11 @@ const ModalUpload = (props: Props) => {
         address: account,
         chunks: fileBuffer,
       });
+      toast.success('Transaction has been created. Please wait for minutes.');
+      handleClose();
     } catch (err: unknown) {
       toast.error((err as Error).message);
+      console.log(err);
     } finally {
       setIsProcessing(false);
     }

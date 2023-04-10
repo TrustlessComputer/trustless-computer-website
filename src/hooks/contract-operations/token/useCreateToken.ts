@@ -32,6 +32,10 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
           feeRatePerByte: feeRate.fastestFee,
         });
         const balanceInBN = new BigNumber(btcBalance);
+
+        console.log('estimatedFee', estimatedFee.totalFee.toString());
+        console.log('balanceInBN', balanceInBN.toString());
+
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
           throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
         }
@@ -48,7 +52,7 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
 
       return null;
     },
-    [account, provider],
+    [account, provider, btcBalance, feeRate],
   );
 
   return {

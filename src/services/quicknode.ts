@@ -1,4 +1,4 @@
-import { IQuickNodeBalanceRes } from '@/interfaces/quicknode';
+import { IQuickNodeBalanceRes } from '@/interfaces/api/quicknode';
 import { apiClient } from '.';
 
 const API_PATH = '/quicknode';

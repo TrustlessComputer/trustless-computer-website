@@ -42,7 +42,7 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transactio
 
       return null;
     },
-    [account, provider, contract],
+    [account, provider, contract, btcBalance, feeRate],
   );
 
   return {
