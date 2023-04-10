@@ -30,7 +30,8 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
         });
 
         const estimatedFee = TC_SDK.estimateInscribeFee({
-          tcTxSizeByte: Buffer.byteLength(byteCode),
+          // TODO remove hardcode
+          tcTxSizeByte: 24000,
           feeRatePerByte: feeRate.fastestFee,
         });
 

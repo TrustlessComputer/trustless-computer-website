@@ -29,7 +29,8 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transactio
           feeRatePerByte: feeRate.fastestFee,
         });
         const estimatedFee = TC_SDK.estimateInscribeFee({
-          tcTxSizeByte: Buffer.byteLength(byteCode),
+          // TODO remove hardcode
+          tcTxSizeByte: Buffer.byteLength(byteCode) + 1000,
           feeRatePerByte: feeRate.fastestFee,
         });
         const balanceInBN = new BigNumber(btcBalance);
