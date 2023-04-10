@@ -8,6 +8,7 @@ import Dapps from '@/pages/dapps';
 import Collection from '@/pages/collection';
 import Inscription from '@/pages/inscription';
 import UseTrustless from '@/pages/use-trustless-computer';
+import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
 
 export default [
@@ -45,5 +46,10 @@ export default [
     path: ROUTE_PATH.USE_TRUSTLESS,
     element: <Layout />,
     children: [{ index: true, element: <UseTrustless /> }],
+  },
+  {
+    path: ROUTE_PATH.WALLET,
+    element: <Layout />,
+    children: [{ index: true, element: <Wallet /> }],
   },
 ] as RouteObject[];

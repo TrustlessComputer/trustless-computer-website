@@ -6,4 +6,5 @@ export const ROUTE_PATH = {
   INSCRIPTION: '/inscription',
   FAUCET: '/faucet',
   USE_TRUSTLESS: '/use-trustless-computer',
+  WALLET: '/wallet',
 };

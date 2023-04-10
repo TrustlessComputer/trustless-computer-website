@@ -8,15 +8,33 @@ const currentAssetsBuilder = ({
   current: ICollectedUTXOResp | undefined;
   pending: IPendingUTXO[];
 }): ICollectedUTXOResp | undefined => {
-  if (!pending || !pending.length || !current) return current;
+  if (!current) return current;
+  const transformedCurrent = {
+    ...current,
+    txrefs: current.txrefs.map(utxo => {
+      return {
+        ...utxo,
+        value: new BigNumber(utxo.value),
+      };
+    }),
+  };
 
-  const utxos = current.txrefs.filter(({ tx_hash, tx_output_n }) => {
-    const isExist = pending.some(item => item.vin.some(vin => vin.txid === tx_hash && vin.vout === tx_output_n));
-    return !isExist;
-  });
+  if (!pending || !pending.length) return transformedCurrent;
+
+  const utxos = current.txrefs
+    .filter(({ tx_hash, tx_output_n }) => {
+      const isExist = pending.some(item => item.vin.some(vin => vin.txid === tx_hash && vin.vout === tx_output_n));
+      return !isExist;
+    })
+    .map(utxo => {
+      return {
+        ...utxo,
+        value: new BigNumber(utxo.value),
+      };
+    });
 
   return {
-    ...current,
+    ...transformedCurrent,
     txrefs: utxos,
   };
 };

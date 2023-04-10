@@ -6,19 +6,21 @@ import BFSList from './BFSList';
 import { UploadFileContainer } from '../Dapps.styled';
 import ModalUpload from './ModalUpload';
 import IcUploadFile from '@/assets/icons/ic-upload-file.svg';
+import { BLOCK_CHAIN_FILE_LIMIT } from '@/constants/file';
+import toast from 'react-hot-toast';
 
 type Props = {};
 
-const Artifacts = (props: Props) => {
+const Artifacts: React.FC<Props> = (props: Props) => {
   const [file, setFile] = useState<File | null>(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
-  // const { data, error } = useSWR(getApiKey(getCollections), getCollections);
-
   const onChangeFile = (file: File): void => {
     setFile(file);
-    // setError('');
-    // onChange(file);
+  };
+
+  const onSizeError = (): void => {
+    toast.error(`File size error, maximum file size is ${BLOCK_CHAIN_FILE_LIMIT * 1000}kb.`);
   };
 
   useEffect(() => {
@@ -33,30 +35,27 @@ const Artifacts = (props: Props) => {
         <div className="upload_left">
           {/* <img src={IcUploadFile} alt="upload file icon" /> */}
           <div className="upload_content">
-            <h3 className="upload_title">Bitcoin File System</h3>
+            <h3 className="upload_title">Artifacts</h3>
             <Text size="medium">Cheap. Immutable. Fully on-chain. Large files are supported too.</Text>
           </div>
         </div>
         <div className="upload_right">
           <Button
             bg={'white'}
-            onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/artifacts')}
+            // onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
+            onClick={() => setShowUploadModal(true)}
           >
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-              Upload file
+              Preserve artifact
             </Text>
           </Button>
-          {/* <FileUploader
+          <FileUploader
             handleChange={onChangeFile}
             name={'fileUploader'}
-            // maxSize={MINT_TOOL_MAX_FILE_SIZE}
-            // onSizeError={onSizeError}
-            // onTypeError={onTypeError}
-            // fileOrFiles={fileOrFiles}
+            maxSize={BLOCK_CHAIN_FILE_LIMIT}
+            onSizeError={onSizeError}
             classes={'file-uploader'}
-            // classes={s.dropZone}
-            // types={fileTypes}
-          /> */}
+          />
         </div>
       </UploadFileContainer>
       <BFSList />

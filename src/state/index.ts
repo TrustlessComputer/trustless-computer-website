@@ -4,7 +4,7 @@ import { load, save } from 'redux-localstorage-simple';
 
 import reducer from './reducer';
 
-const PERSISTED_KEYS: string[] = ['user'];
+const PERSISTED_KEYS: string[] = [];
 
 const store = configureStore({
   reducer,
