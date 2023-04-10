@@ -11,6 +11,7 @@ import { generateNonceMessage, verifyNonceMessage } from '@/services/auth';
 import { setAccessToken } from '@/utils/auth-storage';
 import useAsyncEffect from 'use-async-effect';
 import { getAccessToken } from '@/utils/auth-storage';
+import { clearAuthStorage } from '@/utils/auth-storage';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -34,10 +35,13 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const disconnect = React.useCallback(() => {
     if (connector && connector.deactivate) {
       connector.deactivate();
+      console.log('disconnect');
     }
+
     connector.resetState();
+    clearAuthStorage();
     dispatch(resetUser());
-  }, [connector, dispatch]);
+  }, [connector, dispatch, account]);
 
   const connect = React.useCallback(async () => {
     const connection = getConnection(connector);
@@ -92,11 +96,20 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
       if (data && !accessToken) {
         const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-        const { token: accessToken, refreshToken } = await verifyNonceMessage({
+        const {
+          token: accessToken,
+          refreshToken,
+          error: errorVerify,
+        } = await verifyNonceMessage({
           address: account,
           signature: ethSignature,
         });
-        setAccessToken(accessToken, refreshToken);
+
+        if (errorVerify) {
+          disconnect();
+        } else {
+          setAccessToken(accessToken, refreshToken);
+        }
       }
     }
   }, [account]);
