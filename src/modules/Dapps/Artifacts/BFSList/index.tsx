@@ -99,7 +99,7 @@ const BFSList = () => {
                         <div className="card-info">
                           <p className="card-title">{formatItemName(item.name, item.contentType)}</p>
                           <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-index">File #{item.tokenId}</p>
+                          <p className="card-index">Artifact #{item.tokenId}</p>
                         </div>
                       </div>
                     </a>
