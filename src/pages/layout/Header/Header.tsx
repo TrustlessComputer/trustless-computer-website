@@ -11,15 +11,17 @@ import { gsap } from 'gsap';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ConnectWalletButton, Link, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
+import { TC_URL } from '@/configs';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
   const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
+  const navigate = useNavigate();
 
   const refMenu = useRef<HTMLDivElement | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -77,7 +79,7 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         {isAuthenticated ? (
-          <div className="wallet">
+          <div className="wallet" onClick={() => window.open(`${TC_URL}/${account}`)}>
             <WalletBalance>
               <div className="balance">
                 <p>{formatBTCPrice(btcBalance)} BTC</p>
