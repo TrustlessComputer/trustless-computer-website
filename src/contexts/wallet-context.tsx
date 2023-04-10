@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useMemo } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useAppDispatch } from '@/state/hooks';
 import { resetUser, updateEVMWallet, updateSelectedWallet, updateTaprootWallet } from '@/state/user/reducer';
@@ -43,7 +43,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     connector.resetState();
     clearAuthStorage();
     dispatch(resetUser());
-    window.location.reload();
   }, [connector, dispatch, account]);
 
   const connect = React.useCallback(async () => {
@@ -58,35 +57,35 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     if (addresses && Array.isArray(addresses)) {
       const evmWalletAddress = addresses[0];
 
-      const data = await generateNonceMessage({
-        address: evmWalletAddress,
-      });
-
-      if (data) {
-        const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-        const {
-          token: accessToken,
-          refreshToken,
-          error: errorVerify,
-        } = await verifyNonceMessage({
-          address: evmWalletAddress,
-          signature: ethSignature,
-        });
-
-        if (errorVerify) {
-          disconnect();
-        } else {
-          setAccessToken(accessToken, refreshToken);
-        }
-      }
-
       dispatch(updateEVMWallet(evmWalletAddress));
       dispatch(updateSelectedWallet({ wallet: connection.type }));
-
       return evmWalletAddress;
     }
     return null;
-  }, [dispatch, connector]);
+  }, [dispatch, connector, provider]);
+
+  useAsyncEffect(async () => {
+    const accessToken = getAccessToken();
+    if (!account || accessToken) return;
+    const data = await generateNonceMessage({
+      address: account,
+    });
+
+    if (data) {
+      try {
+        console.log(data);
+        const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
+        const { token: accessToken, refreshToken } = await verifyNonceMessage({
+          address: account,
+          signature: ethSignature,
+        });
+        console.log(ethSignature);
+        setAccessToken(accessToken, refreshToken);
+      } catch (err: unknown) {
+        disconnect();
+      }
+    }
+  }, [account, provider]);
 
   const generateBitcoinKey = React.useCallback(async () => {
     const addresses = await connector.provider?.request({
@@ -105,7 +104,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
 
   useEffect(() => {
     Object(window.ethereum)?.on('disconnect', disconnect);
-  }, [connector]);
+  }, [window]);
 
   useEffect(() => {
     if (user?.walletAddress && !user.walletAddressBtcTaproot) {
