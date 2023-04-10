@@ -9,6 +9,7 @@ import { Transaction } from 'ethers';
 import * as TC_SDK from 'trustless-computer-sdk';
 import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
+import { formatBTCPrice } from '@/utils/format';
 
 export interface IRegisterNameParams {
   name: string;
@@ -35,7 +36,11 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transactio
         });
         const balanceInBN = new BigNumber(btcBalance);
         if (balanceInBN.isLessThan(estimatedFee.totalFee)) {
-          throw Error('Your balance is insufficient. Please top up BTC to pay network fee.');
+          throw Error(
+            `Your balance is insufficient. Please top up at least ${formatBTCPrice(
+              estimatedFee.totalFee.toString(),
+            )} BTC to pay network fee.`,
+          );
         }
         const transaction = await contract.connect(provider.getSigner()).register(account, byteCode);
         return transaction;
