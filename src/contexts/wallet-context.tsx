@@ -10,6 +10,7 @@ import bitcoinStorage from '@/utils/bitcoin-storage';
 import { generateNonceMessage, verifyNonceMessage } from '@/services/auth';
 import { setAccessToken } from '@/utils/auth-storage';
 import useAsyncEffect from 'use-async-effect';
+import { getAccessToken } from '@/utils/auth-storage';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -27,7 +28,6 @@ export const WalletContext = React.createContext<IWalletContext>(initialValue);
 
 export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren): React.ReactElement => {
   const { connector, provider, account } = useWeb3React();
-  console.log('🚀 ~ account:', account);
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
 
@@ -51,11 +51,9 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     if (addresses && Array.isArray(addresses)) {
       const evmWalletAddress = addresses[0];
 
-      // const ethSignature = provider?.getSigner().signMessage(nonceMessage);
-      // console.log('🚀 ~ connect ~ ethSignature:', ethSignature);
-
       dispatch(updateEVMWallet(evmWalletAddress));
       dispatch(updateSelectedWallet({ wallet: connection.type }));
+
       return evmWalletAddress;
     }
     return null;
@@ -90,9 +88,11 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       const data = await generateNonceMessage({
         address: account,
       });
-      if (data) {
+      const accessToken = getAccessToken();
+
+      if (data && !accessToken) {
         const ethSignature = (await provider?.getSigner().signMessage(data)) || '';
-        const { accessToken, refreshToken } = await verifyNonceMessage({
+        const { token: accessToken, refreshToken } = await verifyNonceMessage({
           address: account,
           signature: ethSignature,
         });
