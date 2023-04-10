@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useAppDispatch } from '@/state/hooks';
 import { resetUser, updateEVMWallet, updateSelectedWallet, updateTaprootWallet } from '@/state/user/reducer';
@@ -9,8 +9,6 @@ import { getUserSelector } from '@/state/user/selector';
 import bitcoinStorage from '@/utils/bitcoin-storage';
 import { generateNonceMessage, verifyNonceMessage } from '@/services/auth';
 import { setAccessToken } from '@/utils/auth-storage';
-import useAsyncEffect from 'use-async-effect';
-import { getAccessToken } from '@/utils/auth-storage';
 import { clearAuthStorage } from '@/utils/auth-storage';
 import Web3 from 'web3';
 import { provider } from 'web3-core';
