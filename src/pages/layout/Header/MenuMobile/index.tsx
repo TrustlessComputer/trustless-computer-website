@@ -26,6 +26,11 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!account;
 
+  const handleConnectWallet = async () => {
+    await onConnect();
+    await generateBitcoinKey();
+  };
+
   return (
     <Wrapper ref={ref}>
       <div className="inner">
@@ -54,7 +59,7 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
             {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
           </div>
         ) : (
-          <ConnectWalletButton onClick={onConnect}>Connect Wallet</ConnectWalletButton>
+          <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
         )}
       </div>
     </Wrapper>
