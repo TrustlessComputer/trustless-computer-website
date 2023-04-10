@@ -53,7 +53,7 @@
     "stream": "^0.0.2",
     "styled-components": "^5.3.9",
     "swr": "^2.1.2",
-    "trustless-computer-sdk": "https://github.com/TrustlessComputer/tc-sdk#v0.1.9",
+    "trustless-computer-sdk": "https://github.com/TrustlessComputer/tc-sdk#v0.1.10",
     "unzipit": "^1.4.2",
     "use-async-effect": "^2.2.7"
   },
