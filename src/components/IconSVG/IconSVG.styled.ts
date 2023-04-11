@@ -2,7 +2,7 @@ import px2rem from '@/utils/px2rem';
 import { IconSVGProps } from './index';
 import styled, { css } from 'styled-components';
 
-export const StyledIconSVG = styled.div<IconSVGProps>`
+export const StyledIconSVG = styled.div<any>`
   font-size: 0;
   svg {
     display: inline-block;
