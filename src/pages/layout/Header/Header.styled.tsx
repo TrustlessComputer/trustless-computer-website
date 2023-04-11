@@ -164,6 +164,12 @@ const WalletBalance = styled.div`
   border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+  }
 
   .balance {
     display: flex;

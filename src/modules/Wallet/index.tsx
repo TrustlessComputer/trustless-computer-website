@@ -2,7 +2,6 @@ import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import IcNames from '@/assets/icons/ic-names.svg';
-import IcStack from '@/assets/icons/ic-stack.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
@@ -10,17 +9,16 @@ import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
 import { getAccessToken } from '@/utils/auth-storage';
 import queryString from 'query-string';
 import ArtifactsProfile from './ArtifactsProfile';
-import CollectionProfile from './CollectionProfile';
 import NamesProfile from './NamesProfile';
 import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
-import { CDN_URL } from '@/configs';
 
 const Wallet = () => {
   const accessToken = getAccessToken();
