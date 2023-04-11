@@ -1,3 +1,4 @@
+import px2rem from '@/utils/px2rem';
 import { IconSVGProps } from './index';
 import styled, { css } from 'styled-components';
 
@@ -6,7 +7,7 @@ export const StyledIconSVG = styled.div<IconSVGProps>`
   svg {
     display: inline-block;
     vertical-align: middle;
-    width: ${props => props.maxWidth || '100%'};
+    width: ${props => (props.maxWidth ? `${px2rem(props.maxWidth)}` : '100%')};
     pointer-events: none;
   }
   ${props => {

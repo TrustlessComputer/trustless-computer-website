@@ -1,7 +1,7 @@
 import { API_URL } from '@/configs';
+import { ICollection } from '@/interfaces/api/collection';
+import { IInscription } from '@/interfaces/api/inscription';
 import { IPagingParams } from '@/interfaces/api/query';
-import { ICollection } from '@/models/collection';
-import { IInscription } from '@/models/inscription';
 import { swrFetcher } from '@/utils/swr';
 
 const API_PATH = API_URL + '/nft-explorer';

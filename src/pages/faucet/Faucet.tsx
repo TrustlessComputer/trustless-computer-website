@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Container, StepBox, Step, PostStep } from './Faucet.styled';
-import { Formik } from 'formik';
-import { validateEVMAddress, validateTwitterUrl } from '@/utils';
 import IcTwitter from '@/assets/icons/ic_twitter_black.svg';
-import { TwitterShareButton } from 'react-share';
-import { useCallback } from 'react';
-import faucetClient from '@/services/faucet';
 import Spinner from '@/components/Spinner';
+import { requestFaucet } from '@/services/faucet';
+import { validateEVMAddress, validateTwitterUrl } from '@/utils';
 import { capitalizeFirstLetter } from '@/utils/string';
+import { Formik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
+import { TwitterShareButton } from 'react-share';
+import CheckStatus from './CheckStatus/CheckStatus';
+import { Container, PostStep, Step, StepBox } from './Faucet.styled';
 
 interface IStep {
   title: string;
@@ -32,7 +32,7 @@ const Faucet = () => {
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [linkContract, setLinkContract] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   const onVerify = useCallback((token: string) => {
     setToken(token);
@@ -52,22 +52,16 @@ const Faucet = () => {
     script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
     script.addEventListener('load', handleLoaded);
     document.body.appendChild(script);
-  };
-
-  useEffect(() => {
-    addCapcha();
     return () => {
       const script = document.createElement('script');
       document.body.removeChild(script);
     };
-  }, []);
+  };
 
   useEffect(() => {
-    const intervalID = setInterval(addCapcha, 10 * 1000);
+    const intervalID = setInterval(addCapcha, 8 * 1000);
     return () => {
       clearInterval(intervalID);
-      const script = document.createElement('script');
-      document.body.removeChild(script);
     };
   }, []);
 
@@ -120,7 +114,7 @@ const Faucet = () => {
               </div>
               <TwitterShareButton
                 disabled={!addressInput || !validateEVMAddress(addressInput)}
-                url={`I'm verifying my @DappsOnBitcoin address for the ${addressInput}`}
+                url={`💻 trustless.computer 💻\n\nI’m excited about the Trustless Computer launch by @generative_xyz.\n\nTC makes Bitcoin as generalized as possible. It enables developers to create DAO, DEX, NFT, tokens & more on Bitcoin.\n\nMy TC address is ${addressInput}`}
                 disabledStyle={{}}
                 title={''}
                 hashtags={[]}
@@ -144,10 +138,11 @@ const Faucet = () => {
   const handleSubmit = async (values: IFormTweetValue): Promise<void> => {
     if (token) {
       try {
+        setSuccessMsg('');
         setLoading(true);
         setErrorMsg('');
-        const data = await faucetClient.requestFaucet(values.link, token, addressInput);
-        setLinkContract(data);
+        const data = await requestFaucet(values.link, token, addressInput);
+        setSuccessMsg(data);
         setCurrentStep(3);
       } catch (error: any) {
         if (error && error.message) {
@@ -165,6 +160,7 @@ const Faucet = () => {
     const validateForm = (values: IFormTweetValue): Record<string, string> => {
       const errors: Record<string, string> = {};
       setErrorMsg('');
+      setSuccessMsg('');
       if (!values.link) {
         errors.link = 'Tweet URL is required.';
       } else if (!validateTwitterUrl(values.link)) {
@@ -203,13 +199,14 @@ const Faucet = () => {
                 {loading ? (
                   <Spinner />
                 ) : (
-                  <p className="text" style={{ paddingLeft: 21, paddingRight: 21 }}>
+                  <p className="text" style={{ paddingLeft: 18, paddingRight: 18 }}>
                     Confirm
                   </p>
                 )}
               </button>
             </PostStep>
             {((errors.link && touched.link) || errorMsg) && <p className="error">{errors.link || errorMsg}</p>}
+            {successMsg && <p className="success">{successMsg}</p>}
           </form>
         )}
       </Formik>
@@ -227,14 +224,14 @@ const Faucet = () => {
       desc: <p className="decs">Paste the URL of the tweet</p>,
       HTMLContent: renderStep2(),
     },
-    {
-      title: 'Step 3',
-      desc: (
-        <p className="link" onClick={() => window.open(linkContract)}>
-          Receive TC token in your wallet
-        </p>
-      ),
-    },
+    // {
+    //   title: 'Step 3',
+    //   desc: (
+    //     <p className="link" onClick={() => window.open(linkContract)}>
+    //       Receive TC token in your wallet
+    //     </p>
+    //   ),
+    // },
   ];
 
   const renderStep = (step: IStep, index: number) => {
@@ -251,11 +248,14 @@ const Faucet = () => {
     <Container>
       <div className="wrap-content">
         <p className="title">Faucet</p>
+        {/* <p className="subTitle1"></p> */}
         <p className="subTitle">
           To receive free TC for our Trustless Computer, simply enter your wallet address, share on twitter and copy and
-          paste the twitter URL back into the field below.
+          paste the twitter URL back into the field below. (0.05 TC/day. Total 2.5 TC/address.)
         </p>
         <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
+
+        <CheckStatus />
       </div>
     </Container>
   );

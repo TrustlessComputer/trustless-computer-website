@@ -1,7 +1,7 @@
 import moduleName from 'module';
 import { API_URL } from '@/configs';
-import { ICollection } from '@/models/collection';
-import { IInscription } from '@/models/inscription';
+import { ICollection } from '@/interfaces/api/collection';
+import { IInscription } from '@/interfaces/api/inscription';
 import { swrFetcher } from '@/utils/swr';
 import {
   IGenerativeNonceMessagePayload,
