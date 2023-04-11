@@ -8,7 +8,7 @@ import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
 import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useWeb3React } from '@web3-react/core';
 import queryString from 'query-string';
@@ -19,9 +19,15 @@ import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
 import CollectionProfile from './CollectionProfile';
+import { useSelector } from 'react-redux';
+import { getIsAuthenticatedSelector } from '@/state/user/selector';
+import { ROUTE_PATH } from '@/constants/route-path';
+import { getAccessToken } from '@/utils/auth-storage';
 
 const Wallet = () => {
-  const { account } = useWeb3React();
+  const accessToken = getAccessToken();
+
+  const navigate = useNavigate();
 
   const { tab } = queryString.parse(location.search) as { tab: string };
 
@@ -39,8 +45,9 @@ const Wallet = () => {
     setSearchParams({ tab: activeTab });
   }, [activeTab]);
 
-  if (!account) {
-    return null;
+  if (!accessToken) {
+    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
+    return <></>;
   }
 
   return (
