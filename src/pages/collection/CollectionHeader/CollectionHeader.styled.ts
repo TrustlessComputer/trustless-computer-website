@@ -33,9 +33,28 @@ const Container = styled.div`
     flex-direction: column;
     gap: ${px2rem(14)};
 
+    .info-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .mintButton {
+        padding: ${px2rem(3)} ${px2rem(12)};
+        background: #fff;
+        color: #1c1c1c;
+        font-weight: 500;
+        font-size: ${px2rem(14)};
+        line-height: ${px2rem(24)};
+        border-radius: 2px;
+
+        :disabled {
+          opacity: 0.8;
+        }
+      }
+    }
+
     .social {
       display: flex;
-      flex-direction: row;
       align-items: center;
       gap: ${px2rem(24)};
       margin-bottom: ${px2rem(8)};
@@ -70,6 +89,20 @@ const Container = styled.div`
       :hover {
         color: ${({ theme }: { theme: DefaultTheme }) => theme.purple.b};
       }
+    }
+
+    .mintWrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .file-uploader {
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
     }
 
     .row-bottom {
