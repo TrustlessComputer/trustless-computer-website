@@ -79,5 +79,9 @@ export const StyledUserInfo = styled.div`
     &:hover {
       opacity: 0.75;
     }
+
+    img {
+      max-width: 18px;
+    }
   }
 `;

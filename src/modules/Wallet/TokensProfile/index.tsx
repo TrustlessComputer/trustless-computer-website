@@ -11,6 +11,7 @@ import useSWR from 'swr';
 import { StyledTokenProfile } from './TokenProfile.styled';
 import { useParams } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
+import Empty from '@/components/Empty';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
@@ -49,6 +50,10 @@ const TokensProfile = () => {
         };
       },
     );
+
+  if (!data || data.length === 0) {
+    return <Empty />;
+  }
 
   return (
     <StyledTokenProfile>

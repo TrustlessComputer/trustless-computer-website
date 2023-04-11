@@ -34,8 +34,8 @@ const Wrapper = styled.div`
       display: flex;
       align-items: center;
       gap: ${px2rem(8)};
-      font-size: ${px2rem(18)};
-      line-height: ${px2rem(30)};
+      font-size: ${px2rem(16)};
+      line-height: ${px2rem(28)};
       font-weight: 500;
       font-family: 'IBMPlexMono';
 

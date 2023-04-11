@@ -64,7 +64,7 @@ const Header = ({ height }: { height: number }) => {
       <div className="rightContainer">
         {account && isAuthenticated ? (
           <>
-            <div className="wallet">
+            <div className="wallet" onClick={() => navigate(ROUTE_PATH.WALLET)}>
               <WalletBalance>
                 <div className="balance">
                   <p>{formatBTCPrice(btcBalance)} BTC</p>
@@ -76,7 +76,7 @@ const Header = ({ height }: { height: number }) => {
                 </div>
               </WalletBalance>
             </div>
-            <div className="dropdown">
+            {/* <div className="dropdown">
               <ul className="dropdownMenu">
                 <li className="dropdownMenuItem" onClick={() => navigate(ROUTE_PATH.WALLET)}>
                   {shortenAddress(account, 4, 4)}
@@ -85,7 +85,7 @@ const Header = ({ height }: { height: number }) => {
                   Disconnect wallet
                 </li>
               </ul>
-            </div>
+            </div> */}
           </>
         ) : (
           <ConnectWalletButton onClick={goToConnectWalletPage}>Connect wallet</ConnectWalletButton>
