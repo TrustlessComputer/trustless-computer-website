@@ -50,7 +50,7 @@ const Dapps = () => {
             eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
-                <IconSVG src={IcHexagon} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="32" maxHeight="32" src={IcHexagon} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   NFTs
                 </Text>
@@ -63,7 +63,7 @@ const Dapps = () => {
             eventKey={DappsTabs.TOKEN}
             title={
               <div className="tab-item">
-                <IconSVG src={IcCoinTokens} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="32" maxHeight="32" src={IcCoinTokens} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   Tokens
                 </Text>
@@ -78,7 +78,7 @@ const Dapps = () => {
             // className={tab === 'files' ? 'active' : ''}
             title={
               <div className="tab-item">
-                <IconSVG src={IcFolderOpen} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="32" maxHeight="32" src={IcFolderOpen} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   Artifacts
                 </Text>
@@ -91,7 +91,7 @@ const Dapps = () => {
             eventKey="names"
             title={
               <div className="tab-item">
-                <IconSVG src={IcNames} color="white" type="stroke" />
+                <IconSVG maxWidth="32" maxHeight="32" src={IcNames} color="white" type="stroke" />
                 <Text className="tab-text" size="regular">
                   Names
                 </Text>
