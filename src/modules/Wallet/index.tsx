@@ -8,26 +8,29 @@ import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
 import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useWeb3React } from '@web3-react/core';
+import { ROUTE_PATH } from '@/constants/route-path';
+import { getAccessToken } from '@/utils/auth-storage';
 import queryString from 'query-string';
 import ArtifactsProfile from './ArtifactsProfile';
+import CollectionProfile from './CollectionProfile';
 import NamesProfile from './NamesProfile';
 import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
-import CollectionProfile from './CollectionProfile';
 
 const Wallet = () => {
-  const { account } = useWeb3React();
+  const accessToken = getAccessToken();
+
+  const navigate = useNavigate();
 
   const { tab } = queryString.parse(location.search) as { tab: string };
 
   const [_, setSearchParams] = useSearchParams();
 
-  const [activeTab, setActiveTab] = useState(tab || 'collections');
+  const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
 
   useEffect(() => {
     if (tab) {
@@ -39,8 +42,9 @@ const Wallet = () => {
     setSearchParams({ tab: activeTab });
   }, [activeTab]);
 
-  if (!account) {
-    return null;
+  if (!accessToken) {
+    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
+    return <></>;
   }
 
   return (
@@ -51,15 +55,15 @@ const Wallet = () => {
           mountOnEnter
           defaultActiveKey={activeTab}
           id="uncontrolled-tab"
-          onSelect={key => setActiveTab(key || 'collections')}
+          onSelect={key => setActiveTab(key || DappsTabs.NFT)}
         >
           <Tab
-            eventKey={'collections'}
+            eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
-                <IconSVG maxWidth="28px" src={IcStack} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="28px" src={IcHexagon} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
-                  Collections
+                  NFTs
                 </Text>
               </div>
             }
@@ -82,7 +86,7 @@ const Wallet = () => {
             {/* <Add Component Here /> */}
             {/* <Tokens /> */}
           </Tab>
-          <Tab
+          {/* <Tab
             eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
@@ -94,7 +98,7 @@ const Wallet = () => {
             }
           >
             <NftsProfile />
-          </Tab>
+          </Tab> */}
           <Tab
             eventKey={DappsTabs.ARTIFACT}
             // className={tab === 'files' ? 'active' : ''}
@@ -111,7 +115,7 @@ const Wallet = () => {
             {/* <Artifacts /> */}
           </Tab>
           <Tab
-            eventKey="names"
+            eventKey={DappsTabs.NAMES}
             title={
               <div className="tab-item">
                 <IconSVG maxWidth="28px" src={IcNames} color="white" type="stroke" />
@@ -122,7 +126,6 @@ const Wallet = () => {
             }
           >
             <NamesProfile />
-            {/* <Names /> */}
           </Tab>
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
           {/* <Add Component Here /> */}

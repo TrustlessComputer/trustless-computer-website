@@ -199,7 +199,7 @@ const Faucet = () => {
                 {loading ? (
                   <Spinner className="loading" />
                 ) : (
-                  <p className="text" style={{ paddingLeft: 18, paddingRight: 18 }}>
+                  <p className="text" style={{ paddingLeft: 22, paddingRight: 22 }}>
                     Confirm
                   </p>
                 )}
@@ -251,7 +251,7 @@ const Faucet = () => {
         {/* <p className="subTitle1"></p> */}
         <p className="subTitle">
           To receive free TC for our Trustless Computer, simply enter your wallet address, share on twitter and copy and
-          paste the twitter URL back into the field below. (0.05 TC/day. Total 2.5 TC/address.)
+          paste the twitter URL back into the field below. (0.05 TC/day. Total 0.25 TC/address.)
         </p>
         <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
 
