@@ -9,7 +9,7 @@ import px2rem from '@/utils/px2rem';
 const HEADER_HEIGHT = 80;
 const FO0TER_HEIGHT = 80;
 
-const Container = styled.div`
+export const Container = styled.div`
   min-height: 100vh;
   max-width: 1920px;
   margin-left: auto;

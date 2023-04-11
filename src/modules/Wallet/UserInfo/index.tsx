@@ -8,7 +8,6 @@ import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { StyledUserInfo } from './UserInfo.styled';
 import Text from '@/components/Text';
 import IconSVG from '@/components/IconSVG';
