@@ -35,6 +35,10 @@ const PostStep = styled.div`
       line-height: ${px2rem(26)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
     }
+
+    .loading {
+      padding: ${px2rem(11)};
+    }
   }
 
   .inputContainer {
