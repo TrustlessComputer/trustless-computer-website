@@ -59,9 +59,7 @@ const Table = ({ tableHead = [], data, className, classTableData, classWrapper, 
           {TableHeads}
 
           {!data || data.length === 0 ? (
-            <tbody className={'empty'}>
-              <Empty infoText="No Data Available." isTable={true} />
-            </tbody>
+            <tbody className={'empty'}>{/* <Empty infoText="No Data Available." isTable={true} /> */}</tbody>
           ) : (
             <tbody>
               {data && data?.length > 0 && data.map(row => <TableData rowData={row} key={`trowData-${row.id}`} />)}
