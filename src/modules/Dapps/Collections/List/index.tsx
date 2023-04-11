@@ -2,7 +2,7 @@
 import IconSVG from '@/components/IconSVG';
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import { ARTIFACT_CONTRACT } from '@/configs';
-import { ICollection } from '@/models/collection';
+import { ICollection } from '@/interfaces/api/collection';
 import { getCollections } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import { debounce } from 'lodash';

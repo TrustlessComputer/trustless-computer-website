@@ -3,7 +3,7 @@ import IcTwitter from '@/assets/icons/ic_twitter_black.svg';
 import IcWebsite from '@/assets/icons/ic_website_black.svg';
 import IconSVG from '@/components/IconSVG';
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import { ICollection } from '@/models/collection';
+import { ICollection } from '@/interfaces/api/collection';
 import React from 'react';
 import { Container } from './CollectionHeader.styled';
 
