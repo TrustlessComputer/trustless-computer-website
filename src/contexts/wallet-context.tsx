@@ -20,15 +20,15 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
 
 export interface IWalletContext {
-  onDisconnect: () => void;
+  onDisconnect: () => Promise<void>;
   onConnect: () => Promise<string | null>;
-  generateBitcoinKey: () => Promise<string | null>;
+  generateBitcoinKey: (walletAddress: string) => Promise<string | null>;
 }
 
 const initialValue: IWalletContext = {
-  onDisconnect: () => undefined,
+  onDisconnect: () => new Promise<void>(r => r()),
   onConnect: () => new Promise<null>(r => r(null)),
-  generateBitcoinKey: () => new Promise<null>(r => r(null)),
+  generateBitcoinKey: (walletAddress: string) => new Promise<null>(r => r(null)),
 };
 
 export const WalletContext = React.createContext<IWalletContext>(initialValue);
@@ -39,18 +39,21 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const user = useSelector(getUserSelector);
   const navigate = useNavigate();
 
-  const disconnect = React.useCallback(() => {
+  console.log('____user', user);
+
+  const disconnect = React.useCallback(async () => {
     console.log('disconnecting...');
-    if (connector && connector.deactivate) {
-      connector.deactivate();
-    }
+    console.log('user', user);
     if (user?.walletAddress) {
       bitcoinStorage.removeUserTaprootAddress(user?.walletAddress);
     }
-    connector.resetState();
+    if (connector && connector.deactivate) {
+      await connector.deactivate();
+    }
+    await connector.resetState();
     clearAuthStorage();
     dispatch(resetUser());
-  }, [connector, dispatch, account, user]);
+  }, [connector, dispatch, user]);
 
   const connect = React.useCallback(async () => {
     const connection = getConnection(connector);
@@ -86,25 +89,24 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     return null;
   }, [dispatch, connector, provider]);
 
-  const generateBitcoinKey = React.useCallback(async () => {
-    const addresses = await connector.provider?.request({
-      method: 'eth_accounts',
-    });
-    if (addresses && Array.isArray(addresses)) {
-      const evmWalletAddress = addresses[0];
-      const existedWallet = bitcoinStorage.getUserTaprootAddress(evmWalletAddress);
-      if (existedWallet) {
-        dispatch(updateTaprootWallet(existedWallet));
-        return existedWallet;
+  const generateBitcoinKey = React.useCallback(
+    async (evmWalletAddress: string) => {
+      if (evmWalletAddress) {
+        const existedWallet = bitcoinStorage.getUserTaprootAddress(evmWalletAddress);
+        if (existedWallet) {
+          dispatch(updateTaprootWallet(existedWallet));
+          return existedWallet;
+        }
+        const { address: taprootAddress } = await generateBitcoinTaprootKey(evmWalletAddress);
+        if (taprootAddress) {
+          dispatch(updateTaprootWallet(taprootAddress));
+          return taprootAddress;
+        }
       }
-      const { address: taprootAddress } = await generateBitcoinTaprootKey(evmWalletAddress);
-      if (taprootAddress) {
-        dispatch(updateTaprootWallet(taprootAddress));
-        return taprootAddress;
-      }
-    }
-    return null;
-  }, [dispatch, connector]);
+      return null;
+    },
+    [dispatch, account],
+  );
 
   useEffect(() => {
     if (user?.walletAddress && !user.walletAddressBtcTaproot) {
@@ -112,7 +114,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       if (!taprootAddress) return;
       dispatch(updateTaprootWallet(taprootAddress));
     }
-  }, [user, generateBitcoinKey]);
+  }, [user, dispatch]);
 
   useAsyncEffect(async () => {
     const accessToken = getAccessToken();
@@ -129,24 +131,25 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
         const { walletAddress } = await getCurrentProfile();
         dispatch(updateEVMWallet(walletAddress));
         dispatch(updateSelectedWallet({ wallet: 'METAMASK' }));
-        await generateBitcoinKey();
+        await generateBitcoinKey(walletAddress);
       } catch (err: unknown) {
         clearAuthStorage();
         console.log(err);
       }
     }
-  }, [dispatch, connector, provider]);
+  }, [dispatch, connector]);
 
   useEffect(() => {
-    const handleAccountsChanged = () => {
-      disconnect();
+    const handleAccountsChanged = async () => {
+      console.log('accountsChanged');
+      await disconnect();
       navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${ROUTE_PATH.HOME}`);
     };
 
     if (window.ethereum) {
       Object(window.ethereum).on('accountsChanged', handleAccountsChanged);
     }
-  }, []);
+  }, [disconnect]);
 
   const contextValues = useMemo((): IWalletContext => {
     return {

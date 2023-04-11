@@ -26,7 +26,6 @@ const Header = ({ height }: { height: number }) => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-  const naviagate = useNavigate();
 
   const goToConnectWalletPage = async () => {
     navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
