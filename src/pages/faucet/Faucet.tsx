@@ -46,16 +46,30 @@ const Faucet = () => {
     });
   };
 
-  useEffect(() => {
+  const addCapcha = () => {
     // Add reCaptcha
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
     script.addEventListener('load', handleLoaded);
     document.body.appendChild(script);
+  };
+
+  useEffect(() => {
+    addCapcha();
     return () => {
+      const script = document.createElement('script');
       document.body.removeChild(script);
     };
-  }, [currentStep, loading]);
+  }, []);
+
+  useEffect(() => {
+    const intervalID = setInterval(addCapcha, 10 * 1000);
+    return () => {
+      clearInterval(intervalID);
+      const script = document.createElement('script');
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const renderStep1 = () => {
     const validateForm = (values: IFormValue): Record<string, string> => {
@@ -127,6 +141,26 @@ const Faucet = () => {
     );
   };
 
+  const handleSubmit = async (values: IFormTweetValue): Promise<void> => {
+    if (token) {
+      try {
+        setLoading(true);
+        setErrorMsg('');
+        const data = await faucetClient.requestFaucet(values.link, token);
+        setLinkContract(data);
+        setCurrentStep(3);
+      } catch (error: any) {
+        if (error && error.message) {
+          setErrorMsg(capitalizeFirstLetter(error.message));
+        } else {
+          setErrorMsg('Could not verify the tweet, please try again later.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   const renderStep2 = () => {
     const validateForm = (values: IFormTweetValue): Record<string, string> => {
       const errors: Record<string, string> = {};
@@ -138,26 +172,6 @@ const Faucet = () => {
       }
 
       return errors;
-    };
-
-    const handleSubmit = async (values: IFormTweetValue): Promise<void> => {
-      if (token) {
-        try {
-          setLoading(true);
-          setErrorMsg('');
-          const data = await faucetClient.requestFaucet(values.link, token);
-          setLinkContract(data);
-          setCurrentStep(3);
-        } catch (error: any) {
-          if (error && error.message) {
-            setErrorMsg(capitalizeFirstLetter(error.message));
-          } else {
-            setErrorMsg('Could not verify the tweet, please try again later.');
-          }
-        } finally {
-          setLoading(false);
-        }
-      }
     };
 
     return (
@@ -217,7 +231,7 @@ const Faucet = () => {
       title: 'Step 3',
       desc: (
         <a className="link" href={linkContract}>
-          Receive TC in your wallet
+          Receive TC token in your wallet
         </a>
       ),
     },

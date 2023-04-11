@@ -49,7 +49,10 @@ const Collections = () => {
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
 
-  const showCollections = useMemo(() => collections.filter(item => item.contract !== ARTIFACT_CONTRACT), [collections]);
+  const showCollections = useMemo(
+    () => collections.filter(item => item.contract !== ARTIFACT_CONTRACT.toLocaleLowerCase()),
+    [collections],
+  );
 
   return (
     <Container>
