@@ -89,6 +89,7 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     line-height: 26px;
     margin-top: ${px2rem(8)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    cursor: pointer;
 
     :hover {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text4};

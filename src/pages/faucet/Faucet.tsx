@@ -146,7 +146,7 @@ const Faucet = () => {
       try {
         setLoading(true);
         setErrorMsg('');
-        const data = await faucetClient.requestFaucet(values.link, token);
+        const data = await faucetClient.requestFaucet(values.link, token, addressInput);
         setLinkContract(data);
         setCurrentStep(3);
       } catch (error: any) {
@@ -230,9 +230,9 @@ const Faucet = () => {
     {
       title: 'Step 3',
       desc: (
-        <a className="link" href={linkContract}>
+        <p className="link" onClick={() => window.open(linkContract)}>
           Receive TC token in your wallet
-        </a>
+        </p>
       ),
     },
   ];
