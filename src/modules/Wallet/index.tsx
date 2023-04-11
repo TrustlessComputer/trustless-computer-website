@@ -20,6 +20,7 @@ import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
+import { CDN_URL } from '@/configs';
 
 const Wallet = () => {
   const accessToken = getAccessToken();
@@ -47,6 +48,10 @@ const Wallet = () => {
     return <></>;
   }
 
+  const navigateToDapps = () => {
+    navigate(`${ROUTE_PATH.DAPPS}?tab=${activeTab}`);
+  };
+
   return (
     <StyledProfile className="row">
       <UserInfo className="col-xl-2" />
@@ -61,7 +66,7 @@ const Wallet = () => {
             eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
-                <IconSVG maxWidth="28px" src={IcHexagon} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="28" maxHeight="28" src={IcHexagon} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   NFTs
                 </Text>
@@ -75,7 +80,7 @@ const Wallet = () => {
             eventKey={DappsTabs.TOKEN}
             title={
               <div className="tab-item">
-                <IconSVG maxWidth="28px" src={IcCoinTokens} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="28" maxHeight="28" src={IcCoinTokens} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   Tokens
                 </Text>
@@ -105,7 +110,7 @@ const Wallet = () => {
             // className={tab === 'files' ? 'active' : ''}
             title={
               <div className="tab-item">
-                <IconSVG maxWidth="28px" src={IcFolderOpen} color="white" type="stroke"></IconSVG>
+                <IconSVG maxWidth="28" maxHeight="28" src={IcFolderOpen} color="white" type="stroke"></IconSVG>
                 <Text className="tab-text" size="regular">
                   Artifacts
                 </Text>
@@ -119,10 +124,24 @@ const Wallet = () => {
             eventKey={DappsTabs.NAMES}
             title={
               <div className="tab-item">
-                <IconSVG maxWidth="28px" src={IcNames} color="white" type="stroke" />
+                <IconSVG maxWidth="28" maxHeight="28" src={IcNames} color="white" type="stroke" />
                 <Text className="tab-text" size="regular">
                   Names
                 </Text>
+              </div>
+            }
+          >
+            <NamesProfile />
+          </Tab>
+          <Tab
+            // eventKey={DappsTabs.NAMES}
+            title={
+              <div className="explore-btn" onClick={navigateToDapps}>
+                {/* <IconSVG maxWidth="28" maxHeight="28" src={IcNames} color="white" type="stroke" /> */}
+                <Text className="font-ibm" size="regular">
+                  Explore more
+                </Text>
+                <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" />
               </div>
             }
           >

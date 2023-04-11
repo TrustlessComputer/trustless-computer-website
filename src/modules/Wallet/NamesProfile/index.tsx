@@ -9,6 +9,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import { Container } from './NameProfile.styled';
 import { AnyIfEmpty } from 'react-redux';
+import Empty from '@/components/Empty';
 
 const LIMIT_PAGE = 12;
 
@@ -61,7 +62,7 @@ const NamesProfile = () => {
     }
   }, [account]);
 
-  if (!collections || collections.length === 0) return null;
+  if (!collections || collections.length === 0) return <Empty />;
 
   return (
     <Container>

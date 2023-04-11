@@ -19,7 +19,7 @@ const TokensProfile = () => {
 
   const profileWallet = account;
 
-  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', 'Creator'];
+  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', ''];
 
   const { data, error, isLoading } = useSWR(getApiKey(getTokens), () => getTokens({ key: profileWallet }));
 
@@ -45,11 +45,6 @@ const TokensProfile = () => {
 
             symbol: token?.symbol || '-',
             supply: totalSupply.toLocaleString(),
-            creator: (
-              <a href={linkToOwnerExplorer} rel="rel=”noopener noreferrer”" target="_blank">
-                {shortenAddress(token?.owner, 4) || '-'}
-              </a>
-            ),
           },
         };
       },

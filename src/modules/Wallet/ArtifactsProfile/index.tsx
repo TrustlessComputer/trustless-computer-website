@@ -11,6 +11,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
 import { Container } from './ArtifactsProfile.styled';
 import { ARTIFACT_CONTRACT } from '@/configs';
+import Empty from '@/components/Empty';
 
 const LIMIT_PAGE = 32;
 
@@ -57,6 +58,9 @@ const ArtifactsProfile = () => {
     const fileType = fileTypeList[fileTypeList.length - 1];
     return name ? `${name}.${fileType}` : type;
   };
+
+  if (!inscriptions || inscriptions.length === 0) return <Empty />;
+
   return (
     <Container>
       <div className="content">

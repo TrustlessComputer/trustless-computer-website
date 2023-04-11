@@ -28,6 +28,8 @@ export const StyledUserInfo = styled.div`
       /* margin-bottom: ${px2rem(16)}; */
 
       h5 {
+        font-size: ${px2rem(20)};
+        font-family: 'Bandeins Strange Variable' !important;
         font-weight: 500;
         flex: 1;
       }

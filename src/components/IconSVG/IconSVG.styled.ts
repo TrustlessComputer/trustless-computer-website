@@ -8,6 +8,7 @@ export const StyledIconSVG = styled.div<any>`
     display: inline-block;
     vertical-align: middle;
     width: ${props => (props.maxWidth ? `${px2rem(props.maxWidth)}` : '100%')};
+    height: ${props => (props.maxHeight ? `${px2rem(props.maxHeight)}` : '100%')};
     pointer-events: none;
   }
   ${props => {
