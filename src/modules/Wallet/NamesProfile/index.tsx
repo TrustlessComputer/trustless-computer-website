@@ -8,6 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import { Container } from './NameProfile.styled';
+import { AnyIfEmpty } from 'react-redux';
 
 const LIMIT_PAGE = 12;
 
@@ -20,10 +21,10 @@ interface ICollection {
 const NamesProfile = () => {
   const { account } = useWeb3React();
 
-  const profileWallet = account || '';
+  const profileWallet = account;
   const [pageSize, setpageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
-  const [collections, setCollections] = useState<ICollection[]>();
+  const [collections, setCollections] = useState<any>();
 
   // const { data: collection, isLoading } = useSWR(
   //   getApiKey(getBnsByWallet, { limit: pageSize, page: page, walletAddress: profileWallet }),
@@ -31,21 +32,21 @@ const NamesProfile = () => {
   // );
 
   const fetchNames = async (page = 1, isFetchMore = false) => {
-    try {
-      setIsFetching(true);
-      const data = await getBnsByWallet({ limit: pageSize, page: page, walletAddress: profileWallet });
-      if (isFetchMore) {
-        setCollections((prev: any) => [...prev, ...data]);
-      } else {
-        setCollections(data);
+    if (account && profileWallet) {
+      try {
+        setIsFetching(true);
+        const data = await getBnsByWallet({ limit: pageSize, page: page, walletAddress: profileWallet });
+        if (isFetchMore) {
+          setCollections((prev: any) => [...prev, ...data]);
+        } else {
+          setCollections(data);
+        }
+      } catch (error) {
+      } finally {
+        setIsFetching(false);
       }
-    } catch (error) {
-    } finally {
-      setIsFetching(false);
     }
   };
-
-  if (!collections || collections.length === 0) return null;
 
   const onLoadMoreNames = () => {
     if (isFetching || collections?.length % LIMIT_PAGE !== 0) return;
@@ -55,12 +56,17 @@ const NamesProfile = () => {
   const debounceLoadMore = debounce(onLoadMoreNames, 300);
 
   useEffect(() => {
-    fetchNames();
-  }, []);
+    if (account) {
+      fetchNames();
+    }
+  }, [account]);
+
+  if (!collections || collections.length === 0) return null;
 
   return (
     <Container>
       <div className="content">
+        Test
         <InfiniteScroll
           className="list"
           dataLength={collections.length}

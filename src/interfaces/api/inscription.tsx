@@ -12,4 +12,5 @@ export interface IInscription {
   updatedAt: string;
   collectionAddress: string;
   owner: string;
+  image?: string;
 }

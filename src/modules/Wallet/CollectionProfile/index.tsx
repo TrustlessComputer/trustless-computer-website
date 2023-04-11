@@ -87,7 +87,11 @@ const CollectionProfile = (props: Props) => {
             {collectionsList.length > 0 &&
               collectionsList.map((item: any, index: number) => {
                 return (
-                  <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
+                  <a
+                    key={index.toString()}
+                    className="card"
+                    href={`/collection?contract=${item.contract}?owner=${profileWallet}`}
+                  >
                     <div className="card-content">
                       <div className="card-image">
                         <NFTDisplayBox contentClass="image" src={item.thumbnail} />
