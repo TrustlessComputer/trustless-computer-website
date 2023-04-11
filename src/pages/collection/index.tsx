@@ -1,7 +1,7 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import WrapImage from '@/components/WrapImage';
-import { ICollection } from '@/models/collection';
-import { IInscription } from '@/models/inscription';
+import { ICollection } from '@/interfaces/api/collection';
+import { IInscription } from '@/interfaces/api/inscription';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import Spinner from 'react-bootstrap/Spinner';

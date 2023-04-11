@@ -12,7 +12,7 @@ const Container = styled.div`
     flex-direction: column;
     align-self: center;
     justify-content: center;
-    max-width: 600px;
+    max-width: 800px;
     min-width: 345px;
   }
 
@@ -24,6 +24,7 @@ const Container = styled.div`
     align-self: center;
     letter-spacing: -0.02em;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    font-family: 'IBMPlexMono';
   }
 
   .subTitle {
@@ -62,8 +63,8 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
 
   .title {
     font-weight: 500;
-    font-size: 20px;
-    line-height: 30px;
+    font-size: ${px2rem(20)};
+    line-height: ${px2rem(30)};
     letter-spacing: -0.01em;
   }
 
@@ -76,10 +77,18 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
 
   .error {
     font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    margin-top: 8px;
+    font-size: ${px2rem(14)};
+    line-height: ${px2rem(24)};
+    margin-top: ${px2rem(8)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
+  }
+
+  .success {
+    font-weight: 400;
+    font-size: ${px2rem(14)};
+    line-height: ${px2rem(24)};
+    margin-top: ${px2rem(8)};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.green.b};
   }
 
   .link {
@@ -113,11 +122,9 @@ const PostStep = styled.div<{ disable: boolean }>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 11px 20px 11px 16px;
+    padding: ${px2rem(11)} ${px2rem(14)};
     gap: 6px;
-
-    height: 48px;
-    min-width: 98px;
+    min-width: ${px2rem(98)};
 
     background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     border-radius: 2px;
@@ -132,8 +139,8 @@ const PostStep = styled.div<{ disable: boolean }>`
 
     .text {
       font-weight: 500;
-      font-size: 16px;
-      line-height: 26px;
+      font-size: ${px2rem(16)};
+      line-height: ${px2rem(26)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
     }
   }
@@ -150,8 +157,8 @@ const PostStep = styled.div<{ disable: boolean }>`
       padding: ${px2rem(11)} ${px2rem(14)};
 
       font-weight: 400;
-      font-size: 16px;
-      line-height: 26px;
+      font-size: ${px2rem(16)};
+      line-height: ${px2rem(26)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
       width: 100%;
     }

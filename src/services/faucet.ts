@@ -1,18 +1,17 @@
-import { AxiosInstance } from 'axios';
 import { API_FAUCET } from '@/configs';
-import createAxiosInstance from './http-client';
+import { IFaucetStatusResp } from '@/interfaces/api/faucet';
+import { swrFetcher } from '@/utils/swr';
 
-class Client {
-  http: AxiosInstance;
-  constructor() {
-    this.http = createAxiosInstance({ baseURL: API_FAUCET });
-  }
+const API_PATH = API_FAUCET + '/faucet';
 
-  requestFaucet(linkTweet: string, tokenCapcha: string, address: string): Promise<string> {
-    return this.http.post('/faucet/request', { url: linkTweet, 'g-recaptcha-response': tokenCapcha, address });
-  }
-}
+export const requestFaucet = (linkTweet: string, tokenCapcha: string, address: string): Promise<string> =>
+  swrFetcher(`${API_PATH}/request`, {
+    method: 'POST',
+    data: { url: linkTweet, 'g-recaptcha-response': tokenCapcha, address },
+  });
 
-const faucetClient = new Client();
-
-export default faucetClient;
+export const requestGetFaucetStatus = (address: string): Promise<IFaucetStatusResp[]> => {
+  return swrFetcher(`${API_PATH}/list?address=${address}`, {
+    method: 'GET',
+  });
+};
