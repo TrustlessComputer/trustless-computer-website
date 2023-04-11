@@ -32,10 +32,6 @@ const Header = ({ height }: { height: number }) => {
     navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
   };
 
-  const navigateToWallet = () => {
-    naviagate('/wallet');
-  };
-
   useEffect(() => {
     if (refMenu.current) {
       if (isOpenMenu) {
