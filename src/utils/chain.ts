@@ -24,9 +24,9 @@ export function isSupportedChain(chainId: number | null | undefined): chainId is
   return !!chainId && !!SupportedChainId[chainId];
 }
 
-export const switchChain = async (connector: Connector, chainId: SupportedChainId) => {
+export const switchChain = async (chainId: SupportedChainId) => {
   if (!isSupportedChain(chainId)) {
-    throw new Error(`Chain ${chainId} not supported for connector (${typeof connector})`);
+    throw new Error(`Chain ${chainId} not supported`);
   } else if (window.ethereum) {
     try {
       await Object(window.ethereum).request({
@@ -39,7 +39,7 @@ export const switchChain = async (connector: Connector, chainId: SupportedChainI
       const chainList = await getChainList();
       const info = chainList.find((c: IResourceChain) => c.chainId === chainId);
       if (!info) {
-        throw new Error(`Chain ${chainId} not supported for connector (${typeof connector})`);
+        throw new Error(`Chain ${chainId} not supported`);
       }
 
       const params = {

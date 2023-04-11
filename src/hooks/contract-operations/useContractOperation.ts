@@ -6,8 +6,10 @@ import { useWeb3React } from '@web3-react/core';
 import { useContext } from 'react';
 import useBitcoin from '../useBitcoin';
 import { useSelector } from 'react-redux';
-import { getUserSelector } from '@/state/user/selector';
+import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/selector';
 import { AssetsContext } from '@/contexts/assets-context';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -23,29 +25,18 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
   const { call } = operation();
   const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
-  const { chainId: walletChainId, connector } = useWeb3React();
-  const { onConnect: onConnectMetamask } = useContext(WalletContext);
+  const { chainId: walletChainId } = useWeb3React();
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
   const user = useSelector(getUserSelector);
   const { createInscribeTx, getUnInscribedTransactionByAddress } = useBitcoin();
-
-  const connectWallet = async () => {
-    try {
-      if (!user?.walletAddress) {
-        return await onConnectMetamask();
-      }
-      return user.walletAddress;
-    } catch (err: unknown) {
-      console.log(err);
-      throw Error('Failed to connect wallet');
-    }
-  };
+  const navigate = useNavigate();
 
   const checkAndSwitchChainIfNecessary = async (): Promise<void> => {
     console.log('walletChainId', walletChainId);
     console.log('chainId', chainId);
 
     if (walletChainId !== chainId) {
-      await switchChain(connector, chainId);
+      await switchChain(chainId);
     }
   };
 
@@ -54,16 +45,18 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       // This function does not handle error
       // It delegates error to caller
 
-      // Connect Metamask & Xverse
-      const address = await connectWallet();
-      if (!address) {
-        throw Error('Wallet address not found');
+      if (!isAuthenticated || !user?.walletAddress) {
+        navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
+        throw Error('Please connect wallet to continue.');
       }
 
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
       const assets = await getAvailableAssetsCreateTx();
       console.log('assets', assets);
+      if (!assets) {
+        throw Error('Can not get assets. Please try again.');
+      }
 
       if (!inscribeable) {
         // Make TC transaction
@@ -76,7 +69,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       }
 
       // Check unInscribed transactions
-      const unInscribedTxIDs = await getUnInscribedTransactionByAddress(address);
+      const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
 
       if (unInscribedTxIDs.length > 0) {
         throw Error('You have some pending transactions. Please complete all of them before moving on.');

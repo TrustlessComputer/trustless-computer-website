@@ -26,7 +26,9 @@ const userSlice = createSlice({
       state.walletAddressBtcTaproot = payload;
     },
     resetUser(state) {
-      state = initialState;
+      state.selectedWallet = undefined;
+      state.walletAddress = undefined;
+      state.walletAddressBtcTaproot = undefined;
     },
   },
 });

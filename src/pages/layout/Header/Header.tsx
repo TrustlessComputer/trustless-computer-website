@@ -1,6 +1,5 @@
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
 import IcLogo from '@/assets/icons/logo.svg';
-import Text from '@/components/Text';
 import { MENU_HEADER } from '@/constants/header';
 import { AssetsContext } from '@/contexts/assets-context';
 import { WalletContext } from '@/contexts/wallet-context';
@@ -9,42 +8,32 @@ import { formatBTCPrice, formatEthPrice } from '@/utils/format';
 import { useWeb3React } from '@web3-react/core';
 import { gsap } from 'gsap';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { OverlayTrigger } from 'react-bootstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Anchor, ConnectWalletButton, StyledLink, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Anchor, ConnectWalletButton, StyledLink, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
-import { TC_URL } from '@/configs';
+import { useSelector } from 'react-redux';
+import { getIsAuthenticatedSelector } from '@/state/user/selector';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
-  const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
-  const { btcBalance, juiceBalance } = useContext(AssetsContext);
-  const isAuthenticated = !!account;
   const navigate = useNavigate();
-
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
+  const { onDisconnect } = useContext(WalletContext);
+  const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const refMenu = useRef<HTMLDivElement | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
+  const naviagate = useNavigate();
 
-  const handleShowAddress = (address: string) => {
-    return (
-      <WalletAdress className="balance">
-        <Text size="regular">{shortenAddress(address, 4, 4)}</Text>
-      </WalletAdress>
-    );
+  const goToConnectWalletPage = async () => {
+    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
   };
 
-  const handleConnectWallet = async () => {
-    try {
-      await onConnect();
-      await generateBitcoinKey();
-    } catch (err) {
-      console.log(err);
-      onDisconnect();
-    }
+  const navigateToWallet = () => {
+    naviagate('/wallet');
   };
 
   useEffect(() => {
@@ -64,9 +53,9 @@ const Header = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
       <div className="indicator" />
-      <a className="logo" href="/">
+      <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />
-      </a>
+      </Link>
       <div className="rowLink">
         {MENU_HEADER.map(item => {
           if (item.absolute) {
@@ -85,23 +74,33 @@ const Header = ({ height }: { height: number }) => {
       </div>
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
-        {isAuthenticated ? (
-          <div className="wallet" onClick={() => window.open(`${TC_URL}/${account}`)}>
-            <WalletBalance>
-              <div className="balance">
-                <p>{formatBTCPrice(btcBalance)} BTC</p>
-                <span className="divider"></span>
-                <p>{formatEthPrice(juiceBalance)} TC</p>
-              </div>
-              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={handleShowAddress(account)}>
+        {account && isAuthenticated ? (
+          <>
+            <div className="wallet">
+              <WalletBalance>
+                <div className="balance">
+                  <p>{formatBTCPrice(btcBalance)} BTC</p>
+                  <span className="divider"></span>
+                  <p>{formatEthPrice(juiceBalance)} TC</p>
+                </div>
                 <div className="avatar">
                   <Jazzicon diameter={32} seed={jsNumberForAddress(account)} />
                 </div>
-              </OverlayTrigger>
-            </WalletBalance>
-          </div>
+              </WalletBalance>
+            </div>
+            <div className="dropdown">
+              <ul className="dropdownMenu">
+                <li className="dropdownMenuItem" onClick={() => navigate(ROUTE_PATH.WALLET)}>
+                  {shortenAddress(account, 4, 4)}
+                </li>
+                <li className="dropdownMenuItem" onClick={onDisconnect}>
+                  Disconnect wallet
+                </li>
+              </ul>
+            </div>
+          </>
         ) : (
-          <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
+          <ConnectWalletButton onClick={goToConnectWalletPage}>Connect wallet</ConnectWalletButton>
         )}
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />

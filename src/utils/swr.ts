@@ -24,6 +24,11 @@ export const swrFetcher = async (url: string, options: any) => {
     const response = await axios.request({ url, method, data, ...rest });
     return camelCaseKeys(response.data.data);
   } catch (error: any) {
+    if (error.response) {
+      const response = error?.response?.data || error;
+      let errorMessage = response?.error || error?.Message || JSON.stringify(error);
+      throw errorMessage;
+    }
     throw new Error(error.config?.error || 'Something went wrong');
   }
 };
