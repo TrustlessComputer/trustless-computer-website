@@ -21,7 +21,7 @@ const Collection = () => {
   const navigate = useNavigate();
   const { account } = useWeb3React();
 
-  const { contract } = queryString.parse(location.search) as { contract: string };
+  const { contract, owner } = queryString.parse(location.search) as { contract: string; owner?: string };
 
   const [collection, setCollection] = useState<ICollection | undefined>();
 
@@ -45,7 +45,7 @@ const Collection = () => {
   const fetchInscriptions = async (page = 1, isFetchMore = false) => {
     try {
       setIsFetching(true);
-      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT });
+      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT, owner: owner || '' });
       if (isFetchMore) {
         setInscriptions(prev => [...prev, ...data]);
       } else {
