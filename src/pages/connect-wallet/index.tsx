@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Wrapper, ConnectWalletButton } from './ConnectWallet.styled';
 import { WalletContext } from '@/contexts/wallet-context';
 import { useSelector } from 'react-redux';
@@ -7,13 +7,40 @@ import { CDN_URL } from '@/configs';
 import { Anchor } from '../layout/Header/Header.styled';
 import { MENU_HEADER } from '@/constants/header';
 import { Container } from '../layout';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 const ConnectWallet: React.FC = (): React.ReactElement => {
-  const { onConnect } = useContext(WalletContext);
+  const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
   const activePath = location.pathname.split('/')[1];
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const [isConnecting, setIsConnecting] = useState(false);
 
-  useEffect(() => {}, [isAuthenticated]);
+  const handleConnectWallet = async () => {
+    try {
+      setIsConnecting(true);
+      await onConnect();
+      await generateBitcoinKey();
+    } catch (err) {
+      console.log(err);
+      onDisconnect();
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const next = searchParams.get('next');
+      if (next) {
+        window.location.href = next;
+      } else {
+        navigate(ROUTE_PATH.HOME);
+      }
+    }
+  }, [isAuthenticated, searchParams]);
 
   return (
     <Container>
@@ -41,7 +68,9 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
           <h1 className="title">
             Trustless Computer is an open-source protocol that powers decentralized applications on Bitcoin.
           </h1>
-          <ConnectWalletButton>Connect wallet</ConnectWalletButton>
+          <ConnectWalletButton disabled={isConnecting} onClick={handleConnectWallet}>
+            {isConnecting ? 'Connecting...' : 'Connect wallet'}
+          </ConnectWalletButton>
         </div>
       </Wrapper>
     </Container>
