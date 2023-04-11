@@ -39,6 +39,12 @@ const Wrapper = styled.div`
       font-weight: 500;
       font-family: 'IBMPlexMono';
 
+      &:hover {
+        opacity: 0.8;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
       .arrow-icon {
         width: 9px;
         height: 9px;
