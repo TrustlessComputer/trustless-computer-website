@@ -16,6 +16,10 @@ export const ThemedGlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.bg1};
 
     @media screen and (min-width: 1920px) {
+      font-size: 18px;
+    }
+
+    @media screen and (min-width: 2048px) {
       font-size: 20px;
     }
     
