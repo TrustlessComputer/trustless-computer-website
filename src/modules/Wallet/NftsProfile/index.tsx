@@ -10,6 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
 import { Container } from './NftsProfile.styled';
+import Empty from '@/components/Empty';
 
 // type Props = {};
 const LIMIT_PAGE = 32;
@@ -43,7 +44,12 @@ const NftsProfile = () => {
     }
   };
 
-  if (error || !nftslist || nftslist.length === 0) return null;
+  if (error || !nftslist || nftslist.length === 0)
+    return (
+      <Container>
+        <Empty />
+      </Container>
+    );
 
   return (
     <Container>

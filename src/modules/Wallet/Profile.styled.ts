@@ -1,3 +1,4 @@
+import { colors } from './../../theme/colors';
 import px2rem from '@/utils/px2rem';
 import styled from 'styled-components';
 import { DefaultTheme } from 'styled-components';
@@ -69,5 +70,41 @@ export const TabContainer = styled.div`
     font-family: 'IBMPlexMono' !important;
     font-size: ${px2rem(18)};
     font-weight: 500;
+  }
+
+  .nav-item:last-of-type {
+    flex: 1;
+
+    > button {
+      margin-left: auto;
+    }
+  }
+
+  .explore-btn {
+    display: flex;
+    align-items: center;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
+    padding: ${px2rem(5)} ${px2rem(14)};
+    gap: ${px2rem(4)};
+    p {
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
+      font-weight: 500;
+    }
+  }
+
+  .tab-content {
+    min-height: ${px2rem(300)};
+    position: relative;
+
+    .empty {
+      min-height: ${px2rem(300)};
+    }
+
+    .notFound {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 `;

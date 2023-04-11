@@ -16,22 +16,6 @@ export const StyledUserInfo = styled.div`
     .paper {
       border-radius: 50% !important;
     }
-
-    @media screen and (min-width: 1200px) {
-      --avatar-tablet: none;
-      --avatar-mobile: none;
-    }
-
-    @media screen and (min-width: 500px) and (max-width: 1199px) {
-      --avatar-desktop: none;
-      --avatar-tablet: block;
-      --avatar-mobile: none;
-    }
-    @media screen and (max-width: 499.99px) {
-      --avatar-desktop: none;
-      --avatar-tablet: none;
-      --avatar-mobile: block;
-    }
   }
 
   .address {
@@ -41,14 +25,19 @@ export const StyledUserInfo = styled.div`
       display: flex;
       align-items: center;
       gap: ${px2rem(16)};
-      margin-bottom: ${px2rem(16)};
+      /* margin-bottom: ${px2rem(16)}; */
 
       h5 {
+        font-size: ${px2rem(20)};
+        font-family: 'Bandeins Strange Variable' !important;
         font-weight: 500;
         flex: 1;
       }
     }
     .btc-address {
+      display: flex;
+      align-items: center;
+      gap: ${px2rem(12)};
       margin-bottom: ${px2rem(24)};
     }
   }
@@ -79,6 +68,16 @@ export const StyledUserInfo = styled.div`
     }
     .balance-content {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    }
+  }
+
+  .disconnect-btn {
+    display: flex;
+    align-items: center;
+    gap: ${px2rem(12)};
+    cursor: pointer;
+    &:hover {
+      opacity: 0.75;
     }
   }
 `;
