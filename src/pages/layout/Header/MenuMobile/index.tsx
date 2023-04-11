@@ -23,7 +23,6 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
   const user = useSelector(getUserSelector);
-  const { account } = useWeb3React();
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = !!user;
@@ -65,7 +64,6 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
                 <img src={IcAvatarDefault} alt="default avatar" />
               </div>
             </WalletBalance>
-            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
           </div>
         ) : (
           <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>

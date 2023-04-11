@@ -12,26 +12,6 @@ import {
 
 const API_PATH = API_URL + '/auth';
 
-// export const getCollections = (page: number, limit: number): Promise<ICollection[]> =>
-//   swrFetcher(`${API_PATH}/collections?limit=${limit}&page=${page}`, {
-//     method: 'GET',
-//   });
-
-// export const generateNonceMessage = async (
-//     payload: IGenerativeNonceMessagePayload
-//   ): Promise<IGenerativeNonceMessageResponse> => {
-//     try {
-//       const res = await post<
-//         IGenerativeNonceMessagePayload,
-//         IGenerativeNonceMessageResponse
-//       >(`${API_PATH}/nonce`, payload);
-//       return res;
-//     } catch (err: unknown) {
-//       log('failed to generate nonce message', LogLevel.ERROR, LOG_PREFIX);
-//       throw Error('Failed to generate nonce message');
-//     }
-//   };
-
 export const generateNonceMessage = (payload: IGenerativeNonceMessagePayload): Promise<string> =>
   swrFetcher(`${API_PATH}/nonce`, {
     method: 'POST',

@@ -11,39 +11,35 @@ import { gsap } from 'gsap';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Anchor, ConnectWalletButton, StyledLink, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
 import { TC_URL } from '@/configs';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
+  const user = useSelector(getUserSelector);
   const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
-  const isAuthenticated = !!account;
-  const navigate = useNavigate();
-
+  const isAuthenticated = !!user?.walletAddressBtcTaproot;
   const refMenu = useRef<HTMLDivElement | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
+  const [isConnecting, setIsConnecting] = useState(false);
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
 
-  const handleShowAddress = (address: string) => {
-    return (
-      <WalletAdress className="balance">
-        <Text size="regular">{shortenAddress(address, 4, 4)}</Text>
-      </WalletAdress>
-    );
-  };
-
   const handleConnectWallet = async () => {
     try {
+      setIsConnecting(true);
       await onConnect();
       await generateBitcoinKey();
     } catch (err) {
       console.log(err);
       onDisconnect();
+    } finally {
+      setIsConnecting(false);
     }
   };
 
@@ -85,23 +81,35 @@ const Header = ({ height }: { height: number }) => {
       </div>
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
-        {isAuthenticated ? (
-          <div className="wallet" onClick={() => window.open(`${TC_URL}/${account}`)}>
-            <WalletBalance>
-              <div className="balance">
-                <p>{formatBTCPrice(btcBalance)} BTC</p>
-                <span className="divider"></span>
-                <p>{formatEthPrice(juiceBalance)} TC</p>
-              </div>
-              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={handleShowAddress(account)}>
+        {account && isAuthenticated ? (
+          <>
+            <div className="wallet" onClick={() => window.open(`${TC_URL}/${account}`)}>
+              <WalletBalance>
+                <div className="balance">
+                  <p>{formatBTCPrice(btcBalance)} BTC</p>
+                  <span className="divider"></span>
+                  <p>{formatEthPrice(juiceBalance)} TC</p>
+                </div>
                 <div className="avatar">
                   <Jazzicon diameter={32} seed={jsNumberForAddress(account)} />
                 </div>
-              </OverlayTrigger>
-            </WalletBalance>
-          </div>
+              </WalletBalance>
+            </div>
+            <div className="dropdown">
+              <ul className="dropdownMenu">
+                <li className="dropdownMenuItem" onClick={() => window.open(`${TC_URL}/${account}`)}>
+                  {shortenAddress(account, 4, 4)}
+                </li>
+                <li className="dropdownMenuItem" onClick={onDisconnect}>
+                  Disconnect wallet
+                </li>
+              </ul>
+            </div>
+          </>
         ) : (
-          <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
+          <ConnectWalletButton disabled={isConnecting} onClick={handleConnectWallet}>
+            {isConnecting ? 'Connecting...' : 'Connect wallet'}
+          </ConnectWalletButton>
         )}
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />

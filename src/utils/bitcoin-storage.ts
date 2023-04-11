@@ -6,9 +6,9 @@ class BitCoinStorage {
     return `${TAPROOT_ADDRESS}-${evmAddress}`;
   };
 
-  getUserTaprootAddress = (evmAddress: string) => {
+  getUserTaprootAddress = (evmAddress: string): string | null => {
     const key = this.getUserTaprootKey(evmAddress);
-    return localStorage.get(key);
+    return localStorage.get<string | null>(key);
   };
 
   setUserTaprootAddress = (evmAddress: string, taprootAddress: string) => {

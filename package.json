@@ -48,7 +48,6 @@
     "react-router-dom": "6.4.3",
     "react-share": "^4.4.1",
     "redux": "^4.2.1",
-    "redux-localstorage-simple": "^2.5.1",
     "sats-connect": "^0.1.11",
     "stream": "^0.0.2",
     "styled-components": "^5.3.9",

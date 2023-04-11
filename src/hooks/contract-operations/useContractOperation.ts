@@ -23,15 +23,17 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
   const { call } = operation();
   const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
-  const { chainId: walletChainId, connector } = useWeb3React();
-  const { onConnect: onConnectMetamask } = useContext(WalletContext);
+  const { chainId: walletChainId } = useWeb3React();
+  const { onConnect: onConnectMetamask, generateBitcoinKey } = useContext(WalletContext);
   const user = useSelector(getUserSelector);
   const { createInscribeTx, getUnInscribedTransactionByAddress } = useBitcoin();
 
   const connectWallet = async () => {
     try {
-      if (!user?.walletAddress) {
-        return await onConnectMetamask();
+      if (!user?.walletAddressBtcTaproot) {
+        const address = await onConnectMetamask();
+        await generateBitcoinKey();
+        return address;
       }
       return user.walletAddress;
     } catch (err: unknown) {
@@ -45,7 +47,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
     console.log('chainId', chainId);
 
     if (walletChainId !== chainId) {
-      await switchChain(connector, chainId);
+      await switchChain(chainId);
     }
   };
 
@@ -64,6 +66,9 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       await checkAndSwitchChainIfNecessary();
       const assets = await getAvailableAssetsCreateTx();
       console.log('assets', assets);
+      if (!assets) {
+        throw Error('Can not get assets. Please try again.');
+      }
 
       if (!inscribeable) {
         // Make TC transaction
