@@ -20,8 +20,6 @@ import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
 import CollectionProfile from './CollectionProfile';
 
-export const MOCK_WALLET = '0x07e51aec82c7163e3237cfbf8c0e6a07413fa18e';
-
 const Wallet = () => {
   const { account } = useWeb3React();
 
@@ -29,7 +27,6 @@ const Wallet = () => {
 
   const [_, setSearchParams] = useSearchParams();
 
-  // const [, set] = useState(second);
   const [activeTab, setActiveTab] = useState(tab || 'collections');
 
   useEffect(() => {
@@ -47,9 +44,9 @@ const Wallet = () => {
   }
 
   return (
-    <StyledProfile>
-      <UserInfo />
-      <TabContainer className="wrapper">
+    <StyledProfile className="row">
+      <UserInfo className="col-xl-2" />
+      <TabContainer className="wrapper col-xl-9 offset-xl-1">
         <Tabs
           mountOnEnter
           defaultActiveKey={activeTab}
