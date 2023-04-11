@@ -16,6 +16,8 @@ import { switchChain } from '@/utils';
 import { SupportedChainId } from '@/constants/chains';
 import { getCurrentProfile } from '@/services/profile';
 import useAsyncEffect from 'use-async-effect';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 export interface IWalletContext {
   onDisconnect: () => void;
@@ -35,6 +37,7 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const { connector, provider, account, chainId } = useWeb3React();
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
+  const navigate = useNavigate();
 
   const disconnect = React.useCallback(() => {
     console.log('disconnecting...');
@@ -133,6 +136,15 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       }
     }
   }, [dispatch, connector, provider]);
+
+  useEffect(() => {
+    const handleAccountsChanged = () => {
+      disconnect();
+      navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${ROUTE_PATH.HOME}`);
+    };
+
+    Object(window.ethereum)?.on('accountsChanged', handleAccountsChanged);
+  }, []);
 
   const contextValues = useMemo((): IWalletContext => {
     return {
