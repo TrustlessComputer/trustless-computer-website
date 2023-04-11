@@ -2,19 +2,17 @@ import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import IcNames from '@/assets/icons/ic-names.svg';
-import IcStack from '@/assets/icons/ic-stack.svg';
+// import IcStack from '@/assets/icons/ic-stack.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 
-import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import queryString from 'query-string';
 import ArtifactsProfile from './ArtifactsProfile';
-import CollectionProfile from './CollectionProfile';
 import NamesProfile from './NamesProfile';
 import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
@@ -57,7 +55,7 @@ const Wallet = () => {
           id="uncontrolled-tab"
           onSelect={key => setActiveTab(key || 'collections')}
         >
-          <Tab
+          {/* <Tab
             eventKey={'collections'}
             title={
               <div className="tab-item">
@@ -69,7 +67,7 @@ const Wallet = () => {
             }
           >
             <CollectionProfile />
-          </Tab>
+          </Tab> */}
           <Tab
             eventKey={DappsTabs.TOKEN}
             title={
