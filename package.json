@@ -31,6 +31,7 @@
     "file-type": "^16.5.4",
     "gsap": "^3.11.5",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-audio-visualizers": "^0.1.1",
