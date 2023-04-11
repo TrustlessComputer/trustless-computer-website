@@ -1,6 +1,6 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 
-export type ContractOperationHook<P, R> = () => {
+export type ContractOperationHook<P, R> = (arg?: any) => {
   call: (args: P) => R;
 };
 
