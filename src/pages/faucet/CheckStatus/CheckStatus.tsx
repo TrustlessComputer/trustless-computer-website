@@ -75,8 +75,10 @@ const CheckStatus = () => {
                 {loading ? (
                   <Spinner className="loading" />
                 ) : (
-                  <button type="submit" className="text" style={{ paddingLeft: 21, paddingRight: 21 }}>
-                    Check
+                  <button type="submit">
+                    <p className="text" style={{ paddingLeft: 28, paddingRight: 28 }}>
+                      Check
+                    </p>
                   </button>
                 )}
               </div>

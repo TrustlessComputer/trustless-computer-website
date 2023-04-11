@@ -199,7 +199,7 @@ const Faucet = () => {
                 {loading ? (
                   <Spinner className="loading" />
                 ) : (
-                  <p className="text" style={{ paddingLeft: 18, paddingRight: 18 }}>
+                  <p className="text" style={{ paddingLeft: 22, paddingRight: 22 }}>
                     Confirm
                   </p>
                 )}
