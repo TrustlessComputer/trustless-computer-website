@@ -7,4 +7,5 @@ export const ROUTE_PATH = {
   FAUCET: '/faucet',
   USE_TRUSTLESS: '/use-trustless-computer',
   WALLET: '/wallet',
+  CONNECT_WALLET: '/connect-wallet',
 };
