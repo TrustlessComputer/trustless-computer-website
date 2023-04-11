@@ -8,8 +8,8 @@ class Client {
     this.http = createAxiosInstance({ baseURL: API_FAUCET });
   }
 
-  requestFaucet(linkTweet: string, tokenCapcha: string): Promise<string> {
-    return this.http.post('/faucet/request', { url: linkTweet, 'g-recaptcha-response': tokenCapcha });
+  requestFaucet(linkTweet: string, tokenCapcha: string, address: string): Promise<string> {
+    return this.http.post('/faucet/request', { url: linkTweet, 'g-recaptcha-response': tokenCapcha, address });
   }
 }
 
