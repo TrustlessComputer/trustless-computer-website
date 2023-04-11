@@ -11,6 +11,7 @@ import useSWR from 'swr';
 import { StyledTokenProfile } from './TokenProfile.styled';
 import { useParams } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
+import Empty from '@/components/Empty';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
@@ -19,7 +20,7 @@ const TokensProfile = () => {
 
   const profileWallet = account;
 
-  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', 'Creator'];
+  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', ''];
 
   const { data, error, isLoading } = useSWR(getApiKey(getTokens), () => getTokens({ key: profileWallet }));
 
@@ -45,15 +46,14 @@ const TokensProfile = () => {
 
             symbol: token?.symbol || '-',
             supply: totalSupply.toLocaleString(),
-            creator: (
-              <a href={linkToOwnerExplorer} rel="rel=”noopener noreferrer”" target="_blank">
-                {shortenAddress(token?.owner, 4) || '-'}
-              </a>
-            ),
           },
         };
       },
     );
+
+  if (!data || data.length === 0) {
+    return <Empty />;
+  }
 
   return (
     <StyledTokenProfile>

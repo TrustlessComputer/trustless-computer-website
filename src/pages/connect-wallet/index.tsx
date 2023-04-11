@@ -47,14 +47,14 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
     <Container>
       <Wrapper>
         <div className="header">
-          <Anchor
+          {/* <Anchor
             active={activePath === MENU_HEADER[4].activePath}
             href={MENU_HEADER[4].route}
             target={MENU_HEADER[4].target}
             key={MENU_HEADER[4].id}
           >
             {MENU_HEADER[4].name}
-          </Anchor>
+          </Anchor> */}
           <div className="socialContainer">
             <a href="https://discord.com/channels/1052411011036090458/1094649301210239086" target="_blank">
               <img alt="icon" className="icon" src={`${CDN_URL}/icons/ic-discord-18x18.svg`} />

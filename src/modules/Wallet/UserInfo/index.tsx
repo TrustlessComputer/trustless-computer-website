@@ -14,6 +14,11 @@ import IconSVG from '@/components/IconSVG';
 import { useContext } from 'react';
 import { AssetsContext } from '@/contexts/assets-context';
 import { formatBTCPrice, formatEthPrice } from '@/utils/format';
+import { CDN_URL } from '@/configs';
+import SVG from 'react-inlinesvg';
+import { WalletContext } from '@/contexts/wallet-context';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 type Props = {
   className?: string;
@@ -23,6 +28,8 @@ const UserInfo = ({ className }: Props) => {
   const user = useSelector(getUserSelector);
   const { account } = useWeb3React();
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
+  const { onDisconnect } = useContext(WalletContext);
+  const navigate = useNavigate();
 
   if (!user) return null;
 
@@ -36,6 +43,11 @@ const UserInfo = ({ className }: Props) => {
     toast.success('Copied');
   };
 
+  const onClickDisconnect = () => {
+    onDisconnect();
+    navigate(ROUTE_PATH.HOME);
+  };
+
   return (
     <StyledUserInfo className={className}>
       <div className="info">
@@ -45,23 +57,33 @@ const UserInfo = ({ className }: Props) => {
           </div>
         </div>
         <div className="address">
-          <div>
-            <Text color="text2">TC address: </Text>
-            <div className="wallet-address">
-              <h5> {shortenAddress(profileWallet, 4)}</h5>
-              <div className="icCopy" onClick={() => onClickCopy(profileWallet)}>
-                <img alt="ic-copy" src={IcCopy}></img>
+          <div className="btc-address">
+            <IconSVG src={IcPenguin} maxWidth="32" />
+            <div>
+              <div className="wallet-address">
+                <h5> {shortenAddress(profileWallet, 4)}</h5>
+                <div className="icCopy" onClick={() => onClickCopy(profileWallet)}>
+                  <img alt="ic-copy" src={IcCopy}></img>
+                </div>
               </div>
+              <Text size="medium" color="text2">
+                {formatEthPrice(juiceBalance)} TC
+              </Text>
             </div>
           </div>
           {profileBtcWallet && (
             <div className="btc-address">
-              <Text color="text2">BTC address: </Text>
-              <div className="wallet-address">
-                <h5> {formatLongAddress(profileBtcWallet)}</h5>
-                <div className="icCopy" onClick={() => onClickCopy(profileBtcWallet)}>
-                  <img alt="ic-copy" src={IcCopy}></img>
+              <IconSVG src={IcBitcoin} maxWidth="32" />
+              <div>
+                <div className="wallet-address">
+                  <h5> {formatLongAddress(profileBtcWallet)}</h5>
+                  <div className="icCopy" onClick={() => onClickCopy(profileBtcWallet)}>
+                    <img alt="ic-copy" src={IcCopy}></img>
+                  </div>
                 </div>
+                <Text size="medium" color="text2">
+                  {formatBTCPrice(btcBalance)} BTC
+                </Text>
               </div>
             </div>
             // <div className="eth_address">
@@ -73,28 +95,11 @@ const UserInfo = ({ className }: Props) => {
           )}
         </div>
         <div className="divider mb-24"></div>
-        <Text size="medium" color="text2" className="mb-16">
-          Active Networks{' '}
-        </Text>
-        <div className="balance">
-          <div className="balance-item mb-16">
-            <IconSVG src={IcPenguin} maxWidth="32" />
-            <div className="balance-content">
-              <h6>Trustless Computer</h6>
-              <Text size="medium" color="text2">
-                {formatEthPrice(juiceBalance)}
-              </Text>
-            </div>
-          </div>
-          <div className="balance-item ">
-            <IconSVG src={IcBitcoin} maxWidth="32" />
-            <div className="balance-content">
-              <h6>Bitcoin</h6>
-              <Text size="medium" color="text2">
-                {formatBTCPrice(btcBalance)}
-              </Text>
-            </div>
-          </div>
+        <div className="disconnect-btn" onClick={onClickDisconnect}>
+          <img src={`${CDN_URL}/icons/ic-logout.svg`} alt="log out icon" />
+          <Text size="medium" color="white" className="font-ibm">
+            Disconnect
+          </Text>
         </div>
       </div>
       <div className="options"></div>
