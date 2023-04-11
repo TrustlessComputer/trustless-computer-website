@@ -13,7 +13,7 @@ import { Wrapper } from './MenuMobile.styled';
 import IcDiscord from '@/assets/icons/ic_discord.svg';
 import IcTwitter from '@/assets/icons/ic_twitter.svg';
 import { useSelector } from 'react-redux';
-import { getUserSelector } from '@/state/user/selector';
+import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/selector';
 
 interface IProp {
   onCloseMenu: () => void;
@@ -22,11 +22,9 @@ interface IProp {
 const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<HTMLDivElement>) => {
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-  const user = useSelector(getUserSelector);
-  const { account } = useWeb3React();
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
-  const isAuthenticated = !!user;
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
 
   const handleConnectWallet = async () => {
     await onConnect();
@@ -65,7 +63,6 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
                 <img src={IcAvatarDefault} alt="default avatar" />
               </div>
             </WalletBalance>
-            {/* <WalletAddress className="cursor-pointer">{shortenAddress(account, 4, 4)}</WalletAddress> */}
           </div>
         ) : (
           <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
