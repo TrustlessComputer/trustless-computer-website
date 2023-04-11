@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { DefaultTheme } from 'styled-components';
 
 export const StyledProfile = styled.div`
-  margin-top: ${px2rem(64)};
+  margin-top: ${px2rem(40)};
+  row-gap: ${px2rem(40)};
 `;
 
 export const TabContainer = styled.div`
@@ -13,8 +14,17 @@ export const TabContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     margin-bottom: ${px2rem(40)};
-    margin-top: ${px2rem(40)};
     gap: ${px2rem(32)};
+    flex-wrap: nowrap;
+    min-height: ${px2rem(60)};
+    overflow-x: scroll;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .nav-link {
       opacity: 0.5;
@@ -52,7 +62,7 @@ export const TabContainer = styled.div`
     gap: 8px;
     position: relative;
     padding-bottom: ${px2rem(12)};
-    max-height: ${px2rem(30)};
+    /* max-height: ${px2rem(30)}; */
   }
 
   .tab-text {

@@ -11,7 +11,7 @@ import { gsap } from 'gsap';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Anchor, ConnectWalletButton, StyledLink, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
 import { TC_URL } from '@/configs';
@@ -29,6 +29,7 @@ const Header = ({ height }: { height: number }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
+  const naviagate = useNavigate();
 
   const handleConnectWallet = async () => {
     try {
@@ -41,6 +42,10 @@ const Header = ({ height }: { height: number }) => {
     } finally {
       setIsConnecting(false);
     }
+  };
+
+  const navigateToWallet = () => {
+    naviagate('/wallet');
   };
 
   useEffect(() => {
@@ -83,7 +88,7 @@ const Header = ({ height }: { height: number }) => {
       <div className="rightContainer">
         {account && isAuthenticated ? (
           <>
-            <div className="wallet" onClick={() => window.open(`${TC_URL}/${account}`)}>
+            <div className="wallet" onClick={navigateToWallet}>
               <WalletBalance>
                 <div className="balance">
                   <p>{formatBTCPrice(btcBalance)} BTC</p>
@@ -97,7 +102,7 @@ const Header = ({ height }: { height: number }) => {
             </div>
             <div className="dropdown">
               <ul className="dropdownMenu">
-                <li className="dropdownMenuItem" onClick={() => window.open(`${TC_URL}/${account}`)}>
+                <li className="dropdownMenuItem" onClick={navigateToWallet}>
                   {shortenAddress(account, 4, 4)}
                 </li>
                 <li className="dropdownMenuItem" onClick={onDisconnect}>
