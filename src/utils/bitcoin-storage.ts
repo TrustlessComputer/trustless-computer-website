@@ -3,7 +3,7 @@ import localStorage from '@/utils/localstorage';
 
 class BitCoinStorage {
   private getUserTaprootKey = (evmAddress: string) => {
-    return `${TAPROOT_ADDRESS}-${evmAddress}`;
+    return `${TAPROOT_ADDRESS}-${evmAddress.toLowerCase()}`;
   };
 
   getUserTaprootAddress = (evmAddress: string): string | null => {

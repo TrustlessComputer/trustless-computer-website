@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Wrapper, ConnectWalletButton } from './ConnectWallet.styled';
 import { WalletContext } from '@/contexts/wallet-context';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticatedSelector } from '@/state/user/selector';
+import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/selector';
 import { CDN_URL } from '@/configs';
 import { Anchor } from '../layout/Header/Header.styled';
 import { MENU_HEADER } from '@/constants/header';
@@ -13,6 +13,7 @@ import { ROUTE_PATH } from '@/constants/route-path';
 const ConnectWallet: React.FC = (): React.ReactElement => {
   const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
+  const user = useSelector(getUserSelector);
   const activePath = location.pathname.split('/')[1];
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
@@ -21,8 +22,8 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
   const handleConnectWallet = async () => {
     try {
       setIsConnecting(true);
-      await onConnect();
-      await generateBitcoinKey();
+      const address = await onConnect();
+      await generateBitcoinKey(address || '');
     } catch (err) {
       console.log(err);
       onDisconnect();
@@ -40,7 +41,7 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
         navigate(ROUTE_PATH.HOME);
       }
     }
-  }, [isAuthenticated, searchParams]);
+  }, [isAuthenticated, searchParams, user]);
 
   return (
     <Container>
