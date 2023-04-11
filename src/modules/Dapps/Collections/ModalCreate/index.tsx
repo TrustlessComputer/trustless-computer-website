@@ -78,7 +78,7 @@ const ModalCreate = (props: Props) => {
           validate={validateForm}
           onSubmit={handleSubmit}
         >
-          {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <WrapInput>
                 <input
@@ -91,7 +91,7 @@ const ModalCreate = (props: Props) => {
                   className="input"
                   placeholder={`Enter name`}
                 />
-                {errors.name && <p className="error">{errors.name}</p>}
+                {errors.name && touched.name && <p className="error">{errors.name}</p>}
               </WrapInput>
 
               <WrapInput>
@@ -105,7 +105,7 @@ const ModalCreate = (props: Props) => {
                   className="input"
                   placeholder={`Enter symbol`}
                 />
-                {errors.symbol && <p className="error">{errors.symbol}</p>}
+                {errors.symbol && touched.symbol && <p className="error">{errors.symbol}</p>}
               </WrapInput>
 
               {/* <div className="upload-fee">

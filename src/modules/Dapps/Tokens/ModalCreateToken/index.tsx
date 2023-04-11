@@ -83,7 +83,7 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
           validate={validateForm}
           onSubmit={handleSubmit}
         >
-          {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <WrapInput>
                 <input
@@ -96,7 +96,7 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
                   className="input"
                   placeholder={`Enter token name`}
                 />
-                {errors.name && <p className="error">{errors.name}</p>}
+                {errors.name && touched.name && <p className="error">{errors.name}</p>}
               </WrapInput>
 
               <WrapInput>
@@ -110,7 +110,7 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
                   className="input"
                   placeholder={`Enter symbol`}
                 />
-                {errors.symbol && <p className="error">{errors.symbol}</p>}
+                {errors.symbol && touched.symbol && <p className="error">{errors.symbol}</p>}
               </WrapInput>
 
               <WrapInput>
@@ -124,7 +124,7 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
                   className="input"
                   placeholder={`Enter max supply`}
                 />
-                {errors.supply && <p className="error">{errors.supply}</p>}
+                {errors.supply && touched.supply && <p className="error">{errors.supply}</p>}
               </WrapInput>
 
               {/* <div className="upload-fee">
