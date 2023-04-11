@@ -16,7 +16,7 @@ export const getCollectionsBns = ({ limit = 12, page = 1 }): Promise<ICollection
 export const getBnsByWallet = ({
   limit = 12,
   page = 1,
-  walletAddress,
+  walletAddress = '',
 }: {
   walletAddress: string;
 } & IPagingParams): Promise<ICollection[]> =>
