@@ -7,11 +7,13 @@ import { formatBTCPrice, formatEthPrice } from '@/utils/format';
 import { useWeb3React } from '@web3-react/core';
 import React, { ForwardedRef, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ConnectWalletButton, Link, WalletBalance } from '../Header.styled';
+import { Anchor, ConnectWalletButton, StyledLink, WalletBalance } from '../Header.styled';
 import { Wrapper } from './MenuMobile.styled';
 
 import IcDiscord from '@/assets/icons/ic_discord.svg';
 import IcTwitter from '@/assets/icons/ic_twitter.svg';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
 
 interface IProp {
   onCloseMenu: () => void;
@@ -20,11 +22,11 @@ interface IProp {
 const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<HTMLDivElement>) => {
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-
+  const user = useSelector(getUserSelector);
   const { account } = useWeb3React();
   const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
-  const isAuthenticated = !!account;
+  const isAuthenticated = !!user;
 
   const handleConnectWallet = async () => {
     await onConnect();
@@ -38,10 +40,17 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
           <img src={IcMenuClose} />
         </button>
         {MENU_HEADER.map(item => {
+          if (item.absolute) {
+            return (
+              <Anchor active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
+                {item.name}
+              </Anchor>
+            );
+          }
           return (
-            <Link active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
+            <StyledLink active={activePath === item.activePath} to={item.route} target={item.target} key={item.id}>
               {item.name}
-            </Link>
+            </StyledLink>
           );
         })}
         {isAuthenticated ? (
