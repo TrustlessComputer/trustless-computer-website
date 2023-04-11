@@ -1,7 +1,7 @@
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import WrapImage from '@/components/WrapImage';
-import { ICollection } from '@/models/collection';
-import { IInscription } from '@/models/inscription';
+import { ICollection } from '@/interfaces/api/collection';
+import { IInscription } from '@/interfaces/api/inscription';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
 import Spinner from 'react-bootstrap/Spinner';
@@ -31,7 +31,7 @@ const Collection = () => {
   useEffect(() => {
     fetchCollectionDetail();
     fetchInscriptions();
-  }, [contract, account]);
+  }, [contract]);
 
   const fetchCollectionDetail = async () => {
     try {
@@ -45,7 +45,7 @@ const Collection = () => {
   const fetchInscriptions = async (page = 1, isFetchMore = false) => {
     try {
       setIsFetching(true);
-      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT, owner: account });
+      const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT });
       if (isFetchMore) {
         setInscriptions(prev => [...prev, ...data]);
       } else {

@@ -1,0 +1,84 @@
+import px2rem from '@/utils/px2rem';
+import styled, { DefaultTheme } from 'styled-components';
+
+export const StyledUserInfo = styled.div`
+  /* .info {
+    display: flex;
+    align-items: center;
+    gap: ${px2rem(20)};
+  } */
+  --avatar-desktop: block;
+  --avatar-tablet: block;
+  --avatar-mobile: block;
+
+  .avatar {
+    margin-bottom: ${px2rem(24)};
+    .paper {
+      border-radius: 50% !important;
+    }
+
+    @media screen and (min-width: 1200px) {
+      --avatar-tablet: none;
+      --avatar-mobile: none;
+    }
+
+    @media screen and (min-width: 500px) and (max-width: 1199px) {
+      --avatar-desktop: none;
+      --avatar-tablet: block;
+      --avatar-mobile: none;
+    }
+    @media screen and (max-width: 499.99px) {
+      --avatar-desktop: none;
+      --avatar-tablet: none;
+      --avatar-mobile: block;
+    }
+  }
+
+  .address {
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+
+    .wallet-address {
+      display: flex;
+      align-items: center;
+      gap: ${px2rem(16)};
+      margin-bottom: ${px2rem(16)};
+
+      h5 {
+        font-weight: 500;
+        flex: 1;
+      }
+    }
+    .btc-address {
+      margin-bottom: ${px2rem(24)};
+    }
+  }
+
+  .icCopy {
+    width: ${px2rem(32)};
+    height: ${px2rem(32)};
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    img {
+      max-width: ${px2rem(16)};
+    }
+  }
+
+  .balance {
+    .balance-item {
+      display: flex;
+      align-items: center;
+      gap: ${px2rem(16)};
+    }
+    .balance-content {
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    }
+  }
+`;

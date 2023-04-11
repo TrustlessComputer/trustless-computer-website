@@ -10,6 +10,7 @@ import Inscription from '@/pages/inscription';
 import UseTrustless from '@/pages/use-trustless-computer';
 import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
+import ConnectWallet from '@/pages/connect-wallet';
 
 export default [
   {
@@ -51,5 +52,9 @@ export default [
     path: ROUTE_PATH.WALLET,
     element: <Layout />,
     children: [{ index: true, element: <Wallet /> }],
+  },
+  {
+    path: ROUTE_PATH.CONNECT_WALLET,
+    element: <ConnectWallet />,
   },
 ] as RouteObject[];

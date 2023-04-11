@@ -64,8 +64,9 @@ const fontSizes = {
   xl: '20px',
   xxl: '24px',
   h1: '40px',
-  h3: ' 34px',
-  h5: ' 24px',
+  h3: '34px',
+  h5: '24px',
+  h6: '20px',
 };
 
 const lineHeight = {
@@ -78,6 +79,7 @@ const lineHeight = {
   h1: '48px',
   h3: '44px',
   h5: '34px',
+  h6: '30px',
 };
 
 function getSettings(darkMode: boolean) {

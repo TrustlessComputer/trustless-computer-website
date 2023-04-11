@@ -35,7 +35,7 @@ const useCompleteUninscribedTransaction = (args: IParams) => {
 
   const checkAndSwitchChainIfNecessary = async (): Promise<void> => {
     if (walletChainId !== chainId) {
-      await switchChain(connector, chainId);
+      await switchChain(chainId);
     }
   };
 
