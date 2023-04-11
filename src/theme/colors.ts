@@ -36,6 +36,7 @@ const commonTheme = {
   green: {
     a: '#A1E3CB',
     b: '#BAEDBD',
+    c: '#24c087',
   },
 
   yellow: {

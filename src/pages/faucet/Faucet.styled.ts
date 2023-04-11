@@ -88,7 +88,7 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
     font-size: ${px2rem(14)};
     line-height: ${px2rem(24)};
     margin-top: ${px2rem(8)};
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.green.b};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.green.c};
   }
 
   .link {
@@ -142,6 +142,10 @@ const PostStep = styled.div<{ disable: boolean }>`
       font-size: ${px2rem(16)};
       line-height: ${px2rem(26)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
+    }
+
+    .loading {
+      padding: ${px2rem(11)};
     }
   }
 

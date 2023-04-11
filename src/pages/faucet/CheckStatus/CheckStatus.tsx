@@ -73,7 +73,7 @@ const CheckStatus = () => {
               </div>
               <div className="postBtn">
                 {loading ? (
-                  <Spinner />
+                  <Spinner className="loading" />
                 ) : (
                   <button type="submit" className="text" style={{ paddingLeft: 21, paddingRight: 21 }}>
                     Check
