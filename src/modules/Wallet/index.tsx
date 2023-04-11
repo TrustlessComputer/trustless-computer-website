@@ -2,7 +2,7 @@ import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import IcNames from '@/assets/icons/ic-names.svg';
-// import IcStack from '@/assets/icons/ic-stack.svg';
+import IcStack from '@/assets/icons/ic-stack.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
@@ -18,6 +18,7 @@ import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
+import CollectionProfile from './CollectionProfile';
 
 export const MOCK_WALLET = '0x07e51aec82c7163e3237cfbf8c0e6a07413fa18e';
 
@@ -55,7 +56,7 @@ const Wallet = () => {
           id="uncontrolled-tab"
           onSelect={key => setActiveTab(key || 'collections')}
         >
-          {/* <Tab
+          <Tab
             eventKey={'collections'}
             title={
               <div className="tab-item">
@@ -67,7 +68,7 @@ const Wallet = () => {
             }
           >
             <CollectionProfile />
-          </Tab> */}
+          </Tab>
           <Tab
             eventKey={DappsTabs.TOKEN}
             title={
