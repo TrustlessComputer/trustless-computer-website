@@ -20,25 +20,15 @@ const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
-  const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
+  const { onDisconnect } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const refMenu = useRef<HTMLDivElement | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  const [isConnecting, setIsConnecting] = useState(false);
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
 
-  const handleConnectWallet = async () => {
-    try {
-      setIsConnecting(true);
-      await onConnect();
-      await generateBitcoinKey();
-    } catch (err) {
-      console.log(err);
-      onDisconnect();
-    } finally {
-      setIsConnecting(false);
-    }
+  const goToConnectWalletPage = async () => {
+    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
   };
 
   useEffect(() => {
@@ -105,9 +95,7 @@ const Header = ({ height }: { height: number }) => {
             </div>
           </>
         ) : (
-          <ConnectWalletButton disabled={isConnecting} onClick={handleConnectWallet}>
-            {isConnecting ? 'Connecting...' : 'Connect wallet'}
-          </ConnectWalletButton>
+          <ConnectWalletButton onClick={goToConnectWalletPage}>Connect wallet</ConnectWalletButton>
         )}
         <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
           <img src={IcOpenMenu} />
