@@ -3,7 +3,7 @@ import SVG from 'react-inlinesvg';
 import { StyledIconSVG } from './IconSVG.styled';
 
 export type IconSVGProps = {
-  src?: string;
+  src: string;
   className?: string;
   maxWidth?: string;
   type?: string;
@@ -14,7 +14,7 @@ export type IconSVGProps = {
 const IconSVG: FC<IconSVGProps> = ({ src, className = '', maxWidth = '', type = '', color = '', onClick }) => {
   return (
     <StyledIconSVG className={className} maxWidth={maxWidth} type={type} color={color} onClick={onClick}>
-      <SVG src={src || ''}></SVG>
+      <SVG src={src}></SVG>
     </StyledIconSVG>
   );
 };

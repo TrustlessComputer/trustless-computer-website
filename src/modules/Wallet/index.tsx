@@ -68,7 +68,8 @@ const Wallet = () => {
               </div>
             }
           >
-            <CollectionProfile />
+            {/* <CollectionProfile /> */}
+            <NftsProfile />
           </Tab>
           <Tab
             eventKey={DappsTabs.TOKEN}
