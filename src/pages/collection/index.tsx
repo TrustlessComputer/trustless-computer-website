@@ -105,12 +105,20 @@ const Collection = () => {
                       >
                         <div className="card-content">
                           <div className="card-image">
-                            <NFTDisplayBox
-                              collectionID={collection?.contract}
-                              contentClass="image"
-                              tokenID={item.tokenId}
-                              type={item.contentType}
-                            />
+                            {item?.image?.endsWith('/content') ? (
+                              <NFTDisplayBox
+                                collectionID={collection?.contract}
+                                contentClass="image"
+                                tokenID={item.tokenId}
+                                type={item.contentType}
+                              />
+                            ) : (
+                              <NFTDisplayBox
+                                collectionID={collection?.contract}
+                                contentClass="image"
+                                src={item.image}
+                              />
+                            )}
                           </div>
                           <div className="card-info">
                             <p className="card-title">{item.name}</p>

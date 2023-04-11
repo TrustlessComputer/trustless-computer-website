@@ -5,7 +5,6 @@ import { FileUploader } from 'react-drag-drop-files';
 import BFSList from './BFSList';
 import { UploadFileContainer } from '../Dapps.styled';
 import ModalUpload from './ModalUpload';
-import IcUploadFile from '@/assets/icons/ic-upload-file.svg';
 import { BLOCK_CHAIN_FILE_LIMIT } from '@/constants/file';
 import toast from 'react-hot-toast';
 
@@ -40,11 +39,7 @@ const Artifacts: React.FC<Props> = (props: Props) => {
           </div>
         </div>
         <div className="upload_right">
-          <Button
-            bg={'white'}
-            // onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/bfs-bitcoin-file-system')}
-            onClick={() => setShowUploadModal(true)}
-          >
+          <Button bg={'white'} onClick={() => setShowUploadModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Preserve artifact
             </Text>
