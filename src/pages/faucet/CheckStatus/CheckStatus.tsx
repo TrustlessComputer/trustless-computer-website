@@ -14,7 +14,7 @@ interface IFormValue {
 }
 
 const CheckStatus = () => {
-  const TABLE_HEADINGS = ['Transactions', 'Amount', 'Time', 'Status'];
+  const TABLE_HEADINGS = ['Transaction', 'Amount', 'Time', 'Status'];
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<IFaucetStatusResp[]>([]);
