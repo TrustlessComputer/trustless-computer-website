@@ -1,4 +1,6 @@
+import { getAccessToken } from '@/utils/auth-storage';
 import axios from 'axios';
+import { config } from 'process';
 
 const TIMEOUT = 5 * 60000;
 
@@ -14,7 +16,13 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
   });
 
   instance.interceptors.request.use(
-    req => req,
+    config => {
+      const token = getAccessToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
     error => {
       Promise.reject(error);
     },
