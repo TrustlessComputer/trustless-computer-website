@@ -6,20 +6,19 @@ import IcStack from '@/assets/icons/ic-stack.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { DappsTabs } from '@/enums/tabs';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 
-import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import queryString from 'query-string';
 import ArtifactsProfile from './ArtifactsProfile';
-import CollectionProfile from './CollectionProfile';
 import NamesProfile from './NamesProfile';
 import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
+import CollectionProfile from './CollectionProfile';
 
 export const MOCK_WALLET = '0x07e51aec82c7163e3237cfbf8c0e6a07413fa18e';
 
