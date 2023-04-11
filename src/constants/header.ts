@@ -19,20 +19,20 @@ export const MENU_HEADER = [
     route: ROUTE_PATH.DAPPS,
     activePath: 'dapps',
   },
-  {
-    id: 'menu-4',
-    name: 'Faucet',
-    route: ROUTE_PATH.FAUCET,
-    activePath: 'faucet',
-  },
-  {
-    id: 'menu-5',
-    name: 'Explorer',
-    route: 'https://explorer.trustless.computer',
-    activePath: 'explorer',
-    target: '_blank',
-    absolute: true,
-  },
+  // {
+  //   id: 'menu-4',
+  //   name: 'Faucet',
+  //   route: ROUTE_PATH.FAUCET,
+  //   activePath: 'faucet',
+  // },
+  // {
+  //   id: 'menu-5',
+  //   name: 'Explorer',
+  //   route: 'https://explorer.trustless.computer',
+  //   activePath: 'explorer',
+  //   target: '_blank',
+  //   absolute: true,
+  // },
 ];
 
 export const MENU_MOBILE = [...MENU_HEADER];

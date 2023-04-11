@@ -53,15 +53,8 @@ const Header = ({ height }: { height: number }) => {
       </Link>
       <div className="rowLink">
         {MENU_HEADER.map(item => {
-          if (item.absolute) {
-            return (
-              <Anchor active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
-                {item.name}
-              </Anchor>
-            );
-          }
           return (
-            <StyledLink active={activePath === item.activePath} to={item.route} target={item.target} key={item.id}>
+            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id}>
               {item.name}
             </StyledLink>
           );
