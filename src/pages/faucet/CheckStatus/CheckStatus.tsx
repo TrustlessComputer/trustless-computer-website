@@ -14,7 +14,7 @@ interface IFormValue {
 }
 
 const CheckStatus = () => {
-  const TABLE_HEADINGS = ['Transactions', 'Amount', 'Time', 'Status'];
+  const TABLE_HEADINGS = ['Transaction', 'Amount', 'Time', 'Status'];
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<IFaucetStatusResp[]>([]);
@@ -104,7 +104,7 @@ const CheckStatus = () => {
                 {status.tcTx || '-'}
               </a>
             ),
-            amount: formatTCPrice(status.amount),
+            amount: formatTCPrice(status.amount) + ' TC',
             time: formatDateTime({ dateTime: new Date(status.createdAt).getTime() }),
             status: status.statusStr || '-',
           },
