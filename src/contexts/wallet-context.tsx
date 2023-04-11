@@ -143,7 +143,9 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${ROUTE_PATH.HOME}`);
     };
 
-    Object(window.ethereum)?.on('accountsChanged', handleAccountsChanged);
+    if (window.ethereum) {
+      Object(window.ethereum).on('accountsChanged', handleAccountsChanged);
+    }
   }, []);
 
   const contextValues = useMemo((): IWalletContext => {
