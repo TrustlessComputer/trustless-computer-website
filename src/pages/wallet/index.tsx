@@ -1,7 +1,3 @@
-import React from 'react';
-
-const Wallet: React.FC = (): React.ReactElement => {
-  return <div>Wallet page</div>;
-};
+import Wallet from '@/modules/Wallet';
 
 export default Wallet;
