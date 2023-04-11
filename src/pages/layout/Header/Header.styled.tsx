@@ -126,7 +126,7 @@ const Wrapper = styled.div`
 const StyledLink = styled(Link)<{ active: boolean }>`
   cursor: pointer;
   font-weight: 400;
-  font-size: ${px2rem(18)};
+  font-size: ${px2rem(16)};
   line-height: ${px2rem(28)};
   text-decoration: none !important;
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
@@ -142,7 +142,7 @@ const StyledLink = styled(Link)<{ active: boolean }>`
 const Anchor = styled.a<{ active: boolean }>`
   cursor: pointer;
   font-weight: 400;
-  font-size: ${px2rem(18)};
+  font-size: ${px2rem(16)};
   line-height: ${px2rem(28)};
   text-decoration: none !important;
   color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
