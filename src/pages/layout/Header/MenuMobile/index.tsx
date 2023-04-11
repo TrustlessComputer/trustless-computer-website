@@ -2,18 +2,14 @@ import IcAvatarDefault from '@/assets/icons/ic-avatar.svg';
 import IcMenuClose from '@/assets/icons/ic_close_menu.svg';
 import { MENU_HEADER } from '@/constants/header';
 import { AssetsContext } from '@/contexts/assets-context';
-import { WalletContext } from '@/contexts/wallet-context';
 import { formatBTCPrice, formatEthPrice } from '@/utils/format';
-import { useWeb3React } from '@web3-react/core';
 import React, { ForwardedRef, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Anchor, ConnectWalletButton, StyledLink, WalletBalance } from '../Header.styled';
 import { Wrapper } from './MenuMobile.styled';
-
-import IcDiscord from '@/assets/icons/ic_discord.svg';
-import IcTwitter from '@/assets/icons/ic_twitter.svg';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/selector';
+import { getIsAuthenticatedSelector } from '@/state/user/selector';
+import { ROUTE_PATH } from '@/constants/route-path';
 
 interface IProp {
   onCloseMenu: () => void;
@@ -22,13 +18,12 @@ interface IProp {
 const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<HTMLDivElement>) => {
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-  const { onConnect, generateBitcoinKey } = useContext(WalletContext);
   const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
+  const navigate = useNavigate();
 
   const handleConnectWallet = async () => {
-    await onConnect();
-    await generateBitcoinKey();
+    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
   };
 
   return (
