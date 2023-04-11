@@ -6,14 +6,12 @@ import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { StyledUserInfo } from './UserInfo.styled';
 
 type Props = {};
 
 const UserInfo = (props: Props) => {
   const user = useSelector(getUserSelector);
-  console.log('🚀 ~ UserInfo ~ user:', user);
   const { account } = useWeb3React();
 
   if (!user) return null;

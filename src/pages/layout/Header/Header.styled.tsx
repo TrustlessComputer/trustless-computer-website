@@ -53,6 +53,7 @@ const Wrapper = styled.div`
       :hover {
         .dropdown {
           display: block;
+          z-index: 9;
         }
       }
     }
@@ -68,7 +69,7 @@ const Wrapper = styled.div`
 
   .dropdown {
     position: absolute;
-    border-radius: 2px;
+    overflow: hidden;
     right: 0;
     top: 100%;
     padding-top: ${px2rem(10)};
@@ -78,7 +79,7 @@ const Wrapper = styled.div`
     .dropdownMenuItem {
       background: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-      padding: ${px2rem(8)};
+      padding: ${px2rem(10)} ${px2rem(16)};
       font-weight: normal;
       cursor: pointer;
       width: 100%;
@@ -87,6 +88,16 @@ const Wrapper = styled.div`
 
       :hover {
         background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
+      }
+
+      :first-child {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+      }
+
+      :last-child {
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
       }
     }
   }
