@@ -1,13 +1,8 @@
-export interface EthereumProvider {
-  on: (...args: any[]) => void;
-  removeListener: (...args: any[]) => void;
-  autoRefreshOnNetworkChange?: boolean;
-  isMetaMask?: boolean;
-}
+import { provider } from 'web3-core';
 
 declare global {
   interface Window {
-    ethereum?: EthereumProvider;
+    ethereum?: any;
 
     grecaptcha?: any;
   }
