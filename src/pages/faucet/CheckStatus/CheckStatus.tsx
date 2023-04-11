@@ -104,7 +104,7 @@ const CheckStatus = () => {
                 {status.tcTx || '-'}
               </a>
             ),
-            amount: formatTCPrice(status.amount),
+            amount: formatTCPrice(status.amount) + ' TC',
             time: formatDateTime({ dateTime: new Date(status.createdAt).getTime() }),
             status: status.statusStr || '-',
           },
