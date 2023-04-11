@@ -8,15 +8,22 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
   .indicator {
     position: absolute;
     height: ${px2rem(1)};
-    top: ${px2rem(80)};
+    width: 100vw;
+    margin-left: -${px2rem(32)};
+    /* top: ${px2rem(80)}; */
     left: 0;
     right: 0;
     bottom: 0;
     background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
+
+    @media screen and (min-width: 1920px) {
+      max-width: 1920px;
+    }
   }
 
   .logo {
