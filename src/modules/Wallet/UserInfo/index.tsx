@@ -59,7 +59,7 @@ const UserInfo = ({ className }: Props) => {
               <Text color="text2">BTC address: </Text>
               <div className="wallet-address">
                 <h5> {formatLongAddress(profileBtcWallet)}</h5>
-                <div className="icCopy" onClick={() => onClickCopy(profileWallet)}>
+                <div className="icCopy" onClick={() => onClickCopy(profileBtcWallet)}>
                   <img alt="ic-copy" src={IcCopy}></img>
                 </div>
               </div>
