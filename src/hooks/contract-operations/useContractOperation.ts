@@ -41,6 +41,9 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
   };
 
   const checkAndSwitchChainIfNecessary = async (): Promise<void> => {
+    console.log('walletChainId', walletChainId);
+    console.log('chainId', chainId);
+
     if (walletChainId !== chainId) {
       await switchChain(connector, chainId);
     }
@@ -60,7 +63,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
       const assets = await getAvailableAssetsCreateTx();
-      console.log(assets);
+      console.log('assets', assets);
 
       if (!inscribeable) {
         // Make TC transaction
