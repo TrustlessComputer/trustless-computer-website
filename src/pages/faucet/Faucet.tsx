@@ -197,7 +197,7 @@ const Faucet = () => {
               </div>
               <button disabled={currentStep != 2 || loading} type="submit" className="postBtn">
                 {loading ? (
-                  <Spinner />
+                  <Spinner className="loading" />
                 ) : (
                   <p className="text" style={{ paddingLeft: 18, paddingRight: 18 }}>
                     Confirm
