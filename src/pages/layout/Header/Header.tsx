@@ -12,7 +12,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ConnectWalletButton, Link, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
+import { Anchor, ConnectWalletButton, StyledLink, WalletAdress, WalletBalance, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
 import { TC_URL } from '@/configs';
 
@@ -69,10 +69,17 @@ const Header = ({ height }: { height: number }) => {
       </a>
       <div className="rowLink">
         {MENU_HEADER.map(item => {
+          if (item.absolute) {
+            return (
+              <Anchor active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
+                {item.name}
+              </Anchor>
+            );
+          }
           return (
-            <Link active={activePath === item.activePath} href={item.route} target={item.target} key={item.id}>
+            <StyledLink active={activePath === item.activePath} to={item.route} target={item.target} key={item.id}>
               {item.name}
-            </Link>
+            </StyledLink>
           );
         })}
       </div>
