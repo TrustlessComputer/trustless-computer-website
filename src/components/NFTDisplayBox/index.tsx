@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/iframe-has-title */
 import { CDN_URL } from '@/configs';
-import { getURLContent } from '@/lib';
+import { getURLContent, getImageURLContent } from '@/lib';
 import React, { useEffect, useRef, useState } from 'react';
 import cs from 'classnames';
 import s from './styles.module.scss';
@@ -11,9 +11,9 @@ interface IProps {
   className?: string;
   contentClass?: string;
   src?: string;
-  type?: IMAGE_TYPE;
   collectionID?: string;
   tokenID?: string;
+  type?: IMAGE_TYPE;
   autoPlay?: boolean;
   loop?: boolean;
   controls?: boolean;
@@ -117,13 +117,16 @@ const NFTDisplayBox = ({
     );
   };
 
-  const renderEmpty = () => <img alt={tokenID} className={contentClassName} loading={'lazy'} src={defaultImage} />;
+  const renderEmpty = () => <img alt="empty" className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (src) {
+    if (src && src.startsWith('https://') && !src.endsWith('/content')) {
       setHTMLContentRender(renderImage(src));
-    } else if (collectionID && tokenID) {
-      const content = getURLContent(collectionID, tokenID);
+    } else if (src && src.startsWith('/dapp')) {
+      const content = getImageURLContent(src);
+      setHTMLContentRender(renderIframe(content));
+    } else if (collectionID) {
+      const content = collectionID && tokenID ? getURLContent(collectionID, tokenID) : defaultImage;
       switch (type) {
         case 'audio/mpeg':
         case 'audio/wav':
@@ -141,7 +144,6 @@ const NFTDisplayBox = ({
         case 'image/svg':
         case 'image/svg+xml':
         case 'image/webp':
-        case 'link/https':
           setHTMLContentRender(renderImage(content));
           return;
         case 'application/json':
