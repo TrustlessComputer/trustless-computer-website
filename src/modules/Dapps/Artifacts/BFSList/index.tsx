@@ -1,4 +1,4 @@
-import NFTDisplayBox from '@/components/NFTDisplayBox';
+import NFTCard from '@/components/NFTCard';
 import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
@@ -82,27 +82,17 @@ const BFSList = () => {
                 inscriptions.length > 0 &&
                 inscriptions.map((item, index) => {
                   return (
-                    <a
+                    <NFTCard
                       key={index.toString()}
-                      className="card"
                       href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
-                    >
-                      <div className="card-content">
-                        <div className="card-image">
-                          <NFTDisplayBox
-                            collectionID={collection?.contract}
-                            contentClass="image"
-                            tokenID={item.tokenId}
-                            type={item.contentType}
-                          />
-                        </div>
-                        <div className="card-info">
-                          <p className="card-title">{formatItemName(item.name, item.contentType)}</p>
-                          <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-index">Artifact #{item.tokenId}</p>
-                        </div>
-                      </div>
-                    </a>
+                      image={item.image}
+                      contract={collection?.contract}
+                      tokenId={item.tokenId}
+                      contentType={item.contentType}
+                      title1={formatItemName(item.name, item.contentType)}
+                      title2={shortenAddress(item.owner, 4)}
+                      title3={`Artifact #${item.tokenId}`}
+                    />
                   );
                 })}
             </Masonry>

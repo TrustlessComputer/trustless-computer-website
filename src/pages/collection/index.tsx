@@ -1,5 +1,4 @@
-import NFTDisplayBox from '@/components/NFTDisplayBox';
-import WrapImage from '@/components/WrapImage';
+import NFTCard from '@/components/NFTCard';
 import { ICollection } from '@/interfaces/api/collection';
 import { IInscription } from '@/interfaces/api/inscription';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
@@ -98,34 +97,18 @@ const Collection = () => {
                   inscriptions.length > 0 &&
                   inscriptions.map((item, index) => {
                     return (
-                      <a
+                      <NFTCard
                         key={index.toString()}
-                        className="card"
                         href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
-                      >
-                        <div className="card-content">
-                          <div className="card-image">
-                            {item?.image?.endsWith('/content') ? (
-                              <NFTDisplayBox
-                                collectionID={collection?.contract}
-                                contentClass="image"
-                                tokenID={item.tokenId}
-                                type={item.contentType}
-                              />
-                            ) : (
-                              <NFTDisplayBox
-                                collectionID={collection?.contract}
-                                contentClass="image"
-                                src={item.image}
-                              />
-                            )}
-                          </div>
-                          <div className="card-info">
-                            <p className="card-title">{item.name}</p>
-                            <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          </div>
-                        </div>
-                      </a>
+                        image={item?.image}
+                        contract={collection?.contract}
+                        tokenId={item.tokenId}
+                        contentType={item.contentType}
+                        title1={
+                          item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
+                        }
+                        title2={shortenAddress(item.owner, 4)}
+                      />
                     );
                   })}
               </Masonry>
