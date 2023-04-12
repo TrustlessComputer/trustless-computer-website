@@ -1,6 +1,6 @@
 const DocumentData = [
   {
-    title: 'ERC-20',
+    title: 'BRC-20',
     code: `// Issue your own token on Bitcoin
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -14,7 +14,7 @@ contract Bitswap is ERC20 {
 }`,
   },
   {
-    title: 'ERC-721',
+    title: 'BRC-721',
     code: `// Create an NFT collection on Bitcoin
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;

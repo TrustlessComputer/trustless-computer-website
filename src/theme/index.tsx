@@ -20,14 +20,14 @@ const deprecated_mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: ty
 }, {} as any);
 
 export const BREAKPOINTS = {
-  xs: 396,
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  navSearchInputVisible: 1100,
-  xl: 1280,
-  xxl: 1536,
-  xxxl: 1920,
+  xs: '396px',
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  navSearchInputVisible: '1100px',
+  xl: '1280px',
+  xxl: '1536px',
+  xxxl: '1920px',
 };
 
 // deprecated - please use the ones in styles.ts file

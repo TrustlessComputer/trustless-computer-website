@@ -1,6 +1,6 @@
 import Table from '@/components/Table';
 import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
-import { getTokens } from '@/services/token-explorer';
+import { getTokens, getTokensByWallet } from '@/services/token-explorer';
 import { getUserSelector } from '@/state/user/selector';
 import { shortenAddress } from '@/utils';
 import { decimalToExponential } from '@/utils/format';
@@ -11,17 +11,20 @@ import useSWR from 'swr';
 import { StyledTokenProfile } from './TokenProfile.styled';
 import { useParams } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
+import Empty from '@/components/Empty';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
 const TokensProfile = () => {
   const { account } = useWeb3React();
 
-  const profileWallet = account;
+  const profileWallet = account || '';
 
   const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', ''];
 
-  const { data, error, isLoading } = useSWR(getApiKey(getTokens), () => getTokens({ key: profileWallet }));
+  const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
+    getTokensByWallet({ key: profileWallet }),
+  );
 
   const tokenDatas =
     data &&
@@ -49,6 +52,10 @@ const TokensProfile = () => {
         };
       },
     );
+
+  if (!data || data.length === 0 || !profileWallet) {
+    return <Empty />;
+  }
 
   return (
     <StyledTokenProfile>

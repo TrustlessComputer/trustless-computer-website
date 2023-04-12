@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/iframe-has-title */
 import { CDN_URL } from '@/configs';
-import { getURLContent } from '@/lib';
+import { getURLContent, getImageURLContent } from '@/lib';
 import React, { useEffect, useRef, useState } from 'react';
 import cs from 'classnames';
 import s from './styles.module.scss';
@@ -10,10 +10,11 @@ import Skeleton from '../Skeleton';
 interface IProps {
   className?: string;
   contentClass?: string;
+  thumbnail?: string;
   src?: string;
-  type?: IMAGE_TYPE;
   collectionID?: string;
   tokenID?: string;
+  type?: IMAGE_TYPE;
   autoPlay?: boolean;
   loop?: boolean;
   controls?: boolean;
@@ -22,6 +23,7 @@ interface IProps {
 const NFTDisplayBox = ({
   className,
   contentClass,
+  thumbnail,
   src,
   type,
   collectionID,
@@ -47,7 +49,7 @@ const NFTDisplayBox = ({
 
   const defaultImage = CDN_URL + '/images/default_thumbnail.png';
 
-  const contentClassName = cs(contentClass);
+  const contentClassName = cs(s.wrapper_content, contentClass);
 
   const renderLoading = () => <Skeleton className={s.absolute} fill isLoaded={isLoaded} />;
 
@@ -117,13 +119,16 @@ const NFTDisplayBox = ({
     );
   };
 
-  const renderEmpty = () => <img alt={tokenID} className={contentClassName} loading={'lazy'} src={defaultImage} />;
+  const renderEmpty = () => <img alt="empty" className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (src) {
-      setHTMLContentRender(renderImage(src));
-    } else if (collectionID && tokenID) {
-      const content = getURLContent(collectionID, tokenID);
+    if (thumbnail) {
+      setHTMLContentRender(renderImage(thumbnail));
+    } else if (src && src.startsWith('/dapp') && !type) {
+      const content = getImageURLContent(src);
+      setHTMLContentRender(renderIframe(content));
+    } else if (collectionID) {
+      const content = collectionID && tokenID ? getURLContent(collectionID, tokenID) : defaultImage;
       switch (type) {
         case 'audio/mpeg':
         case 'audio/wav':
@@ -141,7 +146,6 @@ const NFTDisplayBox = ({
         case 'image/svg':
         case 'image/svg+xml':
         case 'image/webp':
-        case 'link/https':
           setHTMLContentRender(renderImage(content));
           return;
         case 'application/json':

@@ -68,12 +68,16 @@ export const TabContainer = styled.div`
 
   .tab-text {
     font-family: 'IBMPlexMono' !important;
-    font-size: ${px2rem(18)};
+    font-size: ${px2rem(16)};
     font-weight: 500;
   }
 
   .nav-item:last-of-type {
     flex: 1;
+
+    .nav-link {
+      opacity: 1;
+    }
 
     > button {
       margin-left: auto;
@@ -83,12 +87,18 @@ export const TabContainer = styled.div`
   .explore-btn {
     display: flex;
     align-items: center;
-    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     padding: ${px2rem(5)} ${px2rem(14)};
     gap: ${px2rem(4)};
     p {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
       font-weight: 500;
+    }
+
+    &.disable {
+      display: none;
+      pointer-events: none;
+      opacity: 0.5;
     }
   }
 

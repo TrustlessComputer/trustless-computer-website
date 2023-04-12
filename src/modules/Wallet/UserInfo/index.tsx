@@ -97,7 +97,7 @@ const UserInfo = ({ className }: Props) => {
         <div className="divider mb-24"></div>
         <div className="disconnect-btn" onClick={onClickDisconnect}>
           <img src={`${CDN_URL}/icons/ic-logout.svg`} alt="log out icon" />
-          <Text size="large" color="white" className="font-ibm">
+          <Text size="medium" color="white" className="font-ibm">
             Disconnect
           </Text>
         </div>

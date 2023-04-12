@@ -1,4 +1,4 @@
-import NFTDisplayBox from '@/components/NFTDisplayBox';
+import NFTCard from '@/components/NFTCard';
 import { API_URL } from '@/configs';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
 import { shortenAddress } from '@/utils';
@@ -7,9 +7,8 @@ import { debounce } from 'lodash';
 import React, { useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
-import { Container } from './BFSList.styled';
+import { Container, Grid } from './BFSList.styled';
 
 const LIMIT_PAGE = 32;
 
@@ -67,46 +66,25 @@ const BFSList = () => {
           }
           next={onLoadMoreNfts}
         >
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              350: 1,
-              750: 2,
-              900: 3,
-              1240: 4,
-              2500: 5,
-              3000: 5,
-            }}
-          >
-            <Masonry gutter="24px">
-              {inscriptions &&
-                inscriptions.length > 0 &&
-                inscriptions.map((item, index) => {
-                  return (
-                    <a
-                      key={index.toString()}
-                      className="card"
-                      href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
-                    >
-                      <div className="card-content">
-                        <div className="card-image">
-                          <NFTDisplayBox
-                            collectionID={collection?.contract}
-                            contentClass="image"
-                            tokenID={item.tokenId}
-                            type={item.contentType}
-                          />
-                        </div>
-                        <div className="card-info">
-                          <p className="card-title">{formatItemName(item.name, item.contentType)}</p>
-                          <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-index">Artifact #{item.tokenId}</p>
-                        </div>
-                      </div>
-                    </a>
-                  );
-                })}
-            </Masonry>
-          </ResponsiveMasonry>
+          <Grid repeat={`repeat(auto-fit, minmax(348px, ${inscriptions && inscriptions.length > 4 ? 1 : 0.25}fr))`}>
+            {inscriptions &&
+              inscriptions.length > 0 &&
+              inscriptions.map((item, index) => {
+                return (
+                  <NFTCard
+                    key={index.toString()}
+                    href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
+                    image={item.image}
+                    contract={collection?.contract}
+                    tokenId={item.tokenId}
+                    contentType={item.contentType}
+                    title1={formatItemName(item.name, item.contentType)}
+                    title2={shortenAddress(item.owner, 4)}
+                    title3={`Artifact #${item.tokenId}`}
+                  />
+                );
+              })}
+          </Grid>
         </InfiniteScroll>
       </div>
     </Container>
