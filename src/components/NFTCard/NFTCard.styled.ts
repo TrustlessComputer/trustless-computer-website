@@ -3,17 +3,18 @@ import px2rem from '@/utils/px2rem';
 
 export const Styled = styled.a`
   width: 100%;
-  height: auto;
+  height: 100%;
   text-decoration: none !important;
   --bs-card-bg: none;
 
-  .card-content {
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['2e']};
-    border: 1px solid transparent;
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['2e']};
+  border: 1px solid transparent;
 
-    :hover {
-      border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['d9']};
-    }
+  :hover {
+    border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['d9']};
+  }
+
+  .card-content {
   }
 
   .card-image {

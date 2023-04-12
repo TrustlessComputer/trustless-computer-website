@@ -77,32 +77,21 @@ const Collections = () => {
         }
         next={debounceLoadMore}
       >
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{
-            350: 1,
-            750: 2,
-            900: 3,
-            1240: 4,
-            2500: 5,
-            3000: 5,
-          }}
-        >
-          <Masonry gutter="24px">
-            {showCollections.length > 0 &&
-              showCollections.map((item, index) => {
-                return (
-                  <NFTCard
-                    key={index.toString()}
-                    href={`/collection?contract=${item.contract}`}
-                    image={item.thumbnail}
-                    title1={item.name || shortenAddress(item.contract, 6)}
-                    title2={shortenAddress(item.creator, 4)}
-                    title3={`Collection #${item.index}`}
-                  />
-                );
-              })}
-          </Masonry>
-        </ResponsiveMasonry>
+        <div className="grid">
+          {showCollections.length > 0 &&
+            showCollections.map((item, index) => {
+              return (
+                <NFTCard
+                  key={index.toString()}
+                  href={`/collection?contract=${item.contract}`}
+                  image={item.thumbnail}
+                  title1={item.name || shortenAddress(item.contract, 6)}
+                  title2={shortenAddress(item.creator, 4)}
+                  title3={`Collection #${item.index}`}
+                />
+              );
+            })}
+        </div>
       </InfiniteScroll>
     </Container>
   );

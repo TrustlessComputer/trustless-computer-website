@@ -47,7 +47,7 @@ const NFTDisplayBox = ({
 
   const defaultImage = CDN_URL + '/images/default_thumbnail.png';
 
-  const contentClassName = cs(contentClass);
+  const contentClassName = cs(s.wrapper_content, contentClass);
 
   const renderLoading = () => <Skeleton className={s.absolute} fill isLoaded={isLoaded} />;
 
