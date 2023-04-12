@@ -4,40 +4,27 @@ import Table from '@/components/Table';
 import useBitcoin from '@/hooks/useBitcoin';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
+import useCompleteUninscribedTransaction from '@/hooks/contract-operations/useCompleteUninscribedTransaction';
 
-type Props = {};
+type Props = {
+  transactionList: string[];
+};
 
-const TransactionsProfile = (props: Props) => {
-  const user = useSelector(getUserSelector);
-  const { createInscribeTx, getUnInscribedTransactionByAddress } = useBitcoin();
-
-  const [transactions, setTransactions] = useState<string[]>([]);
-
-  const fetchTransactions = async () => {
-    if (user && user.walletAddress) {
-      try {
-        const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
-        setTransactions(unInscribedTxIDs);
-      } catch (err: unknown) {
-        console.log('Fail to get transactions');
-      }
-    }
-  };
-
+const TransactionsProfile = ({ transactionList }: Props) => {
   const TABLE_HEADINGS = ['Transaction ID', 'Status', ''];
 
   //   const transactionsData = []
-  const transactionsData = transactions.map(
+  const transactionsData = transactionList.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (token: any, index: number) => {
+    (trans: any, index: number) => {
       //   const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
       //   const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
       //   const linkToOwnerExplorer = `${EXPLORER_URL}/address/${token?.owner}`;
 
       return {
-        id: `token-${token?.address}}`,
+        id: trans,
         render: {
-          tx_id: index + 1,
+          tx_id: trans,
           //   symbol: token?.symbol || '-',
           status: <div className="status">Need to resume</div>,
         },
