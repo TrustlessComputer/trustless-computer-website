@@ -93,12 +93,7 @@ const Wallet = () => {
     <StyledProfile className="row">
       <UserInfo className="col-xl-2" />
       <TabContainer className="wrapper col-xl-9 offset-xl-1">
-        <Tabs
-          mountOnEnter
-          defaultActiveKey={activeTab}
-          id="uncontrolled-tab"
-          onSelect={key => setActiveTab(key || DappsTabs.NFT)}
-        >
+        <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
           <Tab
             eventKey={DappsTabs.NFT}
             title={
