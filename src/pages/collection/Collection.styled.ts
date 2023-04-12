@@ -33,6 +33,15 @@ const Container = styled.div`
       justify-content: center;
       margin-top: ${px2rem(32)};
     }
+
+    .grid {
+      display: grid;
+      justify-items: center;
+      margin-top: ${px2rem(24)};
+
+      grid-gap: ${px2rem(24)};
+      grid-template-columns: repeat(auto-fit, minmax(348px, 1fr));
+    }
   }
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
@@ -40,7 +49,7 @@ const Container = styled.div`
 
       .list {
         margin-top: ${px2rem(264)};
-      } 
+      }
     }
   `}
 `;
