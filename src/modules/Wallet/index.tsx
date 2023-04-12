@@ -87,7 +87,6 @@ const Wallet = () => {
     } catch (err: any) {
       toast.error(err.message);
     }
-    console.log('resume all transactions');
   };
 
   return (
