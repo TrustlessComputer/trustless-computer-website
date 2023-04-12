@@ -1,4 +1,4 @@
-import { ContractOperationHook } from '@/interfaces/contract-operation';
+import { ContractOperationHook, DAppType } from '@/interfaces/contract-operation';
 import { useContract } from '@/hooks/useContract';
 import BNSABIJson from '@/abis/bns.json';
 import { BNS_CONTRACT } from '@/configs';
@@ -53,6 +53,7 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transactio
 
   return {
     call,
+    dAppType: DAppType.BNS,
   };
 };
 
