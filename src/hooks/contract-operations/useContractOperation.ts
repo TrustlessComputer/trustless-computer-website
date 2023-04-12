@@ -52,7 +52,9 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
+      console.time('____assetsLoadTime');
       const assets = await getAvailableAssetsCreateTx();
+      console.timeEnd('____assetsLoadTime');
       console.log('assets', assets);
       if (!assets) {
         throw Error('Can not get assets. Please try again.');
@@ -60,16 +62,20 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       if (!inscribeable) {
         // Make TC transaction
-        const tx: any = await call({
+        console.time('____metamaskCreateTxTime');
+        const tx: R = await call({
           ...params,
         });
+        console.timeEnd('____metamaskCreateTxTime');
 
         console.log('tcTX', tx);
         return tx;
       }
 
       // Check unInscribed transactions
+      console.time('____unInscribedTxIDsLoadTime');
       const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
+      console.timeEnd('____unInscribedTxIDsLoadTime');
 
       if (unInscribedTxIDs.length > 0) {
         throw Error('You have some pending transactions. Please complete all of them before moving on.');
@@ -77,9 +83,11 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       console.log('unInscribedTxIDs', unInscribedTxIDs);
 
+      console.time('____metamaskCreateTxTime');
       const tx: any = await call({
         ...params,
       });
+      console.timeEnd('____metamaskCreateTxTime');
 
       console.log('tcTX', tx);
 
