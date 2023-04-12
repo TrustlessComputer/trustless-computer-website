@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Information } from './Inscription.styled';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { ARTIFACT_CONTRACT } from '@/configs';
 
 const Inscription = () => {
   const navigate = useNavigate();
@@ -95,9 +96,11 @@ const Inscription = () => {
             <p className="tag-title">Collection</p>
             <p className="subTitle">{inscription?.collectionAddress}</p>
           </a> */}
-          <div className="tag">
-            <p className="tag-title">Artifact #{inscription?.tokenId}</p>
-          </div>
+          {contract.toLocaleLowerCase() === ARTIFACT_CONTRACT.toLocaleLowerCase() && (
+            <div className="tag">
+              <p className="tag-title">Artifact #{inscription?.tokenId}</p>
+            </div>
+          )}
 
           <Information>
             <p className="title">Information</p>
