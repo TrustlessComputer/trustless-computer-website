@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
 import useBitcoin from '@/hooks/useBitcoin';
 import useCompleteUninscribedTransaction from '@/hooks/contract-operations/useCompleteUninscribedTransaction';
+import { isDevelop } from '@/utils/commons';
 
 const Wallet = () => {
   const accessToken = getAccessToken();
@@ -147,19 +148,22 @@ const Wallet = () => {
           >
             <NamesProfile />
           </Tab>
-          <Tab
-            eventKey={DappsTabs.TRANSACTION}
-            title={
-              <div className="tab-item">
-                <IconSVG maxWidth="28" maxHeight="28" src={IcSwitch} color="white" type="stroke" />
-                <Text className="tab-text" size="regular">
-                  Transactions
-                </Text>
-              </div>
-            }
-          >
-            <TransactionsProfile transactionList={transactions} />
-          </Tab>
+          {isDevelop() && (
+            <Tab
+              eventKey={DappsTabs.TRANSACTION}
+              title={
+                <div className="tab-item">
+                  <IconSVG maxWidth="28" maxHeight="28" src={IcSwitch} color="white" type="stroke" />
+                  <Text className="tab-text" size="regular">
+                    Transactions
+                  </Text>
+                </div>
+              }
+            >
+              <TransactionsProfile transactionList={transactions} />
+            </Tab>
+          )}
+
           <Tab
             title={
               activeTab === DappsTabs.TRANSACTION ? (
