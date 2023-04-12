@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 import useBatchCompleteUninscribedTransaction from '@/hooks/contract-operations/useBatchCompleteUninscribedTransaction';
 import * as TC_SDK from 'trustless-computer-sdk';
 import { TC_NETWORK_RPC } from '@/configs';
-import useAsyncEffect from 'use-async-effect/types';
+import useAsyncEffect from 'use-async-effect';
 
 type Props = {
   pendingList: string[];
