@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { StyledTransactionProfile } from './TransactionsProfile.styled';
 import Table from '@/components/Table';
-import useBitcoin from '@/hooks/useBitcoin';
-import { useSelector } from 'react-redux';
-import { getUserSelector } from '@/state/user/selector';
-import useCompleteUninscribedTransaction from '@/hooks/contract-operations/useCompleteUninscribedTransaction';
+import { StyledTransactionProfile } from './TransactionsProfile.styled';
 
 type Props = {
   transactionList: string[];
@@ -13,7 +8,6 @@ type Props = {
 const TransactionsProfile = ({ transactionList }: Props) => {
   const TABLE_HEADINGS = ['Transaction ID', 'Status', ''];
 
-  //   const transactionsData = []
   const transactionsData = transactionList.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (trans: any, index: number) => {
@@ -29,7 +23,7 @@ const TransactionsProfile = ({ transactionList }: Props) => {
 
   return (
     <StyledTransactionProfile>
-      <Table tableHead={TABLE_HEADINGS} data={[]} className={'token-table'} />
+      <Table tableHead={TABLE_HEADINGS} data={transactionsData} className={'transaction-table'} />
     </StyledTransactionProfile>
   );
 };
