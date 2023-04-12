@@ -11,13 +11,14 @@ import { TC_EXPLORER } from '@/constants/url';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
 import useMintChunks, { IMintChunksParams } from '@/hooks/contract-operations/nft/useMintChunks';
+import useMintBatchChunks, { IMintBatchChunksParams } from '@/hooks/contract-operations/nft/useMintBatchChunks';
 import useContractOperation from '@/hooks/contract-operations/useContractOperation';
 import { Transaction } from 'ethers';
 import { toast } from 'react-hot-toast';
 import { FileUploader } from 'react-drag-drop-files';
-import { BLOCK_CHAIN_FILE_LIMIT } from '@/constants/file';
+import { BLOCK_CHAIN_FILE_LIMIT, ERC721_SUPPORTED_EXTENSIONS, ZIP_EXTENSION } from '@/constants/file';
 import { Buffer } from 'buffer';
-import { fileToBase64 } from '@/utils';
+import { fileToBase64, getFileExtensionByFileName, isERC721SupportedExt, readFileAsBuffer, unzipFile } from '@/utils';
 
 interface ICollectionHeader {
   collection?: ICollection;
@@ -27,13 +28,17 @@ const CollectionHeader = (props: ICollectionHeader) => {
   const { collection } = props;
   const user = useSelector(getUserSelector);
   const [isMinting, setIsMinting] = useState(false);
-  const { run } = useContractOperation<IMintChunksParams, Promise<Transaction | null>>({
+  const { run: mintSingle } = useContractOperation<IMintChunksParams, Promise<Transaction | null>>({
     operation: useMintChunks,
+  });
+  const { run: mintBatch } = useContractOperation<IMintBatchChunksParams, Promise<Transaction | null>>({
+    operation: useMintBatchChunks,
   });
   const [file, setFile] = useState<File | null>(null);
 
-  const handleMint = async (file: File) => {
+  const handleMintSingle = async (file: File): Promise<void> => {
     if (!collection?.contract) {
+      toast.error('Contract address not found.');
       return;
     }
 
@@ -44,26 +49,99 @@ const CollectionHeader = (props: ICollectionHeader) => {
       };
       console.log('json', JSON.stringify(obj));
       const chunks = Buffer.from(JSON.stringify(obj));
-      await run({
+      await mintSingle({
         contractAddress: collection.contract,
         chunks: chunks,
       });
       toast.success('Transaction has been created. Please wait for minutes.');
     } catch (err: unknown) {
+      console.log(err);
       toast.error((err as Error).message);
     } finally {
       setIsMinting(false);
     }
   };
 
-  const onChangeFile = (file: File): void => {
-    console.log(file);
-    setFile(file);
-    handleMint(file);
+  const handleMintBatch = async (file: File): Promise<void> => {
+    if (!collection?.contract) {
+      toast.error('Contract address not found.');
+      return;
+    }
+    try {
+      setIsMinting(true);
+      const files: Record<string, Blob> = await unzipFile(file);
+      let listOfChunks: Array<Array<Buffer>> = [];
+      let currentChunks: Array<Buffer> = [];
+      let currentBatchSize = 0;
+
+      // Create batch of chunks
+      for (const fileName in files) {
+        const blob = files[fileName];
+        const obj = {
+          image: await fileToBase64(blob),
+        };
+        const chunks = Buffer.from(JSON.stringify(obj));
+        const chunksSizeInKb = Buffer.byteLength(chunks) / 1000;
+        if (chunksSizeInKb > BLOCK_CHAIN_FILE_LIMIT * 1000) {
+          toast.error(`File size error, maximum file size is ${BLOCK_CHAIN_FILE_LIMIT * 1000}kb.`);
+          return;
+        }
+        if (currentBatchSize + chunksSizeInKb >= BLOCK_CHAIN_FILE_LIMIT * 1000) {
+          // Split chunks and reset counter
+          listOfChunks.push([...currentChunks]);
+          currentChunks = [];
+          currentBatchSize = 0;
+          console.log('batch number', listOfChunks.length);
+        }
+        currentBatchSize += chunksSizeInKb;
+        currentChunks.push(chunks);
+        console.log('currentBatchSize', currentBatchSize);
+      }
+
+      console.log('batch number', listOfChunks.length);
+      listOfChunks.push([...currentChunks]);
+      console.log('listOfChunks', listOfChunks);
+
+      for (let i = 0; i < listOfChunks.length; i++) {
+        const batch = listOfChunks[i];
+        await mintBatch({
+          contractAddress: collection.contract,
+          listOfChunks: batch,
+        });
+      }
+      toast.success('Transaction has been created. Please wait for minutes.');
+    } catch (err: unknown) {
+      toast.error((err as Error).message || 'Something went wrong. Please try again later.');
+      console.log(err);
+    } finally {
+      setIsMinting(false);
+    }
   };
 
-  const onSizeError = (): void => {
-    toast.error(`File size error, maximum file size is ${BLOCK_CHAIN_FILE_LIMIT * 1000}kb.`);
+  const handleMintFile = async (file: File): Promise<void> => {
+    const fileName = file.name;
+    const fileExt = getFileExtensionByFileName(fileName);
+    if (!isERC721SupportedExt(fileExt)) {
+      toast.error('Unsupported file extension.');
+      return;
+    }
+
+    if (fileExt === ZIP_EXTENSION) {
+      await handleMintBatch(file);
+    } else {
+      const fileSizeInKb = file.size / 1000;
+      if (fileSizeInKb > BLOCK_CHAIN_FILE_LIMIT * 1000) {
+        toast.error(`File size error, maximum file size is ${BLOCK_CHAIN_FILE_LIMIT * 1000}kb.`);
+        return;
+      }
+
+      await handleMintSingle(file);
+    }
+  };
+
+  const onChangeFile = (file: File): void => {
+    setFile(file);
+    handleMintFile(file);
   };
 
   return (
@@ -106,13 +184,11 @@ const CollectionHeader = (props: ICollectionHeader) => {
                       {isMinting ? 'Minting...' : 'Mint'}
                     </button>
                     <FileUploader
-                      handleChange={onChangeFile}
+                      onSelect={onChangeFile}
                       name={'fileUploader'}
-                      maxSize={BLOCK_CHAIN_FILE_LIMIT}
-                      onSizeError={onSizeError}
                       classes={'file-uploader'}
                       fileOrFiles={file}
-                      types={['png', 'jpeg', 'jpg', 'webp']}
+                      types={ERC721_SUPPORTED_EXTENSIONS}
                     />
                   </div>
                 </div>
