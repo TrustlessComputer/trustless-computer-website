@@ -18,8 +18,8 @@ const Container = styled.div`
 
   .title {
     font-weight: 500;
-    font-size: 56px;
-    line-height: 66px;
+    font-size: ${px2rem(56)};
+    line-height: ${px2rem(66)};
     align-items: center;
     align-self: center;
     letter-spacing: -0.02em;
@@ -29,8 +29,8 @@ const Container = styled.div`
 
   .subTitle {
     font-weight: 500;
-    font-size: 24px;
-    line-height: 34px;
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
     text-align: center;
     margin-top: ${px2rem(16)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
@@ -70,8 +70,8 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
 
   .decs {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
+    font-size: ${px2rem(16)};
+    line-height: ${px2rem(26)};
     margin-top: ${px2rem(8)};
   }
 
@@ -94,8 +94,8 @@ const Step = styled.div<{ active: boolean; isEnd: boolean }>`
   .link {
     text-decoration: none;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
+    font-size: ${px2rem(16)};
+    line-height: ${px2rem(26)};
     margin-top: ${px2rem(8)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     cursor: pointer;
