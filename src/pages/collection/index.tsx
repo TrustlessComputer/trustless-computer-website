@@ -8,9 +8,8 @@ import { debounce } from 'lodash';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useNavigate } from 'react-router-dom';
-import { Container } from './Collection.styled';
+import { Container, Grid } from './Collection.styled';
 import { useWeb3React } from '@web3-react/core';
 import CollectionHeader from './CollectionHeader';
 
@@ -82,7 +81,7 @@ const Collection = () => {
             }
             next={debounceLoadMore}
           >
-            <div className="grid">
+            <Grid repeat={`repeat(auto-fit, minmax(348px, ${inscriptions && inscriptions.length > 4 ? 1 : 0.25}fr))`}>
               {inscriptions &&
                 inscriptions.length > 0 &&
                 inscriptions.map((item, index) => {
@@ -101,7 +100,7 @@ const Collection = () => {
                     />
                   );
                 })}
-            </div>
+            </Grid>
           </InfiniteScroll>
         </div>
       </div>

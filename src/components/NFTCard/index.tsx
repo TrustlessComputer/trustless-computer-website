@@ -5,6 +5,7 @@ import { Styled } from './NFTCard.styled';
 export interface INFTCard {
   href?: string;
   image?: string;
+  thumbnail?: string;
   contract?: string;
   tokenId?: string;
   contentType?: IMAGE_TYPE;
@@ -13,7 +14,7 @@ export interface INFTCard {
   title3?: string;
 }
 
-const NFTCard = ({ href, image, contract, tokenId, contentType, title1, title2, title3 }: INFTCard) => {
+const NFTCard = ({ href, image, thumbnail, contract, tokenId, contentType, title1, title2, title3 }: INFTCard) => {
   return (
     <Styled href={href}>
       <div className="card-content">
@@ -21,6 +22,7 @@ const NFTCard = ({ href, image, contract, tokenId, contentType, title1, title2, 
           <NFTDisplayBox
             collectionID={contract}
             contentClass="image"
+            thumbnail={thumbnail}
             src={image}
             tokenID={tokenId}
             type={contentType}
