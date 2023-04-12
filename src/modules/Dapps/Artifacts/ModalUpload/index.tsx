@@ -1,4 +1,3 @@
-import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { MINT_TOOL_MAX_FILE_SIZE } from '@/constants/config';
 import { prettyPrintBytes } from '@/utils/units';
@@ -17,6 +16,7 @@ import { readFileAsBuffer } from '@/utils';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 import { Transaction } from 'ethers';
 import toast from 'react-hot-toast';
+import IconSVG from '@/components/IconSVG';
 
 type Props = {
   show: boolean;
