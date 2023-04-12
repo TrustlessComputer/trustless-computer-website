@@ -1,4 +1,4 @@
-import { ContractOperationHook } from '@/interfaces/contract-operation';
+import { ContractOperationHook, DAppType } from '@/interfaces/contract-operation';
 import ERC721ABIJson from '@/abis/erc721.json';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback, useContext } from 'react';
@@ -52,6 +52,7 @@ const useMintChunks: ContractOperationHook<IMintChunksParams, Promise<Transactio
 
   return {
     call: call,
+    dAppType: DAppType.ERC721,
   };
 };
 

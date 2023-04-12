@@ -1,4 +1,4 @@
-import { ContractOperationHook } from '@/interfaces/contract-operation';
+import { ContractOperationHook, DAppType } from '@/interfaces/contract-operation';
 import { useContract } from '@/hooks/useContract';
 import ArtifactABIJson from '@/abis/artifacts.json';
 import { ARTIFACT_CONTRACT } from '@/configs';
@@ -52,6 +52,7 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Promise<Tra
 
   return {
     call: call,
+    dAppType: DAppType.BFS,
   };
 };
 
