@@ -20,6 +20,7 @@ const Collection = () => {
   const { account } = useWeb3React();
 
   const { contract, owner } = queryString.parse(location.search) as { contract: string; owner?: string };
+  console.log('🚀 ~ Collection ~ owner:', owner);
 
   const [collection, setCollection] = useState<ICollection | undefined>();
 
