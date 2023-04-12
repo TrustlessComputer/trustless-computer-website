@@ -84,7 +84,7 @@ export default defineConfig(({ mode }) => {
       __CLIENT__: true,
     },
     build: {
-      target: ["esnext"],
+      target: ['esnext'],
       sourcemap: false,
       rollupOptions: {
         output: {
