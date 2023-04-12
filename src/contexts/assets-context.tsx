@@ -7,6 +7,8 @@ import { comingAmountBuilder, currentAssetsBuilder } from '@/utils/utxo';
 import debounce from 'lodash/debounce';
 import { getBtcBalance } from '@/services/quicknode';
 import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
+import * as TC_SDK from 'trustless-computer-sdk';
 
 export interface IAssetsContext {
   btcBalance: string;
@@ -60,7 +62,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [currentAssets, setCurrentAssets] = useState<ICollectedUTXOResp | undefined>();
   const [isLoadingAssets, setIsLoadingAssets] = useState<boolean>(false);
   const [isLoadedAssets, setIsLoadedAssets] = useState<boolean>(false);
-  const [btcBalance, setBtcBalance] = useState('0');
+  // const [btcBalance, setBtcBalance] = useState('0');
   const [juiceBalance, setJuiceBalance] = useState('0');
 
   // History
@@ -126,22 +128,41 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     return _feeRate;
   };
 
-  const fetchBTCBalance = async () => {
-    try {
-      if (currentAddress) {
-        const utxos = await getBtcBalance(currentAddress);
-        const balance = utxos.reduce((prev, cur) => {
-          if (!cur.isOrdinal) {
-            return prev + cur.value;
-          }
-          return prev;
-        }, 0);
-        setBtcBalance(balance.toString());
-      }
-    } catch (err) {
-      console.log(err);
-      setBtcBalance('0');
+  const btcBalance = React.useMemo(() => {
+    if (currentAddress) {
+      // const utxos = await getBtcBalance(currentAddress);
+      const balance = TC_SDK.getBTCBalance({
+        utxos: currentAssets?.txrefs || [],
+        inscriptions: currentAssets?.inscriptions_by_outputs || {},
+      });
+      // setBtcBalance(balance.toString());
+      return balance.toString();
     }
+    return '0';
+  }, [currentAddress, currentAssets]);
+
+  const fetchBTCBalance = async () => {
+    // try {
+    //   if (currentAddress) {
+    //     // const utxos = await getBtcBalance(currentAddress);
+    //     const balance = TC_SDK.getBTCBalance({
+    //       utxos: currentAssets?.txrefs || [],
+    //       inscriptions: currentAssets?.inscriptions_by_outputs || {},
+    //     });
+    //     console.log('🚀 ~ fetchBTCBalance ~ currentAssets:', currentAssets);
+    //     console.log('🚀 ~ fetchBTCBalance ~ balance:', balance);
+    //     // const balance = currentAssets.reduce((prev, cur) => {
+    //     //   if (!cur.isOrdinal) {
+    //     //     return prev.plus(cur.value);
+    //     //   }
+    //     //   return prev;
+    //     // }, new BigNumber(0));
+    //     setBtcBalance(balance.toString());
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   setBtcBalance('0');
+    // }
   };
 
   const fetchJuiceBalance = async () => {
@@ -194,11 +215,11 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
       console.log(err);
     }
 
-    try {
-      fetchBTCBalance();
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   fetchBTCBalance();
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   useEffect(() => {

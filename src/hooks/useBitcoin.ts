@@ -162,9 +162,7 @@ const useBitcoin = () => {
 
   const getUnInscribedTransactionDetailByAddress = async (tcAddress: string): Promise<TC_SDK.TCTxDetail[]> => {
     if (!tcAddress) throw Error('Address not found');
-    console.log('🚀 ~ getUnInscribedTransactionDetailByAddress ~ tcAddress:', tcAddress);
     const { unInscribedTxDetails } = await tcClient.getUnInscribedTransactionDetailByAddress(tcAddress);
-    console.log('🚀 ~ getUnInscribedTransactionDetailByAddress ~ unInscribedTxDetails:', unInscribedTxDetails);
     return unInscribedTxDetails;
   };
 
