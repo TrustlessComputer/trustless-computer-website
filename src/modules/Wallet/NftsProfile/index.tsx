@@ -4,13 +4,14 @@ import { shortenAddress } from '@/utils';
 import { getApiKey } from '@/utils/swr';
 import { useWeb3React } from '@web3-react/core';
 import { debounce } from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
 import { Container } from './NftsProfile.styled';
 import Empty from '@/components/Empty';
+import { IInscription } from '@/interfaces/api/inscription';
 
 // type Props = {};
 const LIMIT_PAGE = 32;
@@ -22,29 +23,36 @@ const NftsProfile = () => {
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT_PAGE);
+  const [isFetching, setIsFetching] = useState(false);
+  const [inscriptions, setInscriptions] = useState<IInscription[]>([]);
 
-  const {
-    data: nftslist,
-    error,
-    isLoading,
-  } = useSWR(getApiKey(getNFTsByWalletAddress, { walletAddress: profileWallet, limit: pageSize, page: page }), () =>
-    getNFTsByWalletAddress({ walletAddress: profileWallet, limit: pageSize, page: page }),
-  );
-
-  const debounceLoadMore = debounce(nextPage => {
-    setPage(nextPage);
-    setPageSize(pageSize + LIMIT_PAGE);
-  }, 300);
-
-  const onLoadMoreNfts = () => {
-    if (isLoading || (nftslist && nftslist.length % LIMIT_PAGE !== 0)) return;
-    if (nftslist) {
-      const nextPage = Math.floor(nftslist?.length / LIMIT_PAGE) + 1;
-      debounceLoadMore(nextPage);
+  const fetchInscriptions = async (page = 1, isFetchMore = false) => {
+    try {
+      setIsFetching(true);
+      const data = await getNFTsByWalletAddress({ walletAddress: profileWallet, limit: pageSize, page: page });
+      if (isFetchMore) {
+        setInscriptions(prev => [...prev, ...data]);
+      } else {
+        setInscriptions(data);
+      }
+    } catch (error) {
+    } finally {
+      setIsFetching(false);
     }
   };
+  const onLoadMoreCollections = () => {
+    if (isFetching || inscriptions.length % LIMIT_PAGE !== 0) return;
+    const page = Math.floor(inscriptions.length / LIMIT_PAGE) + 1;
+    fetchInscriptions(page, true);
+  };
 
-  if (error || !nftslist || nftslist.length === 0)
+  const debounceLoadMore = debounce(onLoadMoreCollections, 300);
+
+  useEffect(() => {
+    if (profileWallet) fetchInscriptions();
+  }, [profileWallet]);
+
+  if (!inscriptions || inscriptions.length === 0)
     return (
       <Container>
         <Empty />
@@ -55,16 +63,16 @@ const NftsProfile = () => {
     <Container>
       <InfiniteScroll
         className="list"
-        dataLength={nftslist.length}
+        dataLength={inscriptions.length}
         hasMore={true}
         loader={
-          isLoading && (
+          isFetching && (
             <div className="loading">
               <Spinner animation="border" variant="primary" />
             </div>
           )
         }
-        next={onLoadMoreNfts}
+        next={debounceLoadMore}
       >
         <ResponsiveMasonry
           columnsCountBreakPoints={{
@@ -77,8 +85,8 @@ const NftsProfile = () => {
           }}
         >
           <Masonry gutter="24px">
-            {nftslist.length > 0 &&
-              nftslist.map((item: any, index: number) => {
+            {inscriptions.length > 0 &&
+              inscriptions.map((item: any, index: number) => {
                 return (
                   <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                     <div className="card-content">
