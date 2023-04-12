@@ -8,9 +8,8 @@ import { debounce } from 'lodash';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useNavigate } from 'react-router-dom';
-import { Container } from './Collection.styled';
+import { Container, Grid } from './Collection.styled';
 import { useWeb3React } from '@web3-react/core';
 import CollectionHeader from './CollectionHeader';
 
@@ -83,37 +82,26 @@ const Collection = () => {
             }
             next={debounceLoadMore}
           >
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{
-                350: 1,
-                750: 2,
-                900: 3,
-                1240: 4,
-                2500: 5,
-                3000: 5,
-              }}
-            >
-              <Masonry gutter="24px">
-                {inscriptions &&
-                  inscriptions.length > 0 &&
-                  inscriptions.map((item, index) => {
-                    return (
-                      <NFTCard
-                        key={index.toString()}
-                        href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
-                        image={item?.image}
-                        contract={collection?.contract}
-                        tokenId={item.tokenId}
-                        contentType={item.contentType}
-                        title1={
-                          item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
-                        }
-                        title2={shortenAddress(item.owner, 4)}
-                      />
-                    );
-                  })}
-              </Masonry>
-            </ResponsiveMasonry>
+            <Grid repeat={`repeat(auto-fit, minmax(348px, ${inscriptions && inscriptions.length > 4 ? 1 : 0.25}fr))`}>
+              {inscriptions &&
+                inscriptions.length > 0 &&
+                inscriptions.map((item, index) => {
+                  return (
+                    <NFTCard
+                      key={index.toString()}
+                      href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
+                      image={item?.image}
+                      contract={collection?.contract}
+                      tokenId={item.tokenId}
+                      contentType={item.contentType}
+                      title1={
+                        item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
+                      }
+                      title2={shortenAddress(item.owner, 4)}
+                    />
+                  );
+                })}
+            </Grid>
           </InfiniteScroll>
         </div>
       </div>

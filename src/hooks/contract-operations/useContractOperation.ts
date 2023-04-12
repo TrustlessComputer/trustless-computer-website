@@ -85,7 +85,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       console.log('unInscribedTxIDs', unInscribedTxIDs);
 
       console.time('____metamaskCreateTxTime');
-      const tx: any = await call({
+      const tx: R = await call({
         ...params,
       });
       console.timeEnd('____metamaskCreateTxTime');
@@ -101,7 +101,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Make inscribe transaction
       await createInscribeTx({
-        tcTxIDs: [...unInscribedTxIDs, tx.hash],
+        tcTxIDs: [...unInscribedTxIDs, Object(tx).hash],
         feeRatePerByte: feeRate.fastestFee,
       });
 

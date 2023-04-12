@@ -39,8 +39,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const user = useSelector(getUserSelector);
   const navigate = useNavigate();
 
-  console.log('____user', user);
-
   const disconnect = React.useCallback(async () => {
     console.log('disconnecting...');
     console.log('user', user);
@@ -53,6 +51,8 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     await connector.resetState();
     clearAuthStorage();
     dispatch(resetUser());
+    // TODO Clear localstorage
+    localStorage.clear();
   }, [connector, dispatch, user]);
 
   const connect = React.useCallback(async () => {
