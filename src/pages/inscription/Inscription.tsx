@@ -81,6 +81,7 @@ const Inscription = () => {
             <NFTDisplayBox
               collectionID={inscription?.collectionAddress}
               contentClass="thumbnail"
+              src={inscription.image}
               tokenID={inscription?.tokenId}
               type={inscription?.contentType}
             />
