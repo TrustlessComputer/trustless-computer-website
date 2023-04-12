@@ -95,6 +95,15 @@ export const WrapInput = styled.div`
   flex-direction: column;
   margin-bottom: ${px2rem(16)};
 
+  .title-input {
+    font-weight: 500;
+    font-size: ${px2rem(12)};
+    line-height: ${px2rem(20)};
+    text-transform: uppercase;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
+    margin-bottom: ${px2rem(4)};
+  }
+
   .input {
     display: flex;
     flex-direction: row;
@@ -122,4 +131,5 @@ export const WrapInput = styled.div`
 
 export const Title = styled.h5`
   margin-bottom: ${px2rem(24)};
+  font-weight: 600;
 `;

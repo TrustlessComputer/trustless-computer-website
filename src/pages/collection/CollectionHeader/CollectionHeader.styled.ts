@@ -51,6 +51,24 @@ const Container = styled.div`
           opacity: 0.8;
         }
       }
+
+      .editButton {
+        padding: ${px2rem(3)} ${px2rem(12)};
+        background: transparent;
+        color: #fff;
+
+        border: 1px solid #ffffff;
+        border-radius: 2px;
+
+        font-weight: 500;
+        font-size: ${px2rem(14)};
+        line-height: ${px2rem(24)};
+        border-radius: 2px;
+
+        :disabled {
+          opacity: 0.8;
+        }
+      }
     }
 
     .social {
@@ -89,6 +107,12 @@ const Container = styled.div`
       :hover {
         color: ${({ theme }: { theme: DefaultTheme }) => theme.purple.b};
       }
+    }
+
+    .actionWrapper {
+      display: flex;
+      flex-direction: row;
+      gap: ${px2rem(16)};
     }
 
     .mintWrapper {

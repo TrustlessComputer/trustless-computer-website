@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from './Collection.styled';
 import { useWeb3React } from '@web3-react/core';
 import CollectionHeader from './CollectionHeader';
+import ModalEdit from './ModalEdit';
 
 const LIMIT = 32;
 
@@ -27,6 +28,8 @@ const Collection = () => {
 
   const [isFetching, setIsFetching] = useState(false);
   const [inscriptions, setInscriptions] = useState<IInscription[]>([]);
+
+  const [showModalEdit, setShowModalEdit] = useState(false);
 
   useEffect(() => {
     fetchCollectionDetail();
@@ -68,7 +71,7 @@ const Collection = () => {
   return (
     <Container>
       <div className="content">
-        <CollectionHeader collection={collection} />
+        <CollectionHeader collection={collection} onClickEdit={() => setShowModalEdit(true)} />
         <div>
           <InfiniteScroll
             className="list"
@@ -133,6 +136,9 @@ const Collection = () => {
           </InfiniteScroll>
         </div>
       </div>
+      {collection && (
+        <ModalEdit collection={collection} show={showModalEdit} handleClose={() => setShowModalEdit(false)} />
+      )}
     </Container>
   );
 };

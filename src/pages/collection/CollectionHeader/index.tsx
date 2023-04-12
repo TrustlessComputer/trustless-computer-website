@@ -21,16 +21,19 @@ import { fileToBase64 } from '@/utils';
 
 interface ICollectionHeader {
   collection?: ICollection;
+  onClickEdit: () => void;
 }
 
 const CollectionHeader = (props: ICollectionHeader) => {
-  const { collection } = props;
+  const { collection, onClickEdit } = props;
   const user = useSelector(getUserSelector);
   const [isMinting, setIsMinting] = useState(false);
   const { run } = useContractOperation<IMintChunksParams, Promise<Transaction | null>>({
     operation: useMintChunks,
   });
   const [file, setFile] = useState<File | null>(null);
+
+  const isOwner = user?.walletAddress?.toLowerCase() === collection?.creator.toLowerCase();
 
   const handleMint = async (file: File) => {
     if (!collection?.contract) {
@@ -99,8 +102,11 @@ const CollectionHeader = (props: ICollectionHeader) => {
                   </a>
                 )}
               </div>
-              {user?.walletAddress?.toLowerCase() === collection?.creator.toLowerCase() && (
+              {!isOwner && (
                 <div className="actionWrapper">
+                  <button className="editButton" onClick={onClickEdit}>
+                    Edit
+                  </button>
                   <div className="mintWrapper">
                     <button disabled={isMinting} className="mintButton">
                       {isMinting ? 'Minting...' : 'Mint'}

@@ -9,6 +9,7 @@ export const StyledModalUpload = styled(Modal)`
 
   .modal-content {
     border-radius: 2px;
+    padding: ${px2rem(32)};
   }
 
   .modal-header {
