@@ -6,9 +6,16 @@ import queryString from 'query-string';
 const API_PATH = '/token-explorer';
 
 //TODO:  add type
-export const getTokens = async (
+export const getTokens = async (params: IPagingParams): Promise<any> => {
+  return swrFetcher(`${API_URL}${API_PATH}/tokens`, {
+    method: 'GET',
+    error: 'Fail to get tokens data',
+  });
+};
+
+export const getTokensByWallet = async (
   params: {
-    key?: string;
+    key: string;
   } & IPagingParams,
 ): Promise<any> => {
   const qs = '?' + queryString.stringify(params);

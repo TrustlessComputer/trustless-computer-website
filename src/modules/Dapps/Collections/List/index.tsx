@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import IconSVG from '@/components/IconSVG';
-import NFTDisplayBox from '@/components/NFTDisplayBox';
+import NFTCard from '@/components/NFTCard';
 import { ARTIFACT_CONTRACT } from '@/configs';
 import { ICollection } from '@/interfaces/api/collection';
 import { getCollections } from '@/services/nft-explorer';
@@ -91,18 +91,14 @@ const Collections = () => {
             {showCollections.length > 0 &&
               showCollections.map((item, index) => {
                 return (
-                  <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
-                    <div className="card-content">
-                      <div className="card-image">
-                        <NFTDisplayBox contentClass="image" src={item.thumbnail} />
-                      </div>
-                      <div className="card-info">
-                        <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
-                        <p className="card-subTitle">{shortenAddress(item.creator, 4)}</p>
-                        <p className="card-index">Collection #{item.index}</p>
-                      </div>
-                    </div>
-                  </a>
+                  <NFTCard
+                    key={index.toString()}
+                    href={`/collection?contract=${item.contract}`}
+                    image={item.thumbnail}
+                    title1={item.name || shortenAddress(item.contract, 6)}
+                    title2={shortenAddress(item.creator, 4)}
+                    title3={`Collection #${item.index}`}
+                  />
                 );
               })}
           </Masonry>
