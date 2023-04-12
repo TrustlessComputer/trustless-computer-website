@@ -14,8 +14,8 @@ const Wrapper = styled.div`
   .indicator {
     position: absolute;
     height: ${px2rem(1)};
-    width: 100vw;
     margin-left: -${px2rem(32)};
+    margin-right: -${px2rem(32)};
     /* top: ${px2rem(80)}; */
     left: 0;
     right: 0;

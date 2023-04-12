@@ -9,8 +9,7 @@ import { debounce } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import { Container } from './List.styled';
+import { Container, Grid } from './List.styled';
 import IcCheckBox from '@/assets/icons/ic-checkbox.svg';
 import IcCheckedBox from '@/assets/icons/ic-checkedbox.svg';
 
@@ -77,32 +76,21 @@ const Collections = () => {
         }
         next={debounceLoadMore}
       >
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{
-            350: 1,
-            750: 2,
-            900: 3,
-            1240: 4,
-            2500: 5,
-            3000: 5,
-          }}
-        >
-          <Masonry gutter="24px">
-            {showCollections.length > 0 &&
-              showCollections.map((item, index) => {
-                return (
-                  <NFTCard
-                    key={index.toString()}
-                    href={`/collection?contract=${item.contract}`}
-                    image={item.thumbnail}
-                    title1={item.name || shortenAddress(item.contract, 6)}
-                    title2={shortenAddress(item.creator, 4)}
-                    title3={`Collection #${item.index}`}
-                  />
-                );
-              })}
-          </Masonry>
-        </ResponsiveMasonry>
+        <Grid repeat={`repeat(auto-fit, minmax(348px, ${showCollections && showCollections.length > 4 ? 1 : 0.25}fr))`}>
+          {showCollections.length > 0 &&
+            showCollections.map((item, index) => {
+              return (
+                <NFTCard
+                  key={index.toString()}
+                  href={`/collection?contract=${item.contract}`}
+                  thumbnail={item.thumbnail}
+                  title1={item.name || shortenAddress(item.contract, 6)}
+                  title2={shortenAddress(item.creator, 4)}
+                  title3={`Collection #${item.index}`}
+                />
+              );
+            })}
+        </Grid>
       </InfiniteScroll>
     </Container>
   );

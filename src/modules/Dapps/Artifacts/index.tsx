@@ -41,7 +41,7 @@ const Artifacts: React.FC<Props> = (props: Props) => {
         <div className="upload_right">
           <Button bg={'white'} onClick={() => setShowUploadModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
-              Preserve artifact
+              Preserve Artifact
             </Text>
           </Button>
           <FileUploader
