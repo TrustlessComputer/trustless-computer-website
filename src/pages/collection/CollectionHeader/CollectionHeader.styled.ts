@@ -10,7 +10,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     gap: 6vw;
-    height: 160px;
+    height: ${px2rem(160)};
     width: 100%;
   }
 
@@ -20,9 +20,9 @@ const Container = styled.div`
     width: 65%;
 
     .image {
-      width: 168px;
-      height: 168px;
-      margin-right: 24px;
+      width: ${px2rem(168)};
+      height: ${px2rem(168)};
+      margin-right: ${px2rem(24)};
       object-fit: cover;
     }
   }
@@ -71,8 +71,8 @@ const Container = styled.div`
     .address {
       font-style: normal;
       font-weight: 500;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: ${px2rem(18)};
+      line-height: ${px2rem(28)};
       letter-spacing: -0.01em;
       color: #ffffff;
     }
@@ -80,8 +80,8 @@ const Container = styled.div`
     .link {
       font-style: normal;
       font-weight: 500;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: ${px2rem(18)};
+      line-height: ${px2rem(28)};
       letter-spacing: -0.01em;
       text-decoration: none;
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
@@ -116,16 +116,16 @@ const Container = styled.div`
   .title {
     font-style: normal;
     font-weight: 600;
-    font-size: 34px;
-    line-height: 64px;
+    font-size: ${px2rem(34)};
+    line-height: ${px2rem(64)};
     color: #ffffff;
     font-family: 'IBMPlexMono' !important;
   }
 
   .subTitle {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
+    font-size: ${px2rem(16)};
+    line-height: ${px2rem(26)};
     color: #ffffff;
 
     overflow: hidden;
