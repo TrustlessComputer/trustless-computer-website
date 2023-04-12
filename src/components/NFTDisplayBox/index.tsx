@@ -120,9 +120,9 @@ const NFTDisplayBox = ({
   const renderEmpty = () => <img alt="empty" className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (src && src.startsWith('https://') && !src.endsWith('/content')) {
+    if (src && src.startsWith('https://')) {
       setHTMLContentRender(renderImage(src));
-    } else if (src && src.startsWith('/dapp')) {
+    } else if (src && src.startsWith('/dapp') && !type) {
       const content = getImageURLContent(src);
       setHTMLContentRender(renderIframe(content));
     } else if (collectionID) {

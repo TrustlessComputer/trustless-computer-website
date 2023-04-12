@@ -104,7 +104,9 @@ const Collection = () => {
                         contract={collection?.contract}
                         tokenId={item.tokenId}
                         contentType={item.contentType}
-                        title1={item.name}
+                        title1={
+                          item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
+                        }
                         title2={shortenAddress(item.owner, 4)}
                       />
                     );
