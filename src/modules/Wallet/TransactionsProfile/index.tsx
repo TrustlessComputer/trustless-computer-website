@@ -17,24 +17,15 @@ const TransactionsProfile = ({ transactionList }: Props) => {
   const transactionsData = transactionList.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (trans: any, index: number) => {
-      //   const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
-      //   const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
-      //   const linkToOwnerExplorer = `${EXPLORER_URL}/address/${token?.owner}`;
-
       return {
         id: trans,
         render: {
           tx_id: trans,
-          //   symbol: token?.symbol || '-',
           status: <div className="status">Need to resume</div>,
         },
       };
     },
   );
-
-  useEffect(() => {
-    if (user) fetchTransactions();
-  }, [user]);
 
   return (
     <StyledTransactionProfile>
