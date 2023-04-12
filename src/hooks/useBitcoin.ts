@@ -32,6 +32,10 @@ export interface ICreateInscribeParams {
   tcTxIDs: Array<string>;
   feeRatePerByte: number;
 }
+export interface ICreateBatchInscribeParams {
+  tcTxDetails: any;
+  feeRatePerByte: number;
+}
 
 export interface ICreateInscribeResponse {
   commitTxHex: string;
@@ -101,6 +105,44 @@ const useBitcoin = () => {
     return { commitTxHex, commitTxID, revealTxHex, revealTxID };
   };
 
+  const createBatchInscribeTxs = async ({ tcTxDetails, feeRatePerByte }: ICreateBatchInscribeParams) => {
+    const assets = await getAvailableAssetsCreateTx();
+    if (!assets) throw new Error('Can not load assets');
+    const { privateKey } = await signKey();
+
+    console.log('inside createBatchInscribeTxs', {
+      senderPrivateKey: privateKey,
+      utxos: assets.txrefs,
+      inscriptions: {},
+      tcTxDetails,
+      feeRatePerByte,
+      tcClient,
+    });
+
+    // tcTxIDs: string[];
+    // commitTxHex: string;
+    // commitTxID: string;
+    // revealTxHex: string;
+    // revealTxID: string;
+    // totalFee: BigNumber;
+
+    const res = await TC_SDK.createBatchInscribeTxs({
+      senderPrivateKey: privateKey,
+      utxos: assets.txrefs,
+      inscriptions: {},
+      tcTxDetails,
+      feeRatePerByte,
+      tcClient,
+    });
+
+    // console.log('commitTxID', commitTxID);
+    // console.log('commitTxHex', commitTxHex);
+    // console.log('revealTxID', revealTxID);
+    // console.log('revealTxHex', revealTxHex);
+
+    return res;
+  };
+
   const getNonceInscribeable = async (
     tcAddress: string,
   ): Promise<{
@@ -118,11 +160,21 @@ const useBitcoin = () => {
     return unInscribedTxIDs;
   };
 
+  const getUnInscribedTransactionDetailByAddress = async (tcAddress: string): Promise<TC_SDK.TCTxDetail[]> => {
+    if (!tcAddress) throw Error('Address not found');
+    console.log('🚀 ~ getUnInscribedTransactionDetailByAddress ~ tcAddress:', tcAddress);
+    const { unInscribedTxDetails } = await tcClient.getUnInscribedTransactionDetailByAddress(tcAddress);
+    console.log('🚀 ~ getUnInscribedTransactionDetailByAddress ~ unInscribedTxDetails:', unInscribedTxDetails);
+    return unInscribedTxDetails;
+  };
+
   return {
     createInscribeTx,
+    createBatchInscribeTxs,
     signKey,
     getNonceInscribeable,
     getUnInscribedTransactionByAddress,
+    getUnInscribedTransactionDetailByAddress,
   };
 };
 

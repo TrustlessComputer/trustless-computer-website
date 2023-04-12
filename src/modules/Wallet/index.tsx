@@ -1,8 +1,8 @@
+import IcSwitch from '@/assets/icons/ic-arrow-switch.svg';
 import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
 import IcHexagon from '@/assets/icons/ic-hexagon.svg';
 import IcNames from '@/assets/icons/ic-names.svg';
-import IcSwitch from '@/assets/icons/ic-arrow-switch.svg';
 import IconSVG from '@/components/IconSVG';
 
 import Text from '@/components/Text';
@@ -13,20 +13,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
+import useBatchCompleteUninscribedTransaction from '@/hooks/contract-operations/useBatchCompleteUninscribedTransaction';
+import useBitcoin from '@/hooks/useBitcoin';
+import { getUserSelector } from '@/state/user/selector';
 import { getAccessToken } from '@/utils/auth-storage';
 import queryString from 'query-string';
+import { toast } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 import ArtifactsProfile from './ArtifactsProfile';
 import NamesProfile from './NamesProfile';
 import NftsProfile from './NftsProfile';
 import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
-import UserInfo from './UserInfo';
 import TransactionsProfile from './TransactionsProfile';
-import { useSelector } from 'react-redux';
-import { getUserSelector } from '@/state/user/selector';
-import useBitcoin from '@/hooks/useBitcoin';
-import useCompleteUninscribedTransaction from '@/hooks/contract-operations/useCompleteUninscribedTransaction';
-import { isDevelop } from '@/utils/commons';
+import UserInfo from './UserInfo';
 
 const Wallet = () => {
   const accessToken = getAccessToken();
@@ -40,16 +40,18 @@ const Wallet = () => {
   const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
 
   const user = useSelector(getUserSelector);
-  const { getUnInscribedTransactionByAddress } = useBitcoin();
-  const { run } = useCompleteUninscribedTransaction({});
+  const { getUnInscribedTransactionDetailByAddress } = useBitcoin();
+  const { run, transactionConfirmed } = useBatchCompleteUninscribedTransaction({});
 
   const [transactions, setTransactions] = useState<string[]>([]);
 
   const fetchTransactions = async () => {
     if (user && user.walletAddress) {
       try {
-        const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
-        setTransactions(unInscribedTxIDs);
+        const res = await getUnInscribedTransactionDetailByAddress(user.walletAddress);
+        if (res && res.length > 0) {
+          setTransactions(res.map(tx => tx.Hash));
+        }
       } catch (err: unknown) {
         console.log('Fail to get transactions');
       }
@@ -79,9 +81,12 @@ const Wallet = () => {
     navigate(`${ROUTE_PATH.DAPPS}?tab=${activeTab}`);
   };
 
-  const handleResumeTransactions = () => {
-    run();
-    console.log('resume all transactions');
+  const handleResumeTransactions = async () => {
+    try {
+      await run();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
   return (
@@ -148,38 +153,36 @@ const Wallet = () => {
           >
             <NamesProfile />
           </Tab>
-          {isDevelop() && (
-            <Tab
-              eventKey={DappsTabs.TRANSACTION}
-              title={
-                <div className="tab-item">
-                  <IconSVG maxWidth="28" maxHeight="28" src={IcSwitch} color="white" type="stroke" />
-                  <Text className="tab-text" size="regular">
-                    Transactions
-                  </Text>
-                </div>
-              }
-            >
-              <TransactionsProfile transactionList={transactions} />
-            </Tab>
-          )}
+          <Tab
+            eventKey={DappsTabs.TRANSACTION}
+            title={
+              <div className="tab-item">
+                <IconSVG maxWidth="28" maxHeight="28" src={IcSwitch} color="white" type="stroke" />
+                <Text className="tab-text" size="regular">
+                  Transactions
+                </Text>
+              </div>
+            }
+          >
+            <TransactionsProfile pendingList={transactions} />
+          </Tab>
 
           <Tab
             title={
               activeTab === DappsTabs.TRANSACTION ? (
                 <div
-                  className={`explore-btn ${transactions.length === 0 ? 'disable' : ''}`}
+                  className={`explore-btn ${transactions.length === 0 || transactionConfirmed ? 'disable' : ''}`}
                   onClick={handleResumeTransactions}
                 >
                   <Text className="font-ibm" size="regular">
-                    Resume all transactions
+                    {`Resume ${transactions.length} transaction${transactions.length > 1 ? 's' : ''}`}
                   </Text>
                   {/* <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" /> */}
                 </div>
               ) : (
                 <div className="explore-btn" onClick={navigateToDapps}>
                   <Text className="font-ibm" size="regular">
-                    Explore more
+                    Explore Bitcoin Dapps
                   </Text>
                   <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" />
                 </div>
