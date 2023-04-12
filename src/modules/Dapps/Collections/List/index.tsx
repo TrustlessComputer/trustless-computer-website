@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import IconSVG from '@/components/IconSVG';
 import NFTDisplayBox from '@/components/NFTDisplayBox';
 import { ARTIFACT_CONTRACT } from '@/configs';
 import { ICollection } from '@/interfaces/api/collection';
@@ -13,6 +12,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Container } from './List.styled';
 import IcCheckBox from '@/assets/icons/ic-checkbox.svg';
 import IcCheckedBox from '@/assets/icons/ic-checkedbox.svg';
+import IconSVG from '@/components/IconSVG';
 
 const LIMIT_PAGE = 32;
 
