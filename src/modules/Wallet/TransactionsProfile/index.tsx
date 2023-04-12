@@ -1,6 +1,6 @@
 import IcCopy from '@/assets/icons/ic-copy.svg';
 import Table from '@/components/Table';
-import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
+import { createTransactionHistory, getTransactionsByWallet, updateStatusTransaction } from '@/services/profile';
 import { getUserSelector } from '@/state/user/selector';
 import { formatLongAddress } from '@/utils';
 import copy from 'copy-to-clipboard';
@@ -9,6 +9,9 @@ import { useSelector } from 'react-redux';
 import { StyledTransactionProfile } from './TransactionsProfile.styled';
 import { toast } from 'react-hot-toast';
 import useBatchCompleteUninscribedTransaction from '@/hooks/contract-operations/useBatchCompleteUninscribedTransaction';
+import * as TC_SDK from 'trustless-computer-sdk';
+import { TC_NETWORK_RPC } from '@/configs';
+import useAsyncEffect from 'use-async-effect';
 
 type Props = {
   pendingList: string[];
@@ -61,6 +64,21 @@ const TransactionsProfile = ({ pendingList }: Props) => {
     }
   };
 
+  const fetchTransactionStatus = async (tx: string) => {
+    if (user && user.walletAddress) {
+      try {
+        // const res = await getTransactionsByWallet({ walletAddress: user.walletAddress });
+        const tcClient = new TC_SDK.TcClient(TC_SDK.Mainnet, TC_NETWORK_RPC);
+        const res = await tcClient.getTCTxByHash(tx);
+        if (res && res.blockHash) {
+          await updateStatusTransaction({ txHash: [tx] });
+        }
+      } catch (error) {
+        console.log('Fail to get transactions');
+      }
+    }
+  };
+
   const transactionsData = transactions?.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (trans: any, index: number) => {
@@ -93,6 +111,22 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   useEffect(() => {
     if (user) fetchTransactionHistory();
   }, [user, transactionConfirmed]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (transactions && transactions.length > 0)
+        transactions.map((tx: any) => {
+          if (tx.status === TransactionStatus.PENDING) {
+            fetchTransactionStatus(tx.txHash);
+          }
+        });
+    }, 3000);
+  }, []);
+
+  useAsyncEffect(async () => {
+    if (transactions && transactions.length > 0) {
+    }
+  }, [transactions]);
 
   return (
     <StyledTransactionProfile>
