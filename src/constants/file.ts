@@ -24,6 +24,8 @@ export const HTML_EXTENSION = 'html';
 export const CSS_EXTENSION = 'css';
 export const GLB_EXTENSION = 'glb';
 export const JSON_EXTENSION = 'json';
+export const ZIP_EXTENSION = 'zip';
+export const STATIC_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 export const IMAGE_EXTENSIONS = [
   'apng',
   'avif',
@@ -41,28 +43,6 @@ export const IMAGE_EXTENSIONS = [
   'cur',
   'tif',
   'tiff',
-];
-
-export const SUPPORT_INSCRIBE_IMAGE = [
-  'apng',
-  'asc',
-  'flac',
-  'gif',
-  'glb',
-  'html',
-  'jpg',
-  'json',
-  'mp3',
-  'mp4',
-  'pdf',
-  'png',
-  'stl',
-  'svg',
-  'txt',
-  'wav',
-  'webm',
-  'webp',
-  'yaml',
 ];
 
 export const SUPPORTED_FILE_EXT: Array<{ mediaType: MediaType; ext: string }> = [
@@ -135,3 +115,5 @@ export const SUPPORTED_FILE_EXT: Array<{ mediaType: MediaType; ext: string }> = 
     ext: 'txt',
   },
 ];
+
+export const ERC721_SUPPORTED_EXTENSIONS = [...STATIC_IMAGE_EXTENSIONS, ZIP_EXTENSION];
