@@ -113,15 +113,13 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   }, [user, transactionConfirmed]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (transactions && transactions.length > 0)
-        transactions.map((tx: any) => {
-          if (tx.status === TransactionStatus.PENDING) {
-            fetchTransactionStatus(tx.txHash);
-          }
-        });
-    }, 3000);
-  }, []);
+    if (transactions && transactions.length > 0)
+      transactions.map((tx: any) => {
+        if (tx.status === TransactionStatus.PENDING) {
+          fetchTransactionStatus(tx.txHash);
+        }
+      });
+  }, [transactions]);
 
   useAsyncEffect(async () => {
     if (transactions && transactions.length > 0) {
