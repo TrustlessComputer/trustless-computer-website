@@ -7,6 +7,7 @@ import useBitcoin from '../useBitcoin';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
 import { AssetsContext } from '@/contexts/assets-context';
+import { updateStatusTransaction } from '@/services/profile';
 
 interface IParams {
   chainId?: SupportedChainId;
@@ -67,10 +68,14 @@ const useCompleteUninscribedTransaction = (args: IParams) => {
       console.log('feeRatePerByte', feeRate.fastestFee);
 
       // Make inscribe transaction
-      await createInscribeTx({
+      const { commitTxID, revealTxID } = await createInscribeTx({
         tcTxIDs: [...unInscribedTxIDs],
         feeRatePerByte: feeRate.fastestFee,
       });
+
+      if (commitTxID && revealTxID) {
+        await updateStatusTransaction({ txHash: [...unInscribedTxIDs] });
+      }
     } catch (err) {
       console.log(err);
       throw err;
