@@ -3,23 +3,25 @@ import px2rem from '@/utils/px2rem';
 
 export const Styled = styled.a`
   width: 100%;
-  height: auto;
+  height: 100%;
   text-decoration: none !important;
   --bs-card-bg: none;
 
-  .card-content {
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['2e']};
-    border: 1px solid transparent;
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['2e']};
+  border: 1px solid transparent;
 
-    :hover {
-      border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['d9']};
-    }
+  :hover {
+    border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['d9']};
+  }
+
+  .card-content {
   }
 
   .card-image {
     background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
     min-height: ${px2rem(180)};
     padding: ${px2rem(32)};
+    position: relative;
 
     .image {
       width: 100%;
@@ -27,6 +29,14 @@ export const Styled = styled.a`
       aspect-ratio: 1 / 1;
       height: auto;
       object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
     }
   }
 

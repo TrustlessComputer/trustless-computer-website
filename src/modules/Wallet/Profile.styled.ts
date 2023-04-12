@@ -94,6 +94,12 @@ export const TabContainer = styled.div`
       color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
       font-weight: 500;
     }
+
+    &.disable {
+      display: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
   }
 
   .tab-content {

@@ -1,4 +1,4 @@
-import { ContractOperationHook, DeployContractResponse } from '@/interfaces/contract-operation';
+import { ContractOperationHook, DAppType, DeployContractResponse } from '@/interfaces/contract-operation';
 import ERC20ABIJson from '@/abis/erc20.json';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback, useContext } from 'react';
@@ -66,6 +66,7 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
 
   return {
     call: call,
+    dAppType: DAppType.ERC20,
   };
 };
 

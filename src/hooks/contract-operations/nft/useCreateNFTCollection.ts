@@ -1,4 +1,4 @@
-import { ContractOperationHook, DeployContractResponse } from '@/interfaces/contract-operation';
+import { ContractOperationHook, DAppType, DeployContractResponse } from '@/interfaces/contract-operation';
 import ERC721ABIJson from '@/abis/erc721.json';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback, useContext } from 'react';
@@ -58,6 +58,7 @@ const useCreateNFTCollection: ContractOperationHook<
 
   return {
     call: call,
+    dAppType: DAppType.ERC721,
   };
 };
 
