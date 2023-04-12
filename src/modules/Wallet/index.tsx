@@ -22,6 +22,10 @@ import { StyledProfile, TabContainer } from './Profile.styled';
 import TokensProfile from './TokensProfile';
 import UserInfo from './UserInfo';
 import TransactionsProfile from './TransactionsProfile';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '@/state/user/selector';
+import useBitcoin from '@/hooks/useBitcoin';
+import useCompleteUninscribedTransaction from '@/hooks/contract-operations/useCompleteUninscribedTransaction';
 
 const Wallet = () => {
   const accessToken = getAccessToken();
@@ -33,6 +37,27 @@ const Wallet = () => {
   const [_, setSearchParams] = useSearchParams();
 
   const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
+
+  const user = useSelector(getUserSelector);
+  const { getUnInscribedTransactionByAddress } = useBitcoin();
+  const { run } = useCompleteUninscribedTransaction({});
+
+  const [transactions, setTransactions] = useState<string[]>([]);
+
+  const fetchTransactions = async () => {
+    if (user && user.walletAddress) {
+      try {
+        const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
+        setTransactions(unInscribedTxIDs);
+      } catch (err: unknown) {
+        console.log('Fail to get transactions');
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (user) fetchTransactions();
+  }, [user]);
 
   useEffect(() => {
     if (tab) {
@@ -54,6 +79,7 @@ const Wallet = () => {
   };
 
   const handleResumeTransactions = () => {
+    run();
     console.log('resume all transactions');
   };
 
@@ -132,13 +158,16 @@ const Wallet = () => {
               </div>
             }
           >
-            <TransactionsProfile />
+            <TransactionsProfile transactionList={transactions} />
           </Tab>
           <Tab
             // eventKey={DappsTabs.NAMES}
             title={
               activeTab === DappsTabs.TRANSACTION ? (
-                <div className="explore-btn" onClick={handleResumeTransactions}>
+                <div
+                  className={`explore-btn ${transactions.length === 0 ? 'disable' : ''}`}
+                  onClick={handleResumeTransactions}
+                >
                   <Text className="font-ibm" size="regular">
                     Resume all transactions
                   </Text>
