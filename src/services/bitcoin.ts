@@ -46,8 +46,11 @@ export const getPendingUTXOs = async (btcAddress: string): Promise<IPendingUTXO[
   let pendingUTXOs = [];
   if (!btcAddress) return [];
   try {
-    const res = await apiClient.get(`https://blockstream.info/api/address/${btcAddress}/txs`);
-    pendingUTXOs = (res.data || []).filter((item: IPendingUTXO) => !item.status.confirmed);
+    // const res = await apiClient.get(`https://blockstream.info/api/address/${btcAddress}/txs`);
+    const res = await fetch(`https://blockstream.info/api/address/${btcAddress}/txs`).then(res => {
+      return res.json();
+    });
+    pendingUTXOs = (res || []).filter((item: IPendingUTXO) => !item.status.confirmed);
   } catch (err) {
     return [];
   }

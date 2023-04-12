@@ -78,11 +78,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       const unInscribedTxIDs = await getUnInscribedTransactionByAddress(user.walletAddress);
       console.timeEnd('____unInscribedTxIDsLoadTime');
 
-      const txs = await getTransactionsByWallet({ walletAddress: user.walletAddress });
-
-      const hasPendingTx = txs.some((tx: any) => tx.status === 'pending');
-
-      if (unInscribedTxIDs.length > 0 || hasPendingTx) {
+      if (unInscribedTxIDs.length > 0) {
         throw Error('You have some pending transactions. Please complete all of them before moving on.');
       }
 
