@@ -68,14 +68,14 @@ const useCompleteUninscribedTransaction = (args: IParams) => {
       console.log('feeRatePerByte', feeRate.fastestFee);
 
       // Make inscribe transaction
-      const { commitTxID, revealTxID } = await createInscribeTx({
+      await createInscribeTx({
         tcTxIDs: [...unInscribedTxIDs],
         feeRatePerByte: feeRate.fastestFee,
       });
 
-      if (commitTxID && revealTxID) {
-        await updateStatusTransaction({ txHash: [...unInscribedTxIDs] });
-      }
+      // if (commitTxID && revealTxID) {
+      //   await updateStatusTransaction({ txHash: [...unInscribedTxIDs] });
+      // }
     } catch (err) {
       console.log(err);
       throw err;

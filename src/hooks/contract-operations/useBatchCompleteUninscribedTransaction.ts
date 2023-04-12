@@ -75,13 +75,10 @@ const useBatchCompleteUninscribedTransaction = (args: IParams) => {
         feeRatePerByte: feeRate.fastestFee,
       });
 
-      if (res) {
-        const updateConfirm = await updateStatusTransaction({ txHash: unInscribedTxDetails.map(tx => tx.Hash) });
-        if (updateConfirm && updateConfirm.length > 0) {
-          toast.success('Transaction completed successfully');
-          setTransactionConfirmed(true);
-          // console.log('updateConfirm', updateConfirm);
-        }
+      if (res && res.length > 0) {
+        // toast.success('Transaction completed successfully');
+        setTransactionConfirmed(true);
+        // console.log('updateConfirm', updateConfirm);
       }
     } catch (err: any) {
       console.log(err);
