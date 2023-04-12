@@ -107,7 +107,7 @@ const Collection = () => {
           </InfiniteScroll>
         </div>
       </div>
-      {collection && (
+      {collection && showModalEdit && (
         <ModalEdit collection={collection} show={showModalEdit} handleClose={() => setShowModalEdit(false)} />
       )}
     </Container>
