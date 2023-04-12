@@ -31,76 +31,14 @@ const Container = styled.div`
     justify-content: center;
     margin-top: ${px2rem(32)};
   }
-
-  .item {
-    padding: ${px2rem(16)} ${px2rem(12)} !important;
-  }
-
-  .card {
-    width: 100%;
-    height: auto;
-    text-decoration: none;
-    --bs-card-bg: none;
-  }
-
-  .card-content {
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['2e']};
-    border: 1px solid transparent;
-
-    :hover {
-      border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.primary['d9']};
-    }
-  }
-
-  .card-image {
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
-    min-height: ${px2rem(180)};
-    padding: ${px2rem(32)};
-
-    .image {
-      width: 100%;
-      min-height: 100px;
-      aspect-ratio: 1 / 1;
-      height: auto;
-      object-fit: cover;
-    }
-  }
-
-  .card-info {
-    padding: ${px2rem(16)} ${px2rem(24)};
-
-    .card-title {
-      font-style: normal;
-      font-weight: 500;
-      font-size: ${px2rem(20)};
-      line-height: ${px2rem(22)};
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    }
-
-    .card-subTitle {
-      font-style: normal;
-      font-weight: 500;
-      font-size: ${px2rem(18)};
-      line-height: ${px2rem(20)};
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
-    }
-
-    .card-index {
-      font-style: normal;
-      font-weight: 500;
-      font-size: ${px2rem(16)};
-      margin-top: ${px2rem(12)};
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
-    }
-  }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-    .card-image {
-      .image {
-        padding: 24px;
-      }
-    }
-  `}
 `;
 
-export { Container };
+const Grid = styled.div<{ repeat: string }>`
+  display: grid;
+  justify-items: center;
+
+  grid-gap: ${px2rem(24)};
+  grid-template-columns: ${({ repeat }) => repeat};
+`;
+
+export { Container, Grid };

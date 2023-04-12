@@ -1,5 +1,4 @@
-import NFTDisplayBox from '@/components/NFTDisplayBox';
-import WrapImage from '@/components/WrapImage';
+import NFTCard from '@/components/NFTCard';
 import { ICollection } from '@/interfaces/api/collection';
 import { IInscription } from '@/interfaces/api/inscription';
 import { getCollectionDetail, getCollectionNfts } from '@/services/nft-explorer';
@@ -9,9 +8,8 @@ import { debounce } from 'lodash';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useNavigate } from 'react-router-dom';
-import { Container } from './Collection.styled';
+import { Container, Grid } from './Collection.styled';
 import { useWeb3React } from '@web3-react/core';
 import CollectionHeader from './CollectionHeader';
 import ModalEdit from './ModalEdit';
@@ -86,53 +84,26 @@ const Collection = () => {
             }
             next={debounceLoadMore}
           >
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{
-                350: 1,
-                750: 2,
-                900: 3,
-                1240: 4,
-                2500: 5,
-                3000: 5,
-              }}
-            >
-              <Masonry gutter="24px">
-                {inscriptions &&
-                  inscriptions.length > 0 &&
-                  inscriptions.map((item, index) => {
-                    return (
-                      <a
-                        key={index.toString()}
-                        className="card"
-                        href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
-                      >
-                        <div className="card-content">
-                          <div className="card-image">
-                            {item?.image?.endsWith('/content') ? (
-                              <NFTDisplayBox
-                                collectionID={collection?.contract}
-                                contentClass="image"
-                                tokenID={item.tokenId}
-                                type={item.contentType}
-                              />
-                            ) : (
-                              <NFTDisplayBox
-                                collectionID={collection?.contract}
-                                contentClass="image"
-                                src={item.image}
-                              />
-                            )}
-                          </div>
-                          <div className="card-info">
-                            <p className="card-title">{item.name}</p>
-                            <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          </div>
-                        </div>
-                      </a>
-                    );
-                  })}
-              </Masonry>
-            </ResponsiveMasonry>
+            <Grid repeat={`repeat(auto-fit, minmax(348px, ${inscriptions && inscriptions.length > 4 ? 1 : 0.25}fr))`}>
+              {inscriptions &&
+                inscriptions.length > 0 &&
+                inscriptions.map((item, index) => {
+                  return (
+                    <NFTCard
+                      key={index.toString()}
+                      href={`/inscription?contract=${collection?.contract}&id=${item.tokenId}`}
+                      image={item?.image}
+                      contract={collection?.contract}
+                      tokenId={item.tokenId}
+                      contentType={item.contentType}
+                      title1={
+                        item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
+                      }
+                      title2={shortenAddress(item.owner, 4)}
+                    />
+                  );
+                })}
+            </Grid>
           </InfiniteScroll>
         </div>
       </div>
