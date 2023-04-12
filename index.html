@@ -1,84 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="module">
-      import { Buffer } from 'buffer';
-      window.Buffer = Buffer;
-    </script>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preload" href="/fonts/BandeinsStrange-Regular.woff2" as="font" type="font/eot" crossorigin />
-    <style>
-      * {
-        font-family: 'IBMPlexMono';
-        box-sizing: border-box;
-      }
 
-      /**
+<head>
+  <script type="module">
+    import { Buffer } from 'buffer';
+    window.Buffer = Buffer;
+  </script>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" href="/fonts/BandeinsStrange-Regular.woff2" as="font" type="font/eot" crossorigin />
+  <style>
+    * {
+      font-family: 'IBMPlexMono';
+      box-sizing: border-box;
+    }
+
+    /**
             Explicitly load Inter var from public/ so it does not block LCP's critical path.
           */
-      @font-face {
+    @font-face {
+      font-family: 'Bandeins Strange Variable';
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+      font-named-instance: 'Regular';
+      src: url(/fonts/BandeinsSans-Regular.woff2) format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+      font-named-instance: 'Regular';
+      src: url(/fonts/SourceCodePro-Regular.woff2) format('woff2');
+    }
+
+    @font-face {
+      font-family: 'IBMPlexMono';
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+      font-named-instance: 'Regular';
+      src: url(/fonts/IBMPlexMono-Regular.ttf);
+    }
+
+    @supports (font-variation-settings: normal) {
+      * {
         font-family: 'Bandeins Strange Variable';
-        font-weight: 500;
-        font-style: normal;
-        font-display: block;
-        font-named-instance: 'Regular';
-        src: url(/fonts/BandeinsSans-Regular.woff2) format('woff2');
+        font-weight: 600;
       }
+    }
 
-      @font-face {
-        font-family: 'Source Code Pro';
-        font-weight: 500;
-        font-style: normal;
-        font-display: block;
-        font-named-instance: 'Regular';
-        src: url(/fonts/SourceCodePro-Regular.woff2) format('woff2');
-      }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-      @font-face {
-        font-family: 'IBMPlexMono';
-        font-weight: 500;
-        font-style: normal;
-        font-display: block;
-        font-named-instance: 'Regular';
-        src: url(/fonts/IBMPlexMono-Regular.ttf);
-      }
+    button {
+      user-select: none;
+    }
 
-      @supports (font-variation-settings: normal) {
-        * {
-          font-family: 'Bandeins Strange Variable';
-          font-weight: 600;
-        }
-      }
+    html {
+      font-variant: none;
+      font-smooth: always;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
+    html {
+      min-height: 100%;
+    }
+  </style>
+  <meta property="og:title" content="Trustless Computer" />
+  <meta property="og:description" content="Write smart contracts & build dapps on Bitcoin" />
+  <meta property="og:image" content="https://cdn.trustless.computer/images/seo-image-1.png" />
+  <meta property="og:type" content="website" />
+  <meta property="twitter:title" content="Trustless Computer" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:description" content="Write smart contracts & build dapps on Bitcoin" />
+  <meta name="twitter:image" content="https://cdn.trustless.computer/images/seo-image-1.png" />
+  <title>Trustless computer</title>
+</head>
 
-      button {
-        user-select: none;
-      }
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
 
-      html {
-        font-variant: none;
-        font-smooth: always;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      }
-
-      html {
-        min-height: 100%;
-      }
-    </style>
-    <title>Trustless computer</title>
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
-  </body>
 </html>
