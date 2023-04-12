@@ -1,22 +1,23 @@
 import styled, { DefaultTheme } from 'styled-components';
+import px2rem from '@/utils/px2rem';
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 40px;
-  padding-top: 40px;
+  padding-bottom: ${px2rem(40)};
+  padding-top: ${px2rem(40)};
 
   .content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: 24px;
+    margin-top: ${px2rem(24)};
     width: 100%;
 
     .list {
-      margin-top: 92px;
+      margin-top: ${px2rem(92)};
       min-height: 60vh;
 
       -ms-overflow-style: none; /* IE and Edge */
@@ -30,7 +31,16 @@ const Container = styled.div`
     .loading {
       display: flex;
       justify-content: center;
-      margin-top: 32px;
+      margin-top: ${px2rem(32)};
+    }
+
+    .grid {
+      display: grid;
+      justify-items: center;
+      margin-top: ${px2rem(24)};
+
+      grid-gap: ${px2rem(24)};
+      grid-template-columns: repeat(auto-fit, minmax(348px, 1fr));
     }
   }
 
@@ -38,8 +48,8 @@ const Container = styled.div`
     .content {
 
       .list {
-        margin-top: 264px;
-      } 
+        margin-top: ${px2rem(264)};
+      }
     }
   `}
 `;

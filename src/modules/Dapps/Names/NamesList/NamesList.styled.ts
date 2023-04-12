@@ -73,6 +73,9 @@ const Container = styled.div`
       line-height: 30px;
       letter-spacing: -0.01em;
       color: #ffffff;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     .card-subTitle {
