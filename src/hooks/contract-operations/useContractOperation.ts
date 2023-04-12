@@ -92,7 +92,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       await createTransactionHistory({
         dapp_type: dAppType,
-        tx_hash: tx,
+        tx_hash: tx.hash,
       });
 
       console.log('tcTX', tx);
