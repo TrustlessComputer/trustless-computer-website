@@ -27,6 +27,7 @@ const NFTCard = ({ href, image, thumbnail, contract, tokenId, contentType, title
             tokenID={tokenId}
             type={contentType}
           />
+          <a className="overlay" href={href} />
         </div>
         <div className="card-info">
           {title1 && <p className="card-title1">{title1}</p>}
