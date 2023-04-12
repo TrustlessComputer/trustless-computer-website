@@ -5,6 +5,7 @@ export interface IInscription {
   collection: string;
   name: string;
   tokenId: string;
+  tokenUri: string;
   attributes: [{ traitType: string; value: string }];
   metadataType: string;
   contentType: IMAGE_TYPE;
