@@ -21,6 +21,7 @@ export const Styled = styled.a`
     background: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
     min-height: ${px2rem(180)};
     padding: ${px2rem(32)};
+    position: relative;
 
     .image {
       width: 100%;
@@ -28,6 +29,14 @@ export const Styled = styled.a`
       aspect-ratio: 1 / 1;
       height: auto;
       object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
     }
   }
 
