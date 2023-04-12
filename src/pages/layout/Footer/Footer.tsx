@@ -16,6 +16,9 @@ const Wrapper = styled.div`
   margin-top: ${px2rem(140)};
   flex-wrap: wrap;
   gap: ${px2rem(32)};
+  @media screen and (max-width: ${({ theme }: { theme: DefaultTheme }) => theme.breakpoint.md}) {
+    gap: ${px2rem(16)};
+  }
 
   .text {
     font-style: normal;
@@ -27,6 +30,7 @@ const Wrapper = styled.div`
 
     @media screen and (max-width: ${({ theme }: { theme: DefaultTheme }) => theme.breakpoint.md}) {
       order: 2;
+      padding-bottom: ${px2rem(32)};
     }
   }
 
@@ -35,6 +39,10 @@ const Wrapper = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: ${px2rem(32)};
+
+    @media screen and (max-width: ${({ theme }: { theme: DefaultTheme }) => theme.breakpoint.md}) {
+      order: 1;
+    }
 
     a {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
