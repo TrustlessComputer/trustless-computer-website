@@ -14,6 +14,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: ${px2rem(140)};
+  flex-wrap: wrap;
+  gap: ${px2rem(32)};
 
   .text {
     font-style: normal;
@@ -22,11 +24,16 @@ const Wrapper = styled.div`
     line-height: ${px2rem(26)};
     margin-right: ${px2rem(16)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+
+    @media screen and (max-width: ${({ theme }: { theme: DefaultTheme }) => theme.breakpoint.md}) {
+      order: 2;
+    }
   }
 
   .footer-right {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: ${px2rem(32)};
 
     a {

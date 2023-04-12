@@ -40,6 +40,9 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     gap: ${px2rem(32)};
+    position: absolute;
+    left: 50%;
+    transform: translateX(-47%);
   }
 
   .rightContainer {
