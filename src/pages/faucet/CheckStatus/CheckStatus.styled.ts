@@ -98,7 +98,7 @@ const StyledTable = styled.div`
     }
 
     td:nth-child(1) {
-      max-width: ${px2rem(290)};
+      max-width: ${px2rem(250)};
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
