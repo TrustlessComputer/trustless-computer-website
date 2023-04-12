@@ -94,7 +94,7 @@ const CollectionProfile = (props: Props) => {
                   >
                     <div className="card-content">
                       <div className="card-image">
-                        <NFTDisplayBox contentClass="image" src={item.thumbnail} />
+                        <NFTDisplayBox contentClass="image" thumbnail={item.thumbnail} />
                       </div>
                       <div className="card-info">
                         <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
