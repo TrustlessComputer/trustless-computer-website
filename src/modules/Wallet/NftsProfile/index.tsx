@@ -91,7 +91,7 @@ const NftsProfile = () => {
                   <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
                     <div className="card-content">
                       <div className="card-image">
-                        <NFTDisplayBox contentClass="image" src={item.metadata.image} />
+                        <NFTDisplayBox contentClass="image" thumbnail={item.metadata.image} />
                       </div>
                       <div className="card-info">
                         <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>

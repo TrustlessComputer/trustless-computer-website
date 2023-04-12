@@ -10,6 +10,7 @@ import Skeleton from '../Skeleton';
 interface IProps {
   className?: string;
   contentClass?: string;
+  thumbnail?: string;
   src?: string;
   collectionID?: string;
   tokenID?: string;
@@ -22,6 +23,7 @@ interface IProps {
 const NFTDisplayBox = ({
   className,
   contentClass,
+  thumbnail,
   src,
   type,
   collectionID,
@@ -120,8 +122,8 @@ const NFTDisplayBox = ({
   const renderEmpty = () => <img alt="empty" className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
   useEffect(() => {
-    if (src && src.startsWith('https://')) {
-      setHTMLContentRender(renderImage(src));
+    if (thumbnail) {
+      setHTMLContentRender(renderImage(thumbnail));
     } else if (src && src.startsWith('/dapp') && !type) {
       const content = getImageURLContent(src);
       setHTMLContentRender(renderIframe(content));

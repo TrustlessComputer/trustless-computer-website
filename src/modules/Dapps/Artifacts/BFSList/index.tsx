@@ -7,9 +7,8 @@ import { debounce } from 'lodash';
 import React, { useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import useSWR from 'swr';
-import { Container } from './BFSList.styled';
+import { Container, Grid } from './BFSList.styled';
 
 const LIMIT_PAGE = 32;
 
@@ -67,7 +66,7 @@ const BFSList = () => {
           }
           next={onLoadMoreNfts}
         >
-          <div className="grid">
+          <Grid repeat={`repeat(auto-fit, minmax(348px, ${inscriptions && inscriptions.length > 4 ? 1 : 0.25}fr))`}>
             {inscriptions &&
               inscriptions.length > 0 &&
               inscriptions.map((item, index) => {
@@ -85,7 +84,7 @@ const BFSList = () => {
                   />
                 );
               })}
-          </div>
+          </Grid>
         </InfiniteScroll>
       </div>
     </Container>
