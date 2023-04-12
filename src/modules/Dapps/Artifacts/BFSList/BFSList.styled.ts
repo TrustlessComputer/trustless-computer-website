@@ -26,14 +26,6 @@ const Container = styled.div`
     }
   }
 
-  .grid {
-    display: grid;
-    justify-items: center;
-
-    grid-gap: ${px2rem(24)};
-    grid-template-columns: repeat(auto-fit, minmax(348px, 1fr));
-  }
-
   .loading {
     display: flex;
     justify-content: center;
@@ -41,4 +33,12 @@ const Container = styled.div`
   }
 `;
 
-export { Container };
+const Grid = styled.div<{ repeat: string }>`
+  display: grid;
+  justify-items: center;
+
+  grid-gap: ${px2rem(24)};
+  grid-template-columns: ${({ repeat }) => repeat};
+`;
+
+export { Container, Grid };
