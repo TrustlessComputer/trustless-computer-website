@@ -21,7 +21,7 @@ const NftsProfile = () => {
 
   const profileWallet = account || '';
 
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
   const [inscriptions, setInscriptions] = useState<IInscription[]>([]);
