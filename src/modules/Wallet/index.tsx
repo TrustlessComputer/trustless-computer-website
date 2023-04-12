@@ -161,7 +161,6 @@ const Wallet = () => {
             <TransactionsProfile transactionList={transactions} />
           </Tab>
           <Tab
-            // eventKey={DappsTabs.NAMES}
             title={
               activeTab === DappsTabs.TRANSACTION ? (
                 <div
