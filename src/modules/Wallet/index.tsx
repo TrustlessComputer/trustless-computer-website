@@ -95,6 +95,7 @@ const Wallet = () => {
       <TabContainer className="wrapper col-xl-9 offset-xl-1">
         <Tabs defaultActiveKey={activeTab} id="uncontrolled-tab" onSelect={key => setActiveTab(key || DappsTabs.NFT)}>
           <Tab
+            mountOnEnter
             eventKey={DappsTabs.NFT}
             title={
               <div className="tab-item">
@@ -109,6 +110,7 @@ const Wallet = () => {
             <NftsProfile />
           </Tab>
           <Tab
+            mountOnEnter
             eventKey={DappsTabs.TOKEN}
             title={
               <div className="tab-item">
@@ -122,6 +124,7 @@ const Wallet = () => {
             <TokensProfile />
           </Tab>
           <Tab
+            mountOnEnter
             eventKey={DappsTabs.ARTIFACT}
             // className={tab === 'files' ? 'active' : ''}
             title={
@@ -136,6 +139,7 @@ const Wallet = () => {
             <ArtifactsProfile />
           </Tab>
           <Tab
+            mountOnEnter
             eventKey={DappsTabs.NAMES}
             title={
               <div className="tab-item">
@@ -149,6 +153,7 @@ const Wallet = () => {
             <NamesProfile />
           </Tab>
           <Tab
+            mountOnEnter
             eventKey={DappsTabs.TRANSACTION}
             title={
               <div className="tab-item">
@@ -163,6 +168,7 @@ const Wallet = () => {
           </Tab>
 
           <Tab
+            mountOnEnter
             title={
               activeTab === DappsTabs.TRANSACTION ? (
                 <div
@@ -170,7 +176,7 @@ const Wallet = () => {
                   onClick={handleResumeTransactions}
                 >
                   <Text className="font-ibm" size="regular">
-                    {`Resume ${transactions.length} transaction${transactions.length > 1 ? 's' : ''}`}
+                    {`Resume all pendings`}
                   </Text>
                   {/* <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" /> */}
                 </div>

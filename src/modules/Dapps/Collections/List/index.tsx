@@ -57,9 +57,9 @@ const Collections = () => {
     <Container>
       <div className="showAll" onClick={() => setIsShowAll(!isShowAll)}>
         {isShowAll ? (
-          <IconSVG src={IcCheckedBox} color="white"></IconSVG>
+          <IconSVG src={IcCheckedBox} color="white" maxWidth="24px"></IconSVG>
         ) : (
-          <IconSVG src={IcCheckBox} color="white" type="stroke"></IconSVG>
+          <IconSVG src={IcCheckBox} color="white" type="stroke" maxWidth="24px"></IconSVG>
         )}
         <p>Show all</p>
       </div>
