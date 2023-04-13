@@ -2,14 +2,18 @@ import px2rem from '@/utils/px2rem';
 import styled, { DefaultTheme } from 'styled-components';
 
 export const StyledTransactionProfile = styled.div`
+  .transactions {
+    height: 100vh;
+  }
+
   .status {
     text-transform: capitalize;
 
     &.confirmed {
       color: #00aa6c;
     }
-    &.resume {
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.red};
+    &.processing {
+      color: #4185ec;
     }
     &.pending {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.yellow.b};
