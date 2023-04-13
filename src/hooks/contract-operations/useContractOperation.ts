@@ -10,6 +10,7 @@ import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/select
 import { AssetsContext } from '@/contexts/assets-context';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
+import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -23,7 +24,7 @@ interface IContractOperationReturn<P, R> {
 
 const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
-  const { call } = operation();
+  const { call, dAppType } = operation();
   const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
   const { chainId: walletChainId } = useWeb3React();
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
@@ -84,10 +85,15 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       console.log('unInscribedTxIDs', unInscribedTxIDs);
 
       console.time('____metamaskCreateTxTime');
-      const tx: any = await call({
+      const tx: R = await call({
         ...params,
       });
       console.timeEnd('____metamaskCreateTxTime');
+
+      await createTransactionHistory({
+        dapp_type: dAppType,
+        tx_hash: Object(tx).hash,
+      });
 
       console.log('tcTX', tx);
 
@@ -95,7 +101,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Make inscribe transaction
       await createInscribeTx({
-        tcTxIDs: [...unInscribedTxIDs, tx.hash],
+        tcTxIDs: [...unInscribedTxIDs, Object(tx).hash],
         feeRatePerByte: feeRate.fastestFee,
       });
 

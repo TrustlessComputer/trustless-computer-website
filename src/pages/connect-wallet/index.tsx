@@ -14,7 +14,6 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
   const { onConnect, generateBitcoinKey, onDisconnect } = useContext(WalletContext);
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
   const user = useSelector(getUserSelector);
-  const activePath = location.pathname.split('/')[1];
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
   const [isConnecting, setIsConnecting] = useState(false);
@@ -47,14 +46,6 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
     <Container>
       <Wrapper>
         <div className="header">
-          {/* <Anchor
-            active={activePath === MENU_HEADER[4].activePath}
-            href={MENU_HEADER[4].route}
-            target={MENU_HEADER[4].target}
-            key={MENU_HEADER[4].id}
-          >
-            {MENU_HEADER[4].name}
-          </Anchor> */}
           <div className="socialContainer">
             <a href="https://discord.com/channels/1052411011036090458/1094649301210239086" target="_blank">
               <img alt="icon" className="icon" src={`${CDN_URL}/icons/ic-discord-18x18.svg`} />
@@ -65,7 +56,13 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
           </div>
         </div>
         <div className="mainContent">
-          <img className="logo" src={`${CDN_URL}/images/trustless-logo.svg`} alt="trustless computer logo" />
+          <img
+            width={292}
+            height={118}
+            className="logo"
+            src={`${CDN_URL}/images/trustless-logo-1.svg`}
+            alt="trustless computer logo"
+          />
           <h1 className="title">
             Trustless Computer is an open-source protocol that powers decentralized applications on Bitcoin.
           </h1>

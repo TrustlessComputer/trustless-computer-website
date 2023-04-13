@@ -1,11 +1,11 @@
 import FileType from 'file-type/browser';
-import { IMAGE_EXTENSIONS, NAIVE_MIMES, SUPPORTED_FILE_EXT, SUPPORT_INSCRIBE_IMAGE } from '@/constants/file';
+import { ERC721_SUPPORTED_EXTENSIONS, IMAGE_EXTENSIONS, NAIVE_MIMES, SUPPORTED_FILE_EXT } from '@/constants/file';
 import { unzip } from 'unzipit';
 import { MASOX_SYSTEM_PREFIX } from '@/constants/sandbox';
-import { MediaType } from '@/enums/file';
 import { Buffer } from 'buffer';
+import { MediaType } from '@/enums/file';
 
-export const readFileAsBuffer = (file: File): Promise<Buffer> => {
+export const readFileAsBuffer = (file: File | Blob): Promise<Buffer> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -58,7 +58,7 @@ export const getFileExtensionByFileName = (fileName: string): string | null => {
   return fileExt ?? null;
 };
 
-export const fileToBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
+export const fileToBase64 = (file: File | Blob): Promise<string | ArrayBuffer | null> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -79,10 +79,6 @@ export const blobToBase64 = (blob: Blob): Promise<string | ArrayBuffer | null> =
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
-
-export const getSupportedFileExtList = (): Array<string> => {
-  return SUPPORTED_FILE_EXT.map(item => item.ext);
-};
 
 export const getMediaTypeFromFileExt = (ext: string): MediaType | null => {
   const supportedFile = SUPPORTED_FILE_EXT.find(item => {
@@ -107,15 +103,6 @@ export const isImageFile = (file: File): boolean => {
   return IMAGE_EXTENSIONS.includes(fileExt);
 };
 
-export const isInscribeImageFile = (file: File): boolean => {
-  const fileName = file.name;
-  const fileExt = getFileExtensionByFileName(fileName);
-  if (!fileExt) {
-    return false;
-  }
-  return SUPPORT_INSCRIBE_IMAGE.includes(fileExt);
-};
-
 export const readFileAsText = (file: File | Blob): Promise<string | ArrayBuffer | null> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -130,4 +117,12 @@ export const readFileAsText = (file: File | Blob): Promise<string | ArrayBuffer 
 
     reader.readAsText(file);
   });
+};
+
+export const isERC721SupportedExt = (fileExt: string | null | undefined): boolean => {
+  if (!fileExt) {
+    return false;
+  }
+
+  return ERC721_SUPPORTED_EXTENSIONS.some((ext: string) => ext.toLowerCase() === fileExt.toLowerCase());
 };

@@ -67,7 +67,6 @@ const NamesProfile = () => {
   return (
     <Container>
       <div className="content">
-        Test
         <InfiniteScroll
           className="list"
           dataLength={collections.length}

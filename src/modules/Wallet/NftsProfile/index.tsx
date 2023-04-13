@@ -1,17 +1,16 @@
+import Empty from '@/components/Empty';
 import NFTDisplayBox from '@/components/NFTDisplayBox';
-import { getNFTsByWalletAddress } from '@/services/nft-explorer';
+import { ICollection } from '@/interfaces/api/collection';
+import { getCollectionsByItemsOwned } from '@/services/profile';
 import { shortenAddress } from '@/utils';
-import { getApiKey } from '@/utils/swr';
 import { useWeb3React } from '@web3-react/core';
 import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import useSWR from 'swr';
 import { Container } from './NftsProfile.styled';
-import Empty from '@/components/Empty';
-import { IInscription } from '@/interfaces/api/inscription';
+import NFTCard from '@/components/NFTCard';
 
 // type Props = {};
 const LIMIT_PAGE = 32;
@@ -24,35 +23,51 @@ const NftsProfile = () => {
   // const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
-  const [inscriptions, setInscriptions] = useState<IInscription[]>([]);
+  const [collections, setCollections] = useState<ICollection[]>([]);
 
-  const fetchInscriptions = async (page = 1, isFetchMore = false) => {
+  // const fetchInscriptions = async (page = 1, isFetchMore = false) => {
+  //   try {
+  //     setIsFetching(true);
+  //     const data = await getNFTsByWalletAddress({ walletAddress: profileWallet, limit: pageSize, page: page });
+  //     if (isFetchMore) {
+  //       setCollections(prev => [...prev, ...data]);
+  //     } else {
+  //       setCollections(data);
+  //     }
+  //   } catch (error) {
+  //   } finally {
+  //     setIsFetching(false);
+  //   }
+  // };
+
+  const fetchCollections = async (page = 1, isFetchMore = false) => {
     try {
       setIsFetching(true);
-      const data = await getNFTsByWalletAddress({ walletAddress: profileWallet, limit: pageSize, page: page });
+      const data = await getCollectionsByItemsOwned({ walletAddress: profileWallet, limit: pageSize, page: page });
       if (isFetchMore) {
-        setInscriptions(prev => [...prev, ...data]);
+        setCollections(prev => [...prev, ...data]);
       } else {
-        setInscriptions(data);
+        setCollections(data);
       }
     } catch (error) {
     } finally {
       setIsFetching(false);
     }
   };
+
   const onLoadMoreCollections = () => {
-    if (isFetching || inscriptions.length % LIMIT_PAGE !== 0) return;
-    const page = Math.floor(inscriptions.length / LIMIT_PAGE) + 1;
-    fetchInscriptions(page, true);
+    if (isFetching || collections.length % LIMIT_PAGE !== 0) return;
+    const page = Math.floor(collections.length / LIMIT_PAGE) + 1;
+    fetchCollections(page, true);
   };
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
 
   useEffect(() => {
-    if (profileWallet) fetchInscriptions();
+    if (profileWallet) fetchCollections();
   }, [profileWallet]);
 
-  if (!inscriptions || inscriptions.length === 0)
+  if (!collections || collections.length === 0)
     return (
       <Container>
         <Empty />
@@ -63,7 +78,7 @@ const NftsProfile = () => {
     <Container>
       <InfiniteScroll
         className="list"
-        dataLength={inscriptions.length}
+        dataLength={collections.length}
         hasMore={true}
         loader={
           isFetching && (
@@ -85,20 +100,17 @@ const NftsProfile = () => {
           }}
         >
           <Masonry gutter="24px">
-            {inscriptions.length > 0 &&
-              inscriptions.map((item: any, index: number) => {
+            {collections.length > 0 &&
+              collections.map((item: any, index: number) => {
                 return (
-                  <a key={index.toString()} className="card" href={`/collection?contract=${item.contract}`}>
-                    <div className="card-content">
-                      <div className="card-image">
-                        <NFTDisplayBox contentClass="image" thumbnail={item.metadata.image} />
-                      </div>
-                      <div className="card-info">
-                        <p className="card-title">{item.name || shortenAddress(item.contract, 6)}</p>
-                        <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                      </div>
-                    </div>
-                  </a>
+                  <NFTCard
+                    key={index.toString()}
+                    href={`/collection?contract=${item.contract}&owner=${profileWallet}`}
+                    image={item.thumbnail}
+                    title1={item.name || shortenAddress(item.contract, 6)}
+                    title2={shortenAddress(item.creator, 4)}
+                    title3={`Collection #${item.index}`}
+                  />
                 );
               })}
           </Masonry>

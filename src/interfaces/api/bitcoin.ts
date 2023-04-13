@@ -124,6 +124,7 @@ interface Vin {
 interface Vout {
   scriptpubkey_address: string;
   value: string;
+  scriptpubkey: string;
 }
 
 export interface Status {
@@ -134,6 +135,7 @@ export interface IPendingUTXO {
   vin: Vin[];
   vout: Vout[];
   status: Status;
+  txid: string;
 }
 
 export type IThorAssetsType = 'BTC.BTC' | 'ETH.ETH';
