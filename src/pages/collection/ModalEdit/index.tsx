@@ -13,7 +13,8 @@ import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 import IcUpload from '@/assets/icons/ic_upload_image.svg';
 import toast from 'react-hot-toast';
-import { readFileAsBuffer } from '@/utils/file';
+import { updateCollection } from '@/services/nft-explorer';
+import { uploadFile } from '@/services/file';
 
 type Props = {
   collection: ICollection;
@@ -59,6 +60,7 @@ const ModalEdit = (props: Props) => {
 
   const validateForm = (values: IFormValue): Record<string, string> => {
     const errors: Record<string, string> = {};
+    setError('');
 
     if (!values.name) {
       errors.name = 'Name is required.';
@@ -73,15 +75,24 @@ const ModalEdit = (props: Props) => {
   const handleSubmit = async (values: IFormValue): Promise<void> => {
     const { name, description } = values;
     try {
+      setError('');
       setIsProcessing(true);
-      let fileBuffer;
-      if (file) {
-        fileBuffer = await readFileAsBuffer(file);
-      }
 
-      // onUpdateSuccess();
-      // toast.success('Your collection has been updated successfully');
-    } catch (error) {
+      let uploadRes;
+      if (file) {
+        uploadRes = await uploadFile({ file });
+      }
+      await updateCollection({
+        contractAddress: collection.contract,
+        payload: uploadRes ? { description, name, thumbnail: uploadRes.url } : { description, name },
+      });
+
+      onUpdateSuccess();
+      toast.success('Your collection has been updated successfully');
+    } catch (error: any) {
+      if (error && error.message) {
+        setError(error.message);
+      }
     } finally {
       setIsProcessing(false);
     }

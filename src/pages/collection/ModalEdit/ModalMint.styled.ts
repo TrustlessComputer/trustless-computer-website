@@ -58,7 +58,7 @@ export const StyledModalUpload = styled(Modal)`
   }
 
   .error-text {
-    margin-bottom: ${px2rem(16)};
+    margin-top: ${px2rem(8)};
     font-weight: 500;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
   }
@@ -75,7 +75,6 @@ export const StyledModalUpload = styled(Modal)`
     border-radius: 2px;
     height: ${px2rem(48)};
     cursor: pointer;
-    margin-bottom: ${px2rem(16)};
 
     .upload-text {
       padding-top: ${px2rem(11)};
@@ -88,6 +87,7 @@ export const StyledModalUpload = styled(Modal)`
 
   .confirm-btn {
     width: 100%;
+    margin-top: ${px2rem(16)};
 
     .confirm-text {
       padding-top: ${px2rem(11)};
