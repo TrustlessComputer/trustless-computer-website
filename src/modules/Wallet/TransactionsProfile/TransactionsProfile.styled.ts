@@ -23,6 +23,8 @@ export const StyledTransactionProfile = styled.div`
   .tableData_item {
     padding-top: ${px2rem(13)};
     padding-bottom: ${px2rem(13)};
+    vertical-align: middle;
+    font-weight: 500;
   }
 
   .tx-wrapper {
@@ -33,5 +35,9 @@ export const StyledTransactionProfile = styled.div`
     .icCopy {
       cursor: pointer;
     }
+  }
+
+  .tx-link {
+    color: #b1e3ff;
   }
 `;

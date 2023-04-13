@@ -76,7 +76,16 @@ const useBatchCompleteUninscribedTransaction = (args: IParams) => {
       });
 
       if (res && res.length > 0) {
-        // toast.success('Transaction completed successfully');
+        toast.success('Transaction completed successfully');
+        const payloadUpdate = res.map(txs => {
+          return {
+            tx_hash: [...txs.tcTxIDs],
+            btc_hash: txs.revealTxID,
+            status: 'pending',
+          };
+        });
+
+        updateStatusTransaction(payloadUpdate);
         setTransactionConfirmed(true);
         // console.log('updateConfirm', updateConfirm);
       }
