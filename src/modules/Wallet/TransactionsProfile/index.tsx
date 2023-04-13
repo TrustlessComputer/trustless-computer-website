@@ -12,15 +12,19 @@ import useBatchCompleteUninscribedTransaction from '@/hooks/contract-operations/
 import * as TC_SDK from 'trustless-computer-sdk';
 import { TC_NETWORK_RPC } from '@/configs';
 import useAsyncEffect from 'use-async-effect';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { debounce } from 'lodash';
+import { Spinner } from 'react-bootstrap';
+import { ITransaction } from '@/interfaces/transaction';
 
 type Props = {
   pendingList: string[];
 };
 
 enum TransactionStatus {
-  PENDING = 'pending',
+  PENDING = 'processing',
   CONFIRMED = 'confirmed',
-  RESUME = 'resume',
+  RESUME = 'pending',
 }
 
 type TTransaction = {
@@ -29,6 +33,8 @@ type TTransaction = {
   status: string;
 };
 
+const LIMIT_PAGE = 200;
+
 const TransactionsProfile = ({ pendingList }: Props) => {
   const TABLE_HEADINGS = ['Type', 'Transaction ID', 'Status'];
 
@@ -36,30 +42,39 @@ const TransactionsProfile = ({ pendingList }: Props) => {
 
   const { transactionConfirmed } = useBatchCompleteUninscribedTransaction({});
 
-  const [transactions, setTransactions] = useState<any>();
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+  const [procressTx, setProcressTx] = useState<ITransaction[]>();
 
-  const fetchTransactionHistory = async () => {
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchTransactionHistory = async (page = 1, isFetchMore = false) => {
     if (user && user.walletAddress) {
       try {
-        const res = await getTransactionsByWallet({ walletAddress: user.walletAddress });
+        setIsFetching(true);
+        const res = await getTransactionsByWallet({ walletAddress: user.walletAddress, limit: LIMIT_PAGE, page: page });
 
-        const txHashes = res.map((tx: any) => tx.txHash);
+        const txHashes = res.map(tx => tx.txHash);
 
         // filter pendingList not in txHashes
         const pendingListNotInTxHashes = pendingList.filter(txHash => !txHashes.includes(txHash));
+
         for (const txHash of pendingListNotInTxHashes) {
-          await createTransactionHistory({ dapp_type: 'Transfer', tx_hash: txHash });
+          await createTransactionHistory({ dapp_type: '-', tx_hash: txHash });
         }
 
-        const listNotInTxHashes = pendingListNotInTxHashes.map(txHash => ({
-          txHashType: '-',
-          txHash,
-          status: TransactionStatus.RESUME,
-        }));
+        if (isFetchMore) {
+          setTransactions(prev => [...prev, ...res]);
+        } else {
+          setTransactions(res);
+        }
 
-        setTransactions([...res, ...listNotInTxHashes]);
+        const processTxs = res.filter((tx: any) => tx.status === TransactionStatus.PENDING);
+
+        setProcressTx(processTxs);
       } catch (error) {
         console.log('Fail to get transactions');
+      } finally {
+        setIsFetching(false);
       }
     }
   };
@@ -67,25 +82,28 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   const fetchTransactionStatus = async (tx: string) => {
     if (user && user.walletAddress) {
       try {
-        // const res = await getTransactionsByWallet({ walletAddress: user.walletAddress });
         const tcClient = new TC_SDK.TcClient(TC_SDK.Mainnet, TC_NETWORK_RPC);
         const res = await tcClient.getTCTxByHash(tx);
         if (res && res.blockHash) {
           await updateStatusTransaction({ txHash: [tx] });
         }
       } catch (error) {
-        console.log('Fail to get transactions');
+        console.log(`Fail to update transactions ${tx}`);
       }
     }
   };
 
   const transactionsData = transactions?.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (trans: any, index: number) => {
-      const status: string = pendingList.includes(trans.txHash) ? TransactionStatus.RESUME : trans.status;
+    trans => {
+      const keyStatus = trans.status.toUpperCase();
+
+      const status: string = pendingList.includes(trans.txHash)
+        ? TransactionStatus.RESUME
+        : TransactionStatus[keyStatus as keyof typeof TransactionStatus];
 
       return {
-        id: trans,
+        id: trans.id,
         render: {
           type: trans.txHashType,
           tx_id: (
@@ -113,22 +131,38 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   }, [user, transactionConfirmed]);
 
   useEffect(() => {
-    if (transactions && transactions.length > 0)
-      transactions.map((tx: any) => {
-        if (tx.status === TransactionStatus.PENDING) {
-          fetchTransactionStatus(tx.txHash);
-        }
-      });
-  }, [transactions]);
-
-  useAsyncEffect(async () => {
-    if (transactions && transactions.length > 0) {
+    if (procressTx && procressTx.length > 0) {
+      for (const tx of procressTx) {
+        fetchTransactionStatus(tx.txHash);
+      }
     }
-  }, [transactions]);
+  }, [procressTx]);
+
+  const onLoadMoreTransactions = () => {
+    if (isFetching || transactions.length % LIMIT_PAGE !== 0) return;
+    const page = Math.floor(transactions.length / LIMIT_PAGE) + 1;
+    fetchTransactionHistory(page, true);
+  };
+
+  const debounceLoadMore = debounce(onLoadMoreTransactions, 300);
 
   return (
     <StyledTransactionProfile>
-      <Table tableHead={TABLE_HEADINGS} data={transactionsData} className={'transaction-table'} />
+      <InfiniteScroll
+        className="transactions"
+        dataLength={transactions?.length || 0}
+        hasMore={true}
+        loader={
+          isFetching && (
+            <div className="loading">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )
+        }
+        next={debounceLoadMore}
+      >
+        <Table tableHead={TABLE_HEADINGS} data={transactionsData} className={'transaction-table'} />
+      </InfiniteScroll>
     </StyledTransactionProfile>
   );
 };
