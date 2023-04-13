@@ -6,6 +6,13 @@ export const StyledTransactionProfile = styled.div`
     height: 100vh;
   }
 
+  .loading {
+    min-height: ${px2rem(200)};
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+
   .status {
     text-transform: capitalize;
 

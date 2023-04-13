@@ -25,7 +25,6 @@ type Props = {
 export enum TransactionStatus {
   PENDING = 'processing',
   CONFIRMED = 'confirmed',
-  RESUME = 'pending',
 }
 
 const LIMIT_PAGE = 200;
@@ -41,18 +40,18 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   const [procressTx, setProcressTx] = useState<ITransaction[]>();
 
   const [isFetching, setIsFetching] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchTransactionHistory = async (page = 1, isFetchMore = false) => {
     if (user && user.walletAddress) {
       try {
-        setIsFetching(true);
+        setIsLoading(true);
         const res = await getTransactionsByWallet({ walletAddress: user.walletAddress, limit: LIMIT_PAGE, page: page });
 
         const txHashes = res.map(tx => tx.txHash);
 
         // filter pendingList not in txHashes
         const pendingListNotInTxHashes = pendingList.filter(txHash => !txHashes.includes(txHash));
-        console.log('🚀 ~ fetchTransactionHistory ~ pendingListNotInTxHashes:', pendingListNotInTxHashes);
 
         for (const txHash of pendingListNotInTxHashes) {
           await createTransactionHistory({ dapp_type: 'Others', tx_hash: txHash });
@@ -64,7 +63,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
           setTransactions(res);
         }
 
-        const processTxs = res.filter((tx: any) => tx.status === TransactionStatus.PENDING);
+        const processTxs = res.filter(tx => tx.status === 'pending');
 
         setProcressTx(processTxs);
       } catch (error) {
@@ -78,13 +77,24 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   const fetchTransactionStatus = async (tx: string) => {
     if (user && user.walletAddress) {
       try {
+        setIsLoading(true);
         const tcClient = new TC_SDK.TcClient(TC_SDK.Mainnet, TC_NETWORK_RPC);
         const res = await tcClient.getTCTxByHash(tx);
         if (res && res.blockHash) {
-          await updateStatusTransaction([{ tx_hash: [tx] }]);
+          await updateStatusTransaction([{ tx_hash: [tx], status: TransactionStatus.CONFIRMED }]);
+          // in transactions list, update status of tx to confirmed
+          const newTransactions = transactions.map(tran => {
+            if (tran.txHash === tx) {
+              return { ...tran, status: TransactionStatus.CONFIRMED };
+            }
+            return tran;
+          });
+          setTransactions(newTransactions);
         }
       } catch (error) {
         console.log(`Fail to update transactions ${tx}`);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -99,7 +109,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
       const localDateString = trans?.time ? moment(trans?.time).local().format('YYYY-MM-DD HH:mm:ss') : '-';
 
       const status: string = pendingList.includes(trans.txHash)
-        ? TransactionStatus.RESUME
+        ? 'pending'
         : TransactionStatus[keyStatus as keyof typeof TransactionStatus];
 
       return {
@@ -168,7 +178,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
         dataLength={transactions?.length || 0}
         hasMore={true}
         loader={
-          isFetching && (
+          isLoading && (
             <div className="loading">
               <Spinner animation="border" variant="primary" />
             </div>
@@ -176,7 +186,12 @@ const TransactionsProfile = ({ pendingList }: Props) => {
         }
         next={debounceLoadMore}
       >
-        <Table tableHead={TABLE_HEADINGS} data={transactionsData} className={'transaction-table'} />
+        <Table
+          tableHead={TABLE_HEADINGS}
+          data={transactionsData}
+          className={'transaction-table'}
+          isLoading={isLoading}
+        />
       </InfiniteScroll>
     </StyledTransactionProfile>
   );
