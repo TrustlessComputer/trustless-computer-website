@@ -21,9 +21,18 @@ interface IProps extends TableProps {
   className?: string;
   classTableData?: string;
   classWrapper?: string;
+  isLoading?: boolean;
 }
 
-const Table = ({ tableHead = [], data, className, classTableData, classWrapper, ...delegatedProps }: IProps) => {
+const Table = ({
+  tableHead = [],
+  data,
+  className,
+  classTableData,
+  classWrapper,
+  isLoading,
+  ...delegatedProps
+}: IProps) => {
   const TableHeads = useMemo((): React.ReactNode => {
     return (
       <thead className={'tableHead'}>
@@ -55,19 +64,21 @@ const Table = ({ tableHead = [], data, className, classTableData, classWrapper, 
   return (
     <StyledTable>
       <div className={cs('wrapper', classWrapper)}>
-        <BSTable bordered className={cs('table', className)} {...delegatedProps}>
-          {TableHeads}
+        {!isLoading && (
+          <BSTable bordered className={cs('table', className)} {...delegatedProps}>
+            {TableHeads}
 
-          {!data || data.length === 0 ? (
-            <tbody className={'empty'}>
-              <Empty isTable={true} />
-            </tbody>
-          ) : (
-            <tbody>
-              {data && data?.length > 0 && data.map(row => <TableData rowData={row} key={`trowData-${row.id}`} />)}
-            </tbody>
-          )}
-        </BSTable>
+            {!data || data.length === 0 ? (
+              <tbody className={'empty'}>
+                <Empty isTable={true} />
+              </tbody>
+            ) : (
+              <tbody>
+                {data && data?.length > 0 && data.map(row => <TableData rowData={row} key={`trowData-${row.id}`} />)}
+              </tbody>
+            )}
+          </BSTable>
+        )}
       </div>
     </StyledTable>
   );
