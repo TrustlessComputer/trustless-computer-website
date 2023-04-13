@@ -163,17 +163,17 @@ const CollectionHeader = (props: ICollectionHeader) => {
                 </a>
                 {collection.social.website && (
                   <a href={collection.social.website} target="_blank" className="link">
-                    <IconSVG src={IcWebsite} />
+                    <IconSVG src={IcWebsite} maxWidth="24px" />
                   </a>
                 )}
                 {collection.social.discord && (
                   <a href={collection.social.discord} target="_blank" className="link">
-                    <IconSVG src={IcDiscord} />
+                    <IconSVG src={IcDiscord} maxWidth="24px" />
                   </a>
                 )}
                 {collection.social.twitter && (
                   <a href={collection.social.twitter} target="_blank" className="link">
-                    <IconSVG src={IcTwitter} />
+                    <IconSVG src={IcTwitter} maxWidth="24px" />
                   </a>
                 )}
               </div>

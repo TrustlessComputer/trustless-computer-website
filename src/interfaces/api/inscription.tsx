@@ -11,6 +11,7 @@ export interface IInscription {
   contentType: IMAGE_TYPE;
   createdAt: string;
   updatedAt: string;
+  mintedAt: number;
   collectionAddress: string;
   owner: string;
   image?: string;

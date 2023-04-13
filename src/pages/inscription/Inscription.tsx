@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Information } from './Inscription.styled';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ARTIFACT_CONTRACT } from '@/configs';
+import { formatTimeStamp } from '@/utils/time';
 
 const Inscription = () => {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ const Inscription = () => {
             <div className="list">
               {/* {renderListItem("Owner", inscription?.collectionAddress)} */}
               {renderListItem('Content type', inscription?.contentType)}
+              {inscription?.mintedAt && renderListItem('Timestamp', formatTimeStamp(inscription?.mintedAt * 1000))}
               {inscription &&
                 inscription.attributes &&
                 inscription.attributes.length > 0 &&
