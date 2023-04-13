@@ -12,11 +12,14 @@ import { FileUploader } from 'react-drag-drop-files';
 import DefaultUploadImage from '@/assets/img/default-upload-img.png';
 import MediaPreview from '@/components/ThumbnailPreview/MediaPreview';
 import IcUpload from '@/assets/icons/ic_upload_image.svg';
+import toast from 'react-hot-toast';
+import { readFileAsBuffer } from '@/utils/file';
 
 type Props = {
   collection: ICollection;
   show: boolean;
   handleClose: () => void;
+  onUpdateSuccess: () => void;
 };
 
 interface IFormValue {
@@ -25,7 +28,7 @@ interface IFormValue {
 }
 
 const ModalEdit = (props: Props) => {
-  const { show = false, handleClose, collection } = props;
+  const { show = false, handleClose, collection, onUpdateSuccess } = props;
 
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -60,9 +63,9 @@ const ModalEdit = (props: Props) => {
     if (!values.name) {
       errors.name = 'Name is required.';
     }
-    if (!values.description) {
-      errors.description = 'Description is required.';
-    }
+    // if (!values.description) {
+    //   errors.description = 'Description is required.';
+    // }
 
     return errors;
   };
@@ -71,6 +74,13 @@ const ModalEdit = (props: Props) => {
     const { name, description } = values;
     try {
       setIsProcessing(true);
+      let fileBuffer;
+      if (file) {
+        fileBuffer = await readFileAsBuffer(file);
+      }
+
+      // onUpdateSuccess();
+      // toast.success('Your collection has been updated successfully');
     } catch (error) {
     } finally {
       setIsProcessing(false);
@@ -106,6 +116,7 @@ const ModalEdit = (props: Props) => {
                   value={values.name}
                   className="input"
                   placeholder={`Enter collection name`}
+                  disabled={isProcessing}
                 />
                 {errors.name && touched.name && <p className="error">{errors.name}</p>}
               </WrapInput>
@@ -121,6 +132,7 @@ const ModalEdit = (props: Props) => {
                   value={values.description}
                   className="input"
                   placeholder={`Enter description`}
+                  disabled={isProcessing}
                 />
                 {errors.description && touched.description && <p className="error">{errors.description}</p>}
               </WrapInput>
@@ -142,7 +154,8 @@ const ModalEdit = (props: Props) => {
                   maxSize={0.35}
                   onSizeError={onSizeError}
                   classes={'dropZone'}
-                  types={['png', 'jpeg', 'jpg', 'webp']}
+                  types={['png', 'jpeg', 'jpg']}
+                  disabled={isProcessing}
                 >
                   <div className="upload-btn">
                     <IconSVG src={IcUpload} maxWidth={'22px'} />
@@ -153,9 +166,9 @@ const ModalEdit = (props: Props) => {
                 {error && <p className={'error-text'}>{error}</p>}
               </div>
 
-              <Button className="confirm-btn" disabled={isProcessing}>
+              <Button type="submit" className="confirm-btn" disabled={isProcessing}>
                 <Text size="medium" fontWeight="medium" className="confirm-text">
-                  Update
+                  {isProcessing ? 'Updating...' : 'Update'}
                 </Text>
               </Button>
             </form>

@@ -109,7 +109,12 @@ const Collection = () => {
         </div>
       </div>
       {collection && showModalEdit && (
-        <ModalEdit collection={collection} show={showModalEdit} handleClose={() => setShowModalEdit(false)} />
+        <ModalEdit
+          collection={collection}
+          show={showModalEdit}
+          handleClose={() => setShowModalEdit(false)}
+          onUpdateSuccess={() => fetchCollectionDetail()}
+        />
       )}
     </Container>
   );
