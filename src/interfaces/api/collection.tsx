@@ -21,3 +21,9 @@ export interface ICollection {
     twitter?: string;
   };
 }
+
+export interface IUpdateCollectionPayload {
+  description?: string;
+  name?: string;
+  thumbnail?: string;
+}

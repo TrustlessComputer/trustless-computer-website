@@ -1,17 +1,13 @@
+import Empty from '@/components/Empty';
 import Table from '@/components/Table';
 import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
-import { getTokens, getTokensByWallet } from '@/services/token-explorer';
-import { getUserSelector } from '@/state/user/selector';
-import { shortenAddress } from '@/utils';
+import { getTokensByWallet } from '@/services/token-explorer';
 import { decimalToExponential } from '@/utils/format';
 import { getApiKey } from '@/utils/swr';
+import { useWeb3React } from '@web3-react/core';
 import { Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import useSWR from 'swr';
 import { StyledTokenProfile } from './TokenProfile.styled';
-import { useParams } from 'react-router-dom';
-import { useWeb3React } from '@web3-react/core';
-import Empty from '@/components/Empty';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
@@ -34,7 +30,6 @@ const TokensProfile = () => {
       (token: any, index: number) => {
         const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
         const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
-        const linkToOwnerExplorer = `${EXPLORER_URL}/address/${token?.owner}`;
 
         return {
           id: `token-${token?.address}}`,

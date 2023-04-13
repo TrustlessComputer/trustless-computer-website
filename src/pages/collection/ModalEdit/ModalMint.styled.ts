@@ -21,7 +21,9 @@ export const StyledModalUpload = styled(Modal)`
   }
 
   .modal-body {
-    padding-top: ${px2rem(7)};
+    padding: ${px2rem(32)};
+    padding-bottom: ${px2rem(16)};
+    padding-top: ${px2rem(0)};
   }
 
   .modal-footer {
@@ -37,51 +39,55 @@ export const StyledModalUpload = styled(Modal)`
   }
 
   .preview-wrapper {
+    margin-top: ${px2rem(20)};
+
     .thumbnail-wrapper {
-      min-height: ${px2rem(200)};
+      min-height: ${px2rem(160)};
       position: relative;
     }
 
     img {
       background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
-      max-height: ${px2rem(281)};
-      width: 100%;
-      object-fit: contain;
+      height: ${px2rem(160)};
+      width: ${px2rem(160)};
+
+      object-fit: cover;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: ${px2rem(12)};
-      cursor: pointer;
     }
   }
 
   .error-text {
+    margin-top: ${px2rem(8)};
+    font-weight: 500;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
   }
-  .file-upload-name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: ${px2rem(13)};
-  }
 
-  .upload-fee {
+  .upload-btn {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    margin-top: ${px2rem(16)};
-    padding: ${px2rem(16)};
-    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
-    border: 1px solid;
-    border-color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
-    margin-bottom: ${px2rem(40)};
 
-    p {
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
+    padding: ${px2rem(12)} ${px2rem(16)};
+    gap: ${px2rem(6)};
+    background: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
+    border-radius: 2px;
+    height: ${px2rem(48)};
+    cursor: pointer;
+
+    .upload-text {
+      padding-top: ${px2rem(11)};
+      padding-bottom: ${px2rem(11)};
+      font-weight: 500;
+      font-size: ${px2rem(14)};
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
     }
   }
 
   .confirm-btn {
     width: 100%;
+    margin-top: ${px2rem(16)};
 
     .confirm-text {
       padding-top: ${px2rem(11)};
@@ -108,7 +114,7 @@ export const WrapInput = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: ${px2rem(20)};
+    padding: ${px2rem(12)};
     gap: ${px2rem(16)};
     font-weight: 400;
     font-size: ${px2rem(16)};
