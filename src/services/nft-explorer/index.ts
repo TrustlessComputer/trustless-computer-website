@@ -54,10 +54,6 @@ export const getNFTDetail = ({
     method: 'GET',
   });
 
-// export const fetchBFSFiles = ({ address }: { address: string }): any => {
-//   return fetcher(`${API_PATH}/files/${address}`);
-// };
-
 export const getNFTsByWalletAddress = ({
   page,
   limit,
