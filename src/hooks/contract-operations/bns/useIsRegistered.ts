@@ -5,7 +5,6 @@ import { BNS_CONTRACT } from '@/configs';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback } from 'react';
 import { stringToBuffer } from '@/utils';
-import { Transaction } from 'ethers';
 
 export interface ICheckIfRegisteredNameParams {
   name: string;

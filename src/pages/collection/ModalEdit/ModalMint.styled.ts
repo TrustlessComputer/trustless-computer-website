@@ -23,6 +23,7 @@ export const StyledModalUpload = styled(Modal)`
   .modal-body {
     padding: ${px2rem(32)};
     padding-bottom: ${px2rem(16)};
+    padding-top: ${px2rem(0)};
   }
 
   .modal-footer {

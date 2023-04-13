@@ -20,8 +20,8 @@ const Container = styled.div`
     width: 65%;
 
     .image {
-      width: ${px2rem(168)};
-      height: ${px2rem(168)};
+      width: ${px2rem(178)};
+      height: ${px2rem(178)};
       margin-right: ${px2rem(24)};
       object-fit: cover;
     }
@@ -141,9 +141,10 @@ const Container = styled.div`
     font-style: normal;
     font-weight: 600;
     font-size: ${px2rem(34)};
-    line-height: ${px2rem(64)};
+    line-height: ${px2rem(44)};
     color: #ffffff;
     font-family: 'IBMPlexMono' !important;
+    margin-bottom: ${px2rem(4)};
   }
 
   .subTitle {
@@ -176,7 +177,7 @@ const Container = styled.div`
 
     .infor-right {
       width: 100%;
-
+      margin-top: ${px2rem(24)};
       .row {
         display: flex;
         flex-direction: row;
@@ -191,6 +192,8 @@ const Container = styled.div`
 
     .subTitle {
       margin-top: 6px;
+      -webkit-line-clamp: 4; /* number of lines to show */
+      line-clamp: 4;
     }
   `}
 `;

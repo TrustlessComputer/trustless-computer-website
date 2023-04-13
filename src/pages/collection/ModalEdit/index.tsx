@@ -112,9 +112,9 @@ const ModalEdit = (props: Props) => {
 
               <WrapInput>
                 <p className="title-input">Description</p>
-                <input
+                <textarea
                   id="description"
-                  type="text"
+                  // type="text"
                   name="description"
                   onChange={handleChange}
                   onBlur={handleBlur}
