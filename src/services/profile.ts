@@ -2,6 +2,7 @@ import { IProfileResponse } from '@/interfaces/api/profile';
 import { apiClient } from '.';
 import { camelCaseKeys } from '@/utils/helpers';
 import { IPagingParams } from '@/interfaces/api/query';
+import { ITransaction } from '@/interfaces/transaction';
 
 const API_PATH = '/profile';
 
@@ -39,7 +40,7 @@ export const getTransactionsByWallet = async ({
   walletAddress,
   limit = 200,
   page = 1,
-}: { walletAddress: string } & IPagingParams): Promise<any> => {
+}: { walletAddress: string } & IPagingParams): Promise<ITransaction[]> => {
   try {
     const res = await apiClient.get(`${API_PATH}/wallet/${walletAddress}/histories?limit=${limit}&page=${page}`);
     return Object(camelCaseKeys(res));
