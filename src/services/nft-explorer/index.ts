@@ -1,8 +1,10 @@
 import { API_URL } from '@/configs';
-import { ICollection } from '@/interfaces/api/collection';
+import { ICollection, IUpdateCollectionPayload } from '@/interfaces/api/collection';
 import { IInscription } from '@/interfaces/api/inscription';
 import { IPagingParams } from '@/interfaces/api/query';
 import { swrFetcher } from '@/utils/swr';
+import { apiClient } from '..';
+import { camelCaseKeys } from '@/utils/helpers';
 
 const API_PATH = API_URL + '/nft-explorer';
 
@@ -65,3 +67,18 @@ export const getNFTsByWalletAddress = ({
     method: 'GET',
     error: 'Failed to get NFTs by wallet address',
   });
+
+export const updateCollection = async ({
+  contractAddress,
+  payload,
+}: {
+  contractAddress: string;
+  payload: IUpdateCollectionPayload;
+}): Promise<any> => {
+  try {
+    const res = await apiClient.put(`${API_PATH}/collections/${contractAddress}`, payload);
+    return Object(camelCaseKeys(res));
+  } catch (err: unknown) {
+    throw Error('Failed to update collection');
+  }
+};

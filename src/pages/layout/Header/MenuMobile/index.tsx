@@ -34,7 +34,7 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
         </button>
         {MENU_HEADER.map(item => {
           return (
-            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id}>
+            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id} onClick={onCloseMenu}>
               {item.name}
             </StyledLink>
           );

@@ -22,10 +22,11 @@ import { fileToBase64, getFileExtensionByFileName, isERC721SupportedExt, readFil
 
 interface ICollectionHeader {
   collection?: ICollection;
+  onClickEdit: () => void;
 }
 
 const CollectionHeader = (props: ICollectionHeader) => {
-  const { collection } = props;
+  const { collection, onClickEdit } = props;
   const user = useSelector(getUserSelector);
   const [isMinting, setIsMinting] = useState(false);
   const { run: mintSingle } = useContractOperation<IMintChunksParams, Promise<Transaction | null>>({
@@ -35,6 +36,8 @@ const CollectionHeader = (props: ICollectionHeader) => {
     operation: useMintBatchChunks,
   });
   const [file, setFile] = useState<File | null>(null);
+
+  const isOwner = user?.walletAddress?.toLowerCase() === collection?.creator.toLowerCase();
 
   const handleMintSingle = async (file: File): Promise<void> => {
     if (!collection?.contract) {
@@ -177,8 +180,11 @@ const CollectionHeader = (props: ICollectionHeader) => {
                   </a>
                 )}
               </div>
-              {user?.walletAddress?.toLowerCase() === collection?.creator.toLowerCase() && (
+              {isOwner && (
                 <div className="actionWrapper">
+                  <button className="editButton" onClick={onClickEdit}>
+                    Edit
+                  </button>
                   <div className="mintWrapper">
                     <button disabled={isMinting} className="mintButton">
                       {isMinting ? 'Minting...' : 'Mint'}
