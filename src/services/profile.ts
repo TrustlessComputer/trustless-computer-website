@@ -2,7 +2,7 @@ import { IProfileResponse } from '@/interfaces/api/profile';
 import { apiClient } from '.';
 import { camelCaseKeys } from '@/utils/helpers';
 import { IPagingParams } from '@/interfaces/api/query';
-import { ITransaction } from '@/interfaces/transaction';
+import { ICreateTransactionPayload, ITransaction, IUpdateStatusTxPayload } from '@/interfaces/transaction';
 
 const API_PATH = '/profile';
 
@@ -16,9 +16,9 @@ export const getCurrentProfile = async (): Promise<IProfileResponse> => {
   }
 };
 
-export const updateStatusTransaction = async ({ txHash }: { txHash: string[] }): Promise<any> => {
+export const updateStatusTransaction = async (payload: IUpdateStatusTxPayload[]): Promise<any> => {
   try {
-    const res = await apiClient.put(`${API_PATH}/histories/confirm`, { tx_hash: txHash });
+    const res = await apiClient.put(`${API_PATH}/histories`, { data: payload });
     return Object(camelCaseKeys(res));
   } catch (err: unknown) {
     console.log(err);
@@ -26,7 +26,7 @@ export const updateStatusTransaction = async ({ txHash }: { txHash: string[] }):
   }
 };
 
-export const createTransactionHistory = async (payload: { dapp_type: string; tx_hash: string }): Promise<any> => {
+export const createTransactionHistory = async (payload: ICreateTransactionPayload): Promise<any> => {
   try {
     const res = await apiClient.post(`${API_PATH}/histories`, payload);
     return Object(camelCaseKeys(res));

@@ -11,6 +11,7 @@ import { AssetsContext } from '@/contexts/assets-context';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
 import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
+import moment from 'moment';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -90,20 +91,36 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       });
       console.timeEnd('____metamaskCreateTxTime');
 
-      await createTransactionHistory({
-        dapp_type: dAppType,
-        tx_hash: Object(tx).hash,
-      });
-
       console.log('tcTX', tx);
 
       console.log('feeRatePerByte', feeRate.fastestFee);
 
       // Make inscribe transaction
-      await createInscribeTx({
+      const { commitTxID, revealTxID } = await createInscribeTx({
         tcTxIDs: [...unInscribedTxIDs, Object(tx).hash],
         feeRatePerByte: feeRate.fastestFee,
       });
+
+      if (commitTxID && revealTxID) {
+        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
+        await createTransactionHistory({
+          dapp_type: dAppType,
+          tx_hash: Object(tx).hash,
+          from_address: Object(tx).from,
+          to_address: Object(tx).to,
+          btc_tx_hash: revealTxID,
+          time: currentTimeString,
+        });
+      } else {
+        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
+        await createTransactionHistory({
+          dapp_type: dAppType,
+          tx_hash: Object(tx).hash,
+          from_address: Object(tx).from,
+          to_address: Object(tx).to,
+          time: currentTimeString,
+        });
+      }
 
       return tx;
     } catch (err) {
