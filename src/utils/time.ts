@@ -13,6 +13,8 @@ const formatUnixDateTime = ({ dateTime, formatPattern = FORMAT_PATTERN }: IForma
 const formatDateTime = ({ dateTime, formatPattern = FORMAT_PATTERN }: IFormatDate) =>
   moment(dateTime).format(formatPattern);
 
+const formatTimeStamp = (timestamp: number) => new Date(timestamp).toISOString().replace('T', ' ').replace('.000Z', '');
+
 interface IUnixExpired {
   unixTime: number | string | undefined;
   expiredMin?: number;
@@ -41,4 +43,11 @@ function getCurrentUnixTimestamp() {
   return Math.floor(Date.now() / 1000);
 }
 
-export { formatUnixDateTime, formatDateTime, isExpiredUnixTime, isExpiredTime, getCurrentUnixTimestamp };
+export {
+  formatUnixDateTime,
+  formatDateTime,
+  isExpiredUnixTime,
+  isExpiredTime,
+  getCurrentUnixTimestamp,
+  formatTimeStamp,
+};
