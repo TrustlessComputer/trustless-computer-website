@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
 import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
 import moment from 'moment';
+import { TransactionEventType } from '@/enums/transaction';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -104,7 +105,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       if (commitTxID && revealTxID) {
         const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
         await createTransactionHistory({
-          dapp_type: dAppType,
+          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
           tx_hash: Object(tx).hash,
           from_address: Object(tx).from,
           to_address: Object(tx).to,
@@ -114,7 +115,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
       } else {
         const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
         await createTransactionHistory({
-          dapp_type: dAppType,
+          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
           tx_hash: Object(tx).hash,
           from_address: Object(tx).from,
           to_address: Object(tx).to,
