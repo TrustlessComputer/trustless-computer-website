@@ -170,7 +170,7 @@ const Wallet = () => {
                   onClick={handleResumeTransactions}
                 >
                   <Text className="font-ibm" size="regular">
-                    {`Resume ${transactions.length} transaction${transactions.length > 1 ? 's' : ''}`}
+                    {`Resume all pendings`}
                   </Text>
                   {/* <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" /> */}
                 </div>
