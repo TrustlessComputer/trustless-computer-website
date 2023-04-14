@@ -7,6 +7,7 @@ import { AssetsContext } from '@/contexts/assets-context';
 import * as TC_SDK from 'trustless-computer-sdk';
 import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface ICreateTokenParams {
   name: string;
@@ -14,7 +15,7 @@ export interface ICreateTokenParams {
   maxSupply: number;
 }
 
-const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployContractResponse | null>> = () => {
+const useCreateToken: ContractOperationHook<ICreateTokenParams, DeployContractResponse | null> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 
@@ -67,6 +68,7 @@ const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployCo
   return {
     call: call,
     dAppType: DAppType.ERC20,
+    transactionType: TransactionEventType.CREATE,
   };
 };
 

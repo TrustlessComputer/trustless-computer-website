@@ -1,19 +1,16 @@
 import Empty from '@/components/Empty';
 import Table from '@/components/Table';
 import { TRUSTLESS_COMPUTER_CHAIN_INFO } from '@/constants/chains';
-import { getTokensByWallet } from '@/services/token-explorer';
-import { decimalToExponential } from '@/utils/format';
-import { getApiKey } from '@/utils/swr';
-import { useWeb3React } from '@web3-react/core';
-import { Spinner } from 'react-bootstrap';
-import useSWR from 'swr';
-import { StyledTokenProfile } from './TokenProfile.styled';
 import { getTokensWallet } from '@/services/profile';
-import { useEffect, useState } from 'react';
+import { getUserSelector } from '@/state/user/selector';
+import { decimalToExponential } from '@/utils/format';
 import { debounce } from 'lodash';
+import { useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector } from 'react-redux';
-import { getUserSelector } from '@/state/user/selector';
+import { StyledTokenProfile } from './TokenProfile.styled';
+import TransferModal from './TransferModal';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
@@ -24,6 +21,8 @@ const TokensProfile = () => {
 
   const profileWallet = user?.walletAddress || '';
   const [isFetching, setIsFetching] = useState(false);
+  const [showTransferModal, setShowTransferModal] = useState(false);
+  const [selectedToken, setSelectedToken] = useState<any>(null);
   const [tokensList, setTokensList] = useState<any>([]);
 
   const TABLE_HEADINGS = ['#', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
@@ -31,6 +30,15 @@ const TokensProfile = () => {
   // const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
   //   getTokensByWallet({ key: profileWallet }),
   // );
+  const hanldeOpenTransferModal = (selectedToken: any) => {
+    setShowTransferModal(true);
+    setSelectedToken(selectedToken);
+  };
+
+  const hanldeCloseTransferModal = () => {
+    setShowTransferModal(false);
+    setSelectedToken(null);
+  };
 
   const fetchTokensOwned = async (page = 1, isFetchMore = false) => {
     try {
@@ -68,6 +76,17 @@ const TokensProfile = () => {
           symbol: token?.symbol || '-',
           balance: balance.toLocaleString(),
           supply: totalSupply.toLocaleString(),
+          action: (
+            <>
+              {balance > 0 && (
+                <div className="owner-actions">
+                  <button onClick={() => hanldeOpenTransferModal(token)} className="transfer-button">
+                    Transfer
+                  </button>
+                </div>
+              )}
+            </>
+          ),
         },
       };
     },
@@ -112,6 +131,11 @@ const TokensProfile = () => {
           <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
         </InfiniteScroll>
       )}
+      <TransferModal
+        show={showTransferModal}
+        handleClose={hanldeCloseTransferModal}
+        erc20TokenAddress={selectedToken?.address}
+      />
     </StyledTokenProfile>
   );
 };

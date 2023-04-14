@@ -101,6 +101,7 @@ const Collection = () => {
                         item.name || (collection && collection.contract ? shortenAddress(collection.contract, 4) : '')
                       }
                       title2={shortenAddress(item.owner, 4)}
+                      owner={item.owner}
                     />
                   );
                 })}

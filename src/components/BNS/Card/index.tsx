@@ -36,7 +36,7 @@ const BNSCard = ({ item }: Props) => {
           </div>
         </div>
       </StyledBNSCard>
-      <BNSTransferModal show={showModal} handleClose={() => setShowModal(false)}></BNSTransferModal>
+      <BNSTransferModal name={item.name} show={showModal} handleClose={() => setShowModal(false)}></BNSTransferModal>
     </>
   );
 };

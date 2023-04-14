@@ -55,7 +55,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const currentAddress = React.useMemo(() => {
     return user?.walletAddressBtcTaproot || '';
   }, [user?.walletAddressBtcTaproot]);
-  const { provider } = useWeb3React();
+  const { provider, account: tcAddress } = useWeb3React();
 
   // UTXOs
   const [assets, setAssets] = useState<ICollectedUTXOResp | undefined>();
@@ -78,11 +78,11 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
   const [eth2btcRate, setEth2BtcRate] = useState<number>(0);
 
   const fetchAssets = async (): Promise<ICollectedUTXOResp | undefined> => {
-    if (!currentAddress) return undefined;
+    if (!currentAddress || !tcAddress) return undefined;
     let _assets = undefined;
     try {
       setIsLoadingAssets(true);
-      _assets = await getCollectedUTXO(currentAddress);
+      _assets = await getCollectedUTXO(currentAddress, tcAddress);
       setAssets(_assets);
     } catch (err) {
       console.log(err);
@@ -111,7 +111,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     setcomingAmount(_comingAmount);
   };
 
-  const debounceFetchData = React.useCallback(debounce(fetchData, 300), [currentAddress]);
+  const debounceFetchData = React.useCallback(debounce(fetchData, 300), [currentAddress, tcAddress]);
 
   const fetchFeeRate = async () => {
     let _feeRate = {
@@ -228,7 +228,7 @@ export const AssetsProvider: React.FC<PropsWithChildren> = ({ children }: PropsW
     } else {
       setHistory([]);
     }
-  }, [user, provider, currentAddress]);
+  }, [user, provider, currentAddress, tcAddress]);
 
   useEffect(() => {
     fetchAssetsData();

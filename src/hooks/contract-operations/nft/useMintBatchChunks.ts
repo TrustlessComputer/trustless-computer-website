@@ -8,13 +8,14 @@ import BigNumber from 'bignumber.js';
 import * as TC_SDK from 'trustless-computer-sdk';
 import { formatBTCPrice } from '@/utils/format';
 import { getContract } from '@/utils';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface IMintBatchChunksParams {
   listOfChunks: Array<Buffer>;
   contractAddress: string;
 }
 
-const useMintBatchChunks: ContractOperationHook<IMintBatchChunksParams, Promise<Transaction | null>> = () => {
+const useMintBatchChunks: ContractOperationHook<IMintBatchChunksParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 
@@ -56,6 +57,7 @@ const useMintBatchChunks: ContractOperationHook<IMintBatchChunksParams, Promise<
   return {
     call: call,
     dAppType: DAppType.ERC721,
+    transactionType: TransactionEventType.MINT,
   };
 };
 

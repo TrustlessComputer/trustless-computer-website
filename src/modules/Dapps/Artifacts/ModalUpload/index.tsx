@@ -30,7 +30,7 @@ const ModalUpload = (props: Props) => {
   const { show = false, handleClose, file, setFile } = props;
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { run } = useContractOperation<IPreserveChunkParams, Promise<Transaction | null>>({
+  const { run } = useContractOperation<IPreserveChunkParams, Transaction | null>({
     operation: usePreserveChunks,
   });
   const [isProcessing, setIsProcessing] = useState(false);
@@ -45,7 +45,7 @@ const ModalUpload = (props: Props) => {
         address: account,
         chunks: fileBuffer,
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
       handleClose();
     } catch (err: unknown) {
       toast.error((err as Error).message);

@@ -1,4 +1,4 @@
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { StyledTransferModal } from './TransferModal.styled';
 import IconSVG from '@/components/IconSVG';
 import IcCloseModal from '@/assets/icons/ic-close.svg';
@@ -7,12 +7,14 @@ import { Formik } from 'formik';
 import Text from '@/components/Text';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import IcCopy from '@/assets/icons/ic-copy-outline.svg';
-import copy from 'copy-to-clipboard';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import useTransferName from '@/hooks/contract-operations/bns/useTransferName';
+import Button from '@/components/Button';
 
 type Props = {
   show: boolean;
   handleClose: () => void;
+  name: string;
 };
 
 type IFormValue = {
@@ -20,11 +22,11 @@ type IFormValue = {
 };
 
 const BNSTransferModal = (props: Props) => {
-  const { show, handleClose } = props;
-
+  const { show, handleClose, name } = props;
   const [isProcessing, setIsProcessing] = useState(false);
-
-  const feeEsitmate = '0.0001';
+  const { run } = useContractOperation({
+    operation: useTransferName,
+  });
 
   const validateForm = (values: IFormValue): Record<string, string> => {
     const errors: Record<string, string> = {};
@@ -36,19 +38,22 @@ const BNSTransferModal = (props: Props) => {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values: IFormValue): Promise<void> => {
+    const { address } = values;
     try {
-      // TODO: handle transfer function
-
-      console.log('submit transfer');
-    } catch (err: any) {
-      toast.error(err.message);
+      setIsProcessing(true);
+      await run({
+        to: address,
+        name: name,
+      });
+      toast.success('Transaction has been created. Please wait for few minutes.');
+      handleClose();
+    } catch (err) {
+      toast.error((err as Error).message);
+      console.log(err);
+    } finally {
+      setIsProcessing(false);
     }
-  };
-
-  const onClickCopy = (text: string) => {
-    copy(text);
-    toast.success('Copied');
   };
 
   return (
@@ -84,7 +89,7 @@ const BNSTransferModal = (props: Props) => {
                 />
                 {errors.address && touched.address && <p className="error">{errors.address}</p>}
               </WrapInput>
-              <div className="divider"></div>
+              {/* <div className="divider"></div>
               <div className="est-fee">
                 <Text size="large" fontWeight="medium" className="est-fee-text" color="bg1">
                   Estimated fee
@@ -97,8 +102,8 @@ const BNSTransferModal = (props: Props) => {
                     {feeEsitmate} TC
                   </Text>
                 </div>
-              </div>
-              <Button type="submit" className="transfer-btn">
+              </div> */}
+              <Button disabled={isProcessing} type="submit" className="transfer-btn">
                 <Text size="medium" fontWeight="medium" className="transfer-text">
                   {isProcessing ? 'Processing...' : 'Transfer'}
                 </Text>
