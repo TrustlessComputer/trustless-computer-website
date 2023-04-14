@@ -35,6 +35,7 @@ const NFTCard = ({
   owner,
 }: INFTCard) => {
   const user = useSelector(getUserSelector);
+  console.log('🚀 ~ user:', user);
   const [showTransferModal, setShowTransferModal] = useState(false);
 
   const hanldeOpenTransferModal = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +50,7 @@ const NFTCard = ({
   };
 
   const isOwner = useMemo(() => {
-    return user?.walletAddress?.toLowerCase() === owner?.toLowerCase();
+    return user?.walletAddress && user?.walletAddress?.toLowerCase() === owner?.toLowerCase();
   }, [owner, user]);
 
   return (
