@@ -1,352 +1,187 @@
-import px2rem from '@/utils/px2rem';
 import styled, { DefaultTheme } from 'styled-components';
+import px2rem from '@/utils/px2rem';
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
 
-  .wrap-container {
-    min-height: 700px;
-    height: 95vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 8px;
-  }
-
-  .wrap-content {
-    display: flex;
-    position: relative;
-    flex: 1;
-    min-height: 600px;
-    height: 88vh;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .btnFaq {
-    height: 12vh;
-
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    align-items: center;
-
-    cursor: pointer;
-
-    :hover {
-      opacity: 0.8;
-    }
-
-    .text {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 26px;
-
-      color: #898989;
-    }
-  }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-    .wrap-container {
-      min-height: auto;
-      height: auto;
-    }
-
-    .wrap-content {
-      min-height: auto;
-
-      height: auto;
-      flex-direction: column-reverse;
-      margin-top: 32px;
-    }
-
-    .btnFaq {
-      margin-top: 32px;
-    }
-    
-  `};
-`;
-
-const LeftContainer = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-
-  .header {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .headerTitle {
-    display: flex;
-  }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToLarge`
-    margin-top: 24px;
-  `}
-`;
-
-const TitleDoc = styled.div<{ isSelected: boolean }>`
-  cursor: pointer;
-  margin-right: 24px;
-
-  :hover {
-    opacity: 0.7;
-  }
-
-  .text {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 28px;
-    letter-spacing: -0.01em;
-
-    color: ${({ isSelected, theme }) => (isSelected ? theme.white : theme.text2)};
-  }
-`;
-
-const CopyContainer = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 24px;
-  width: 100%;
-
-  position: relative;
-  background: ${({ theme }: { theme: DefaultTheme }) => theme.bg2};
-  padding: 16px 16px;
-
-  .icCopy {
-    position: absolute;
-    right: 24px;
-    bottom: 24px;
-    width: 24px;
-    height: 24px;
-
-    cursor: pointer;
-    :hover {
-      opacity: 0.8;
-    }
-  }
-  margin-top: rem(16px);
-
-  .pre {
-    height: 480px;
-    /* width: 40vw; */
-    overflow: auto;
-    word-break: normal !important;
-    word-wrap: normal !important;
-    white-space: pre !important;
-
-    .code {
-      font-style: normal;
-      font-weight: 500;
-      font-size: ${px2rem(14)};
-      line-height: 200%;
-      /* or 250% */
-      margin: 16px 16px;
-
-      display: flex;
-      align-items: center;
-      letter-spacing: -0.01em;
-
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
-
-      font-family: Source Code Pro !important;
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-      .pre {
-          width: 90vw;
-      }
-  `};
-`;
-
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-
-  /* margin-top: -24px; */
-  width: 100%;
+  padding-top: ${px2rem(120)};
 
   .title {
-    font-style: normal;
+    font-size: ${px2rem(48)};
+    line-height: ${px2rem(58)};
     font-weight: 500;
-    font-size: 24px;
-    /* line-height: 34px; */
+    letter-spacing: -0.05em;
     text-align: center;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.text4};
-    width: max-content;
-  }
-
-  .subTitle {
-    font-style: normal;
-    font-weight: 500;
-    font-size: ${px2rem(45)};
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    text-align: center;
-    margin-top: 16px;
-    line-height: 66px;
     font-family: 'IBMPlexMono' !important;
   }
 
-  a {
-    text-decoration: none !important;
+  .subTitle {
+    font-weight: 500;
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
+    text-align: center;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
+    margin-top: ${px2rem(16)};
   }
 
-  .button {
+  .row-actions {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    padding: 19px 48px;
-    gap: 10px;
-
-    height: 64px;
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.text5};
-    border-radius: 2px;
-    margin-top: 32px;
-
-    cursor: pointer;
-
-    :hover {
-      opacity: 0.7;
-    }
-
-    .text-build {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 26px;
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-      text-align: center;
-      font-family: 'IBMPlexMono' !important;
-    }
+    justify-content: center;
+    align-self: center;
+    margin-top: ${px2rem(32)};
+    gap: ${px2rem(32)};
   }
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToLarge`
-      margin-top: 0;
-     
-      .title {
-        font-size: 20px;
-      }
-    
-      .subTitle {
-        font-size: 44px;
-        line-height: 56px;
-      }
-  `};
 `;
 
-const FAQContainer = styled.div`
+const ButtonLink = styled.a<{ disabled?: boolean }>`
+  padding: ${px2rem(14)} ${px2rem(24)};
+  gap: ${px2rem(10)};
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
+  border-radius: 8px;
+  text-decoration: none !important;
+  width: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  opacity: ${({ disabled }: { disabled?: boolean }) => (disabled ? 0.5 : 1)};
+
+  .button-link-text {
+    font-weight: 500;
+    font-size: ${px2rem(18)};
+    line-height: ${px2rem(26)};
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #1c1c1c;
+    font-family: 'IBMPlexMono' !important;
+  }
+
+  .icon {
+    width: ${px2rem(20)};
+    height: ${px2rem(26)};
+  }
+
+  :hover {
+    opacity: ${({ disabled }: { disabled?: boolean }) => (disabled ? 0.5 : 0.8)};
+  }
+`;
+
+const ButtonLinkSolid = styled.a`
+  padding: ${px2rem(12)} ${px2rem(24)};
+  gap: ${px2rem(10)};
+  border-radius: 8px;
+  border: 2px solid #ffc008;
+  min-width: ${px2rem(206)};
+  text-decoration: none !important;
+  width: fit-content;
+
+  .button-solid-text {
+    font-weight: 500;
+    font-size: ${px2rem(18)};
+    line-height: ${px2rem(26)};
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #f9d03f;
+    font-family: 'IBMPlexMono' !important;
+  }
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const WrapContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: center;
-  /* min-height: 80vh; */
-  margin-top: 40px;
-  margin-bottom: 40px;
+  gap: ${px2rem(80)};
+  margin-top: ${px2rem(140)};
+`;
 
-  .faqContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60%;
+const StepContainer = styled.div<{ isRevert: boolean }>`
+  display: flex;
+  flex: 1;
+  align-self: center;
+  align-items: center;
+  gap: ${px2rem(120)};
+  padding: ${px2rem(120)};
+  position: relative;
+
+  background: ${({ isRevert }) => (isRevert ? 'transparent' : '#2e2e2e')};
+  flex-direction: ${({ isRevert }) => (isRevert ? 'row-reverse' : 'row')};
+
+  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToLarge`
+    padding: ${px2rem(60)};
+  `}
+
+  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    flex-direction: column-reverse;
+    padding: ${px2rem(40)};
+  `}
+`;
+
+const LeftStep = styled.img`
+  display: flex;
+  width: 50%;
+  max-height: ${px2rem(500)};
+
+  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    width: 100%;
+  `}
+`;
+
+const RightStep = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+
+  .name {
+    font-weight: 400;
+    font-size: ${px2rem(22)};
+    line-height: ${px2rem(32)};
+    text-transform: uppercase;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
   }
 
-  .title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 56px;
-    line-height: 66px;
+  .text {
+    font-weight: 600;
+    font-size: ${px2rem(34)};
+    line-height: ${px2rem(44)};
+    font-family: 'IBMPlexMono' !important;
+  }
 
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    /* margin-bottom: 25px; */
+  .desc {
+    font-weight: 500;
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
+    color: #e5e5e5;
+    margin-top: ${px2rem(12)};
+    margin-bottom: ${px2rem(32)};
   }
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-      margin-top: 20px;
-
-      .faqContent {
-        width: 90%;
-      }
-    
-  `};
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-
-      .faqContent {
-        width: 96%;
-      }
-    
-  `};
+    width: 100%;
+  `}
 `;
 
-const StyledFAQItem = styled.div<{ isSelected: boolean }>`
-  border-bottom: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.border1};
+const Button = styled.div`
+  padding: ${px2rem(16)} ${px2rem(24)};
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+  border-radius: ${px2rem(2)};
+  width: fit-content;
+  font-family: 'IBMPlexMono' !important;
 
-  padding-top: 8px;
-  padding-bottom: 24px;
-  padding-top: 24px;
-
-  .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    cursor: pointer;
-
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-
-    :hover {
-      opacity: 0.9;
-    }
-
-    .question {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 34px;
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    }
-
-    .icon {
-      width: 32px;
-      height: 32px;
-      transform: rotate(0deg);
-      overflow: hidden;
-      transition: all 0.15s ease-out;
-      ${({ isSelected }) => isSelected && `transform: rotate(90deg)`};
-    }
-  }
-
-  .answer {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 30px;
-
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
-
-    margin-top: 8px;
-  }
+  font-weight: 500;
+  font-size: ${px2rem(18)};
+  line-height: ${px2rem(26)};
+  align-items: center;
+  letter-spacing: 0.01em;
+  cursor: pointer;
 `;
 
-export { Container, CopyContainer, FAQContainer, LeftContainer, RightContainer, StyledFAQItem, TitleDoc };
+export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button, ButtonLink, ButtonLinkSolid };

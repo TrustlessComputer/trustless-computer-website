@@ -26,7 +26,7 @@ const Collections = () => {
         </div>
         <div className="upload_right">
           <Button
-            bg={'white'}
+            background={'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)'}
             // onClick={() => window.open('https://docs.trustless.computer/bitcoin-dapp-examples/brc-721-nfts')}
             onClick={() => setShowModal(true)}
           >

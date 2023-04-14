@@ -54,7 +54,7 @@ const Header = ({ height }: { height: number }) => {
       <div className="rowLink">
         {MENU_HEADER.map(item => {
           return (
-            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id}>
+            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id} activeColor="#F9D03F">
               {item.name}
             </StyledLink>
           );
