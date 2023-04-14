@@ -3,6 +3,7 @@ import { apiClient } from '.';
 import { camelCaseKeys } from '@/utils/helpers';
 import { IPagingParams } from '@/interfaces/api/query';
 import { ICreateTransactionPayload, ITransaction, IUpdateStatusTxPayload } from '@/interfaces/transaction';
+import queryString from 'query-string';
 
 const API_PATH = '/profile';
 
@@ -57,6 +58,22 @@ export const getCollectionsByItemsOwned = async ({
 }: { walletAddress: string } & IPagingParams): Promise<any> => {
   try {
     const res = await apiClient.get(`${API_PATH}/wallet/${walletAddress}/collections`);
+    return Object(camelCaseKeys(res));
+  } catch (err: unknown) {
+    console.log(err);
+    throw Error('Profile not found');
+  }
+};
+
+export const getTokensWallet = async ({
+  walletAddress,
+  limit,
+  page,
+}: {
+  walletAddress: string;
+} & IPagingParams) => {
+  try {
+    const res = await apiClient.get(`${API_PATH}/wallet/${walletAddress}/tokens/bought?limit=${limit}&page=${page}`);
     return Object(camelCaseKeys(res));
   } catch (err: unknown) {
     console.log(err);
