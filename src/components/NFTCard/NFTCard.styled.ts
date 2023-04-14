@@ -1,7 +1,8 @@
 import styled, { DefaultTheme } from 'styled-components';
 import px2rem from '@/utils/px2rem';
+import { Link } from 'react-router-dom';
 
-export const Styled = styled.a`
+export const Styled = styled(Link)`
   width: 100%;
   height: 100%;
   text-decoration: none !important;
@@ -75,6 +76,25 @@ export const Styled = styled.a`
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+    }
+  }
+
+  .owner-actions {
+    padding: ${px2rem(16)} ${px2rem(24)};
+
+    .transfer-button {
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
+      padding: ${px2rem(5)} ${px2rem(14)};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: ${px2rem(14)};
+      line-height: ${px2rem(24)};
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
+      width: 100%;
+      font-style: normal;
+      border-radius: 2px;
     }
   }
 `;

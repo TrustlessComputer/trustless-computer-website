@@ -26,7 +26,7 @@ type Props = {
 const ModalCreate = (props: Props) => {
   const { show = false, handleClose } = props;
   const [isProcessing, setIsProcessing] = useState(false);
-  const { run } = useContractOperation<ICreateNFTCollectionParams, Promise<DeployContractResponse | null>>({
+  const { run } = useContractOperation<ICreateNFTCollectionParams, DeployContractResponse | null>({
     operation: useCreateNFTCollection,
   });
 
@@ -52,7 +52,7 @@ const ModalCreate = (props: Props) => {
         name,
         symbol,
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
       handleClose();
     } catch (err) {
       toast.error((err as Error).message);
