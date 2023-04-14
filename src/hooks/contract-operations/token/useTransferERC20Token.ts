@@ -15,7 +15,7 @@ export interface ITransferERC20TokenParams {
   erc20TokenAddress: string;
 }
 
-const useTransferERC20Token: ContractOperationHook<ITransferERC20TokenParams, Promise<boolean>> = () => {
+const useTransferERC20Token: ContractOperationHook<ITransferERC20TokenParams, boolean> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 

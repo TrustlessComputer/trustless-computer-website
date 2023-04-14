@@ -12,11 +12,11 @@ const Names: React.FC = () => {
   const [nameValidate, setNameValidate] = useState(false);
   const [valueInput, setValueInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const { run: checkNameIsRegistered } = useContractOperation<ICheckIfRegisteredNameParams, Promise<boolean>>({
+  const { run: checkNameIsRegistered } = useContractOperation<ICheckIfRegisteredNameParams, boolean>({
     operation: useIsRegistered,
     inscribeable: false,
   });
-  const { run: registerName } = useContractOperation<IRegisterNameParams, Promise<Transaction | null>>({
+  const { run: registerName } = useContractOperation<IRegisterNameParams, Transaction | null>({
     operation: useRegister,
   });
 

@@ -15,7 +15,7 @@ export interface IRegisterNameParams {
   name: string;
 }
 
-const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transaction | null>> = () => {
+const useRegister: ContractOperationHook<IRegisterNameParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, true);
   const { btcBalance, feeRate } = useContext(AssetsContext);

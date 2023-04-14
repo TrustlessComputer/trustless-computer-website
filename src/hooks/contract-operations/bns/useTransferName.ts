@@ -16,7 +16,7 @@ export interface ITransferNameParams {
   name: string;
 }
 
-const useTransferName: ContractOperationHook<ITransferNameParams, Promise<Transaction | null>> = () => {
+const useTransferName: ContractOperationHook<ITransferNameParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, true);
   const { btcBalance, feeRate } = useContext(AssetsContext);
@@ -48,7 +48,7 @@ const useTransferName: ContractOperationHook<ITransferNameParams, Promise<Transa
         const tokenId = await contract.connect(provider).registry(byteCode);
 
         // Transfer
-        const transaction = await contract.connect(provider.getSigner()).safeTransferFrom(account, to, tokenId);
+        const transaction = await contract.connect(provider.getSigner()).transferFrom(account, to, tokenId);
         return transaction;
       }
 

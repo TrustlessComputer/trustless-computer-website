@@ -14,7 +14,7 @@ export interface IMintBatchChunksParams {
   contractAddress: string;
 }
 
-const useMintBatchChunks: ContractOperationHook<IMintBatchChunksParams, Promise<Transaction | null>> = () => {
+const useMintBatchChunks: ContractOperationHook<IMintBatchChunksParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 
