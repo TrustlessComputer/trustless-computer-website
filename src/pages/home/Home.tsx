@@ -30,7 +30,7 @@ const Home = () => {
         'Using your custom token, you can create a crowdsale contract to raise funds to bring your project to life.',
       element: (
         <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Comming soon</p>
+          <p className="button-link-text">Coming soon</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
@@ -53,7 +53,7 @@ const Home = () => {
       content: 'You can make an auction contract to sell your NFTs.',
       element: (
         <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Comming soon</p>
+          <p className="button-link-text">Coming soon</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
@@ -65,7 +65,7 @@ const Home = () => {
         'Build a decentralized autonomous organization for your community where people can submit and then vote on proposals.',
       element: (
         <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Comming soon</p>
+          <p className="button-link-text">Coming soon</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
