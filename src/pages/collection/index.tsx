@@ -44,11 +44,11 @@ const Collection = () => {
     }
   };
 
-  const fetchInscriptions = async (page = 1, isFetchMore = false) => {
+  const fetchInscriptions = async (page = 1) => {
     try {
       setIsFetching(true);
       const data = await getCollectionNfts({ contractAddress: contract, page, limit: LIMIT, owner: owner || '' });
-      if (isFetchMore) {
+      if (page > 1) {
         setInscriptions(prev => [...prev, ...data]);
       } else {
         setInscriptions(data);
@@ -62,7 +62,7 @@ const Collection = () => {
   const onLoadMoreCollections = () => {
     if (isFetching || inscriptions.length % LIMIT !== 0) return;
     const page = Math.floor(inscriptions.length / LIMIT) + 1;
-    fetchInscriptions(page, true);
+    fetchInscriptions(page);
   };
 
   const debounceLoadMore = debounce(onLoadMoreCollections, 300);
