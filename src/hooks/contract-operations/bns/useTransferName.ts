@@ -10,13 +10,14 @@ import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
 import { stringToBuffer } from '@/utils';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface ITransferNameParams {
   to: string;
   name: string;
 }
 
-const useTransferName: ContractOperationHook<ITransferNameParams, Promise<Transaction | null>> = () => {
+const useTransferName: ContractOperationHook<ITransferNameParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, true);
   const { btcBalance, feeRate } = useContext(AssetsContext);
@@ -48,7 +49,7 @@ const useTransferName: ContractOperationHook<ITransferNameParams, Promise<Transa
         const tokenId = await contract.connect(provider).registry(byteCode);
 
         // Transfer
-        const transaction = await contract.connect(provider.getSigner()).safeTransferFrom(account, to, tokenId);
+        const transaction = await contract.connect(provider.getSigner()).transferFrom(account, to, tokenId);
         return transaction;
       }
 
@@ -60,6 +61,7 @@ const useTransferName: ContractOperationHook<ITransferNameParams, Promise<Transa
   return {
     call,
     dAppType: DAppType.BNS,
+    transactionType: TransactionEventType.TRANSFER,
   };
 };
 

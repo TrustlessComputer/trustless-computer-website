@@ -14,6 +14,7 @@ FROM base AS builder
 ARG BUILD_ENV=production
 WORKDIR /app
 
+# Build client
 COPY . ./
 # https://create-react-app.dev/docs/adding-custom-environment-variables#what-other-env-files-can-be-used
 COPY envs/.env.${BUILD_ENV} .env

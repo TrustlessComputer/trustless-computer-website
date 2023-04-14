@@ -10,6 +10,8 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Container } from './NameProfile.styled';
 import { AnyIfEmpty } from 'react-redux';
 import Empty from '@/components/Empty';
+import { IBNS } from '@/interfaces/bns';
+import BNSCard from '@/components/BNS/Card';
 
 const LIMIT_PAGE = 12;
 
@@ -25,7 +27,7 @@ const NamesProfile = () => {
   const profileWallet = account;
   const [pageSize, setpageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
-  const [collections, setCollections] = useState<any>();
+  const [collections, setCollections] = useState<IBNS[]>([]);
 
   // const { data: collection, isLoading } = useSWR(
   //   getApiKey(getBnsByWallet, { limit: pageSize, page: page, walletAddress: profileWallet }),
@@ -93,18 +95,8 @@ const NamesProfile = () => {
             <Masonry gutter="16px">
               {collections &&
                 collections.length > 0 &&
-                collections.map((item: any, index: number) => {
-                  return (
-                    <div key={index.toString()} className="card">
-                      <div className="card-content">
-                        <div className="card-info">
-                          <p className="card-title">{item.name}</p>
-                          <p className="card-subTitle">{shortenAddress(item.owner, 4)}</p>
-                          <p className="card-subTitle">Name #{item.id}</p>
-                        </div>
-                      </div>
-                    </div>
-                  );
+                collections.map((item: any) => {
+                  return <BNSCard key={`name-${item.id}`} item={item} />;
                 })}
             </Masonry>
           </ResponsiveMasonry>

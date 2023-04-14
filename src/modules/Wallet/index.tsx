@@ -38,6 +38,7 @@ const Wallet = () => {
   const [_, setSearchParams] = useSearchParams();
 
   const [activeTab, setActiveTab] = useState(tab || DappsTabs.NFT);
+  const [processing, setProcessing] = useState(false);
 
   const user = useSelector(getUserSelector);
   const { getUnInscribedTransactionDetailByAddress } = useBitcoin();
@@ -83,9 +84,12 @@ const Wallet = () => {
 
   const handleResumeTransactions = async () => {
     try {
+      setProcessing(true);
       await run();
     } catch (err: any) {
       toast.error(err.message);
+    } finally {
+      setProcessing(false);
     }
   };
 
@@ -172,18 +176,20 @@ const Wallet = () => {
             title={
               activeTab === DappsTabs.TRANSACTION ? (
                 <div
-                  className={`explore-btn ${transactions.length === 0 || transactionConfirmed ? 'disable' : ''}`}
+                  className={`explore-btn resume-btn ${
+                    transactions.length === 0 || transactionConfirmed ? 'disable' : ''
+                  }`}
                   onClick={handleResumeTransactions}
                 >
-                  <Text className="font-ibm" size="regular">
-                    {`Resume all pendings`}
+                  <Text className="font-ibm " size="regular">
+                    {processing ? 'Processing...' : `Resume all pending`}
                   </Text>
                   {/* <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" /> */}
                 </div>
               ) : (
                 <div className="explore-btn" onClick={navigateToDapps}>
                   <Text className="font-ibm" size="regular">
-                    Explore Bitcoin Dapps
+                    Explore Dapp Store
                   </Text>
                   <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" />
                 </div>

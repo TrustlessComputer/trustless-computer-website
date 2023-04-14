@@ -1,6 +1,6 @@
 import px2rem from '@/utils/px2rem';
 import { IconSVGProps } from './index';
-import styled, { css } from 'styled-components';
+import styled, { DefaultTheme, css } from 'styled-components';
 
 export const StyledIconSVG = styled.div<any>`
   font-size: 0;
@@ -17,7 +17,8 @@ export const StyledIconSVG = styled.div<any>`
       css`
         svg path,
         svg rect {
-          fill: ${(props: IconSVGProps) => props.color || 'currentColor'};
+          fill: ${({ color, theme }: { color: string; theme: DefaultTheme }) =>
+            (theme as any)[color] || 'currentColor'};
         }
       `
     );
@@ -27,7 +28,8 @@ export const StyledIconSVG = styled.div<any>`
     css`
       svg path,
       svg rect {
-        stroke: ${(props: IconSVGProps) => props.color || 'currentColor'};
+        stroke: ${({ color, theme }: { color: string; theme: DefaultTheme }) =>
+          (theme as any)[color] || 'currentColor'};
       }
     `};
 `;

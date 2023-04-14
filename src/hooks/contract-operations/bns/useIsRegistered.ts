@@ -5,12 +5,13 @@ import { BNS_CONTRACT } from '@/configs';
 import { useWeb3React } from '@web3-react/core';
 import { useCallback } from 'react';
 import { stringToBuffer } from '@/utils';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface ICheckIfRegisteredNameParams {
   name: string;
 }
 
-const useIsRegistered: ContractOperationHook<ICheckIfRegisteredNameParams, Promise<boolean>> = () => {
+const useIsRegistered: ContractOperationHook<ICheckIfRegisteredNameParams, boolean> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, false);
 
@@ -31,6 +32,7 @@ const useIsRegistered: ContractOperationHook<ICheckIfRegisteredNameParams, Promi
   return {
     call,
     dAppType: DAppType.BNS,
+    transactionType: TransactionEventType.NONE,
   };
 };
 
