@@ -142,8 +142,8 @@ const TransactionsProfile = ({ pendingList }: Props) => {
               </Text>
             </div>
           ),
-          fromAddress: formatLongAddress(trans?.fromAddress),
-          toAddress: formatLongAddress(trans?.toAddress),
+          fromAddress: formatLongAddress(trans?.fromAddress) || '-',
+          toAddress: formatLongAddress(trans?.toAddress) || '-',
           time: localDateString,
           status: <div className={`status ${status}`}>{status}</div>,
         },
