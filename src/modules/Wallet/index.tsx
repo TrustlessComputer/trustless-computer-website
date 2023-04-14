@@ -170,14 +170,14 @@ const Wallet = () => {
                   onClick={handleResumeTransactions}
                 >
                   <Text className="font-ibm" size="regular">
-                    {`Resume all pendings`}
+                    {`Resume all pending`}
                   </Text>
                   {/* <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" /> */}
                 </div>
               ) : (
                 <div className="explore-btn" onClick={navigateToDapps}>
                   <Text className="font-ibm" size="regular">
-                    Explore Bitcoin Dapps
+                    Explore Dapp Store
                   </Text>
                   <img src={`${CDN_URL}/icons/ic-arrow-right.svg`} alt="" />
                 </div>
