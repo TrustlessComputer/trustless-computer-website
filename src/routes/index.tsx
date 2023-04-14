@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import Layout from '@/pages/layout';
-import Home from '@/pages/home';
 import Faucet from '@/pages/faucet';
+import Home from '@/pages/home';
 import NotFound from '@/pages/404';
 import Dapps from '@/pages/dapps';
 import Collection from '@/pages/collection';

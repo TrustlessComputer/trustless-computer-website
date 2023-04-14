@@ -126,13 +126,14 @@ const Wrapper = styled.div`
   `};
 `;
 
-const StyledLink = styled(Link)<{ active: boolean }>`
+const StyledLink = styled(Link)<{ active: boolean; activeColor?: string }>`
   cursor: pointer;
   font-weight: 400;
   font-size: ${px2rem(16)};
   line-height: ${px2rem(28)};
   text-decoration: none !important;
-  color: ${({ theme, active }: { theme: DefaultTheme; active: boolean }) => (active ? theme.white : theme.text2)};
+  color: ${({ theme, active, activeColor }: { theme: DefaultTheme; active: boolean; activeColor?: string }) =>
+    active ? activeColor || theme.white : theme.text2};
   font-family: 'IBMPlexMono';
   letter-spacing: -0.02em;
 
@@ -209,15 +210,14 @@ const WalletAdress = styled(Tooltip)`
 `;
 
 const ConnectWalletButton = styled(Button)`
-  background: #4f43e2;
   padding: ${px2rem(4)} ${px2rem(12)};
-  color: #fff;
+  color: #1c1c1c;
   font-size: ${px2rem(14)};
   line-height: ${px2rem(24)};
   font-weight: 400;
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
 
   :disabled {
-    background: #4f43e2;
     opacity: 0.8;
   }
 `;
