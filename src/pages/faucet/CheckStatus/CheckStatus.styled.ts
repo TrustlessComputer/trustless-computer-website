@@ -18,15 +18,15 @@ const PostStep = styled.div`
 
     min-width: 98px;
 
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+    background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
     border-radius: 2px;
 
     :hover {
-      background: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+      opacity: 0.8;
     }
 
     :disabled {
-      background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+      opacity: 0.5;
     }
 
     .text {
@@ -34,6 +34,7 @@ const PostStep = styled.div`
       font-size: ${px2rem(16)};
       line-height: ${px2rem(26)};
       color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
+      font-family: 'IBMPlexMono' !important;
     }
 
     .loading {
