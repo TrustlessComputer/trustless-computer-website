@@ -6,12 +6,14 @@ export const StyledTokenProfile = styled.div`
     th:nth-child(4),
     td:nth-child(4),
     th:nth-child(5),
-    td:nth-child(5) {
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6) {
       text-align: right;
     }
 
-    th:nth-child(5),
-    td:nth-child(5) {
+    th:nth-child(6),
+    td:nth-child(6) {
       max-width: ${px2rem(80)};
     }
 
@@ -47,5 +49,7 @@ export const StyledTokenProfile = styled.div`
     color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
     font-style: normal;
     border-radius: 2px;
+    margin-left: auto;
+    /* margin-right: auto; */
   }
 `;
