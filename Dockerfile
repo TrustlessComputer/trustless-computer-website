@@ -21,11 +21,6 @@ COPY envs/.env.${BUILD_ENV} .env
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
 
-# Build server
-RUN yarn server:build
-COPY server/envs/.env.${BUILD_ENV} server-dist/.env
-RUN yarn server:start
-
 # production environment
 FROM nginx:stable as runner
 COPY --from=builder /app/dist /usr/share/nginx/html
