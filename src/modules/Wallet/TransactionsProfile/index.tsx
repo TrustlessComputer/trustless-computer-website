@@ -45,7 +45,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
   const fetchTransactionHistory = async (page = 1, isFetchMore = false) => {
     if (user && user.walletAddress) {
       try {
-        setIsLoading(true);
+        setIsFetching(true);
         const res = await getTransactionsByWallet({ walletAddress: user.walletAddress, limit: LIMIT_PAGE, page: page });
 
         const txHashes = res.map(tx => tx.txHash);
@@ -178,7 +178,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
         dataLength={transactions?.length || 0}
         hasMore={true}
         loader={
-          isLoading && (
+          isFetching && (
             <div className="loading">
               <Spinner animation="border" variant="primary" />
             </div>
