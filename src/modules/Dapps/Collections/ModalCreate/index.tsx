@@ -26,7 +26,7 @@ type Props = {
 const ModalCreate = (props: Props) => {
   const { show = false, handleClose } = props;
   const [isProcessing, setIsProcessing] = useState(false);
-  const { run } = useContractOperation<ICreateNFTCollectionParams, Promise<DeployContractResponse | null>>({
+  const { run } = useContractOperation<ICreateNFTCollectionParams, DeployContractResponse | null>({
     operation: useCreateNFTCollection,
   });
 

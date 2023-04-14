@@ -14,7 +14,7 @@ export interface IMintChunksParams {
   contractAddress: string;
 }
 
-const useMintChunks: ContractOperationHook<IMintChunksParams, Promise<Transaction | null>> = () => {
+const useMintChunks: ContractOperationHook<IMintChunksParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 

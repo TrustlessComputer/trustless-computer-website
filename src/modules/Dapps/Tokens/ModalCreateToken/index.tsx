@@ -25,7 +25,7 @@ interface IFormValue {
 const ModalCreateToken: React.FC<Props> = (props: Props) => {
   const { show, handleClose } = props;
   const [isProcessing, setIsProcessing] = useState(false);
-  const { run } = useContractOperation<ICreateTokenParams, Promise<DeployContractResponse | null>>({
+  const { run } = useContractOperation<ICreateTokenParams, DeployContractResponse | null>({
     operation: useCreateToken,
   });
 

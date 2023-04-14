@@ -10,7 +10,7 @@ export interface ICheckIfRegisteredNameParams {
   name: string;
 }
 
-const useIsRegistered: ContractOperationHook<ICheckIfRegisteredNameParams, Promise<boolean>> = () => {
+const useIsRegistered: ContractOperationHook<ICheckIfRegisteredNameParams, boolean> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, false);
 

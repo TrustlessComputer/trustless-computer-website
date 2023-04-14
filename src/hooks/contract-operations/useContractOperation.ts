@@ -55,13 +55,6 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
-      console.time('____assetsLoadTime');
-      const assets = await getAvailableAssetsCreateTx();
-      console.timeEnd('____assetsLoadTime');
-      console.log('assets', assets);
-      if (!assets) {
-        throw Error('Can not get assets. Please try again.');
-      }
 
       if (!inscribeable) {
         // Make TC transaction

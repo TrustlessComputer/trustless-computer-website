@@ -8,7 +8,7 @@ export enum DAppType {
 }
 
 export type ContractOperationHook<P, R> = (arg?: any) => {
-  call: (args: P) => R;
+  call: (args: P) => Promise<R>;
   dAppType: DAppType;
 };
 

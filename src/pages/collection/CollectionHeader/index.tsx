@@ -29,10 +29,10 @@ const CollectionHeader = (props: ICollectionHeader) => {
   const { collection, onClickEdit } = props;
   const user = useSelector(getUserSelector);
   const [isMinting, setIsMinting] = useState(false);
-  const { run: mintSingle } = useContractOperation<IMintChunksParams, Promise<Transaction | null>>({
+  const { run: mintSingle } = useContractOperation<IMintChunksParams, Transaction | null>({
     operation: useMintChunks,
   });
-  const { run: mintBatch } = useContractOperation<IMintBatchChunksParams, Promise<Transaction | null>>({
+  const { run: mintBatch } = useContractOperation<IMintBatchChunksParams, Transaction | null>({
     operation: useMintBatchChunks,
   });
   const [file, setFile] = useState<File | null>(null);

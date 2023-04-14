@@ -14,7 +14,7 @@ export interface ICreateTokenParams {
   maxSupply: number;
 }
 
-const useCreateToken: ContractOperationHook<ICreateTokenParams, Promise<DeployContractResponse | null>> = () => {
+const useCreateToken: ContractOperationHook<ICreateTokenParams, DeployContractResponse | null> = () => {
   const { account, provider } = useWeb3React();
   const { btcBalance, feeRate } = useContext(AssetsContext);
 
