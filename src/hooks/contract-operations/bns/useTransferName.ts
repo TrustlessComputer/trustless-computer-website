@@ -10,6 +10,7 @@ import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
 import { stringToBuffer } from '@/utils';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface ITransferNameParams {
   to: string;
@@ -60,6 +61,7 @@ const useTransferName: ContractOperationHook<ITransferNameParams, Transaction | 
   return {
     call,
     dAppType: DAppType.BNS,
+    transactionType: TransactionEventType.TRANSFER,
   };
 };
 

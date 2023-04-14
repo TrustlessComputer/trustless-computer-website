@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js';
 import * as TC_SDK from 'trustless-computer-sdk';
 import { formatBTCPrice } from '@/utils/format';
 import { getContract } from '@/utils';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface IMintChunksParams {
   chunks: Buffer;
@@ -53,6 +54,7 @@ const useMintChunks: ContractOperationHook<IMintChunksParams, Transaction | null
   return {
     call: call,
     dAppType: DAppType.ERC721,
+    transactionType: TransactionEventType.MINT,
   };
 };
 

@@ -56,7 +56,7 @@ const ModalCreateToken: React.FC<Props> = (props: Props) => {
         symbol,
         maxSupply: Number(supply),
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
       handleClose();
     } catch (err) {
       toast.error((err as Error).message);

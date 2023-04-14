@@ -52,7 +52,7 @@ const ModalCreate = (props: Props) => {
         name,
         symbol,
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
       handleClose();
     } catch (err) {
       toast.error((err as Error).message);
