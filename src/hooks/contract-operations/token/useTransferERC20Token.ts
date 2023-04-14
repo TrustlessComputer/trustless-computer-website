@@ -8,10 +8,12 @@ import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
 import { getContract } from '@/utils';
 import { TRANSFER_TX_SIZE } from '@/configs';
+import Web3 from 'web3';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface ITransferERC20TokenParams {
   to: string;
-  amount: number;
+  amount: string;
   erc20TokenAddress: string;
 }
 
@@ -42,7 +44,9 @@ const useTransferERC20Token: ContractOperationHook<ITransferERC20TokenParams, bo
           );
         }
 
-        const transaction = await contract.connect(provider.getSigner()).transfer(to, amount);
+        const transaction = await contract
+          .connect(provider.getSigner())
+          .transfer(to, Web3.utils.toWei(amount, 'ether'));
 
         return transaction;
       }
@@ -55,6 +59,7 @@ const useTransferERC20Token: ContractOperationHook<ITransferERC20TokenParams, bo
   return {
     call: call,
     dAppType: DAppType.ERC20,
+    transactionType: TransactionEventType.TRANSFER,
   };
 };
 

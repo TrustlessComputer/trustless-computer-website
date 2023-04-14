@@ -10,6 +10,7 @@ import * as TC_SDK from 'trustless-computer-sdk';
 import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface IRegisterNameParams {
   name: string;
@@ -54,6 +55,7 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Transaction | null
   return {
     call,
     dAppType: DAppType.BNS,
+    transactionType: TransactionEventType.CREATE,
   };
 };
 

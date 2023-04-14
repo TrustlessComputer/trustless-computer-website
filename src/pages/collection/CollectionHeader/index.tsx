@@ -56,7 +56,7 @@ const CollectionHeader = (props: ICollectionHeader) => {
         contractAddress: collection.contract,
         chunks: chunks,
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
     } catch (err: unknown) {
       console.log(err);
       toast.error((err as Error).message);
@@ -112,7 +112,7 @@ const CollectionHeader = (props: ICollectionHeader) => {
           listOfChunks: batch,
         });
       }
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
     } catch (err: unknown) {
       toast.error((err as Error).message || 'Something went wrong. Please try again later.');
       console.log(err);

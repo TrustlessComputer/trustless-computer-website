@@ -94,6 +94,7 @@ export const Styled = styled(Link)`
       color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
       width: 100%;
       font-style: normal;
+      border-radius: 2px;
     }
   }
 `;

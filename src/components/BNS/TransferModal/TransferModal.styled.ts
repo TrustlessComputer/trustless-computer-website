@@ -37,7 +37,11 @@ export const StyledTransferModal = styled(MainModal)`
 
   .transfer-btn {
     width: 100%;
-    background-color: ${({ theme }) => theme.bg1};
-    border-radius: 2px;
+    margin-top: ${px2rem(8)};
+
+    .transfer-text {
+      padding-top: ${px2rem(11)};
+      padding-bottom: ${px2rem(11)};
+    }
   }
 `;

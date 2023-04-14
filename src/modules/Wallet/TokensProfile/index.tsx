@@ -10,19 +10,30 @@ import useSWR from 'swr';
 import { StyledTokenProfile } from './TokenProfile.styled';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
+import { useState } from 'react';
+import TransferModal from './TransferModal';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
 const TokensProfile = () => {
   const user = useSelector(getUserSelector);
-
   const profileWallet = user?.walletAddress || '';
-
+  const [showTransferModal, setShowTransferModal] = useState(false);
+  const [selectedToken, setSelectedToken] = useState<any>(null);
   const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', ''];
-
   const { data, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
     getTokensByWallet({ key: profileWallet }),
   );
+
+  const hanldeOpenTransferModal = (selectedToken: any) => {
+    setShowTransferModal(true);
+    setSelectedToken(selectedToken);
+  };
+
+  const hanldeCloseTransferModal = () => {
+    setShowTransferModal(false);
+    setSelectedToken(null);
+  };
 
   const tokenDatas =
     data &&
@@ -30,7 +41,7 @@ const TokensProfile = () => {
     data.map((token: any, index: number) => {
       const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
       const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
-      console.log(token);
+
       return {
         id: `token-${token?.address}}`,
         render: {
@@ -43,7 +54,17 @@ const TokensProfile = () => {
 
           symbol: token?.symbol || '-',
           supply: totalSupply.toLocaleString(),
-          action: <></>,
+          action: (
+            <>
+              {user?.walletAddress?.toLowerCase() === token.owner.toLowerCase() && (
+                <div className="owner-actions">
+                  <button onClick={() => hanldeOpenTransferModal(token)} className="transfer-button">
+                    Transfer
+                  </button>
+                </div>
+              )}
+            </>
+          ),
         },
       };
     });
@@ -61,6 +82,11 @@ const TokensProfile = () => {
       ) : (
         <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
       )}
+      <TransferModal
+        show={showTransferModal}
+        handleClose={hanldeCloseTransferModal}
+        erc20TokenAddress={selectedToken?.address}
+      />
     </StyledTokenProfile>
   );
 };

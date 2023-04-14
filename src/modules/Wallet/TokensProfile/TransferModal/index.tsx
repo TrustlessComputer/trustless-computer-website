@@ -8,23 +8,24 @@ import Button from '@/components/Button';
 import useContractOperation from '@/hooks/contract-operations/useContractOperation';
 import toast from 'react-hot-toast';
 import { Formik } from 'formik';
-import useTransferERC721Token from '@/hooks/contract-operations/nft/useTransferERC721Token';
+import useTransferERC20Token from '@/hooks/contract-operations/token/useTransferERC20Token';
+import isNumber from 'lodash/isNumber';
 
 type Props = {
   show: boolean;
   handleClose: () => void;
-  contractAddress?: string;
-  tokenId?: string;
+  erc20TokenAddress?: string;
 };
 
 interface IFormValue {
   toAddress: string;
+  amount: string;
 }
 
 const TransferModal = (props: Props) => {
-  const { show = false, handleClose, contractAddress, tokenId } = props;
+  const { show = false, handleClose, erc20TokenAddress } = props;
   const { run } = useContractOperation({
-    operation: useTransferERC721Token,
+    operation: useTransferERC20Token,
   });
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -35,23 +36,31 @@ const TransferModal = (props: Props) => {
       errors.toAddress = 'Receiver wallet address is required.';
     }
 
+    if (!values.amount) {
+      errors.amount = 'Amount is required.';
+    } else if (!isNumber(values.amount)) {
+      errors.amount = 'Invalid amount. Amount must be a number.';
+    } else if (parseFloat(values.amount) <= 0) {
+      errors.amount = 'Invalid amount. Amount must be greater than 0.';
+    }
+
     return errors;
   };
 
   const handleSubmit = async (values: IFormValue): Promise<void> => {
-    if (!tokenId || !contractAddress) {
+    if (!erc20TokenAddress) {
       toast.error('Token information not found');
       setIsProcessing(false);
       return;
     }
 
-    const { toAddress } = values;
+    const { toAddress, amount } = values;
     try {
       setIsProcessing(true);
       await run({
-        tokenId: tokenId,
+        amount: amount.toString(),
         to: toAddress,
-        contractAddress: contractAddress,
+        erc20TokenAddress: erc20TokenAddress,
       });
       toast.success('Transaction has been created. Please wait for few minutes.');
       handleClose();
@@ -75,6 +84,7 @@ const TransferModal = (props: Props) => {
           key="create"
           initialValues={{
             toAddress: '',
+            amount: '',
           }}
           validate={validateForm}
           onSubmit={handleSubmit}
@@ -96,6 +106,23 @@ const TransferModal = (props: Props) => {
                   placeholder={`Paste TC wallet address here`}
                 />
                 {errors.toAddress && touched.toAddress && <p className="error">{errors.toAddress}</p>}
+              </WrapInput>
+
+              <WrapInput>
+                <label htmlFor="amount" className="title-input">
+                  AMOUNT
+                </label>
+                <input
+                  id="amount"
+                  type="number"
+                  name="amount"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.amount}
+                  className="input"
+                  placeholder={`Enter the amount`}
+                />
+                {errors.amount && touched.amount && <p className="error">{errors.amount}</p>}
               </WrapInput>
 
               <Button disabled={isProcessing} type="submit" className="confirm-btn">

@@ -47,7 +47,7 @@ const Names: React.FC = () => {
       await registerName({
         name: valueInput,
       });
-      toast.success('Transaction has been created. Please wait for minutes.');
+      toast.success('Transaction has been created. Please wait for few minutes.');
       setValueInput('');
     } catch (err) {
       toast.error((err as Error).message);

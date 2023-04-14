@@ -9,6 +9,7 @@ import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import * as TC_SDK from 'trustless-computer-sdk';
 import { formatBTCPrice } from '@/utils/format';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface IPreserveChunkParams {
   address: string;
@@ -53,6 +54,7 @@ const usePreserveChunks: ContractOperationHook<IPreserveChunkParams, Transaction
   return {
     call: call,
     dAppType: DAppType.BFS,
+    transactionType: TransactionEventType.CREATE,
   };
 };
 

@@ -1,5 +1,4 @@
 import { SupportedChainId } from '@/constants/chains';
-import { WalletContext } from '@/contexts/wallet-context';
 import { ContractOperationHook } from '@/interfaces/contract-operation';
 import { capitalizeFirstLetter, switchChain } from '@/utils';
 import { useWeb3React } from '@web3-react/core';
@@ -10,9 +9,8 @@ import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/select
 import { AssetsContext } from '@/contexts/assets-context';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
+import { createTransactionHistory } from '@/services/profile';
 import moment from 'moment';
-import { TransactionEventType } from '@/enums/transaction';
 import { ICreateTransactionPayload } from '@/interfaces/transaction';
 
 interface IParams<P, R> {
@@ -27,8 +25,8 @@ interface IContractOperationReturn<P, R> {
 
 const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
-  const { call, dAppType } = operation();
-  const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
+  const { call, dAppType, transactionType } = operation();
+  const { feeRate } = useContext(AssetsContext);
   const { chainId: walletChainId } = useWeb3React();
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
   const user = useSelector(getUserSelector);
@@ -98,7 +96,7 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
       const transactionHistory: ICreateTransactionPayload = {
-        dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
+        dapp_type: `${transactionType} ${dAppType}`,
         tx_hash: Object(tx).hash,
         from_address: Object(tx).from,
         to_address: Object(tx).to,
