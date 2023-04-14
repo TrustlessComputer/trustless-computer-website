@@ -90,7 +90,11 @@ const Inscription = () => {
         </div>
         <div className="right-container">
           <div className="header">
-            <p className="title">{inscription?.name}</p>
+            <p className="title">
+              {contract.toLocaleLowerCase() === ARTIFACT_CONTRACT.toLocaleLowerCase()
+                ? `Artifact #${inscription?.tokenId}`
+                : inscription?.name}
+            </p>
             {/* <p className="subTitle">Inscriptions #number</p> */}
           </div>
 
@@ -98,16 +102,17 @@ const Inscription = () => {
             <p className="tag-title">Collection</p>
             <p className="subTitle">{inscription?.collectionAddress}</p>
           </a> */}
-          {contract.toLocaleLowerCase() === ARTIFACT_CONTRACT.toLocaleLowerCase() && (
+          {/* {contract.toLocaleLowerCase() === ARTIFACT_CONTRACT.toLocaleLowerCase() && (
             <div className="tag">
-              <p className="tag-title">Artifact #{inscription?.tokenId}</p>
+              <p className="tag-title"></p>
             </div>
-          )}
+          )} */}
 
           <Information>
             <p className="title">Information</p>
             <div className="list">
-              {/* {renderListItem("Owner", inscription?.collectionAddress)} */}
+              {renderListItem('Owner', inscription?.owner)}
+              {renderListItem('Contract', inscription?.collectionAddress)}
               {renderListItem('Content type', inscription?.contentType)}
               {inscription?.mintedAt && renderListItem('Timestamp', formatTimeStamp(inscription?.mintedAt * 1000))}
               {inscription &&

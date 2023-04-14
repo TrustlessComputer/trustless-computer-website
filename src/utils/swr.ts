@@ -18,7 +18,6 @@ export const getApiKey = (fetcher: BareFetcher, params?: string | string[] | Rec
 };
 
 export const swrFetcher = async (url: string, options: any) => {
-  console.log('🚀 ~ swrFetcher ~ url:', url);
   const { method, data, ...rest } = options;
 
   try {
