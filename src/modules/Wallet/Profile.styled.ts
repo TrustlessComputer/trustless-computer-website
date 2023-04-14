@@ -100,6 +100,11 @@ export const TabContainer = styled.div`
       pointer-events: none;
       opacity: 0.5;
     }
+
+    &.resume-btn {
+      width: ${px2rem(180)};
+      justify-content: center;
+    }
   }
 
   .tab-content {

@@ -13,6 +13,7 @@ import { ROUTE_PATH } from '@/constants/route-path';
 import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
 import moment from 'moment';
 import { TransactionEventType } from '@/enums/transaction';
+import { ICreateTransactionPayload } from '@/interfaces/transaction';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -102,26 +103,18 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
         feeRatePerByte: feeRate.fastestFee,
       });
 
+      const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
+      const transactionHistory: ICreateTransactionPayload = {
+        dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
+        tx_hash: Object(tx).hash,
+        from_address: Object(tx).from,
+        to_address: Object(tx).to,
+        time: currentTimeString,
+      };
       if (commitTxID && revealTxID) {
-        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
-        await createTransactionHistory({
-          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
-          tx_hash: Object(tx).hash,
-          from_address: Object(tx).from,
-          to_address: Object(tx).to,
-          btc_tx_hash: revealTxID,
-          time: currentTimeString,
-        });
-      } else {
-        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
-        await createTransactionHistory({
-          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
-          tx_hash: Object(tx).hash,
-          from_address: Object(tx).from,
-          to_address: Object(tx).to,
-          time: currentTimeString,
-        });
+        transactionHistory.btc_tx_hash = revealTxID;
       }
+      await createTransactionHistory(transactionHistory);
 
       return tx;
     } catch (err) {
