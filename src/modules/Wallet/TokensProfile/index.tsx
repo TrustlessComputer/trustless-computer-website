@@ -26,7 +26,7 @@ const TokensProfile = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [tokensList, setTokensList] = useState<any>([]);
 
-  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
+  const TABLE_HEADINGS = ['#', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
 
   // const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
   //   getTokensByWallet({ key: profileWallet }),
