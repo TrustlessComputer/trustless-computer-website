@@ -26,7 +26,7 @@ const TokensProfile = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [tokensList, setTokensList] = useState<any>([]);
 
-  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', ''];
+  const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
 
   // const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
   //   getTokensByWallet({ key: profileWallet }),
@@ -43,6 +43,8 @@ const TokensProfile = () => {
       }
     } catch (err: unknown) {
       console.log('Failed to fetch tokens owned');
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -50,6 +52,7 @@ const TokensProfile = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (token: any, index: number) => {
       const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
+      const balance = token?.balance / decimalToExponential(token.decimal);
       const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
 
       return {
@@ -63,6 +66,7 @@ const TokensProfile = () => {
           ),
 
           symbol: token?.symbol || '-',
+          balance: balance.toLocaleString(),
           supply: totalSupply.toLocaleString(),
         },
       };
