@@ -10,12 +10,13 @@ import * as TC_SDK from 'trustless-computer-sdk';
 import { AssetsContext } from '@/contexts/assets-context';
 import BigNumber from 'bignumber.js';
 import { formatBTCPrice } from '@/utils/format';
+import { TransactionEventType } from '@/enums/transaction';
 
 export interface IRegisterNameParams {
   name: string;
 }
 
-const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transaction | null>> = () => {
+const useRegister: ContractOperationHook<IRegisterNameParams, Transaction | null> = () => {
   const { account, provider } = useWeb3React();
   const contract = useContract(BNS_CONTRACT, BNSABIJson.abi, true);
   const { btcBalance, feeRate } = useContext(AssetsContext);
@@ -54,6 +55,7 @@ const useRegister: ContractOperationHook<IRegisterNameParams, Promise<Transactio
   return {
     call,
     dAppType: DAppType.BNS,
+    transactionType: TransactionEventType.CREATE,
   };
 };
 

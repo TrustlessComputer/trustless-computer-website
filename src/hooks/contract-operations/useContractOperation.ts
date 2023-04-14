@@ -1,5 +1,4 @@
 import { SupportedChainId } from '@/constants/chains';
-import { WalletContext } from '@/contexts/wallet-context';
 import { ContractOperationHook } from '@/interfaces/contract-operation';
 import { capitalizeFirstLetter, switchChain } from '@/utils';
 import { useWeb3React } from '@web3-react/core';
@@ -10,9 +9,9 @@ import { getIsAuthenticatedSelector, getUserSelector } from '@/state/user/select
 import { AssetsContext } from '@/contexts/assets-context';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { createTransactionHistory, getTransactionsByWallet } from '@/services/profile';
+import { createTransactionHistory } from '@/services/profile';
 import moment from 'moment';
-import { TransactionEventType } from '@/enums/transaction';
+import { ICreateTransactionPayload } from '@/interfaces/transaction';
 
 interface IParams<P, R> {
   operation: ContractOperationHook<P, R>;
@@ -26,8 +25,8 @@ interface IContractOperationReturn<P, R> {
 
 const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationReturn<P, R> => {
   const { operation, chainId = SupportedChainId.TRUSTLESS_COMPUTER, inscribeable = true } = args;
-  const { call, dAppType } = operation();
-  const { feeRate, getAvailableAssetsCreateTx } = useContext(AssetsContext);
+  const { call, dAppType, transactionType } = operation();
+  const { feeRate } = useContext(AssetsContext);
   const { chainId: walletChainId } = useWeb3React();
   const isAuthenticated = useSelector(getIsAuthenticatedSelector);
   const user = useSelector(getUserSelector);
@@ -55,13 +54,6 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
 
       // Check & switch network if necessary
       await checkAndSwitchChainIfNecessary();
-      console.time('____assetsLoadTime');
-      const assets = await getAvailableAssetsCreateTx();
-      console.timeEnd('____assetsLoadTime');
-      console.log('assets', assets);
-      if (!assets) {
-        throw Error('Can not get assets. Please try again.');
-      }
 
       if (!inscribeable) {
         // Make TC transaction
@@ -102,26 +94,18 @@ const useContractOperation = <P, R>(args: IParams<P, R>): IContractOperationRetu
         feeRatePerByte: feeRate.fastestFee,
       });
 
+      const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
+      const transactionHistory: ICreateTransactionPayload = {
+        dapp_type: `${transactionType} ${dAppType}`,
+        tx_hash: Object(tx).hash,
+        from_address: Object(tx).from,
+        to_address: Object(tx).to,
+        time: currentTimeString,
+      };
       if (commitTxID && revealTxID) {
-        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
-        await createTransactionHistory({
-          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
-          tx_hash: Object(tx).hash,
-          from_address: Object(tx).from,
-          to_address: Object(tx).to,
-          btc_tx_hash: revealTxID,
-          time: currentTimeString,
-        });
-      } else {
-        const currentTimeString = moment().format('YYYY-MM-DDTHH:mm:ssZ');
-        await createTransactionHistory({
-          dapp_type: `${TransactionEventType.CREATE} ${dAppType}`,
-          tx_hash: Object(tx).hash,
-          from_address: Object(tx).from,
-          to_address: Object(tx).to,
-          time: currentTimeString,
-        });
+        transactionHistory.btc_tx_hash = revealTxID;
       }
+      await createTransactionHistory(transactionHistory);
 
       return tx;
     } catch (err) {
