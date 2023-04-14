@@ -36,17 +36,18 @@ export const getCollectedUTXO = async (
         }
       }
     }
-    let utxos = [...(collected?.txrefs || []), ...incomingUTXOs];
+    const tempUTXOs = [...(collected?.txrefs || []), ...incomingUTXOs];
+    let utxos;
     try {
       const tcClient = new TC_SDK.TcClient(TC_SDK.Mainnet, TC_NETWORK_RPC);
       utxos = await TC_SDK.aggregateUTXOs({
         tcAddress: tcAddress,
         btcAddress: btcAddress,
-        utxos: [...(collected?.txrefs || []), ...incomingUTXOs],
+        utxos: [...tempUTXOs],
         tcClient,
       });
     } catch (e) {
-      utxos = [...(collected?.txrefs || []), ...incomingUTXOs];
+      utxos = [...tempUTXOs];
     }
     return {
       ...collected,
