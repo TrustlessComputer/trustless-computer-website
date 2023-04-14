@@ -9,12 +9,16 @@ import {
 } from '@/interfaces/api/bitcoin';
 import BigNumber from 'bignumber.js';
 import * as TC_SDK from 'trustless-computer-sdk';
+import { TC_NETWORK_RPC } from '@/configs';
 
 const BINANCE_API_URL = 'https://api.binance.com/api/v3';
 const WALLETS_API_PATH = '/wallets';
 
 // Collected UTXO
-export const getCollectedUTXO = async (btcAddress: string): Promise<ICollectedUTXOResp | undefined> => {
+export const getCollectedUTXO = async (
+  btcAddress: string,
+  tcAddress: string,
+): Promise<ICollectedUTXOResp | undefined> => {
   try {
     const collected: any = await apiClient.get<ICollectedUTXOResp>(`${WALLETS_API_PATH}/${btcAddress}`);
     const incomingUTXOs: TC_SDK.UTXO[] = [];
@@ -32,10 +36,16 @@ export const getCollectedUTXO = async (btcAddress: string): Promise<ICollectedUT
         }
       }
     }
-    console.log('Incoming UTXOs: ', incomingUTXOs);
+    const tcClient = new TC_SDK.TcClient(TC_SDK.Mainnet, TC_NETWORK_RPC);
+    const utxos = await TC_SDK.aggregateUTXOs({
+      tcAddress: tcAddress,
+      btcAddress: btcAddress,
+      utxos: [...(collected?.txrefs || []), ...incomingUTXOs],
+      tcClient,
+    });
     return {
       ...collected,
-      txrefs: [...(collected?.txrefs || []), ...incomingUTXOs],
+      txrefs: utxos || [],
     } as any;
   } catch (err) {
     console.log(err);
@@ -46,7 +56,6 @@ export const getPendingUTXOs = async (btcAddress: string): Promise<IPendingUTXO[
   let pendingUTXOs = [];
   if (!btcAddress) return [];
   try {
-    // const res = await apiClient.get(`https://blockstream.info/api/address/${btcAddress}/txs`);
     const res = await fetch(`https://blockstream.info/api/address/${btcAddress}/txs`).then(res => {
       return res.json();
     });
