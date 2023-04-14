@@ -3,19 +3,19 @@ import { ROUTE_PATH } from '@/constants/route-path';
 export const MENU_HEADER = [
   {
     id: 'menu-1',
-    name: 'Developers',
+    name: 'Build',
     route: ROUTE_PATH.HOME,
     activePath: '',
   },
   {
     id: 'menu-2',
-    name: 'Use Trustless Computer',
+    name: 'Use',
     route: ROUTE_PATH.USE_TRUSTLESS,
     activePath: 'use-trustless-computer',
   },
   {
     id: 'menu-3',
-    name: 'Bitcoin Dapps',
+    name: 'Dapp Store',
     route: ROUTE_PATH.DAPPS,
     activePath: 'dapps',
   },

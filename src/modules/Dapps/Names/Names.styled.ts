@@ -77,4 +77,8 @@ export const SubmitButton = styled(Button)`
   p {
     padding: unset !important;
   }
+
+  :disabled {
+    opacity: 0.5;
+  }
 `;

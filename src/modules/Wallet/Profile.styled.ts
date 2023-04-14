@@ -90,6 +90,8 @@ export const TabContainer = styled.div`
     background-color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
     padding: ${px2rem(5)} ${px2rem(14)};
     gap: ${px2rem(4)};
+    background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
+
     p {
       color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
       font-weight: 500;
