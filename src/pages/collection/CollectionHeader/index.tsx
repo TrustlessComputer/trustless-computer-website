@@ -161,7 +161,7 @@ const CollectionHeader = (props: ICollectionHeader) => {
           <div className="infor-right">
             <div className="info-header">
               <div className="social">
-                <a href={`${TC_EXPLORER}/address/${collection?.contract}`}>
+                <a href={`${TC_EXPLORER}/address/${collection?.contract}`} target="_blank">
                   <img src={`${CDN_URL}/icons/ic-tc-explorer-24x24.svg`} />
                 </a>
                 {collection.social.website && (
