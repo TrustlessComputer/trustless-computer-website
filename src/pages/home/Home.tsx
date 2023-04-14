@@ -1,105 +1,109 @@
-import copy from 'copy-to-clipboard';
-import { useState } from 'react';
-
-import { DocumentData, FaqData } from './Data';
+import { CDN_URL } from '@/configs';
+import { ROUTE_PATH } from '@/constants/route-path';
 import {
   Container,
-  CopyContainer,
-  FAQContainer,
-  LeftContainer,
-  RightContainer,
-  StyledFAQItem,
-  TitleDoc,
+  LeftStep,
+  ButtonLink,
+  RightStep,
+  StepContainer,
+  WrapContainer,
+  ButtonLinkSolid,
 } from './Home.styled';
-import IcChevronDown from '@/assets/icons/ic-chevron-down.svg';
-import IcChevronRight from '@/assets/icons/ic-chevron-right.svg';
-import IcCopy from '@/assets/icons/ic-copy.svg';
-import Text from '@/components/Text';
 
 const Home = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const onClickFAQ = () => {
-    if (window.document) {
-      window.document.getElementById('faq')?.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const onClickCopy = (text: string) => {
-    copy(text);
-  };
+  const steps = [
+    {
+      title: 'Issue your own token on Bitcoin',
+      content:
+        'BRC-20 is the standard for fungible tokens on Bitcoin. Easily utilized to represent anything on Bitcoin such as cryptocurrency, a company share, voting rights in a DAO, or an ounce of gold—just to name a few.',
+      element: (
+        <ButtonLink href="https://docs.trustless.computer/bitcoin-dapp-examples/tokens-brc-20" target="_blank">
+          <p className="button-link-text">Issue your BRC-20 token</p>
+          <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
+        </ButtonLink>
+      ),
+      image: '/images/home-banner-1.png',
+    },
+    {
+      title: 'Kickstart a project with a trustless crowdsale on Bitcoin',
+      content:
+        'Using your custom token, you can create a crowdsale contract to raise funds to bring your project to life.',
+      element: (
+        <ButtonLink disabled target="_blank">
+          <p className="button-link-text">Comming soon</p>
+          <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
+        </ButtonLink>
+      ),
+      image: '/images/home-banner-2.png',
+    },
+    {
+      title: 'Issue NFTs on Bitcoin',
+      content:
+        'BRC-721 is the standard for non-fungible tokens (NFT) on Bitcoin. Ideal for memberships, collectibles, in-game items and more.',
+      element: (
+        <ButtonLink href="https://docs.trustless.computer/bitcoin-dapp-examples/nfts-brc-721" target="_blank">
+          <p className="button-link-text">Issue your BRC-721 NFT collection</p>
+          <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
+        </ButtonLink>
+      ),
+      image: '/images/home-banner-3.png',
+    },
+    {
+      title: 'Run a trustless auction for your NFTs on Bitcoin',
+      content: 'You can make an auction contract to sell your NFTs.',
+      element: (
+        <ButtonLink disabled target="_blank">
+          <p className="button-link-text">Comming soon</p>
+          <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
+        </ButtonLink>
+      ),
+      image: '/images/home-banner-4.png',
+    },
+    {
+      title: 'Build a DAO on Bitcoin',
+      content:
+        'Build a decentralized autonomous organization for your community where people can submit and then vote on proposals.',
+      element: (
+        <ButtonLink disabled target="_blank">
+          <p className="button-link-text">Comming soon</p>
+          <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
+        </ButtonLink>
+      ),
+      image: '/images/home-banner-5.png',
+    },
+  ];
 
   return (
     <Container>
-      <div className="wrap-container">
-        <div className="wrap-content">
-          <LeftContainer>
-            <div className="header">
-              <div className="headerTitle">
-                {DocumentData.map((data, index) => {
-                  return (
-                    <TitleDoc
-                      key={index.toString()}
-                      isSelected={currentIndex === index}
-                      onClick={() => setCurrentIndex(index)}
-                    >
-                      <Text size="medium">{data.title}</Text>
-                    </TitleDoc>
-                  );
-                })}
-              </div>
-              <CopyContainer>
-                <pre className="pre">
-                  <code className="code">{DocumentData[currentIndex].code}</code>
-                  <div className="icCopy" onClick={() => onClickCopy(DocumentData[currentIndex].code)}>
-                    <img alt="ic-copy" src={IcCopy}></img>
-                  </div>
-                </pre>
-              </CopyContainer>
-            </div>
-          </LeftContainer>
-
-          <RightContainer>
-            <p className="title">TRUSTLESS COMPUTER</p>
-            <p className="subTitle">Build dapps on Bitcoin.</p>
-            <a href="https://docs.trustless.computer" target="_blank">
-              <div className="button">
-                <p className="text-build">{`Let's build`}</p>
-              </div>
-            </a>
-          </RightContainer>
-        </div>
-        <div className="btnFaq" onClick={onClickFAQ}>
-          <p className="text">Learn more</p>
-          <img alt="icon" className="icon" src={IcChevronDown} />
-        </div>
+      <p className="title">Write smart contracts on Bitcoin</p>
+      <p className="subTitle">
+        Trustless Computer is a layer-1 protocol that broadens the utility of Bitcoin beyond a <br /> cryptocurrency.
+        Allowing you to create a DAO, DEX, NFT, token, auction lending, data storage,
+        <br /> and so much more.
+      </p>
+      <div className="row-actions">
+        <ButtonLink className="button-solid" href="https://docs.trustless.computer" target="_blank">
+          <p className="button-link-text">Developer Guides</p>
+        </ButtonLink>
+        <ButtonLinkSolid href={ROUTE_PATH.FAUCET}>
+          <p className="button-solid-text">Faucet</p>
+        </ButtonLinkSolid>
       </div>
-
-      <FAQContainer id="faq">
-        <p className="title"></p>
-        <div className="faqContent">
-          {FaqData.map((data, index) => {
-            const initOpen = index === 0;
-            return <FAQItem key={index.toString()} answer={data.answer} initOpen={initOpen} question={data.question} />;
-          })}
-        </div>
-      </FAQContainer>
+      <WrapContainer>
+        {steps.map((step, index) => {
+          return (
+            <StepContainer key={index.toString()} isRevert={index % 2 !== 0}>
+              <LeftStep alt={step.image} src={CDN_URL + step.image} />
+              <RightStep>
+                <p className="text">{step.title}</p>
+                <p className="desc">{step.content}</p>
+                {step.element}
+              </RightStep>
+            </StepContainer>
+          );
+        })}
+      </WrapContainer>
     </Container>
-  );
-};
-
-const FAQItem = ({ initOpen, question, answer }: { initOpen: boolean; question: string; answer: string }) => {
-  const [isOpen, setIsOpen] = useState(initOpen);
-  return (
-    <StyledFAQItem isSelected={isOpen}>
-      <div className="header" onClick={() => setIsOpen(!isOpen)}>
-        <p className="question">{question}</p>
-        <img alt="icon" className="icon" src={IcChevronRight} />
-      </div>
-      {isOpen && <p className="answer">{answer}</p>}
-    </StyledFAQItem>
   );
 };
 

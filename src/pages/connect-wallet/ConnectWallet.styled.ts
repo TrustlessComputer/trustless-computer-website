@@ -41,9 +41,9 @@ export const Wrapper = styled.div`
 `;
 
 export const ConnectWalletButton = styled.button`
-  background: #4f43e2;
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
   padding: ${px2rem(15)} ${px2rem(24)};
-  color: #fff;
+  /* color: #fff; */
   font-size: ${px2rem(16)};
   line-height: ${px2rem(26)};
   font-weight: 400;
@@ -51,7 +51,6 @@ export const ConnectWalletButton = styled.button`
   position: relative;
 
   :disabled {
-    background: #4f43e2;
     opacity: 0.8;
   }
 `;
