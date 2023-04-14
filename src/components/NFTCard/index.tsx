@@ -35,7 +35,6 @@ const NFTCard = ({
   owner,
 }: INFTCard) => {
   const user = useSelector(getUserSelector);
-  console.log('🚀 ~ user:', user);
   const [showTransferModal, setShowTransferModal] = useState(false);
 
   const hanldeOpenTransferModal = (e: React.MouseEvent<HTMLButtonElement>) => {
