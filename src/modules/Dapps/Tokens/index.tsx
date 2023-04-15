@@ -8,26 +8,62 @@ import { getTokens } from '@/services/token-explorer';
 import { shortenAddress } from '@/utils';
 import { decimalToExponential } from '@/utils/format';
 import { getApiKey } from '@/utils/swr';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { UploadFileContainer } from '../Dapps.styled';
 import ModalCreateToken from './ModalCreateToken';
 import { StyledTokens } from './Tokens.styled';
+import { debounce } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
+
+const LIMIT_PAGE = 50;
 
 const Tokens = () => {
   const TABLE_HEADINGS = ['Token number', 'Name', 'Symbol', 'Supply', 'Creator'];
 
   const [showModal, setShowModal] = useState(false);
-  const { data, error, isLoading } = useSWR(getApiKey(getTokens), getTokens);
+  const [isFetching, setIsFetching] = useState(false);
+
+  // const { data, error, isLoading } = useSWR(getApiKey(getTokens), getTokens);
+
+  const [tokensList, setTokensList] = useState<any>([]);
+
+  const fetchTokens = async (page = 1, isFetchMore = false) => {
+    try {
+      setIsFetching(true);
+      const res = await getTokens({ limit: LIMIT_PAGE, page: page });
+      if (isFetchMore) {
+        setTokensList((prev: any) => [...prev, ...res]);
+      } else {
+        setTokensList(res);
+      }
+    } catch (err: unknown) {
+      console.log('Failed to fetch tokens owned');
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  const onLoadMoreTokens = () => {
+    if (isFetching || tokensList.length % LIMIT_PAGE !== 0) return;
+    const page = Math.floor(tokensList.length / LIMIT_PAGE) + 1;
+    fetchTokens(page, true);
+  };
+
+  const debounceLoadMore = debounce(onLoadMoreTokens, 300);
+
+  useEffect(() => {
+    fetchTokens();
+  }, []);
 
   const tokenDatas =
-    data &&
-    data.length > 0 &&
-    data.map(
+    tokensList &&
+    tokensList.length > 0 &&
+    tokensList.map(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (token: any, index: number) => {
+      (token: any) => {
         const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
         const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
         const linkToOwnerExplorer = `${EXPLORER_URL}/address/${token?.owner}`;
@@ -35,7 +71,7 @@ const Tokens = () => {
         return {
           id: `token-${token?.address}}`,
           render: {
-            number: index + 1,
+            number: token?.index,
             name: (
               <a href={linkTokenExplorer} rel="rel=”noopener noreferrer”" target="_blank">
                 {token?.name || '-'}
@@ -79,13 +115,22 @@ const Tokens = () => {
           </Button>
         </div>
       </UploadFileContainer>
-      {isLoading ? (
-        <div className="loading">
-          <Spinner animation="border" variant="primary" />
-        </div>
-      ) : (
+
+      <InfiniteScroll
+        className="tokens-list"
+        dataLength={tokensList?.length || 0}
+        hasMore={true}
+        loader={
+          isFetching && (
+            <div className="loading">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )
+        }
+        next={debounceLoadMore}
+      >
         <Table tableHead={TABLE_HEADINGS} data={tokenDatas} className={'token-table'} />
-      )}
+      </InfiniteScroll>
       <ModalCreateToken show={showModal} handleClose={() => setShowModal(false)} />
     </StyledTokens>
   );
