@@ -24,8 +24,9 @@ const TokensProfile = () => {
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [selectedToken, setSelectedToken] = useState<any>(null);
   const [tokensList, setTokensList] = useState<any>([]);
+  console.log('🚀 ~ TokensProfile ~ tokensList:', tokensList);
 
-  const TABLE_HEADINGS = ['#', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
+  const TABLE_HEADINGS = ['Token Number', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
 
   // const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
   //   getTokensByWallet({ key: profileWallet }),
@@ -66,7 +67,7 @@ const TokensProfile = () => {
       return {
         id: `token-${token?.address}}`,
         render: {
-          number: index + 1,
+          number: token?.index,
           name: (
             <a href={linkTokenExplorer} rel="rel=”noopener noreferrer”" target="_blank">
               {token?.name || '-'}
