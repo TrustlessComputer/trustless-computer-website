@@ -99,8 +99,8 @@ const WrapContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: ${px2rem(80)};
-  margin-top: ${px2rem(140)};
+  gap: ${px2rem(40)};
+  margin-top: ${px2rem(120)};
 `;
 
 const StepContainer = styled.div<{ isRevert: boolean }>`
@@ -109,7 +109,7 @@ const StepContainer = styled.div<{ isRevert: boolean }>`
   align-self: center;
   align-items: center;
   gap: ${px2rem(120)};
-  padding: ${px2rem(120)};
+  padding: ${px2rem(80)};
   position: relative;
 
   background: ${({ isRevert }) => (isRevert ? 'transparent' : '#2e2e2e')};

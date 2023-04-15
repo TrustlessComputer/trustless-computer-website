@@ -29,8 +29,8 @@ const Home = () => {
       content:
         'Using your custom token, you can create a crowdsale contract to raise funds to bring your project to life.',
       element: (
-        <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Coming soon</p>
+        <ButtonLink href="https://docs.trustless.computer/bitcoin-dapp-examples/crowsale" target="_blank">
+          <p className="button-link-text">Build a crowdsale</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
@@ -52,8 +52,8 @@ const Home = () => {
       title: 'Run a trustless auction for your NFTs on Bitcoin',
       content: 'You can make an auction contract to sell your NFTs.',
       element: (
-        <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Coming soon</p>
+        <ButtonLink href="https://docs.trustless.computer/bitcoin-dapp-examples/auction" target="_blank">
+          <p className="button-link-text">Start an auction</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
@@ -64,8 +64,8 @@ const Home = () => {
       content:
         'Build a decentralized autonomous organization for your community where people can submit and then vote on proposals.',
       element: (
-        <ButtonLink disabled target="_blank">
-          <p className="button-link-text">Coming soon</p>
+        <ButtonLink href="https://docs.trustless.computer/bitcoin-dapp-examples/dao" target="_blank">
+          <p className="button-link-text">Build a DAO</p>
           <img className="icon" src={CDN_URL + '/icons/ic-arrow-right.svg'} />
         </ButtonLink>
       ),
