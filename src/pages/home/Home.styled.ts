@@ -128,7 +128,8 @@ const StepContainer = styled.div<{ isRevert: boolean }>`
 const LeftStep = styled.img`
   display: flex;
   width: 50%;
-  max-height: ${px2rem(500)};
+  max-height: ${px2rem(300)};
+  object-fit: contain;
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     width: 100%;
@@ -149,7 +150,7 @@ const RightStep = styled.div`
   }
 
   .text {
-    font-weight: 600;
+    font-weight: 500;
     font-size: ${px2rem(34)};
     line-height: ${px2rem(44)};
     font-family: 'IBMPlexMono' !important;
@@ -157,8 +158,8 @@ const RightStep = styled.div`
 
   .desc {
     font-weight: 500;
-    font-size: ${px2rem(24)};
-    line-height: ${px2rem(34)};
+    font-size: ${px2rem(20)};
+    line-height: ${px2rem(30)};
     color: #e5e5e5;
     margin-top: ${px2rem(12)};
     margin-bottom: ${px2rem(32)};
