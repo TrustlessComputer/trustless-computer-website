@@ -47,7 +47,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
       try {
         setIsFetching(true);
         const res = await getTransactionsByWallet({
-          walletAddress: '0x82268aF8207117ddBCD8ce4e444263CcD8d1bF87',
+          walletAddress: user.walletAddress,
           limit: LIMIT_PAGE,
           page: page,
         });
@@ -135,16 +135,16 @@ const TransactionsProfile = ({ pendingList }: Props) => {
                   <img alt="ic-copy" src={IcCopy}></img>
                 </div>
               </div>
-              <Text color="bg4" size="regular">
-                BTC:{' '}
-                {trans?.btcTxHash ? (
+              {trans?.btcTxHash ? (
+                <Text color="bg4" size="regular">
+                  BTC:{' '}
                   <a className="tx-link" target="_blank" href={linkToMempool}>
                     {formatLongAddress(trans?.btcTxHash)}
                   </a>
-                ) : (
-                  '--'
-                )}
-              </Text>
+                </Text>
+              ) : (
+                <div></div>
+              )}
             </div>
           ),
           fromAddress: formatLongAddress(trans?.fromAddress) || '-',
