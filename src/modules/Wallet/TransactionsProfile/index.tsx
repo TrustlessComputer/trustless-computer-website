@@ -46,7 +46,11 @@ const TransactionsProfile = ({ pendingList }: Props) => {
     if (user && user.walletAddress) {
       try {
         setIsFetching(true);
-        const res = await getTransactionsByWallet({ walletAddress: user.walletAddress, limit: LIMIT_PAGE, page: page });
+        const res = await getTransactionsByWallet({
+          walletAddress: '0x82268aF8207117ddBCD8ce4e444263CcD8d1bF87',
+          limit: LIMIT_PAGE,
+          page: page,
+        });
 
         const txHashes = res.map(tx => tx.txHash);
 
@@ -70,6 +74,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
         console.log('Fail to get transactions');
       } finally {
         setIsFetching(false);
+        setIsLoading(false);
       }
     }
   };
@@ -115,7 +120,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
       return {
         id: trans.id,
         render: {
-          type: trans.txHashType,
+          type: <div className="text-capitilize">{trans.txHashType}</div>,
           tx_id: (
             <div className="id-wrapper">
               <div className="tx-wrapper">
