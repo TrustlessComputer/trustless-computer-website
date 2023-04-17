@@ -11,6 +11,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector } from 'react-redux';
 import { StyledTokenProfile } from './TokenProfile.styled';
 import TransferModal from './TransferModal';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import useGetTokenBalance, { IGetTokenBalance } from '@/hooks/contract-operations/token/useGetTokenBalance';
+import { IToken } from '@/interfaces/token';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
@@ -19,18 +22,34 @@ const LIMIT_PAGE = 12;
 const TokensProfile = () => {
   const user = useSelector(getUserSelector);
 
+  // const {run : getTokenBalance} = useContractOperation
+
+  const { run: getTokenBalance } = useContractOperation<IGetTokenBalance, string>({
+    operation: useGetTokenBalance,
+    inscribeable: false,
+  });
+
   const profileWallet = user?.walletAddress || '';
   const [isFetching, setIsFetching] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
-  const [selectedToken, setSelectedToken] = useState<any>(null);
-  const [tokensList, setTokensList] = useState<any>([]);
-  console.log('🚀 ~ TokensProfile ~ tokensList:', tokensList);
+  const [selectedToken, setSelectedToken] = useState<IToken | null>(null);
+  const [tokensList, setTokensList] = useState<IToken[]>([]);
+  const [onMount, setOnMount] = useState(false);
 
   const TABLE_HEADINGS = ['Token Number', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
 
   // const { data, error, isLoading } = useSWR(getApiKey(getTokensByWallet, { key: profileWallet }), () =>
   //   getTokensByWallet({ key: profileWallet }),
   // );
+
+  const fetchTokenBalances = async (tokenAddrs: string[]) => {
+    const balances = await Promise.all(tokenAddrs.map(addr => getTokenBalance({ erc20TokenAddress: addr })));
+    const newTokenList = tokensList.map((token, index: number) => {
+      return { ...token, balance: (parseInt(balances[index]) / decimalToExponential(token.decimal)).toLocaleString() };
+    });
+    setTokensList(newTokenList);
+  };
+
   const hanldeOpenTransferModal = (selectedToken: any) => {
     setShowTransferModal(true);
     setSelectedToken(selectedToken);
@@ -54,14 +73,15 @@ const TokensProfile = () => {
       console.log('Failed to fetch tokens owned');
     } finally {
       setIsFetching(false);
+      setOnMount(true);
     }
   };
 
   const tokenDatas = tokensList.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (token: any, index: number) => {
-      const totalSupply = token?.totalSupply / decimalToExponential(token.decimal);
-      const balance = token?.balance / decimalToExponential(token.decimal);
+    token => {
+      const totalSupply = parseInt(token?.totalSupply) / decimalToExponential(token.decimal);
+      const balance = parseInt(token?.balance) / decimalToExponential(token.decimal);
       const linkTokenExplorer = `${EXPLORER_URL}/token/${token?.address}`;
 
       return {
@@ -104,6 +124,10 @@ const TokensProfile = () => {
   useEffect(() => {
     if (user && user.walletAddress) fetchTokensOwned();
   }, [user]);
+
+  useEffect(() => {
+    if (tokensList && tokensList.length > 0) fetchTokenBalances(tokensList.map((token: any) => token.address));
+  }, [onMount]);
 
   if (!tokensList || tokensList.length === 0 || !profileWallet) {
     return <Empty />;
