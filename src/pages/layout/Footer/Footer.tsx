@@ -95,10 +95,10 @@ const Footer = ({ height }: { height: number }) => {
           Faucet
           <img className="arrow-icon" src={`${CDN_URL}/icons/ic-arrow-outward.svg`} />
         </StyledLink>
-        <StyledLink active={false} to={'https://explorer.trustless.computer'} target="_blank">
+        <a href={'https://explorer.trustless.computer'} target="_blank">
           Explorer
           <img className="arrow-icon" src={`${CDN_URL}/icons/ic-arrow-outward.svg`} />
-        </StyledLink>
+        </a>
         <div className="buttonContainer">
           <a href="https://github.com/trustlesscomputer" target="_blank">
             <img alt="icon" className="icon" src={IcGithub} />
