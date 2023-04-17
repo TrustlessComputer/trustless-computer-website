@@ -120,7 +120,7 @@ const TransactionsProfile = ({ pendingList }: Props) => {
       return {
         id: trans.id,
         render: {
-          type: trans.txHashType,
+          type: <div className="text-capitilize">{trans.txHashType}</div>,
           tx_id: (
             <div className="id-wrapper">
               <div className="tx-wrapper">
