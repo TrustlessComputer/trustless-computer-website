@@ -81,7 +81,7 @@ const Collections = () => {
             showCollections.map((item, index) => {
               return (
                 <NFTCard
-                  key={index.toString()}
+                  key={item.id}
                   href={`/collection?contract=${item.contract}`}
                   thumbnail={item.thumbnail}
                   title1={item.name || shortenAddress(item.contract, 6)}
