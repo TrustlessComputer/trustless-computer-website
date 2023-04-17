@@ -99,6 +99,7 @@ const ArtifactsProfile = () => {
                     title1={formatItemName(item.name, item.contentType)}
                     title2={shortenAddress(item.owner, 4)}
                     title3={`Artifact #${item.tokenId}`}
+                    owner={item.owner}
                   />
                 );
               })}
