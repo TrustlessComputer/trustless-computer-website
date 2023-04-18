@@ -3,7 +3,7 @@ import styled, { DefaultTheme } from 'styled-components';
 
 export const StyledTransactionProfile = styled.div`
   .transactions {
-    height: 100vh;
+    min-height: 50vh;
   }
 
   .loading {
