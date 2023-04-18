@@ -17,7 +17,7 @@ import { IToken } from '@/interfaces/token';
 
 const EXPLORER_URL = TRUSTLESS_COMPUTER_CHAIN_INFO.explorers[0].url;
 
-const LIMIT_PAGE = 12;
+const LIMIT_PAGE = 50;
 
 const TokensProfile = () => {
   const user = useSelector(getUserSelector);
@@ -34,7 +34,6 @@ const TokensProfile = () => {
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [selectedToken, setSelectedToken] = useState<IToken | null>(null);
   const [tokensList, setTokensList] = useState<IToken[]>([]);
-  const [onMount, setOnMount] = useState(false);
 
   const TABLE_HEADINGS = ['Token Number', 'Name', 'Symbol', 'Balance', 'Max Supply', ''];
 
@@ -43,11 +42,21 @@ const TokensProfile = () => {
   // );
 
   const fetchTokenBalances = async (tokenAddrs: string[]) => {
-    const balances = await Promise.all(tokenAddrs.map(addr => getTokenBalance({ erc20TokenAddress: addr })));
-    const newTokenList = tokensList.map((token, index: number) => {
-      return { ...token, balance: (parseInt(balances[index]) / decimalToExponential(token.decimal)).toLocaleString() };
-    });
-    setTokensList(newTokenList);
+    try {
+      setIsFetching(true);
+      const balances = await Promise.all(tokenAddrs.map(addr => getTokenBalance({ erc20TokenAddress: addr })));
+      const newTokenList = tokensList.map((token, index: number) => {
+        return {
+          ...token,
+          balance: (parseInt(balances[index]) / decimalToExponential(token.decimal)).toLocaleString(),
+        };
+      });
+      setTokensList(newTokenList);
+    } catch (err: unknown) {
+      console.log('Failed to fetch token balances: ', err);
+    } finally {
+      setIsFetching(false);
+    }
   };
 
   const hanldeOpenTransferModal = (selectedToken: any) => {
@@ -73,7 +82,6 @@ const TokensProfile = () => {
       console.log('Failed to fetch tokens owned');
     } finally {
       setIsFetching(false);
-      setOnMount(true);
     }
   };
 
@@ -126,8 +134,10 @@ const TokensProfile = () => {
   }, [user]);
 
   useEffect(() => {
-    if (tokensList && tokensList.length > 0) fetchTokenBalances(tokensList.map((token: any) => token.address));
-  }, [onMount]);
+    setTimeout(() => {
+      if (tokensList && tokensList.length > 0) fetchTokenBalances(tokensList.map((token: any) => token.address));
+    }, 2000);
+  }, []);
 
   if (!tokensList || tokensList.length === 0 || !profileWallet) {
     return <Empty />;
