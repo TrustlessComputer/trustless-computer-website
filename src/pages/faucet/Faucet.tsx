@@ -248,10 +248,20 @@ const Faucet = () => {
     <Container>
       <div className="wrap-content">
         <p className="title">Faucet</p>
-        {/* <p className="subTitle1"></p> */}
         <p className="subTitle">
-          To receive free TC for our Trustless Computer, simply enter your wallet address, share on twitter and copy and
-          paste the twitter URL back into the field below. (0.05 TC/day. Total 0.1 TC/address.)
+          To receive 0.1 TC from the faucet, enter your wallet address, share on Twitter, and paste the Twitter URL back
+          into the field below.
+        </p>
+        <p className="subTitle">
+          Need more TC for a bigger project? Reach out to our team on{' '}
+          <a
+            className="discord-link"
+            href="https://discord.com/channels/1052411011036090458/1097833957124472932"
+            target="_blank"
+          >
+            Discord
+          </a>{' '}
+          .
         </p>
         <StepBox>{steps.map((step, index) => renderStep(step, index + 1))}</StepBox>
 

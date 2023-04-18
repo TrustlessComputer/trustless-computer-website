@@ -16,6 +16,10 @@ const Container = styled.div`
     min-width: 345px;
   }
 
+  .discord-link {
+    text-decoration: underline;
+  }
+
   .title {
     font-weight: 500;
     font-size: ${px2rem(56)};
