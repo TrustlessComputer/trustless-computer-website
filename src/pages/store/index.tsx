@@ -7,31 +7,31 @@ const DAPPS_LIST = [
   {
     image: `${CDN_URL}/icons/logo-generative.svg`,
     name: 'Generative',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna.',
+    desc: 'Create BRC-721 collections via smart contracts on the Bitcoin network.',
     link: 'https://generative.xyz/',
   },
   {
     image: `${CDN_URL}/icons/logo-tc-nft.svg`,
     name: 'Trustless NFTs',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna..',
+    desc: 'Use BRC-721 standard to create NFTs for collectible items, memberships, in-game items, and more.',
     link: '',
   },
   {
     image: `${CDN_URL}/icons/logo-tc-market.svg`,
     name: 'Trustless Market',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna.',
+    desc: 'Swap tokens, browse, buy, sell, and auction NFTs on TC protocol.',
     link: '',
   },
   {
-    image: `${CDN_URL}/icons/logo-tc-drive.svg`,
+    image: `${CDN_URL}/icons/logo-tc-artifact.svg`,
     name: 'Artifacts',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna. Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna.',
+    desc: 'Store files on Bitcoin. Cheap. Immutable. Fully on-chain. Large files are supported.',
     link: '',
   },
   {
     image: `${CDN_URL}/icons/logo-tc-name.svg`,
     name: 'Trustless Domain',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna. Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna.Lorem ipsum dolor sit amet consectetur. Placerat viverra pretium viverra nulla magna.',
+    desc: 'Name your TC wallet and use your BNS name to receive any token and NFT. No more copying and pasting long addresses.',
     link: '',
   },
 ];
