@@ -36,7 +36,7 @@ export const ThemedGlobalStyle = createGlobalStyle`
       line-height: ${({ theme }: { theme: DefaultTheme }) => theme.lineHeight.h5};
     }
     h6 {
-      font-family: 'IBMPlexMono' !important;
+      /* font-family: 'IBMPlexMono' !important; */
       font-size: ${({ theme }: { theme: DefaultTheme }) => theme.fontSizes.h6};
       line-height: ${({ theme }: { theme: DefaultTheme }) => theme.lineHeight.h6};
     }

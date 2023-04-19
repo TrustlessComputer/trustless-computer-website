@@ -13,12 +13,14 @@ import Names from './Names';
 import { DappsContainer, TabContainer } from './Dapps.styled';
 import Tokens from './Tokens';
 import { useSearchParams } from 'react-router-dom';
+import { DappsTabs } from '@/enums/tabs';
+import { CDN_URL } from '@/configs';
 
-enum DappsTabs {
-  NFT = 'nfts',
-  TOKEN = 'tokens',
-  ARTIFACT = 'artifacts',
-}
+// enum DappsTabs {
+//   NFT = 'nfts',
+//   TOKEN = 'tokens',
+//   ARTIFACT = 'artifacts',
+// }
 
 const Dapps = () => {
   const { tab } = queryString.parse(location.search) as { tab: string };
@@ -37,6 +39,19 @@ const Dapps = () => {
     setSearchParams({ tab: activeTab });
   }, [activeTab]);
 
+  const renderTabItem = (icon: string, text: string) => {
+    return (
+      <div className="tab-item">
+        <div className="tab-icon">
+          <IconSVG maxWidth="32" maxHeight="32" src={''} url={`${icon}`} color="white" type="stroke"></IconSVG>
+        </div>
+        <Text className="tab-text" size="regular">
+          {text}
+        </Text>
+      </div>
+    );
+  };
+
   return (
     <DappsContainer>
       <TabContainer className="wrapper">
@@ -46,58 +61,16 @@ const Dapps = () => {
           id="uncontrolled-tab"
           onSelect={key => setActiveTab(key || DappsTabs.NFT)}
         >
-          <Tab
-            eventKey={DappsTabs.NFT}
-            title={
-              <div className="tab-item">
-                <IconSVG maxWidth="32" maxHeight="32" src={IcHexagon} color="white" type="stroke"></IconSVG>
-                <Text className="tab-text" size="regular">
-                  NFTs
-                </Text>
-              </div>
-            }
-          >
+          <Tab eventKey={DappsTabs.NFT} title={renderTabItem(`${CDN_URL}/icons/ic-tab-nfts.svg`, 'NFTs')}>
             <Collections />
           </Tab>
-          <Tab
-            eventKey={DappsTabs.TOKEN}
-            title={
-              <div className="tab-item">
-                <IconSVG maxWidth="32" maxHeight="32" src={IcCoinTokens} color="white" type="stroke"></IconSVG>
-                <Text className="tab-text" size="regular">
-                  Tokens
-                </Text>
-              </div>
-            }
-          >
-            {/* <Add Component Here /> */}
+          <Tab eventKey={DappsTabs.TOKEN} title={renderTabItem(`${CDN_URL}/icons/ic-tab-token.svg`, 'Tokens')}>
             <Tokens />
           </Tab>
-          <Tab
-            eventKey={DappsTabs.ARTIFACT}
-            // className={tab === 'files' ? 'active' : ''}
-            title={
-              <div className="tab-item">
-                <IconSVG maxWidth="32" maxHeight="32" src={IcFolderOpen} color="white" type="stroke"></IconSVG>
-                <Text className="tab-text" size="regular">
-                  Artifacts
-                </Text>
-              </div>
-            }
-          >
+          <Tab eventKey={DappsTabs.ARTIFACT} title={renderTabItem(`${CDN_URL}/icons/ic-tab-artifact.svg`, 'Artifacts')}>
             <Artifacts />
           </Tab>
-          <Tab
-            eventKey="names"
-            title={
-              <div className="tab-item">
-                <IconSVG maxWidth="32" maxHeight="32" src={IcNames} color="white" type="stroke" />
-                <Text className="tab-text" size="regular">
-                  Names
-                </Text>
-              </div>
-            }
-          >
+          <Tab eventKey="names" title={renderTabItem(`${CDN_URL}/icons/ic-tab-names.svg`, 'Names')}>
             <Names />
           </Tab>
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
