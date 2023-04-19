@@ -8,4 +8,5 @@ export const ROUTE_PATH = {
   USE_TRUSTLESS: '/use-trustless-computer',
   WALLET: '/wallet',
   CONNECT_WALLET: '/connect-wallet',
+  STORE: '/dapps-store',
 };
