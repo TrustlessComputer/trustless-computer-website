@@ -41,6 +41,16 @@ export const TabContainer = styled.div`
   .tab-text {
     font-family: 'IBMPlexMono' !important;
   }
+
+  .tab-icon {
+    width: 68px;
+    height: 68px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255);
+    background-color: #17171a;
+    border-radius: 12px;
+  }
 `;
 
 export const UploadFileContainer = styled.div`
