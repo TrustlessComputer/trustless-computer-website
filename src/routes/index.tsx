@@ -11,6 +11,7 @@ import UseTrustless from '@/pages/use-trustless-computer';
 import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
 import ConnectWallet from '@/pages/connect-wallet';
+import DappsStorePage from '@/pages/store';
 
 export default [
   {
@@ -27,6 +28,11 @@ export default [
     path: ROUTE_PATH.DAPPS,
     element: <Layout />,
     children: [{ index: true, element: <Dapps /> }],
+  },
+  {
+    path: ROUTE_PATH.STORE,
+    element: <Layout />,
+    children: [{ index: true, element: <DappsStorePage /> }],
   },
   {
     path: ROUTE_PATH.COLLECTION,

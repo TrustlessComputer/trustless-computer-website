@@ -16,8 +16,8 @@ export const MENU_HEADER = [
   {
     id: 'menu-3',
     name: 'Dapp Store',
-    route: ROUTE_PATH.DAPPS,
-    activePath: 'dapps',
+    route: ROUTE_PATH.STORE,
+    activePath: 'dapps-store',
   },
   // {
   //   id: 'menu-4',
