@@ -1,4 +1,3 @@
-import Dapps from '@/modules/Dapps';
 import { StyledDappStore } from './Store.styled';
 import { CDN_URL } from '@/configs';
 import Text from '@/components/Text';
@@ -24,7 +23,7 @@ const DAPPS_LIST = [
   },
   {
     image: `${CDN_URL}/icons/logo-tc-artifact.svg`,
-    name: 'Artifacts',
+    name: 'Bitcoin Artifacts',
     desc: 'Store files on Bitcoin. Cheap. Immutable. Fully on-chain. Large files are supported.',
     link: '',
   },
@@ -34,6 +33,12 @@ const DAPPS_LIST = [
     desc: 'Name your TC wallet and use your BNS name to receive any token and NFT. No more copying and pasting long addresses.',
     link: '',
   },
+  // {
+  //   image: `${CDN_URL}/icons/logo-tc-name.svg`,
+  //   name: 'Bitcoin Photos',
+  //   desc: 'Save your images forever on Bitcoin. Fully on-chain. Easy access.',
+  //   link: '',
+  // },
 ];
 
 const DappsStorePage = () => {
