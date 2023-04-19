@@ -63,7 +63,8 @@ export const StyledDappStore = styled.div`
       cursor: auto;
       pointer-events: none;
 
-      .app-item__image {
+      .app-item__image,
+      .app-item__content {
         opacity: 0.3;
       }
     }
