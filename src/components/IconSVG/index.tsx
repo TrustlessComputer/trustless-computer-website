@@ -4,6 +4,7 @@ import { StyledIconSVG } from './IconSVG.styled';
 
 export type IconSVGProps = {
   src: string;
+  url?: string;
   className?: string;
   maxWidth?: string;
   maxHeight?: string;
@@ -14,6 +15,7 @@ export type IconSVGProps = {
 
 const IconSVG: FC<IconSVGProps> = ({
   src,
+  url,
   className = '',
   maxWidth = '',
   maxHeight = '',
@@ -30,7 +32,7 @@ const IconSVG: FC<IconSVGProps> = ({
       color={color}
       onClick={onClick}
     >
-      <SVG src={src}></SVG>
+      <SVG src={url || src}></SVG>
     </StyledIconSVG>
   );
 };

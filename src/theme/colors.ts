@@ -49,6 +49,7 @@ const commonTheme = {
 export const darkTheme = {
   ...commonTheme,
   // Background
+  bodyBg: '#0F0F0F',
   bg1: commonTheme.primary.brand,
   bg2: commonTheme.primary[333],
   bg3: '#404040',
@@ -85,6 +86,7 @@ export const lightTheme = {
   ...commonTheme,
 
   // Background
+  bodyBg: '#EFEFEF',
   bg1: '#EFEFEF',
   bg2: commonTheme.white,
   bg3: '#F8F8F8',
