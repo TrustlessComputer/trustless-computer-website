@@ -17,6 +17,10 @@ export const StyledDappStore = styled.div`
     margin-right: auto;
     text-align: center;
     margin-bottom: ${px2rem(24)};
+
+    @media screen and (max-width: 426px) {
+      font-size: ${px2rem(40)};
+    }
   }
 
   h6 {
@@ -26,15 +30,24 @@ export const StyledDappStore = styled.div`
     margin-right: auto;
     text-align: center;
     margin-bottom: ${px2rem(68)};
+
+    @media screen and (max-width: 426px) {
+      font-size: ${px2rem(16)};
+    }
   }
 
   .app-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(${px2rem(385)}, 1fr));
     gap: ${px2rem(32)};
+
+    @media screen and (max-width: 426px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   .app-item {
+    background-color: #17171a;
     padding: ${px2rem(28)};
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: block;
@@ -44,6 +57,15 @@ export const StyledDappStore = styled.div`
 
     &:hover {
       border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    &:last-of-type {
+      cursor: auto;
+      pointer-events: none;
+
+      .app-item__image {
+        opacity: 0.3;
+      }
     }
   }
 
