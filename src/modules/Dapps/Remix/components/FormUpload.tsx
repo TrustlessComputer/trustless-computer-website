@@ -1,5 +1,8 @@
 // import { WrapInput } from '@/pages/collection/ModalEdit/ModalMint.styled';
 import Button from '@/components/Button';
+import { IDeployContractParams, useDeployContract } from '@/hooks/contract-operations/remix';
+import useContractOperation from '@/hooks/contract-operations/useContractOperation';
+import { DeployContractResponse } from '@/interfaces/contract-operation';
 import px2rem from '@/utils/px2rem';
 import { Formik } from 'formik';
 import { useState } from 'react';
@@ -141,7 +144,10 @@ type FormUploadProp = {
 const FormUpload = (props: FormUploadProp) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { submitCallback = () => {} } = props;
-
+  // eslint-disable-next-line no-undef
+  const { run } = useContractOperation<IDeployContractParams, DeployContractResponse | null>({
+    operation: useDeployContract,
+  });
   const validateForm = (values: IFormValue): Record<string, string> => {
     const errors: Record<string, string> = {};
     let ABI = values.ABI;
@@ -195,14 +201,20 @@ const FormUpload = (props: FormUploadProp) => {
       console.log('values ', values);
       const ABI = JSON.parse(values.ABI) || [];
       const bytecode = values.bytecode;
-      const args = values.args || [];
+      const args = JSON.parse('[' + values.args + ']') || [];
+      // const args = [];
 
-      console.log(' ==== ', {
-        ABI,
-        bytecode,
-        args,
+      // console.log(' ==== ', {
+      //   ABI,
+      //   bytecode,
+      //   args,
+      // });
+
+      await run({
+        abi: ABI,
+        bytecode: bytecode,
+        args: args,
       });
-
       // CALL API SUBMIT (TO DO )
       // toast.success('Transaction has been created. Please wait for few minutes.');
     } catch (err) {
@@ -279,7 +291,7 @@ const FormUpload = (props: FormUploadProp) => {
             <div className="space"></div>
 
             <SubmitButton disabled={isProcessing} type="submit">
-              {isProcessing ? 'Processing...' : 'Submit'}
+              {isProcessing ? 'Processing...' : 'Deploy'}
             </SubmitButton>
           </form>
         )}
