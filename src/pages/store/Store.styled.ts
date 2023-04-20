@@ -59,7 +59,7 @@ export const StyledDappStore = styled.div`
       border-color: rgba(255, 255, 255, 0.8);
     }
 
-    &:last-of-type {
+    /* &:last-of-type {
       cursor: auto;
       pointer-events: none;
 
@@ -67,7 +67,7 @@ export const StyledDappStore = styled.div`
       .app-item__content {
         opacity: 0.3;
       }
-    }
+    } */
   }
 
   .app-item__image {
@@ -75,9 +75,9 @@ export const StyledDappStore = styled.div`
     margin-bottom: ${px2rem(28)};
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
     }
   }
 

@@ -15,7 +15,7 @@ import Tokens from './Tokens';
 import { useSearchParams } from 'react-router-dom';
 import { DappsTabs } from '@/enums/tabs';
 import { CDN_URL } from '@/configs';
-import Photos from './Photos';
+import BitcoinPhotos from './Photos';
 
 // enum DappsTabs {
 //   NFT = 'nfts',
@@ -75,7 +75,7 @@ const Dapps = () => {
             <Names />
           </Tab>
           <Tab eventKey={DappsTabs.PHOTO} title={renderTabItem(`${CDN_URL}/icons/ic-tab-photo.svg`, 'Bitcoin Photo')}>
-            <Photos />
+            <BitcoinPhotos />
           </Tab>
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
           {/* <Add Component Here /> */}

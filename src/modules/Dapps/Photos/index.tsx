@@ -16,7 +16,7 @@ enum PhotoTabs {
   IMAGE = 'image',
 }
 
-const Photos = () => {
+const BitcoinPhotos = () => {
   const [activeTab, setActiveTab] = useState<string>(PhotoTabs.ALL);
 
   const renderTabItem = (icon: string, text: string, total?: number) => {
@@ -55,4 +55,4 @@ const Photos = () => {
   );
 };
 
-export default Photos;
+export default BitcoinPhotos;
