@@ -5,6 +5,7 @@ import px2rem from '@/utils/px2rem';
 import { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import styled from 'styled-components';
+import DropZone from './DropZone';
 
 const StyledPhotos = styled.div`
   margin-top: ${px2rem(48)};
@@ -34,7 +35,7 @@ const BitcoinPhotos = () => {
 
   return (
     <StyledPhotos>
-      <p>Photo Upload Component</p>
+      <DropZone />
       <Tabs
         mountOnEnter
         defaultActiveKey={activeTab}
