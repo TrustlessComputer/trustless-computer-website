@@ -1,20 +1,17 @@
-import IcFolderOpen from '@/assets/icons/ic-folder-open.svg';
-import IcNames from '@/assets/icons/ic-names.svg';
-import IcHexagon from '@/assets/icons/ic-hexagon.svg';
-import IcCoinTokens from '@/assets/icons/ic-coin-unbroken.svg';
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
+import { CDN_URL } from '@/configs';
+import { DappsTabs } from '@/enums/tabs';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 import Artifacts from './Artifacts';
 import Collections from './Collections';
-import Names from './Names';
 import { DappsContainer, TabContainer } from './Dapps.styled';
+import Names from './Names';
+import Remix from './Remix';
 import Tokens from './Tokens';
-import { useSearchParams } from 'react-router-dom';
-import { DappsTabs } from '@/enums/tabs';
-import { CDN_URL } from '@/configs';
 
 // enum DappsTabs {
 //   NFT = 'nfts',
@@ -72,6 +69,9 @@ const Dapps = () => {
           </Tab>
           <Tab eventKey="names" title={renderTabItem(`${CDN_URL}/icons/ic-tab-names.svg`, 'Names')}>
             <Names />
+          </Tab>
+          <Tab eventKey={DappsTabs.REMIX} title={renderTabItem(`${CDN_URL}/icons/ic-tab-remix.svg`, 'Remix')}>
+            <Remix />
           </Tab>
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
           {/* <Add Component Here /> */}
