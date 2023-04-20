@@ -3,8 +3,11 @@ import styled, { DefaultTheme } from 'styled-components';
 import Button from '@/components/Button';
 
 export const NamesContainer = styled.div`
+  margin-left: 10%;
+  margin-right: 10%;
+  align-self: center;
   padding: ${px2rem(24)} ${px2rem(32)};
-  background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg2};
+  /* background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg2}; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,6 +15,9 @@ export const NamesContainer = styled.div`
   color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
   margin-top: ${px2rem(40)};
 
+  .space {
+    height: 20px;
+  }
   .upload_left {
     display: flex;
     gap: ${px2rem(20)};
@@ -33,6 +39,10 @@ export const NamesContainer = styled.div`
 `;
 
 export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
   margin-top: ${px2rem(44)};
 `;
 
