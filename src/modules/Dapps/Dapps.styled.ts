@@ -35,7 +35,8 @@ export const TabContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
+    gap: ${px2rem(12)};
+    align-items: center;
   }
 
   .tab-text {

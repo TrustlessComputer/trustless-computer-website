@@ -19,7 +19,6 @@ export const Container = styled.div`
   padding: 0 ${px2rem(32)};
   /* padding-left: 6%;
   padding-right: 6%; */
-  background-color: ${({ theme }) => theme.bodyBg};
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
       padding-left: 7%;
