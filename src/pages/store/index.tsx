@@ -41,7 +41,7 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     desc: 'Coming soon',
-    link: '',
+    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.PHOTO}`,
   },
 ];
 
@@ -58,8 +58,7 @@ const DappsStorePage = () => {
         {DAPPS_LIST.map((item, index) => (
           <a key={`app-${index}`} href={item.link} className="app-item" target="_blank" rel="noopener noreferrer">
             <div className="app-item__image">
-              {/* <img src={item.image} alt={`${item.name} logo`} /> */}
-              <IconSVG src="" url={item.image} maxWidth="80" />
+              <img src={item.image} alt={`${item.name} logo`} />
             </div>
             <div className="app-item__content">
               <p className="app-name">{item.name}</p>
