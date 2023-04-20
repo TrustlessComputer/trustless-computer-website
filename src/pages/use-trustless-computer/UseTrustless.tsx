@@ -26,6 +26,14 @@ const UseTrustless = () => {
     },
     {
       name: 'Step 3',
+      title: 'Send BTC to your wallet',
+      content:
+        'Go to Wallet, tap the copy icon to copy and paste your BTC address to the address field on the platform you intend to withdraw BTC from. Make a transfer from there and BTC will be credited to your wallet.',
+      element: <Link href={ROUTE_PATH.WALLET}>Go to wallet</Link>,
+      image: '/images/use-trustless-banner-4.png',
+    },
+    {
+      name: 'Step 4',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
       element: <Link href={ROUTE_PATH.DAPPS}>Explore Dapp Store</Link>,
