@@ -3,7 +3,8 @@ import Text from '@/components/Text';
 import { CDN_URL } from '@/configs';
 import { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import { StyledPhotos, TabContainer } from './Photos.styled';
+import DropZone from './DropZone';
+import { StyledPhotos } from './Photos.styled';
 
 enum PhotoTabs {
   ALL = 'all',
@@ -29,25 +30,23 @@ const BitcoinPhotos = () => {
 
   return (
     <StyledPhotos>
-      <p>Photo Upload Component</p>
-      <TabContainer>
-        <Tabs
-          mountOnEnter
-          defaultActiveKey={activeTab}
-          id="uncontrolled-tab"
-          onSelect={key => setActiveTab(key || PhotoTabs.ALL)}
-        >
-          <Tab eventKey={PhotoTabs.ALL} title={renderTabItem(`${CDN_URL}/icons/ic-grid.svg`, 'All')}>
-            {/* <Collections /> */}
-          </Tab>
-          <Tab eventKey={PhotoTabs.ALBUM} title={renderTabItem(`${CDN_URL}/icons/ic-album.svg`, 'Album')}>
-            {/* <Tokens /> */}
-          </Tab>
-          <Tab eventKey={PhotoTabs.IMAGE} title={renderTabItem(`${CDN_URL}/icons/ic-image.svg`, 'Image')}>
-            {/* <Artifacts /> */}
-          </Tab>
-        </Tabs>
-      </TabContainer>
+      <DropZone />
+      <Tabs
+        mountOnEnter
+        defaultActiveKey={activeTab}
+        id="uncontrolled-tab"
+        onSelect={key => setActiveTab(key || PhotoTabs.ALL)}
+      >
+        <Tab eventKey={PhotoTabs.ALL} title={renderTabItem(`${CDN_URL}/icons/ic-tab-nfts.svg`, 'NFTs')}>
+          {/* <Collections /> */}
+        </Tab>
+        <Tab eventKey={PhotoTabs.ALBUM} title={renderTabItem(`${CDN_URL}/icons/ic-tab-token.svg`, 'Tokens')}>
+          {/* <Tokens /> */}
+        </Tab>
+        <Tab eventKey={PhotoTabs.IMAGE} title={renderTabItem(`${CDN_URL}/icons/ic-tab-artifact.svg`, 'Artifacts')}>
+          {/* <Artifacts /> */}
+        </Tab>
+      </Tabs>
     </StyledPhotos>
   );
 };
