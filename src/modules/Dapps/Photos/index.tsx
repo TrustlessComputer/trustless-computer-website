@@ -1,15 +1,10 @@
 import IconSVG from '@/components/IconSVG';
 import Text from '@/components/Text';
 import { CDN_URL } from '@/configs';
-import px2rem from '@/utils/px2rem';
 import { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import styled from 'styled-components';
 import DropZone from './DropZone';
-
-const StyledPhotos = styled.div`
-  margin-top: ${px2rem(48)};
-`;
+import { StyledPhotos } from './Photos.styled';
 
 enum PhotoTabs {
   ALL = 'all',
