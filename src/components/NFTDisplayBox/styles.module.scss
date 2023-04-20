@@ -30,4 +30,19 @@
     height: 100%;
     object-fit: cover;
   }
+
+  .pdfPreview {
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+    }
+    :global(.react-pdf__Page__textContent) {
+      display: none !important;
+    }
+    :global(.react-pdf__Page__annotations) {
+      display: none !important;
+    }
+  }
 }
