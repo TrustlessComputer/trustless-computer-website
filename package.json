@@ -5,6 +5,7 @@
   "author": "bolt",
   "scripts": {
     "dev": "vite",
+    "dev-clean": "rm -rf ./node_modules/.vite && yarn dev",
     "build": "vite build",
     "serve": "vite preview",
     "serve:dist": "http-server dist",
@@ -20,6 +21,7 @@
     "server:start": "node ./server-dist/index.js"
   },
   "dependencies": {
+    "@agnostico/browser-solidity-compiler": "https://github.com/GenesisDoge666/browser-solidity-compiler.git",
     "@bitcoinerlab/secp256k1": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@rollup/plugin-inject": "^5.0.3",
