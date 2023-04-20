@@ -59,7 +59,7 @@ export const StyledDappStore = styled.div`
       border-color: rgba(255, 255, 255, 0.8);
     }
 
-    &:last-of-type {
+    &.app-disabled {
       cursor: auto;
       pointer-events: none;
 
@@ -81,9 +81,24 @@ export const StyledDappStore = styled.div`
     }
   }
 
+  .creator {
+    display: flex;
+    align-items: center;
+    gap: ${px2rem(8)};
+    margin-bottom: ${px2rem(12)};
+  }
+
   .app-name {
     font-size: ${px2rem(28)};
-    line-height: 34/28;
+    line-height: ${px2rem(34)};
+    margin-bottom: ${px2rem(4)};
+  }
+
+  .app-creator {
+    font-size: ${px2rem(18)};
+    line-height: ${px2rem(22)};
+    color: ${({ theme }) => theme.bg4};
+    font-weight: 500;
   }
 
   .app-desc {
