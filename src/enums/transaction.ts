@@ -9,4 +9,5 @@ export enum TransactionEventType {
   TRANSFER = 'transfer',
   MINT = 'mint',
   NONE = 'none',
+  DEPLOY = 'deploy',
 }
