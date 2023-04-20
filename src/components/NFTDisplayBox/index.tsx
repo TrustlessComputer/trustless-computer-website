@@ -7,6 +7,8 @@ import cs from 'classnames';
 import s from './styles.module.scss';
 import { IMAGE_TYPE } from './constant';
 import Skeleton from '../Skeleton';
+import ClientOnly from '../Utils/ClientOnly';
+import { Document, Page } from 'react-pdf';
 interface IProps {
   className?: string;
   contentClass?: string;
@@ -65,7 +67,7 @@ const NFTDisplayBox = ({
       <iframe
         className={contentClassName}
         loading="lazy"
-        sandbox="allow-scripts allow-pointer-lock allow-downloads"
+        sandbox="allow-scripts allow-pointer-lock allow-downloads allow-same-origin"
         scrolling="no"
         src={content}
         onError={onError}
@@ -143,6 +145,18 @@ const NFTDisplayBox = ({
 
   const renderEmpty = () => <img alt="empty" className={contentClassName} loading={'lazy'} src={defaultImage} />;
 
+  const renderPDF = (content: string) => {
+    return (
+      <ClientOnly>
+        <div className={s.pdfPreview}>
+          <Document file={content} loading={renderLoading} error={renderEmpty}>
+            <Page pageIndex={0} />
+          </Document>
+        </div>
+      </ClientOnly>
+    );
+  };
+
   const isImage = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   };
@@ -189,9 +203,11 @@ const NFTDisplayBox = ({
         case 'application/pgp-signature':
         case 'application/yaml':
         case 'audio/flac':
-        case 'application/pdf':
         case 'text/plain;charset=utf-8':
           setHTMLContentRender(renderIframe(content));
+          return;
+        case 'application/pdf':
+          setHTMLContentRender(renderPDF(content));
           return;
         default:
           setHTMLContentRender(renderIframe(content));
