@@ -38,6 +38,12 @@ const DAPPS_LIST = [
     link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.NAMES}`,
   },
   {
+    image: `${CDN_URL}/icons/logo-tc-remix.svg`,
+    name: 'Remix',
+    desc: 'Easily deploy your contract on Trustless Computer by uploading the sol file here. There are no additional technical requirements.',
+    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.REMIX}`,
+  },
+  {
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     desc: 'Coming soon',
