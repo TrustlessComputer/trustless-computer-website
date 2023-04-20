@@ -4,7 +4,7 @@ import { CDN_URL } from '@/configs';
 import { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import DropZone from './DropZone';
-import { StyledPhotos } from './Photos.styled';
+import { StyledPhotos, TabContainer } from './Photos.styled';
 
 enum PhotoTabs {
   ALL = 'all',
@@ -17,9 +17,9 @@ const BitcoinPhotos = () => {
 
   const renderTabItem = (icon: string, text: string, total?: number) => {
     return (
-      <div className="tab-item">
-        <div className="tab-icon">
-          <IconSVG maxWidth="32" maxHeight="32" src={''} url={`${icon}`} color="white" type="stroke"></IconSVG>
+      <div className="photo-tab">
+        <div className="photo-tab-icon">
+          <IconSVG maxWidth="20" maxHeight="20" src={''} url={`${icon}`} color="white" type="fill"></IconSVG>
         </div>
         <Text className="tab-text" size="medium" fontWeight="medium">
           {text} {total && total > 0 && `(${total})`}
@@ -31,22 +31,25 @@ const BitcoinPhotos = () => {
   return (
     <StyledPhotos>
       <DropZone />
-      <Tabs
-        mountOnEnter
-        defaultActiveKey={activeTab}
-        id="uncontrolled-tab"
-        onSelect={key => setActiveTab(key || PhotoTabs.ALL)}
-      >
-        <Tab eventKey={PhotoTabs.ALL} title={renderTabItem(`${CDN_URL}/icons/ic-tab-nfts.svg`, 'NFTs')}>
-          {/* <Collections /> */}
-        </Tab>
-        <Tab eventKey={PhotoTabs.ALBUM} title={renderTabItem(`${CDN_URL}/icons/ic-tab-token.svg`, 'Tokens')}>
-          {/* <Tokens /> */}
-        </Tab>
-        <Tab eventKey={PhotoTabs.IMAGE} title={renderTabItem(`${CDN_URL}/icons/ic-tab-artifact.svg`, 'Artifacts')}>
-          {/* <Artifacts /> */}
-        </Tab>
-      </Tabs>
+
+      <TabContainer>
+        <Tabs
+          mountOnEnter
+          defaultActiveKey={activeTab}
+          id="uncontrolled-tab"
+          onSelect={key => setActiveTab(key || PhotoTabs.ALL)}
+        >
+          <Tab eventKey={PhotoTabs.ALL} title={renderTabItem(`${CDN_URL}/icons/ic-grid.svg`, 'All')}>
+            {/* <Collections /> */}
+          </Tab>
+          <Tab eventKey={PhotoTabs.ALBUM} title={renderTabItem(`${CDN_URL}/icons/ic-album.svg`, 'Album')}>
+            {/* <Tokens /> */}
+          </Tab>
+          <Tab eventKey={PhotoTabs.IMAGE} title={renderTabItem(`${CDN_URL}/icons/ic-image.svg`, 'Image')}>
+            {/* <Artifacts /> */}
+          </Tab>
+        </Tabs>
+      </TabContainer>
     </StyledPhotos>
   );
 };
