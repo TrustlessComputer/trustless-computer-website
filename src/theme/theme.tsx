@@ -13,7 +13,8 @@ export const ThemedGlobalStyle = createGlobalStyle`
   html{
     font-size: 16px;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.bg1};
-    background-color: ${({ theme }) => theme.bg1};
+    background-color: ${({ theme }) => theme.bodyBg};
+
 
     @media screen and (min-width: 1920px) {
       font-size: 18px;
