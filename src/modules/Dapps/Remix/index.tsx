@@ -9,8 +9,8 @@ const Remix = () => {
         <div className="upload_left">
           {/* <img src={IcImgName} alt="upload file icon" /> */}
           <div className="upload_content">
-            <h3 className="upload_title">Remix</h3>
-            <div className="space"></div>
+            <h3 className="upload_title">Deploy Contract</h3>
+            {/* <div className="space"></div>
             <Text size="medium" maxWidth="100%">
               Develop, debug, and test your contract on Remix Online IDE{' '}
               <a href={'https://remix.ethereum.org/'} target="_blank">
@@ -25,7 +25,7 @@ const Remix = () => {
               <a href={'https://explorer.trustless.computer'} target="_blank">
                 (https://remix-ide.readthedocs.io/en/latest/)
               </a>
-            </Text>
+            </Text> */}
           </div>
         </div>
       </NamesContainer>
