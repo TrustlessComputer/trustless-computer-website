@@ -3,6 +3,7 @@ import { FileUploader } from 'react-drag-drop-files';
 import { DropZoneContainer, UploaderPlaceholder } from './DropZone.styled';
 import { BLOCK_CHAIN_FILE_LIMIT } from '@/constants/file';
 import toast from 'react-hot-toast';
+import { CDN_URL } from '@/configs';
 
 const fileTypes = ['jpg', 'png', 'jpeg', 'gif'];
 
@@ -28,7 +29,14 @@ const DropZone: React.FC = () => {
         classes={'file-uploader'}
         types={fileTypes}
       >
-        {!file && <UploaderPlaceholder></UploaderPlaceholder>}
+        {!file && (
+          <UploaderPlaceholder>
+            <img className="uploader-thumbnail" src={`${CDN_URL}/images/upload-image.svg`} alt="upload-image.svg" />
+            <p className="uploader-title">
+              Drag and drop an image, or <span className="uploader-title-yellow">Browse</span>
+            </p>
+          </UploaderPlaceholder>
+        )}
       </FileUploader>
     </DropZoneContainer>
   );
