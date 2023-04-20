@@ -70,9 +70,20 @@ const Dapps = () => {
           <Tab eventKey="names" title={renderTabItem(`${CDN_URL}/icons/ic-tab-names.svg`, 'Names')}>
             <Names />
           </Tab>
-          <Tab eventKey={DappsTabs.REMIX} title={renderTabItem(`${CDN_URL}/icons/ic-tab-remix.svg`, 'Remix')}>
+          {/* <Tab eventKey={DappsTabs.REMIX} title={renderTabItem(`${CDN_URL}/icons/ic-tab-remix.svg`, 'Remix')}>
+            <Remix />
+          </Tab> */}
+
+          <Tab
+            eventKey={DappsTabs.REMIX}
+            title={renderTabItem(
+              `https://storage.googleapis.com/generative-static-prod/icons/ic-tab-remix.svg`,
+              'Remix',
+            )}
+          >
             <Remix />
           </Tab>
+
           {/* <Tab eventKey="store" title="Bitcoin Dapp store"> */}
           {/* <Add Component Here /> */}
           {/* </Tab> */}
