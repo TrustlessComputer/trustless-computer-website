@@ -28,56 +28,34 @@ export const StyledModalUpload = styled(Modal)`
     border-top: none;
   }
 
-  /* ======= Custom modal ========== */
-
   .dropZone {
-    margin-top: ${px2rem(24)};
-
     width: 100%;
+    margin-bottom: ${px2rem(16)};
+    cursor: pointer;
   }
 
-  .preview-wrapper {
-    .thumbnail-wrapper {
-      min-height: ${px2rem(200)};
-      position: relative;
+  .upload-wrapper {
+    padding: ${px2rem(12)};
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${px2rem(8)};
+
+    p {
+      font-weight: 500;
+      font-size: ${px2rem(12)};
+      line-height: ${px2rem(20)};
+      text-transform: uppercase;
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.primary['5b']};
     }
-
-    img {
-      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
-      max-height: ${px2rem(281)};
-      width: 100%;
-      object-fit: contain;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: ${px2rem(12)};
-      cursor: pointer;
-    }
   }
 
-  .error-text {
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.text6};
-  }
   .file-upload-name {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: ${px2rem(13)};
-  }
-
-  .upload-fee {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: ${px2rem(16)};
-    padding: ${px2rem(16)};
-    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.bg5};
-    border: 1px solid;
-    border-color: ${({ theme }: { theme: DefaultTheme }) => theme.text2};
-    margin-bottom: ${px2rem(40)};
-
-    p {
-      color: ${({ theme }: { theme: DefaultTheme }) => theme.text7};
-    }
   }
 
   .confirm-btn {
