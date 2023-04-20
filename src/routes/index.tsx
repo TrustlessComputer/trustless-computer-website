@@ -12,6 +12,7 @@ import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
 import ConnectWallet from '@/pages/connect-wallet';
 import DappsStorePage from '@/pages/store';
+import BitcoinPhotos from '@/modules/Dapps/Photos';
 
 export default [
   {
