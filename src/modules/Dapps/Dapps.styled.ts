@@ -12,6 +12,12 @@ export const TabContainer = styled.div`
     margin-bottom: ${px2rem(40)};
     margin-top: ${px2rem(40)};
 
+    .nav-item {
+      button {
+        padding: 0;
+      }
+    }
+
     .nav-link {
       opacity: 0.5;
       padding: 0 ${px2rem(24)};
@@ -37,6 +43,7 @@ export const TabContainer = styled.div`
     justify-content: center;
     gap: ${px2rem(12)};
     align-items: center;
+    width: ${px2rem(110)};
   }
 
   .tab-text {
