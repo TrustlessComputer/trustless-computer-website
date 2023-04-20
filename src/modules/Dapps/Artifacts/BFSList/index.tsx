@@ -16,17 +16,10 @@ const LIMIT_PAGE = 32;
 const ARTIFACTS_CONTRACT_ADDRESS = '0x16EfDc6D3F977E39DAc0Eb0E123FefFeD4320Bc0';
 
 const BFSList = () => {
-  // const { contract } = queryString.parse(location.search) as { contract: string };
-
   const [page, setpage] = useState(1);
   const [pageSize, setpageSize] = useState(LIMIT_PAGE);
   const [isFetching, setIsFetching] = useState(false);
   const [inscriptions, setInscriptions] = useState<IInscription[]>([]);
-
-  // const { data: inscriptions, isLoading } = useSWR(
-  //   getApiKey(getCollectionNfts, { contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
-  //   () => getCollectionNfts({ contractAddress: ARTIFACTS_CONTRACT_ADDRESS, limit: pageSize, page: page }),
-  // );
 
   const fetchInscriptions = async (page = 1, isFetchMore = false) => {
     try {
