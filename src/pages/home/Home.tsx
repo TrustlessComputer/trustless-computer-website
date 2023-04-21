@@ -83,7 +83,7 @@ const Home = () => {
         </ButtonLinkSolid> */}
 
         <ButtonLinkSolid href={ROUTE_PATH.DEPLOY}>
-          <p className="button-solid-text">Deploy a dApp</p>
+          <p className="button-solid-text">Deploy a Dapp</p>
         </ButtonLinkSolid>
       </div>
       <WrapContainer>

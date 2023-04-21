@@ -1,6 +1,6 @@
 import React from 'react';
 import routes from '@/routes/index';
-import { useRoutes } from 'react-router-dom';
+import { redirect, useParams, useRoutes, useSearchParams } from 'react-router-dom';
 import Web3Provider from '@/components/Web3Provider';
 import { Provider } from 'react-redux';
 import store from '@/state';
@@ -12,9 +12,17 @@ import ThemeProvider, { ThemedGlobalStyle } from '@/theme/theme';
 import { Toaster } from 'react-hot-toast';
 import './reset.scss';
 import '@/styles/index.scss';
+import { ROUTE_PATH } from './constants/route-path';
 
 const App: React.FC = (): React.ReactElement => {
   const element = useRoutes(routes);
+
+  if (window.location.pathname === '/') {
+    console.log('trigger');
+
+    redirect(ROUTE_PATH.STORE);
+  }
+
   return (
     <Provider store={store}>
       <ThemeProvider>

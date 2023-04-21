@@ -16,7 +16,7 @@ export const StyledDappStore = styled.div`
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    margin-bottom: ${px2rem(24)};
+    margin-bottom: ${px2rem(60)};
 
     @media screen and (max-width: 426px) {
       font-size: ${px2rem(40)};

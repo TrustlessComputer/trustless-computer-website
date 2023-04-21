@@ -24,12 +24,17 @@ export default [
   {
     path: ROUTE_PATH.HOME,
     element: <Layout />,
-    children: [{ index: true, element: <Home /> }],
+    children: [{ index: true, element: <DappsStorePage /> }],
   },
   {
     path: ROUTE_PATH.DAPPS,
     element: <Layout />,
     children: [{ index: true, element: <Dapps /> }],
+  },
+  {
+    path: ROUTE_PATH.DEVELOPER,
+    element: <Layout />,
+    children: [{ index: true, element: <Home /> }],
   },
   {
     path: ROUTE_PATH.STORE,

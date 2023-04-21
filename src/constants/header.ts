@@ -1,24 +1,27 @@
+import { TC_FAUCET_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
 
 export const MENU_HEADER = [
   {
     id: 'menu-1',
-    name: 'Build',
-    route: ROUTE_PATH.HOME,
+    name: 'Bitcoin Dapp Store',
+    route: ROUTE_PATH.STORE,
     activePath: '',
   },
   {
     id: 'menu-2',
-    name: 'Use',
-    route: ROUTE_PATH.USE_TRUSTLESS,
-    activePath: 'use-trustless-computer',
+    name: 'Developers',
+    route: ROUTE_PATH.DEVELOPER,
+    activePath: 'developer',
   },
   {
     id: 'menu-3',
-    name: 'Dapp Store',
-    route: ROUTE_PATH.STORE,
-    activePath: 'dapps-store',
+    name: 'Faucet',
+    externalLink: true,
+    route: TC_FAUCET_URL,
+    activePath: '/',
   },
+
   // {
   //   id: 'menu-4',
   //   name: 'Faucet',

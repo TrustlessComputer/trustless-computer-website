@@ -53,8 +53,21 @@ const Header = ({ height }: { height: number }) => {
       </Link>
       <div className="rowLink">
         {MENU_HEADER.map(item => {
+          if (item.externalLink) {
+            return (
+              <Anchor active={false} href={item.route} target="_blank" rel="noopener noreferrer">
+                {item.name}
+              </Anchor>
+            );
+          }
+
           return (
-            <StyledLink active={activePath === item.activePath} to={item.route} key={item.id} activeColor="#F9D03F">
+            <StyledLink
+              active={activePath === item.activePath}
+              to={{ pathname: item.route }}
+              key={item.id}
+              activeColor="#F9D03F"
+            >
               {item.name}
             </StyledLink>
           );
