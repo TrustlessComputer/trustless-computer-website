@@ -12,6 +12,7 @@ import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
 import ConnectWallet from '@/pages/connect-wallet';
 import DappsStorePage from '@/pages/store';
+import Remix from '@/modules/Dapps/Remix';
 
 export default [
   {
@@ -62,5 +63,10 @@ export default [
   {
     path: ROUTE_PATH.CONNECT_WALLET,
     element: <ConnectWallet />,
+  },
+  {
+    path: ROUTE_PATH.DEPLOY,
+    element: <Layout />,
+    children: [{ index: true, element: <Remix /> }],
   },
 ] as RouteObject[];
