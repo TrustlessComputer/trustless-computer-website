@@ -5,8 +5,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-
-  padding-top: ${px2rem(120)};
+  padding-top: ${px2rem(68)};
 
   .title {
     font-size: ${px2rem(48)};
@@ -32,7 +31,7 @@ const WrapContainer = styled.div`
   flex: 1;
   flex-direction: column;
   gap: ${px2rem(80)};
-  margin-top: ${px2rem(100)};
+  margin-top: ${px2rem(16)};
 `;
 
 const StepContainer = styled.div<{ isRevert: boolean }>`

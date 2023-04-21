@@ -5,8 +5,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-
-  padding-top: ${px2rem(120)};
+  padding-top: ${px2rem(68)};
 
   .title {
     font-size: ${px2rem(48)};
@@ -31,7 +30,21 @@ const WrapContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: center;
   margin-top: ${px2rem(80)};
+
+  .congra {
+    font-family: 'IBMPlexMono' !important;
+
+    font-weight: 700;
+    font-size: ${px2rem(30)};
+    line-height: ${px2rem(40)};
+
+    letter-spacing: -0.03em;
+    padding-top: ${px2rem(80)};
+
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+  }
 `;
 
 const StepContainer = styled.div<{ isRevert: boolean }>`
@@ -80,7 +93,8 @@ const StepContainer = styled.div<{ isRevert: boolean }>`
     font-size: ${px2rem(20)};
     line-height: ${px2rem(30)};
     color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
-    width: 80%;
+    width: 70%;
+    margin-top: ${px2rem(4)};
   }
 
   .normal-step {
@@ -102,7 +116,13 @@ const StepContainer = styled.div<{ isRevert: boolean }>`
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
       flex-direction: column;
+      padding: ${px2rem(40)};
+      gap: ${px2rem(32)};
 
+      .desc {
+        width: 100%;
+      }
+    
   `};
 `;
 

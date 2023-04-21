@@ -3,7 +3,7 @@ import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import { useContext, useEffect, useState } from 'react';
 import { Container, WrapContainer, StepContainer, Button } from './EarnTC.styled';
-import { ButtonLink, ButtonLinkSolid } from '@/components/ButtonLink/ButtonLink.styled';
+import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import { CDN_URL } from '@/configs';
 import { useSelector } from 'react-redux';
 import { getIsAuthenticatedSelector } from '@/state/user/selector';
@@ -33,8 +33,8 @@ const EarnTC = () => {
         const data = await requestGetEarnStatus(account);
         setEarnStatus({
           normal: data.normal,
-          bns: !isConnectWallet || data.normal !== 'Success' ? 'Follow-up' : data.bns || 'Pending',
-          artifact: !isConnectWallet || data.bns !== 'Success' ? 'Follow-up' : data.artifact || 'Pending',
+          bns: !isConnectWallet || data.normal !== 'Success' ? 'Follow-up' : data.bns || 'Normal',
+          artifact: !isConnectWallet || data.bns !== 'Success' ? 'Follow-up' : data.artifact || 'Normal',
         });
       } catch (error) {}
     } else {
@@ -72,16 +72,16 @@ const EarnTC = () => {
     {
       name: 'Step 2',
       title: 'Faucet - Get 0.1 TC',
-      content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
+      content: 'Post a tweet and copy-paste the URL into the input box and submit request button.',
       element: (
         <>
           {earnStatus.normal === 'Follow-up' && renderFollowupStep()}
-          {earnStatus.normal === 'Pending' && (
-            <ButtonLink href={ROUTE_PATH.FAUCET}>
+          {earnStatus.normal === 'Normal' && (
+            <ButtonLink href="https://trustlessfaucet.io">
               <p className="button-link-text">Go to Faucet</p>
             </ButtonLink>
           )}
-          {earnStatus.normal === 'Processing' && renderWaitingStep()}
+          {(earnStatus.normal === 'Pending' || earnStatus.normal === 'Processing') && renderWaitingStep()}
           {earnStatus.normal === 'Success' && renderSuccessStep()}
         </>
       ),
@@ -89,45 +89,46 @@ const EarnTC = () => {
     {
       name: 'Step 3',
       title: 'Create a BNS - Get 0.15 TC',
-      content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
+      content:
+        'Create your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
       element: (
         <>
           {earnStatus.bns === 'Follow-up' && renderFollowupStep()}
-          {earnStatus.bns === 'Pending' && (
+          {earnStatus.bns === 'Normal' && (
             <div className="normal-step">
               <ButtonLink className="button-link" href="https://trustless.domains" target="_blank">
                 <p className="button-link-text">Go to BNS Dapp</p>
               </ButtonLink>
 
-              <a href={ROUTE_PATH.FAUCET} className="share-link">
+              <a href="https://trustlessfaucet.io" className="share-link" target="_blank">
                 Share your BNS to Twitter via Faucet
               </a>
             </div>
           )}
-          {earnStatus.bns === 'Processing' && renderWaitingStep()}
+          {(earnStatus.bns === 'Processing' || earnStatus.bns === 'Pending') && renderWaitingStep()}
           {earnStatus.bns === 'Success' && renderSuccessStep()}
         </>
       ),
     },
     {
       name: 'Step 4',
-      title: 'Create a Artifact - Get 0.15 TC',
-      content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
+      title: 'Create a Artifact - Get 0.1 TC',
+      content: 'Preserve files on Bitcoin forever. Cheap. Immutable. Fully on-chain.',
       element: (
         <>
           {earnStatus.artifact === 'Follow-up' && renderFollowupStep()}
-          {earnStatus.artifact === 'Pending' && (
+          {earnStatus.artifact === 'Normal' && (
             <div className="normal-step">
               <ButtonLink className="button-link" href={ROUTE_PATH.DAPPS} target="_blank">
                 <p className="button-link-text">Go to Artifact Dapp</p>
               </ButtonLink>
 
-              <a href={ROUTE_PATH.FAUCET} className="share-link">
+              <a href="https://trustlessfaucet.io" className="share-link" target="_blank">
                 Share your Artifact to Twitter via Faucet
               </a>
             </div>
           )}
-          {earnStatus.artifact === 'Processing' && renderWaitingStep()}
+          {(earnStatus.artifact === 'Processing' || earnStatus.artifact === 'Pending') && renderWaitingStep()}
           {earnStatus.artifact === 'Success' && renderSuccessStep()}
         </>
       ),
@@ -136,7 +137,7 @@ const EarnTC = () => {
 
   return (
     <Container>
-      <p className="title">Follow step and earn TC</p>
+      <p className="title">How to claim TC</p>
       <p className="subTitle">
         Making transactions on Trustless Computer incurs fees that are paid to the <br /> network in TC, the network’s
         native token. You must have some TC in your <br /> wallet to execute transactions on Trustless Computer.
@@ -157,6 +158,9 @@ const EarnTC = () => {
             </StepContainer>
           );
         })}
+        {isConnectWallet && earnStatus.artifact === 'Success' && (
+          <p className="congra">Congratulations! You have claimed the maximum amount of TC possible.</p>
+        )}
       </WrapContainer>
     </Container>
   );
