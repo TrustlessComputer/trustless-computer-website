@@ -49,8 +49,11 @@ const DAPPS_LIST = [
   },
   // {
   //   // image: `${CDN_URL}/icons/logo-tc-remix.svg`,
-  //   image: 'https://storage.googleapis.com/generative-static-prod/icons/logo-tc-remix.svg',
-  //   name: 'Remix',
+  //   // image: 'https://storage.googleapis.com/generative-static-prod/icons/logo-tc-remix.svg',
+  //   image: `${CDN_URL}/icons/logo-remix.svg`,
+  //   name: 'Deploy',
+  //   creator: 'ape.tc',
+  //   creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
   //   desc: 'Easily deploy your contract on Trustless Computer by uploading the sol file here. There are no additional technical requirements.',
   //   link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.REMIX}`,
   // },
@@ -62,14 +65,14 @@ const DAPPS_LIST = [
     desc: 'Coming soon',
     link: '',
   },
-  {
-    image: `${CDN_URL}/icons/logo-remix.svg`,
-    name: 'Remix',
-    creator: 'ape.tc',
-    // creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
-    desc: 'Coming soon',
-    link: '',
-  },
+  // {
+  //   image: `${CDN_URL}/icons/logo-remix.svg`,
+  //   name: 'Deploy',
+  //   creator: 'ape.tc',
+  //   creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
+  //   desc: 'Coming soon',
+  //   link: '',
+  // },
 ];
 
 const DappsStorePage = () => {
