@@ -4,5 +4,5 @@ export enum DappsTabs {
   ARTIFACT = 'artifacts',
   NAMES = 'names',
   TRANSACTION = 'transactions',
-  REMIX = 'remix',
+  // REMIX = 'remix',
 }
