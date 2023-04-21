@@ -8,7 +8,8 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-generative.svg`,
     name: 'Generative',
     creator: 'generative.tc',
-    desc: 'An open platform for creating & collecting art on Bitcoin. Generative is built on top of the Trustless Computer protocol.',
+    // creatorAvatar: `${CDN_URL}/icons/avatar-generative.svg`,
+    desc: 'An open platform for creating & collecting art on Bitcoin.',
     link: 'https://generative.xyz/',
   },
   {
@@ -44,7 +45,16 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
+    // creatorAvatar: `${CDN_URL}/icons/avatar-robot.svg`,
     desc: 'Coming soon',
+    link: '',
+  },
+  {
+    image: `${CDN_URL}/icons/logo-remix.svg`,
+    name: 'Deploy',
+    creator: 'ape.tc',
+    // creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
+    desc: 'Deploy contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
     link: '',
   },
 ];
@@ -52,12 +62,11 @@ const DAPPS_LIST = [
 const DappsStorePage = () => {
   return (
     <StyledDappStore>
-      <h2 className="font-ibm">Use decentralized applications on Bitcoin</h2>
-      <h6>
-        Trustless Computer is a layer-1 protocol that aims to make Bitcoin as generalized as possible - usable for far
-        more than just a currency. it enables developers to create DAO, DEX, NFT, token, auction, lending, data storage,
-        and many other use cases on Bitcoin
-      </h6>
+      <h2 className="font-ibm">
+        The dapps you love.
+        <br />
+        Now on Bitcoin.
+      </h2>
       <div className="app-list">
         {DAPPS_LIST.map((item, index) => (
           <a

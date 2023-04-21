@@ -6,10 +6,8 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import useSWR from 'swr';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '@/state/user/selector';
-import { useParams } from 'react-router-dom';
 import { Container } from './NamesList.styled';
 
 const LIMIT_PAGE = 12;

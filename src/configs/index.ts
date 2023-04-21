@@ -14,3 +14,4 @@ export const BFS_ADDRESS: string = ENVS.VITE_BFS_CONTRACT;
 
 export const TC_URL: string = ENVS.VITE_TC_URL;
 export const TRANSFER_TX_SIZE = 1000;
+export const TC_FAUCET_URL = ENVS.VITE_TC_FAUCET;

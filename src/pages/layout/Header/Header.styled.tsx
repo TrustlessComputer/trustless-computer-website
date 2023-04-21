@@ -52,6 +52,24 @@ const Wrapper = styled.div`
     gap: ${px2rem(16)};
     position: relative;
 
+    .buttonContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      gap: ${px2rem(8)};
+
+      .icon {
+        width: ${px2rem(34)};
+        height: ${px2rem(34)};
+        cursor: pointer;
+
+        :hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
     @media screen and (min-width: 1024px) {
       :hover {
         .dropdown {
