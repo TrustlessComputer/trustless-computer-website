@@ -1,9 +1,10 @@
+import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
 import { WalletContext } from '@/contexts/wallet-context';
 import { useWeb3React } from '@web3-react/core';
 import { useContext } from 'react';
-import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button, Link } from './UseTrustless.styled';
+import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button } from './UseTrustless.styled';
 
 const UseTrustless = () => {
   const { account } = useWeb3React();
@@ -21,7 +22,11 @@ const UseTrustless = () => {
       name: 'Step 2',
       title: 'Get TC',
       content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
-      element: <Link href={ROUTE_PATH.FAUCET}>Get TC</Link>,
+      element: (
+        <ButtonLink href={ROUTE_PATH.FAUCET}>
+          <p className="button-link-text">Get TC</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-2.png',
     },
     {
@@ -29,14 +34,22 @@ const UseTrustless = () => {
       title: 'Send BTC to your wallet',
       content:
         'Go to Wallet, tap the copy icon to copy and paste your BTC address to the address field on the platform you intend to withdraw BTC from. Make a transfer from there and BTC will be credited to your wallet.',
-      element: <Link href={ROUTE_PATH.WALLET}>Go to wallet</Link>,
+      element: (
+        <ButtonLink href={ROUTE_PATH.WALLET}>
+          <p className="button-link-text">Go to wallet</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-4.png',
     },
     {
       name: 'Step 4',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
-      element: <Link href={ROUTE_PATH.DAPPS}>Explore Dapp Store</Link>,
+      element: (
+        <ButtonLink href={ROUTE_PATH.DAPPS}>
+          <p className="button-link-text">Explore Dapp Store</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-3.png',
     },
   ];

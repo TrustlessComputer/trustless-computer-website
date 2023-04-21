@@ -4,7 +4,7 @@ import { StyledButton } from './Button.styled';
 
 export type ButtonProps = {
   bg?: CSSProperties['backgroundColor'];
-  background?: string;
+  gradient?: boolean;
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
@@ -15,14 +15,21 @@ export type ButtonProps = {
 const Button = ({
   type,
   bg = 'bg1',
-  background,
+  gradient = false,
   className,
   onClick,
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton type={type} bg={bg} background={background} className={className} onClick={onClick} {...props}>
+    <StyledButton
+      type={type}
+      bg={bg}
+      background={gradient ? 'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)' : undefined}
+      className={className}
+      onClick={onClick}
+      {...props}
+    >
       {children}
     </StyledButton>
   );
