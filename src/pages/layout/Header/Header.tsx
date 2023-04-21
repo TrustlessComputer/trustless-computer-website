@@ -1,20 +1,18 @@
-import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
+import IcDiscord from '@/assets/icons/ic_discord.svg';
+import IcTwitter from '@/assets/icons/ic_twitter.svg';
 import IcLogo from '@/assets/icons/logo.svg';
 import { MENU_HEADER } from '@/constants/header';
+import { ROUTE_PATH } from '@/constants/route-path';
 import { AssetsContext } from '@/contexts/assets-context';
 import { WalletContext } from '@/contexts/wallet-context';
-import { shortenAddress } from '@/utils';
-import { formatBTCPrice, formatEthPrice } from '@/utils/format';
+import { getIsAuthenticatedSelector } from '@/state/user/selector';
 import { useWeb3React } from '@web3-react/core';
 import { gsap } from 'gsap';
 import { useContext, useEffect, useRef, useState } from 'react';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Anchor, ConnectWalletButton, StyledLink, WalletBalance, Wrapper } from './Header.styled';
-import MenuMobile from './MenuMobile';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticatedSelector } from '@/state/user/selector';
-import { ROUTE_PATH } from '@/constants/route-path';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Anchor, StyledLink, Wrapper } from './Header.styled';
+import MenuMobile from './MenuMobile';
 
 const Header = ({ height }: { height: number }) => {
   const { account } = useWeb3React();
@@ -74,6 +72,16 @@ const Header = ({ height }: { height: number }) => {
         })}
       </div>
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
+      <div className="rightContainer">
+        <div className="buttonContainer">
+          <a href="https://trustless.computer/discord" target="_blank">
+            <img alt="icon" className="icon" src={IcDiscord} />
+          </a>
+          <a href="https://twitter.com/generative_xyz" target="_blank">
+            <img alt="icon" className="icon" src={IcTwitter} />
+          </a>
+        </div>
+      </div>
       {/* <div className="rightContainer">
         {account && isAuthenticated ? (
           <>
