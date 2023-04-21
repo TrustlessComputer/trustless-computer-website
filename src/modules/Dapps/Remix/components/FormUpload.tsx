@@ -5,9 +5,12 @@ import useContractOperation from '@/hooks/contract-operations/useContractOperati
 import { DeployContractResponse } from '@/interfaces/contract-operation';
 import px2rem from '@/utils/px2rem';
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import styled, { DefaultTheme } from 'styled-components';
+import ModalDeployStatus from './ModalUploadStatus';
+
+// import { useFormikContext } from 'formik';
 
 function isJsonString(str: string) {
   try {
@@ -51,9 +54,11 @@ const WrapInputContainer = styled.div`
   }
 
   .textarea {
+    padding: 2px;
+    resize: none;
     min-height: 60px;
+    max-height: 600px;
     border-radius: 4px;
-    overflow: hidden;
     overflow-y: scroll;
     display: flex;
     padding: ${px2rem(12)};
@@ -143,6 +148,15 @@ type FormUploadProp = {
 
 const FormUpload = (props: FormUploadProp) => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const textAreaRef = useRef<any>(undefined);
+
+  const [modalStatusShow, setModalStatusShow] = useState(false);
+  const [data, setData] = useState<IFormValue>({
+    ABI: '',
+    args: '',
+    bytecode: '',
+  });
+
   const { submitCallback = () => {} } = props;
   // eslint-disable-next-line no-undef
   const { run } = useContractOperation<IDeployContractParams, DeployContractResponse | null>({
@@ -156,7 +170,7 @@ const FormUpload = (props: FormUploadProp) => {
 
     /* ABI */
     if (!ABI) {
-      errors.ABI = 'ABI is required.';
+      errors.ABI = 'ABI is Required.';
     } else {
       if (!isJsonString(ABI)) {
         errors.ABI = 'ABI  must be a JSON string.';
@@ -172,7 +186,7 @@ const FormUpload = (props: FormUploadProp) => {
 
     /* ByteCode */
     if (!bytecode) {
-      errors.bytecode = 'bytecode is required.';
+      errors.bytecode = 'Bytecode is Required.';
     } else {
       if (typeof bytecode !== 'string') {
         errors.bytecode = 'Bytecode must be string.';
@@ -192,6 +206,14 @@ const FormUpload = (props: FormUploadProp) => {
     // }
 
     return errors;
+  };
+
+  const clearData = () => {
+    setData({
+      ABI: '',
+      args: '',
+      bytecode: '',
+    });
   };
 
   const handleSubmit = async (values: IFormValue): Promise<void> => {
@@ -216,7 +238,7 @@ const FormUpload = (props: FormUploadProp) => {
         args: args,
       });
       // CALL API SUBMIT (TO DO )
-      // toast.success('Transaction has been created. Please wait for few minutes.');
+      setModalStatusShow(true);
     } catch (err) {
       toast.error((err as Error).message);
       console.log(err);
@@ -225,18 +247,16 @@ const FormUpload = (props: FormUploadProp) => {
     }
   };
 
+  const resizeTextArea = () => {
+    if (textAreaRef) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
+    }
+  };
+
   return (
     <Container>
-      <Formik
-        key="RemixForm"
-        initialValues={{
-          ABI: '',
-          args: '',
-          bytecode: '',
-        }}
-        validate={validateForm}
-        onSubmit={handleSubmit}
-      >
+      <Formik key="RemixForm" initialValues={data} validate={validateForm} onSubmit={handleSubmit} onReset={clearData}>
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <WrapInputContainer>
@@ -245,9 +265,13 @@ const FormUpload = (props: FormUploadProp) => {
                 ABI
               </label>
               <textarea
+                ref={textAreaRef}
                 id="ABI"
                 name="ABI"
-                onChange={handleChange}
+                onChange={e => {
+                  resizeTextArea();
+                  handleChange(e);
+                }}
                 onBlur={handleBlur}
                 value={values.ABI}
                 className="textarea"
@@ -283,7 +307,7 @@ const FormUpload = (props: FormUploadProp) => {
                 onBlur={handleBlur}
                 value={values.args}
                 className="input"
-                placeholder={`Enter your argument (optional)`}
+                placeholder={`Enter arguments separated by commas (optional)`}
               />
               {errors.args && touched.args && <p className="error">{errors.args}</p>}
             </WrapInputContainer>
@@ -296,6 +320,15 @@ const FormUpload = (props: FormUploadProp) => {
           </form>
         )}
       </Formik>
+      {
+        <ModalDeployStatus
+          show={modalStatusShow}
+          handleClose={() => {
+            clearData();
+            setModalStatusShow(false);
+          }}
+        />
+      }
     </Container>
   );
 };
