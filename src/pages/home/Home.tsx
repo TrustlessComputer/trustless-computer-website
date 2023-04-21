@@ -78,9 +78,6 @@ const Home = () => {
         <ButtonLink className="button-solid" href="https://docs.trustless.computer" target="_blank">
           <p className="button-link-text">Developer Guides</p>
         </ButtonLink>
-        {/* <ButtonLinkSolid href={ROUTE_PATH.FAUCET}>
-          <p className="button-solid-text">Faucet</p>
-        </ButtonLinkSolid> */}
 
         <ButtonLinkSolid href={ROUTE_PATH.DEPLOY}>
           <p className="button-solid-text">Deploy a Dapp</p>
