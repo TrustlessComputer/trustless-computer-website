@@ -12,7 +12,6 @@ import Wallet from '@/pages/wallet';
 import { ROUTE_PATH } from '@/constants/route-path';
 import ConnectWallet from '@/pages/connect-wallet';
 import DappsStorePage from '@/pages/store';
-import EarnTC from '@/pages/earn-tc';
 import Remix from '@/modules/Dapps/Remix';
 
 export default [
@@ -64,11 +63,6 @@ export default [
   {
     path: ROUTE_PATH.CONNECT_WALLET,
     element: <ConnectWallet />,
-  },
-  {
-    path: ROUTE_PATH.EARN_TC,
-    element: <Layout />,
-    children: [{ index: true, element: <EarnTC /> }],
   },
   {
     path: ROUTE_PATH.DEPLOY,
