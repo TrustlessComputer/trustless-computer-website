@@ -8,11 +8,9 @@ export const ButtonLink = styled.a<{ disabled?: boolean }>`
   border-radius: 8px;
   text-decoration: none !important;
   width: fit-content;
-
   display: flex;
   flex-direction: row;
   align-items: center;
-
   opacity: ${({ disabled }: { disabled?: boolean }) => (disabled ? 0.5 : 1)};
 
   .button-link-text {

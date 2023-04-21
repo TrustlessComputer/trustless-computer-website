@@ -4,11 +4,11 @@ export const ROUTE_PATH = {
   DAPPS: '/dapps',
   COLLECTION: '/collection',
   INSCRIPTION: '/inscription',
-  FAUCET: '/faucet',
+  FAUCET: '',
   USE_TRUSTLESS: '/use-trustless-computer',
   WALLET: '/wallet',
   CONNECT_WALLET: '/connect-wallet',
   STORE: '/dapps-store',
   EARN_TC: '/earn-tc',
-  DEPLOY: '/deploy',
+  DEPLOY: 'https://trustlesside.com/',
 };

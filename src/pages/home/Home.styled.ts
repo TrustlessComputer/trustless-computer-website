@@ -5,7 +5,6 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-
   padding-top: ${px2rem(68)};
 
   .title {
@@ -34,6 +33,16 @@ const Container = styled.div`
     align-self: center;
     margin-top: ${px2rem(32)};
     gap: ${px2rem(32)};
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+      gap: ${px2rem(20)};
+
+      a {
+        display: inline-block;
+      }
+    }
   }
 `;
 
@@ -43,6 +52,10 @@ const WrapContainer = styled.div`
   flex-direction: column;
   gap: ${px2rem(40)};
   margin-top: ${px2rem(120)};
+
+  @media screen and (max-width: 768px) {
+    margin-top: ${px2rem(60)};
+  }
 `;
 
 const StepContainer = styled.div<{ isRevert: boolean }>`
@@ -65,6 +78,12 @@ const StepContainer = styled.div<{ isRevert: boolean }>`
     flex-direction: column-reverse;
     padding: ${px2rem(40)};
   `}
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: ${px2rem(40)};
+    padding: ${px2rem(30)} ${px2rem(20)};
+  }
 `;
 
 const LeftStep = styled.img`
