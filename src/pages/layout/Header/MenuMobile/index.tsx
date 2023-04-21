@@ -45,7 +45,7 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
             </StyledLink>
           );
         })}
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <div className="wallet mobile">
             <WalletBalance>
               <div className="balance">
@@ -60,7 +60,7 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
           </div>
         ) : (
           <ConnectWalletButton onClick={handleConnectWallet}>Connect Wallet</ConnectWalletButton>
-        )}
+        )} */}
       </div>
     </Wrapper>
   );

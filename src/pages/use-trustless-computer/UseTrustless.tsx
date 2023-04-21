@@ -1,20 +1,18 @@
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { WalletContext } from '@/contexts/wallet-context';
-import { useWeb3React } from '@web3-react/core';
-import { useContext } from 'react';
 import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button, Link } from './UseTrustless.styled';
 
 const UseTrustless = () => {
-  const { account } = useWeb3React();
-  const { onConnect } = useContext(WalletContext);
-
   const steps = [
     {
       name: 'Step 1',
       title: 'Setup a wallet',
       content: 'A wallet lets you connect to Trustless Computer and manage your funds.',
-      element: <Button onClick={() => !account && onConnect()}>Setup a wallet</Button>,
+      element: (
+        <Link href="https://trustlesswallet.io/" target="_blank">
+          Setup a wallet
+        </Link>
+      ),
       image: '/images/use-trustless-banner-1.png',
     },
     {
@@ -26,9 +24,21 @@ const UseTrustless = () => {
     },
     {
       name: 'Step 3',
+      title: 'Send BTC to your wallet',
+      content:
+        'Go to Wallet, tap the copy icon to copy and paste your BTC address to the address field on the platform you intend to withdraw BTC from. Make a transfer from there and BTC will be credited to your wallet.',
+      element: (
+        <Link href="https://trustlesswallet.io/" target="_blank">
+          Go to wallet
+        </Link>
+      ),
+      image: '/images/use-trustless-banner-4.png',
+    },
+    {
+      name: 'Step 4',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
-      element: <Link href={ROUTE_PATH.DAPPS}>Explore Dapp Store</Link>,
+      element: <Link href={ROUTE_PATH.STORE}>Explore Dapp Store</Link>,
       image: '/images/use-trustless-banner-3.png',
     },
   ];

@@ -78,7 +78,7 @@ const TransferModal = (props: Props) => {
         <IconSVG className="cursor-pointer" onClick={handleClose} src={IcCloseModal} maxWidth={'22px'} />
       </Modal.Header>
       <Modal.Body>
-        <Title>Transfer NFT</Title>
+        <Title>Transfer Token</Title>
 
         <Formik
           key="create"
