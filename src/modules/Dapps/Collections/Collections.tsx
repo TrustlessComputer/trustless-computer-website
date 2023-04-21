@@ -25,7 +25,7 @@ const Collections = () => {
           </div>
         </div>
         <div className="upload_right">
-          <Button background={'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)'} onClick={() => setShowModal(true)}>
+          <Button gradient onClick={() => setShowModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Create BRC-721
             </Text>

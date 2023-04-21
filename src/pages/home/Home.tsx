@@ -1,14 +1,7 @@
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
-import {
-  Container,
-  LeftStep,
-  ButtonLink,
-  RightStep,
-  StepContainer,
-  WrapContainer,
-  ButtonLinkSolid,
-} from './Home.styled';
+import { Container, LeftStep, RightStep, StepContainer, WrapContainer } from './Home.styled';
+import { ButtonLink, ButtonLinkSolid } from '@/components/ButtonLink/ButtonLink.styled';
 
 const Home = () => {
   const steps = [

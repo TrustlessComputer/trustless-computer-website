@@ -39,11 +39,7 @@ const Artifacts: React.FC<Props> = (props: Props) => {
           </div>
         </div>
         <div className="upload_right">
-          <Button
-            bg={'white'}
-            background={'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)'}
-            onClick={() => setShowUploadModal(true)}
-          >
+          <Button bg={'white'} gradient onClick={() => setShowUploadModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Preserve Artifact
             </Text>
