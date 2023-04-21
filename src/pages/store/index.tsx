@@ -20,7 +20,7 @@ const DAPPS_LIST = [
     creator: '3700.tc',
     // creatorAvatar: `${CDN_URL}/icons/avatar-3700.svg`,
     desc: 'Issue your BRC-721 NFTs on Bitcoin for collectible items, memberships, in-game items, and more.',
-    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.NFT}`,
+    link: `https://trustlessnfts.com/`,
   },
 
   {
@@ -29,7 +29,7 @@ const DAPPS_LIST = [
     creator: '368.tc',
     // creatorAvatar: `${CDN_URL}/icons/avt-368.svg`,
     desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
-    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.ARTIFACT}`,
+    link: `https://trustlessartifacts.com/`,
   },
   {
     image: `${CDN_URL}/icons/logo-tc-market.svg`,
@@ -37,7 +37,7 @@ const DAPPS_LIST = [
     creator: '686.tc',
     // creatorAvatar: `${CDN_URL}/icons/avatar-686.svg`,
     desc: 'Use your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
-    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.TOKEN}`,
+    link: `https://trustless.market/`,
   },
   {
     image: `${CDN_URL}/icons/logo-tc-name.svg`,
@@ -45,7 +45,7 @@ const DAPPS_LIST = [
     creator: '268.tc',
     // creatorAvatar: `${CDN_URL}/icons/avt-268.svg`,
     desc: 'BNS is the standard for naming on Bitcoin. No more copying and pasting long addresses. Use your BNS name to receive any token and NFT.',
-    link: `${ROUTE_PATH.DAPPS}?tab=${DappsTabs.NAMES}`,
+    link: `https://trustless.domains/`,
   },
   // {
   //   // image: `${CDN_URL}/icons/logo-tc-remix.svg`,
