@@ -7,7 +7,7 @@ export interface IFaucetStatusResp {
   createdAt: string;
 }
 
-export type EarnFaucetType = 'Follow-up' | 'Pending' | 'Processing' | 'Success';
+export type EarnFaucetType = 'Follow-up' | 'Normal' | 'Pending' | 'Processing' | 'Success';
 export interface IEarnFaucetStatus {
   normal: EarnFaucetType;
   bns: EarnFaucetType;
