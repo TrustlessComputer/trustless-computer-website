@@ -16,8 +16,10 @@ const Wrapper = styled.div`
   margin-top: ${px2rem(140)};
   flex-wrap: wrap;
   gap: ${px2rem(32)};
+
   @media screen and (max-width: ${({ theme }: { theme: DefaultTheme }) => theme.breakpoint.md}) {
     gap: ${px2rem(16)};
+    margin-top: ${px2rem(60)};
   }
 
   .text {
