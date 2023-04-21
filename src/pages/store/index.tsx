@@ -5,7 +5,7 @@ import IconSVG from '@/components/IconSVG';
 
 const DAPPS_LIST = [
   {
-    image: `${CDN_URL}/icons/logo-generative.svg`,
+    image: `${CDN_URL}/icons/logo-generative-dark.svg`,
     name: 'Generative',
     creator: 'generative.tc',
     // creatorAvatar: `${CDN_URL}/icons/avatar-generative.svg`,
