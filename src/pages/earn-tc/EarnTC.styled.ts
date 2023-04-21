@@ -25,76 +25,53 @@ const Container = styled.div`
     color: ${({ theme }: { theme: DefaultTheme }) => theme.text3};
     margin-top: ${px2rem(16)};
   }
-
-  .row-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    margin-top: ${px2rem(32)};
-    gap: ${px2rem(32)};
-  }
 `;
 
 const WrapContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: ${px2rem(40)};
-  margin-top: ${px2rem(120)};
+  margin-top: ${px2rem(80)};
 `;
 
 const StepContainer = styled.div<{ isRevert: boolean }>`
   display: flex;
-  flex: 1;
   align-self: center;
   align-items: center;
-  gap: ${px2rem(120)};
-  padding: ${px2rem(80)};
+  width: 100%;
+
+  padding: ${px2rem(60)};
   position: relative;
+  flex-direction: row;
+  justify-content: space-between;
 
   background: ${({ isRevert }) => (isRevert ? 'transparent' : '#2e2e2e')};
-  flex-direction: ${({ isRevert }) => (isRevert ? 'row-reverse' : 'row')};
 
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToLarge`
-    padding: ${px2rem(60)};
-  `}
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-    flex-direction: column-reverse;
-    padding: ${px2rem(40)};
-  `}
-`;
-
-const LeftStep = styled.img`
-  display: flex;
-  width: 50%;
-  max-height: ${px2rem(300)};
-  object-fit: contain;
-
-  ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-    width: 100%;
-  `}
-`;
-
-const RightStep = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
+  .left-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: ${px2rem(48)};
+  }
 
   .name {
     font-weight: 400;
-    font-size: ${px2rem(22)};
-    line-height: ${px2rem(32)};
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
     text-transform: uppercase;
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
+    text-align: center;
+
+    padding: ${px2rem(16)} ${px2rem(24)};
+
+    background: #f9d03f;
+    border-radius: ${px2rem(60)};
   }
 
   .text {
-    font-weight: 500;
-    font-size: ${px2rem(34)};
-    line-height: ${px2rem(44)};
+    font-size: ${px2rem(30)};
+    line-height: ${px2rem(40)};
+    font-weight: 600;
     font-family: 'IBMPlexMono' !important;
   }
 
@@ -102,14 +79,31 @@ const RightStep = styled.div`
     font-weight: 500;
     font-size: ${px2rem(20)};
     line-height: ${px2rem(30)};
-    color: #e5e5e5;
-    margin-top: ${px2rem(12)};
-    margin-bottom: ${px2rem(32)};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.bg4};
+    width: 80%;
+  }
+
+  .normal-step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .share-link {
+    font-weight: 500;
+    font-size: ${px2rem(18)};
+    line-height: ${px2rem(26)};
+
+    color: #ff8008;
+
+    text-decoration: underline !important;
+    margin-top: ${px2rem(20)};
   }
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-    width: 100%;
-  `}
+      flex-direction: column;
+
+  `};
 `;
 
 const Button = styled.div`
@@ -119,12 +113,22 @@ const Button = styled.div`
   width: fit-content;
   font-family: 'IBMPlexMono' !important;
 
+  gap: ${px2rem(10)};
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
+  border-radius: 8px;
+  text-decoration: none !important;
+  width: fit-content;
+
   font-weight: 500;
   font-size: ${px2rem(18)};
   line-height: ${px2rem(26)};
   align-items: center;
   letter-spacing: 0.01em;
   cursor: pointer;
+
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
-export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button };
+export { Container, WrapContainer, StepContainer, Button };

@@ -86,12 +86,7 @@ const Names: React.FC = () => {
               />
             </div>
             <div className="btn">
-              <SubmitButton
-                bg={'white'}
-                background={'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)'}
-                disabled={!nameValidate || isProcessing}
-                onClick={handleRegistered}
-              >
+              <SubmitButton bg={'white'} gradient disabled={!nameValidate || isProcessing} onClick={handleRegistered}>
                 <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
                   {isProcessing ? 'Processing...' : 'Register'}
                 </Text>

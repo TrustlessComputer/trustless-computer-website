@@ -101,33 +101,6 @@ const RightStep = styled.div`
   `}
 `;
 
-const Link = styled.a`
-  padding: ${px2rem(16)} ${px2rem(24)};
-  background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-  border-radius: ${px2rem(2)};
-  text-decoration: none;
-  width: fit-content;
-  text-decoration: none !important;
-  font-family: 'IBMPlexMono' !important;
-
-  gap: ${px2rem(10)};
-  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
-  border-radius: 8px;
-  text-decoration: none !important;
-  width: fit-content;
-
-  font-weight: 500;
-  font-size: ${px2rem(18)};
-  line-height: ${px2rem(26)};
-  align-items: center;
-  letter-spacing: 0.01em;
-  color: ${({ theme }: { theme: DefaultTheme }) => theme.primary.brand};
-
-  :hover {
-    opacity: 0.8;
-  }
-`;
-
 const Button = styled.div`
   padding: ${px2rem(16)} ${px2rem(24)};
   background: ${({ theme }: { theme: DefaultTheme }) => theme.white};
@@ -153,4 +126,4 @@ const Button = styled.div`
   }
 `;
 
-export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Link, Button };
+export { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button };
