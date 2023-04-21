@@ -1,21 +1,19 @@
 import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { WalletContext } from '@/contexts/wallet-context';
-import { useWeb3React } from '@web3-react/core';
-import { useContext } from 'react';
-import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button } from './UseTrustless.styled';
+import { Container, LeftStep, RightStep, StepContainer, WrapContainer } from './UseTrustless.styled';
 
 const UseTrustless = () => {
-  const { account } = useWeb3React();
-  const { onConnect } = useContext(WalletContext);
-
   const steps = [
     {
       name: 'Step 1',
       title: 'Setup a wallet',
       content: 'A wallet lets you connect to Trustless Computer and manage your funds.',
-      element: <Button onClick={() => !account && onConnect()}>Setup a wallet</Button>,
+      element: (
+        <ButtonLink href="https://trustlesswallet.io/" target="_blank">
+          <p className="button-link-text">Setup a wallet</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-1.png',
     },
     {
@@ -35,7 +33,7 @@ const UseTrustless = () => {
       content:
         'Go to Wallet, tap the copy icon to copy and paste your BTC address to the address field on the platform you intend to withdraw BTC from. Make a transfer from there and BTC will be credited to your wallet.',
       element: (
-        <ButtonLink href={ROUTE_PATH.WALLET}>
+        <ButtonLink href="https://trustlesswallet.io/" target="_blank">
           <p className="button-link-text">Go to wallet</p>
         </ButtonLink>
       ),
@@ -46,7 +44,7 @@ const UseTrustless = () => {
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
       element: (
-        <ButtonLink href={ROUTE_PATH.DAPPS}>
+        <ButtonLink href={ROUTE_PATH.STORE}>
           <p className="button-link-text">Explore Dapp Store</p>
         </ButtonLink>
       ),
