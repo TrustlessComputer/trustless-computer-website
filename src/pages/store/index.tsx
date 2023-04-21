@@ -28,7 +28,7 @@ const DAPPS_LIST = [
     name: 'Bitcoin Artifacts',
     creator: '368.tc',
     // creatorAvatar: `${CDN_URL}/icons/avt-368.svg`,
-    desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
+    desc: 'Preserve files on Bitcoin forever. Cheap. Immutable. Fully on-chain.',
     link: `https://trustlessartifacts.com/`,
   },
   {
@@ -36,15 +36,15 @@ const DAPPS_LIST = [
     name: 'Trustless Market',
     creator: '686.tc',
     // creatorAvatar: `${CDN_URL}/icons/avatar-686.svg`,
-    desc: 'Use your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
+    desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
     link: `https://trustless.market/`,
   },
   {
     image: `${CDN_URL}/icons/logo-tc-name.svg`,
     name: 'Trustless Domain',
-    creator: '268.tc',
+    creator: '286.tc',
     // creatorAvatar: `${CDN_URL}/icons/avt-268.svg`,
-    desc: 'BNS is the standard for naming on Bitcoin. No more copying and pasting long addresses. Use your BNS name to receive any token and NFT.',
+    desc: 'Use your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
     link: `https://trustless.domains/`,
   },
   // {
@@ -65,14 +65,14 @@ const DAPPS_LIST = [
     desc: 'Coming soon',
     link: '',
   },
-  // {
-  //   image: `${CDN_URL}/icons/logo-remix.svg`,
-  //   name: 'Deploy',
-  //   creator: 'ape.tc',
-  //   creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
-  //   desc: 'Coming soon',
-  //   link: '',
-  // },
+  {
+    image: `${CDN_URL}/icons/logo-remix.svg`,
+    name: 'Deploy',
+    creator: 'ape.tc',
+    // creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
+    desc: 'Coming soon',
+    link: '',
+  },
 ];
 
 const DappsStorePage = () => {

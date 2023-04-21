@@ -104,11 +104,7 @@ const Tokens = () => {
           </div>
         </div>
         <div className="upload_right">
-          <Button
-            bg={'white'}
-            background={'linear-gradient(90deg, #ff8008 0%, #ffc837 100%)'}
-            onClick={() => setShowModal(true)}
-          >
+          <Button bg={'white'} gradient onClick={() => setShowModal(true)}>
             <Text size="medium" color="bg1" className="button-text" fontWeight="medium">
               Create BRC-20
             </Text>

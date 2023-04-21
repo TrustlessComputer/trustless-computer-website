@@ -1,6 +1,7 @@
+import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import { CDN_URL } from '@/configs';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { Container, WrapContainer, StepContainer, LeftStep, RightStep, Button, Link } from './UseTrustless.styled';
+import { Container, LeftStep, RightStep, StepContainer, WrapContainer } from './UseTrustless.styled';
 
 const UseTrustless = () => {
   const steps = [
@@ -9,9 +10,9 @@ const UseTrustless = () => {
       title: 'Setup a wallet',
       content: 'A wallet lets you connect to Trustless Computer and manage your funds.',
       element: (
-        <Link href="https://trustlesswallet.io/" target="_blank">
-          Setup a wallet
-        </Link>
+        <ButtonLink href="https://trustlesswallet.io/" target="_blank">
+          <p className="button-link-text">Setup a wallet</p>
+        </ButtonLink>
       ),
       image: '/images/use-trustless-banner-1.png',
     },
@@ -19,7 +20,11 @@ const UseTrustless = () => {
       name: 'Step 2',
       title: 'Get TC',
       content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
-      element: <Link href={ROUTE_PATH.FAUCET}>Get TC</Link>,
+      element: (
+        <ButtonLink href={ROUTE_PATH.FAUCET}>
+          <p className="button-link-text">Get TC</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-2.png',
     },
     {
@@ -28,9 +33,9 @@ const UseTrustless = () => {
       content:
         'Go to Wallet, tap the copy icon to copy and paste your BTC address to the address field on the platform you intend to withdraw BTC from. Make a transfer from there and BTC will be credited to your wallet.',
       element: (
-        <Link href="https://trustlesswallet.io/" target="_blank">
-          Go to wallet
-        </Link>
+        <ButtonLink href="https://trustlesswallet.io/" target="_blank">
+          <p className="button-link-text">Go to wallet</p>
+        </ButtonLink>
       ),
       image: '/images/use-trustless-banner-4.png',
     },
@@ -38,7 +43,11 @@ const UseTrustless = () => {
       name: 'Step 4',
       title: 'Use a Bitcoin dapp',
       content: 'Bitcoin dapps are applications powered by Trustless Computer. Choose a Bitcoin dapp to try out.',
-      element: <Link href={ROUTE_PATH.STORE}>Explore Dapp Store</Link>,
+      element: (
+        <ButtonLink href={ROUTE_PATH.STORE}>
+          <p className="button-link-text">Explore Dapp Store</p>
+        </ButtonLink>
+      ),
       image: '/images/use-trustless-banner-3.png',
     },
   ];
