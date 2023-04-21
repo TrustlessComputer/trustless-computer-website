@@ -99,6 +99,7 @@ export const StyledDappStore = styled.div`
     line-height: ${px2rem(22)};
     color: ${({ theme }) => theme.bg4};
     font-weight: 500;
+    opacity: 0.7;
   }
 
   .app-desc {
