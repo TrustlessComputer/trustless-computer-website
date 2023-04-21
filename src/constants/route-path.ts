@@ -9,4 +9,5 @@ export const ROUTE_PATH = {
   WALLET: '/wallet',
   CONNECT_WALLET: '/connect-wallet',
   STORE: '/dapps-store',
+  DEPLOY: '/deploy',
 };
