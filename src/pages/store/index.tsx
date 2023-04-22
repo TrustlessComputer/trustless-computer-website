@@ -42,6 +42,13 @@ const DAPPS_LIST = [
     link: `https://trustless.domains/`,
   },
   {
+    image: `${CDN_URL}/icons/logo-remix.svg`,
+    name: 'Deploy',
+    creator: 'ape.tc',
+    desc: 'Deploy contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
+    link: 'https://trustlesside.com/',
+  },
+  {
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
@@ -49,14 +56,6 @@ const DAPPS_LIST = [
     desc: 'Coming soon',
     link: '',
   },
-  // {
-  //   image: `${CDN_URL}/icons/logo-remix.svg`,
-  //   name: 'Deploy',
-  //   creator: 'ape.tc',
-  //   // creatorAvatar: `${CDN_URL}/icons/avt-ape.svg`,
-  //   desc: 'Deploy contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
-  //   link: '',
-  // },
 ];
 
 const DappsStorePage = () => {
