@@ -5,6 +5,13 @@ import IconSVG from '@/components/IconSVG';
 
 const DAPPS_LIST = [
   {
+    image: `${CDN_URL}/images/wallet-logo.svg`,
+    name: 'Trustless Wallet',
+    creator: 'dev.tc',
+    desc: 'A crypto wallet & gateway to decentralized applications on Bitcoin.',
+    link: 'https://trustlesswallet.io/',
+  },
+  {
     image: `${CDN_URL}/icons/logo-generative-dark.svg`,
     name: 'Generative',
     creator: 'generative.tc',
