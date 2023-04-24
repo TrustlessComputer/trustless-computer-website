@@ -50,9 +50,9 @@ const DAPPS_LIST = [
   },
   {
     image: `${CDN_URL}/icons/logo-remix.svg`,
-    name: 'Deploy',
+    name: 'Trustless IDE',
     creator: 'ape.tc',
-    desc: 'Deploy contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
+    desc: 'Trustless IDE contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
     link: 'https://trustlesside.com/',
   },
   {
