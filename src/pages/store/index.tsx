@@ -49,6 +49,13 @@ const DAPPS_LIST = [
     link: 'https://trustlesside.com/',
   },
   {
+    image: `${CDN_URL}/images/logo_faucet.svg`,
+    name: 'Trustless Faucet',
+    creator: 'dev.tc',
+    desc: 'Claim TC to cover network fees when executing transactions on Trustless Computer.',
+    link: 'https://trustlessfaucet.io/',
+  },
+  {
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
