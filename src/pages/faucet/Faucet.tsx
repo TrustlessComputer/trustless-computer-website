@@ -254,11 +254,7 @@ const Faucet = () => {
         </p>
         <p className="subTitle">
           Need more TC for a bigger project? Reach out to our team on{' '}
-          <a
-            className="discord-link"
-            href="https://discord.com/channels/1052411011036090458/1097833957124472932"
-            target="_blank"
-          >
+          <a className="discord-link" href="https://generative.xyz/discord" target="_blank">
             Discord
           </a>{' '}
           .

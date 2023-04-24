@@ -47,7 +47,7 @@ const ConnectWallet: React.FC = (): React.ReactElement => {
       <Wrapper>
         <div className="header">
           <div className="socialContainer">
-            <a href="https://discord.com/channels/1052411011036090458/1094649301210239086" target="_blank">
+            <a href="https://generative.xyz/discord" target="_blank">
               <img alt="icon" className="icon" src={`${CDN_URL}/icons/ic-discord-18x18.svg`} />
             </a>
             <a href="https://twitter.com/DappsOnBitcoin" target="_blank">

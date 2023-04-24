@@ -74,7 +74,7 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         <div className="buttonContainer">
-          <a href="https://trustless.computer/discord" target="_blank">
+          <a href="https://generative.xyz/discord" target="_blank">
             <img alt="icon" className="icon" src={IcDiscord} />
           </a>
           <a href="https://twitter.com/generative_xyz" target="_blank">
