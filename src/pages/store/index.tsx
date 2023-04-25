@@ -5,11 +5,32 @@ import IconSVG from '@/components/IconSVG';
 
 const DAPPS_LIST = [
   {
-    image: `${CDN_URL}/images/wallet-logo.svg`,
+    image: `${CDN_URL}/icons/wallet_logo.svg`,
     name: 'Trustless Wallet',
     creator: 'dev.tc',
     desc: 'A crypto wallet & gateway to decentralized applications on Bitcoin.',
     link: 'https://trustlesswallet.io/',
+  },
+  {
+    image: `${CDN_URL}/images/logo_faucet.svg`,
+    name: 'Trustless Faucet',
+    creator: 'dev.tc',
+    desc: 'Claim TC to cover network fees when executing transactions on Trustless Computer.',
+    link: 'https://trustlessfaucet.io/',
+  },
+  {
+    image: `${CDN_URL}/icons/logo-tc-name.svg`,
+    name: 'Trustless Domain',
+    creator: '286.tc',
+    desc: 'Use your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
+    link: `https://trustless.domains/`,
+  },
+  {
+    image: `${CDN_URL}/icons/logo-tc-artifact.svg`,
+    name: 'Bitcoin Artifacts',
+    creator: '368.tc',
+    desc: 'Preserve files on Bitcoin forever. Cheap. Immutable. Fully on-chain.',
+    link: `https://trustlessartifacts.com/`,
   },
   {
     image: `${CDN_URL}/icons/logo-generative-dark.svg`,
@@ -28,13 +49,6 @@ const DAPPS_LIST = [
   },
 
   {
-    image: `${CDN_URL}/icons/logo-tc-artifact.svg`,
-    name: 'Bitcoin Artifacts',
-    creator: '368.tc',
-    desc: 'Preserve files on Bitcoin forever. Cheap. Immutable. Fully on-chain.',
-    link: `https://trustlessartifacts.com/`,
-  },
-  {
     image: `${CDN_URL}/icons/logo-tc-market.svg`,
     name: 'Trustless Market',
     creator: '686.tc',
@@ -42,25 +56,11 @@ const DAPPS_LIST = [
     link: `https://trustless.market/`,
   },
   {
-    image: `${CDN_URL}/icons/logo-tc-name.svg`,
-    name: 'Trustless Domain',
-    creator: '286.tc',
-    desc: 'Use your BNS (Bitcoin Name System) name to receive any token and NFT. No more copying and pasting long addresses.',
-    link: `https://trustless.domains/`,
-  },
-  {
     image: `${CDN_URL}/icons/logo-remix.svg`,
     name: 'Trustless IDE',
     creator: 'ape.tc',
     desc: 'Deploy contracts on Trustless Computer. Simple. Quick. No additional technical requirements.',
     link: 'https://trustlesside.com/',
-  },
-  {
-    image: `${CDN_URL}/images/logo_faucet.svg`,
-    name: 'Trustless Faucet',
-    creator: 'dev.tc',
-    desc: 'Claim TC to cover network fees when executing transactions on Trustless Computer.',
-    link: 'https://trustlessfaucet.io/',
   },
   {
     image: `${CDN_URL}/icons/logo-photos.svg`,
