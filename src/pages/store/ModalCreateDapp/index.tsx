@@ -108,7 +108,7 @@ const ModalCreateDapp = (props: Props) => {
               <WrapBody>
                 <div className="row-inputs">
                   <WrapInput>
-                    <p className="title-input">Name</p>
+                    <p className="title-input">Dapp name</p>
                     <input
                       id="name"
                       type="text"
@@ -117,13 +117,13 @@ const ModalCreateDapp = (props: Props) => {
                       onBlur={handleBlur}
                       value={values.name}
                       className="input"
-                      placeholder={`Enter name`}
+                      placeholder={`Enter dapp name`}
                     />
                     {errors.name && touched.name && <p className="error">{errors.name}</p>}
                   </WrapInput>
 
                   <WrapInput>
-                    <p className="title-input">Creator</p>
+                    <p className="title-input">Creator name</p>
                     <input
                       id="creator"
                       type="text"
@@ -132,7 +132,7 @@ const ModalCreateDapp = (props: Props) => {
                       onBlur={handleBlur}
                       value={values.creator}
                       className="input"
-                      placeholder={`Enter creator`}
+                      placeholder={`Enter creator name`}
                     />
                     {errors.creator && touched.creator && <p className="error">{errors.creator}</p>}
                   </WrapInput>

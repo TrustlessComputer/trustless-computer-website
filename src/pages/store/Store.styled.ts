@@ -50,8 +50,9 @@ export const StyledDappStore = styled.div`
     margin-bottom: ${px2rem(68)};
 
     .submitBtn {
-      padding: ${px2rem(14)} ${px2rem(32)};
+      padding: ${px2rem(15)} ${px2rem(24)};
       gap: ${px2rem(10)};
+
       border-radius: 8px;
       text-decoration: none !important;
       width: fit-content;

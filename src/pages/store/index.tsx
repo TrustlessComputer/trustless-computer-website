@@ -103,7 +103,7 @@ const DappsStorePage = () => {
           <p className="button-link-text">Get TC</p>
         </ButtonLink>
         <div className="submitBtn" onClick={() => setShowModal(true)}>
-          <p>Submit a Bitcoin dapp</p>
+          <p>Submit a dapp</p>
         </div>
       </div>
       <div className="app-list">

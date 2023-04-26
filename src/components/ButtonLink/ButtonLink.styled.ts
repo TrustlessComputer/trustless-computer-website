@@ -12,6 +12,7 @@ export const ButtonLink = styled.a<{ disabled?: boolean }>`
   flex-direction: row;
   align-items: center;
   opacity: ${({ disabled }: { disabled?: boolean }) => (disabled ? 0.5 : 1)};
+  max-height: 56px;
 
   .button-link-text {
     font-weight: 500;
