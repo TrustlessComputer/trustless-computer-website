@@ -5,7 +5,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-top: ${px2rem(68)};
+  padding-top: ${px2rem(58)};
 
   .title {
     font-size: ${px2rem(48)};

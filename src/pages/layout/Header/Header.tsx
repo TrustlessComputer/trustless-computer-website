@@ -45,7 +45,7 @@ const Header = ({ height }: { height: number }) => {
 
   return (
     <Wrapper style={{ height }}>
-      <div className="indicator" />
+      {/* <div className="indicator" /> */}
       <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />
       </Link>

@@ -1,7 +1,11 @@
 import { StyledDappStore } from './Store.styled';
 import { CDN_URL } from '@/configs';
 import Text from '@/components/Text';
-import IconSVG from '@/components/IconSVG';
+import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
+import ModalCreateDapp from './ModalCreateDapp';
+import { useEffect, useState } from 'react';
+import { getListDappStore } from '@/services/store';
+import { IDappStore } from '@/interfaces/api/store';
 
 const DAPPS_LIST = [
   {
@@ -12,7 +16,7 @@ const DAPPS_LIST = [
     link: 'https://trustlesswallet.io/',
   },
   {
-    image: `${CDN_URL}/images/logo_faucet.svg`,
+    image: `${CDN_URL}/icons/logo-faucet.svg`,
     name: 'Trustless Faucet',
     creator: 'dev.tc',
     desc: 'Claim TC to cover network fees when executing transactions on Trustless Computer.',
@@ -73,13 +77,35 @@ const DAPPS_LIST = [
 ];
 
 const DappsStorePage = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [dapps, setDapps] = useState<IDappStore[]>([]);
+
+  useEffect(() => {
+    getDappsStore();
+  }, []);
+
+  const getDappsStore = async () => {
+    try {
+      const data = await getListDappStore();
+      setDapps(data);
+    } catch (error) {}
+  };
+
   return (
     <StyledDappStore>
-      <h2 className="font-ibm">
-        The dapps you love.
-        <br />
-        Now on Bitcoin.
-      </h2>
+      <h2 className="font-ibm">Use dapps on Bitcoin.</h2>
+      <p className="desc">
+        Trustless Computer lets developers write smart contracts on Bitcoin. So now you can use all the dapps you love
+        on Bitcoin: NFTs, DeFi, Payments, Gaming, DAOs, file storage, and many other dapps uniquely on Bitcoin.
+      </p>
+      <div className="header-actions">
+        <ButtonLink href="https://trustlessfaucet.io" target="_blank">
+          <p className="button-link-text">Get TC</p>
+        </ButtonLink>
+        <div className="submitBtn" onClick={() => setShowModal(true)}>
+          <p>Submit a Bitcoin dapp</p>
+        </div>
+      </div>
       <div className="app-list">
         {DAPPS_LIST.map((item, index) => (
           <a
@@ -91,14 +117,14 @@ const DappsStorePage = () => {
           >
             <div className="app-item__image">
               {/* <img src={item.image} alt={`${item.name} logo`} /> */}
-              <IconSVG src="" url={item.image} maxWidth="80" />
+              <img alt={`${item.name} logo`} src={item.image} />
             </div>
             <div className="app-item__content">
               <p className="app-name">{item.name}</p>
 
               <div className="creator">
                 {/* <img src={item.creatorAvatar} width="24" height="24" /> */}
-                <p className="app-creator">by {item.creator}</p>
+                {/* <p className="app-creator">by {item.creator}</p> */}
               </div>
               <Text size="medium" className="app-desc">
                 {item.desc}
@@ -106,7 +132,35 @@ const DappsStorePage = () => {
             </div>
           </a>
         ))}
+        {dapps &&
+          dapps.length > 0 &&
+          dapps.map(item => (
+            <a
+              key={`app-${item.id}`}
+              href={item.link}
+              className={`app-item ${!item.link ? 'app-disabled' : ''} `}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="app-item__image">
+                <img alt={`${item.name} logo`} src={item.image} />
+              </div>
+              <div className="app-item__content">
+                <p className="app-name">{item.name}</p>
+
+                <div className="creator"></div>
+                <Text size="medium" className="app-desc">
+                  {item.desc}
+                </Text>
+              </div>
+            </a>
+          ))}
       </div>
+      <ModalCreateDapp
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleCreateSuccess={() => getDappsStore()}
+      />
     </StyledDappStore>
   );
 };
