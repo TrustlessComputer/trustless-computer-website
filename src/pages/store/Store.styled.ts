@@ -52,6 +52,7 @@ export const StyledDappStore = styled.div`
     .submitBtn {
       padding: ${px2rem(15)} ${px2rem(24)};
       gap: ${px2rem(10)};
+      max-height: 56px;
 
       border-radius: 8px;
       text-decoration: none !important;
