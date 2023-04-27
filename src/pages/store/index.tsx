@@ -99,10 +99,10 @@ const DappsStorePage = () => {
         on Bitcoin: NFTs, DeFi, Payments, Gaming, DAOs, file storage, and many other dapps uniquely on Bitcoin.
       </p>
       <div className="header-actions">
-        <ButtonLink href="https://trustlessfaucet.io" target="_blank">
+        <ButtonLink href="https://trustlessfaucet.io" target="_blank" className="header-actions-btn">
           <p className="button-link-text">Get TC</p>
         </ButtonLink>
-        <div className="submitBtn" onClick={() => setShowModal(true)}>
+        <div onClick={() => setShowModal(true)} className="submitBtn header-actions-btn">
           <p>Submit a dapp</p>
         </div>
       </div>

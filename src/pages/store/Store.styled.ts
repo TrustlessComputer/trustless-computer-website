@@ -79,6 +79,11 @@ export const StyledDappStore = styled.div`
     }
   }
 
+  .header-actions-btn {
+    min-width: ${px2rem(175)};
+    justify-content: center;
+  }
+
   h6 {
     font-family: 'Bandeins Strange Variable' !important;
     max-width: ${px2rem(930)};
