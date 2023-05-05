@@ -66,7 +66,7 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
-    desc: 'Coming soon',
+    desc: 'Bitcoin Photos is the home for all your photos, saved forever on Bitcoin. Your photos are encrypted for your privacy. They are only viewable by you with your keys.',
     link: 'https://trustless.photos/',
   },
 ];
