@@ -6,6 +6,7 @@ import ModalCreateDapp from './ModalCreateDapp';
 import { useEffect, useState } from 'react';
 import { getListDappStore } from '@/services/store';
 import { IDappStore } from '@/interfaces/api/store';
+import IconSVG from '@/components/IconSVG';
 
 const DAPPS_LIST = [
   {
@@ -70,9 +71,8 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
-    // creatorAvatar: `${CDN_URL}/icons/avatar-robot.svg`,
-    desc: 'Coming soon',
-    link: '',
+    desc: 'Bitcoin Photos is the home for all your photos, saved forever on Bitcoin. Your photos are encrypted for your privacy. They are only viewable by you with your keys.',
+    link: 'https://trustless.photos/',
   },
 ];
 
@@ -116,15 +116,13 @@ const DappsStorePage = () => {
             rel="noopener noreferrer"
           >
             <div className="app-item__image">
-              {/* <img src={item.image} alt={`${item.name} logo`} /> */}
-              <img alt={`${item.name} logo`} src={item.image} />
+              <IconSVG src="" url={item.image} maxWidth="80" />
             </div>
             <div className="app-item__content">
               <p className="app-name">{item.name}</p>
 
               <div className="creator">
-                {/* <img src={item.creatorAvatar} width="24" height="24" /> */}
-                {/* <p className="app-creator">by {item.creator}</p> */}
+                <p className="app-creator">by {item.creator}</p>
               </div>
               <Text size="medium" className="app-desc">
                 {item.desc}
