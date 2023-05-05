@@ -66,9 +66,8 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-photos.svg`,
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
-    // creatorAvatar: `${CDN_URL}/icons/avatar-robot.svg`,
     desc: 'Coming soon',
-    link: '',
+    link: 'https://trustless.photos/',
   },
 ];
 
@@ -90,14 +89,12 @@ const DappsStorePage = () => {
             rel="noopener noreferrer"
           >
             <div className="app-item__image">
-              {/* <img src={item.image} alt={`${item.name} logo`} /> */}
               <IconSVG src="" url={item.image} maxWidth="80" />
             </div>
             <div className="app-item__content">
               <p className="app-name">{item.name}</p>
 
               <div className="creator">
-                {/* <img src={item.creatorAvatar} width="24" height="24" /> */}
                 <p className="app-creator">by {item.creator}</p>
               </div>
               <Text size="medium" className="app-desc">
