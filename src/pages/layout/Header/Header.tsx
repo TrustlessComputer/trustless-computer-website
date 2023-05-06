@@ -45,7 +45,7 @@ const Header = ({ height }: { height: number }) => {
 
   return (
     <Wrapper style={{ height }}>
-      <div className="indicator" />
+      {/* <div className="indicator" /> */}
       <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />
       </Link>
@@ -74,47 +74,14 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         <div className="buttonContainer">
-          <a href="https://trustless.computer/discord" target="_blank">
+          <a href="https://discord.gg/yNbatuGMDG" target="_blank">
             <img alt="icon" className="icon" src={IcDiscord} />
           </a>
-          <a href="https://twitter.com/generative_xyz" target="_blank">
+          <a href=" https://twitter.com/TrustlessOnBTC" target="_blank">
             <img alt="icon" className="icon" src={IcTwitter} />
           </a>
         </div>
       </div>
-      {/* <div className="rightContainer">
-        {account && isAuthenticated ? (
-          <>
-            <div className="wallet" onClick={() => navigate(ROUTE_PATH.WALLET)}>
-              <WalletBalance>
-                <div className="balance">
-                  <p>{formatBTCPrice(btcBalance)} BTC</p>
-                  <span className="divider"></span>
-                  <p>{formatEthPrice(juiceBalance)} TC</p>
-                </div>
-                <div className="avatar">
-                  <Jazzicon diameter={32} seed={jsNumberForAddress(account)} />
-                </div>
-              </WalletBalance>
-            </div>
-            <div className="dropdown">
-              <ul className="dropdownMenu">
-                <li className="dropdownMenuItem" onClick={() => navigate(ROUTE_PATH.WALLET)}>
-                  {shortenAddress(account, 4, 4)}
-                </li>
-                <li className="dropdownMenuItem" onClick={onDisconnect}>
-                  Disconnect wallet
-                </li>
-              </ul>
-            </div>
-          </>
-        ) : (
-          <ConnectWalletButton onClick={goToConnectWalletPage}>Connect wallet</ConnectWalletButton>
-        )}
-        <button className="btnMenuMobile" onClick={() => setIsOpenMenu(true)}>
-          <img src={IcOpenMenu} />
-        </button>
-      </div> */}
     </Wrapper>
   );
 };
