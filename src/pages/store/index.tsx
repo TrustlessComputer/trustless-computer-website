@@ -72,7 +72,7 @@ const DAPPS_LIST = [
     name: 'Bitcoin Photos',
     creator: 'robot.tc',
     desc: 'Bitcoin Photos is the home for all your photos, saved forever on Bitcoin. Your photos are encrypted for your privacy. They are only viewable by you with your keys.',
-    link: 'https://trustless.photos/',
+    link: 'https://trustless.photos/about',
   },
 ];
 
