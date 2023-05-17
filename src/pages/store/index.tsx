@@ -20,7 +20,7 @@ const DAPPS_LIST = [
     image: `${CDN_URL}/icons/logo-bridge.svg`,
     name: 'Trustless Bridge',
     creator: 'dev.tc',
-    desc: 'A two-way bridge that enables seamless transfer of assets between Bitcoin and Trustless Computer.',
+    desc: 'A two-way bridge that enables seamless transfer of assets between Bitcoin, Ethereum and Trustless Computer.',
     link: 'https://trustlessbridge.io/',
   },
   {
