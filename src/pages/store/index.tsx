@@ -17,6 +17,20 @@ const DAPPS_LIST = [
     link: 'https://trustlesswallet.io/',
   },
   {
+    image: `${CDN_URL}/icons/logo-bridge.svg`,
+    name: 'Trustless Bridge',
+    creator: 'dev.tc',
+    desc: 'A two-way bridge that enables seamless transfer of assets between Bitcoin and Trustless Computer.',
+    link: 'https://trustlessbridge.io/',
+  },
+  {
+    image: `${CDN_URL}/icons/logo-tc-market.svg`,
+    name: 'Trustless Market',
+    creator: 'dev.tc',
+    desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
+    link: `https://trustless.market/`,
+  },
+  {
     image: `${CDN_URL}/icons/logo-faucet.svg`,
     name: 'Trustless Faucet',
     creator: 'dev.tc',
@@ -51,14 +65,6 @@ const DAPPS_LIST = [
     creator: '3700.tc',
     desc: 'Issue your BRC-721 NFTs on Bitcoin for collectible items, memberships, in-game items, and more.',
     link: `https://trustlessnfts.com/`,
-  },
-
-  {
-    image: `${CDN_URL}/icons/logo-tc-market.svg`,
-    name: 'Trustless Market',
-    creator: '686.tc',
-    desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
-    link: `https://trustless.market/`,
   },
   {
     image: `${CDN_URL}/icons/logo-remix.svg`,
