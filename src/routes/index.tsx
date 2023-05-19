@@ -26,11 +26,11 @@ export default [
     element: <Layout />,
     children: [{ index: true, element: <DappsStorePage /> }],
   },
-  {
-    path: ROUTE_PATH.DAPPS,
-    element: <Layout />,
-    children: [{ index: true, element: <Dapps /> }],
-  },
+  // {
+  //   path: ROUTE_PATH.DAPPS,
+  //   element: <Layout />,
+  //   children: [{ index: true, element: <Dapps /> }],
+  // },
   {
     path: ROUTE_PATH.DEVELOPER,
     element: <Layout />,
@@ -41,16 +41,16 @@ export default [
     element: <Layout />,
     children: [{ index: true, element: <DappsStorePage /> }],
   },
-  {
-    path: ROUTE_PATH.COLLECTION,
-    element: <Layout />,
-    children: [{ index: true, element: <Collection /> }],
-  },
-  {
-    path: ROUTE_PATH.INSCRIPTION,
-    element: <Layout />,
-    children: [{ index: true, element: <Inscription /> }],
-  },
+  // {
+  //   path: ROUTE_PATH.COLLECTION,
+  //   element: <Layout />,
+  //   children: [{ index: true, element: <Collection /> }],
+  // },
+  // {
+  //   path: ROUTE_PATH.INSCRIPTION,
+  //   element: <Layout />,
+  //   children: [{ index: true, element: <Inscription /> }],
+  // },
   {
     path: ROUTE_PATH.FAUCET,
     element: <Layout />,

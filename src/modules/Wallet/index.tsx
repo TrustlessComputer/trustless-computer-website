@@ -79,7 +79,7 @@ const Wallet = () => {
   }
 
   const navigateToDapps = () => {
-    navigate(`${ROUTE_PATH.DAPPS}?tab=${activeTab}`);
+    navigate(`${ROUTE_PATH.HOME}`);
   };
 
   const handleResumeTransactions = async () => {

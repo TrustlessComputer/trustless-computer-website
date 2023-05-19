@@ -119,7 +119,7 @@ const EarnTC = () => {
           {earnStatus.artifact === 'Follow-up' && renderFollowupStep()}
           {earnStatus.artifact === 'Normal' && (
             <div className="normal-step">
-              <ButtonLink className="button-link" href={ROUTE_PATH.DAPPS} target="_blank">
+              <ButtonLink className="button-link" href={ROUTE_PATH.HOME} target="_blank">
                 <p className="button-link-text">Go to Artifact Dapp</p>
               </ButtonLink>
 
