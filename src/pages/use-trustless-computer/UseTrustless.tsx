@@ -21,7 +21,7 @@ const UseTrustless = () => {
       title: 'Get TC',
       content: 'TC is the currency of Trustless Computer — you can use it in Bitcoin dapps.',
       element: (
-        <ButtonLink href={ROUTE_PATH.FAUCET}>
+        <ButtonLink href="https://tcgasstation.com/">
           <p className="button-link-text">Get TC</p>
         </ButtonLink>
       ),
