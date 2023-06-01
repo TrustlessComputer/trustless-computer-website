@@ -77,7 +77,7 @@ const Header = ({ height }: { height: number }) => {
           <a href="https://discord.gg/yNbatuGMDG" target="_blank">
             <img alt="icon" className="icon" src={IcDiscord} />
           </a>
-          <a href=" https://twitter.com/TrustlessOnBTC" target="_blank">
+          <a href="https://twitter.com/NewBitcoinCity" target="_blank">
             <img alt="icon" className="icon" src={IcTwitter} />
           </a>
         </div>
