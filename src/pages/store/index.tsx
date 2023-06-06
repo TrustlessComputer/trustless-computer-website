@@ -38,11 +38,11 @@ const DAPPS_LIST = [
     link: `https://trustless.domains/`,
   },
   {
-    image: `${CDN_URL}/icons/logo-tc-artifact.svg`,
-    name: 'Bitcoin Artifacts',
+    image: `https://cdn.trustlessartifacts.com/pages/artifacts/logo-1.svg`,
+    name: 'Smart Inscription',
     creator: '368.tc',
-    desc: 'Preserve files on Bitcoin forever. Cheap. Immutable. Fully on-chain.',
-    link: `https://trustlessartifacts.com/`,
+    desc: 'Store files on Bitcoin. Cheap. Immutable. Fully on-chain. Large files are supported.',
+    link: `https://smartinscription.xyz/about`,
   },
   {
     image: `${CDN_URL}/icons/logo-generative-dark.svg`,
