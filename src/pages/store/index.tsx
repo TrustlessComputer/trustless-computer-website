@@ -25,10 +25,10 @@ const DAPPS_LIST = [
   },
   {
     image: `${CDN_URL}/icons/logo-tc-market.svg`,
-    name: 'Trustless Market',
+    name: 'New Bitcoin DEX',
     creator: 'dev.tc',
-    desc: 'Issue your BRC-20 tokens on Bitcoin for virtually anything: a cryptocurrency, a share in a company, voting rights in a DAO, and more.',
-    link: `https://trustless.market/`,
+    desc: 'New Bitcoin DEX is a decentralized exchange platform that operates on the Bitcoin blockchain through the use of trustless computers. With Trustless Market, you can easily swap cryptocurrencies, join a launchpad, gain voting rights in DAO and so much more!',
+    link: `https://newbitcoindex.com/`,
   },
   {
     image: `${CDN_URL}/icons/logo-tc-name.svg`,
