@@ -30,6 +30,16 @@ export const BREAKPOINTS = {
   xxxl: '1920px',
 };
 
+type MediaWidthsType = typeof BREAKPOINTS;
+type MediaWidthsKeysType = keyof MediaWidthsType;
+
+export const MediaQueryBuilder = (key: MediaWidthsKeysType, innerCSS?: any) =>
+  css`
+    @media (max-width: ${BREAKPOINTS[key]}) {
+      ${innerCSS};
+    }
+  `;
+
 // deprecated - please use the ones in styles.ts file
 const transitions = {
   duration: {

@@ -24,9 +24,14 @@ const BaseText = styled.p<{ color: string | undefined; align: string; maxWidth: 
     font-size: ${px2rem(18)};
   }
   &.size-20 {
-    font-size: ${px2rem(18)};
+    font-size: ${px2rem(20)};
   }
-
+  &.size-24 {
+    font-size: ${px2rem(24)};
+  }
+  &.size-48 {
+    font-size: ${px2rem(48)};
+  }
   // FONT-WEIGHT
   &.weight-bold {
     font-weight: 700;
