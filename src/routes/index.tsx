@@ -9,6 +9,7 @@ import UseTrustless from '@/pages/use-trustless-computer';
 import Wallet from '@/pages/wallet';
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
+import { Pioneers } from '@/pages/pioneers';
 
 export default [
   {
@@ -50,5 +51,10 @@ export default [
     path: ROUTE_PATH.DEPLOY,
     element: <Layout />,
     children: [{ index: true, element: <Remix /> }],
+  },
+  {
+    path: ROUTE_PATH.PIONEERS,
+    element: <Layout />,
+    children: [{ index: true, element: <Pioneers /> }],
   },
 ] as RouteObject[];

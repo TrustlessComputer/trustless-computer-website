@@ -8,4 +8,5 @@ export const ROUTE_PATH = {
   EARN_TC: '/earn-tc',
   DEVELOPER: '/developer',
   DEPLOY: 'https://trustlesside.com/',
+  PIONEERS: '/pioneers',
 };

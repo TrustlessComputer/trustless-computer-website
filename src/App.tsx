@@ -1,6 +1,6 @@
 import React from 'react';
 import routes from '@/routes/index';
-import { redirect, useParams, useRoutes, useSearchParams } from 'react-router-dom';
+import { redirect, useRoutes } from 'react-router-dom';
 import Web3Provider from '@/components/Web3Provider';
 import { Provider } from 'react-redux';
 import store from '@/state';
