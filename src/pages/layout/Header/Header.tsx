@@ -1,5 +1,4 @@
-import IcDiscord from '@/assets/icons/ic_discord.svg';
-import IcTwitter from '@/assets/icons/ic_twitter.svg';
+import IcLink from '@/assets/icons/ic-link.svg';
 import IcLogo from '@/assets/icons/logo.svg';
 import { MENU_HEADER } from '@/constants/header';
 import { ROUTE_PATH } from '@/constants/route-path';
@@ -8,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { StyledLink, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
+import Text from '@/components/Text';
 
 const Header = ({ height }: { height: number }) => {
   const refMenu = useRef<HTMLDivElement | null>(null);
@@ -53,11 +53,23 @@ const Header = ({ height }: { height: number }) => {
       <MenuMobile ref={refMenu} onCloseMenu={() => setIsOpenMenu(false)} />
       <div className="rightContainer">
         <div className="buttonContainer">
-          <a href="https://discord.gg/yNbatuGMDG" target="_blank">
-            <img alt="icon" className="icon" src={IcDiscord} />
+          <a href="https://tcgasstation.com" target="_blank">
+            <Text size="medium" fontWeight="semibold">
+              Get TC
+            </Text>
+            <img alt="icon" className="icon" src={IcLink} />
           </a>
-          <a href="https://twitter.com/NewBitcoinCity" target="_blank">
-            <img alt="icon" className="icon" src={IcTwitter} />
+          <a href="https://newbitcoincity.com" target="_blank">
+            <Text size="medium" fontWeight="semibold">
+              NBC
+            </Text>
+            <img alt="icon" className="icon" src={IcLink} />
+          </a>
+          <a href="https://discord.gg/yNbatuGMDG" target="_blank">
+            <Text size="medium" fontWeight="semibold">
+              Discord
+            </Text>
+            <img alt="icon" className="icon" src={IcLink} />
           </a>
         </div>
       </div>

@@ -43,7 +43,12 @@ const Wrapper = styled.div`
       flex-direction: row;
       align-items: center;
 
-      gap: ${px2rem(8)};
+      gap: ${px2rem(24)};
+      a {
+        display: flex;
+        align-items: center;
+        gap: ${px2rem(8)};
+      }
 
       .icon {
         width: ${px2rem(34)};
