@@ -18,8 +18,6 @@ const App: React.FC = (): React.ReactElement => {
   const element = useRoutes(routes);
 
   if (window.location.pathname === '/') {
-    console.log('trigger');
-
     redirect(ROUTE_PATH.STORE);
   }
 

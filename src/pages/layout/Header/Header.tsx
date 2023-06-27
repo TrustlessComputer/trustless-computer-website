@@ -3,31 +3,17 @@ import IcTwitter from '@/assets/icons/ic_twitter.svg';
 import IcLogo from '@/assets/icons/logo.svg';
 import { MENU_HEADER } from '@/constants/header';
 import { ROUTE_PATH } from '@/constants/route-path';
-import { AssetsContext } from '@/contexts/assets-context';
-import { WalletContext } from '@/contexts/wallet-context';
-import { getIsAuthenticatedSelector } from '@/state/user/selector';
-import { useWeb3React } from '@web3-react/core';
 import { gsap } from 'gsap';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Anchor, StyledLink, Wrapper } from './Header.styled';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { StyledLink, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
 
 const Header = ({ height }: { height: number }) => {
-  const { account } = useWeb3React();
-  const navigate = useNavigate();
-  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
-  const { onDisconnect } = useContext(WalletContext);
-  const { btcBalance, juiceBalance } = useContext(AssetsContext);
   const refMenu = useRef<HTMLDivElement | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const location = useLocation();
   const activePath = location.pathname.split('/')[1];
-
-  const goToConnectWalletPage = async () => {
-    navigate(`${ROUTE_PATH.CONNECT_WALLET}?next=${window.location.href}`);
-  };
 
   useEffect(() => {
     if (refMenu.current) {
@@ -45,26 +31,19 @@ const Header = ({ height }: { height: number }) => {
 
   return (
     <Wrapper style={{ height }}>
-      {/* <div className="indicator" /> */}
       <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />
       </Link>
       <div className="rowLink">
         {MENU_HEADER.map(item => {
-          if (item.externalLink) {
-            return (
-              <Anchor active={false} href={item.route} target="_blank" rel="noopener noreferrer">
-                {item.name}
-              </Anchor>
-            );
-          }
-
+          const isActive = '/' + activePath === item.activePath || activePath === item.activePath;
           return (
             <StyledLink
-              active={activePath === item.activePath}
+              active={isActive}
               to={{ pathname: item.route }}
               key={item.id}
               activeColor="#F9D03F"
+              style={{ lineHeight: `${height}px` }}
             >
               {item.name}
             </StyledLink>

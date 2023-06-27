@@ -4,9 +4,12 @@ export const ROUTE_PATH = {
   USE_TRUSTLESS: '/use-trustless-computer',
   WALLET: '/wallet',
   CONNECT_WALLET: '/connect-wallet',
-  STORE: '/',
+  STORE: '/dapp-store',
+  PROTOCOL: '/',
   EARN_TC: '/earn-tc',
   DEVELOPER: '/developer',
   DEPLOY: 'https://trustlesside.com/',
   PIONEERS: '/pioneers',
+  TOKENS: '/tokens ',
+  COMPUTER: '/computer',
 };

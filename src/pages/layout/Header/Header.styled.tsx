@@ -10,25 +10,13 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-
-  .indicator {
-    position: absolute;
-    height: ${px2rem(1)};
-    margin-left: -${px2rem(32)};
-    margin-right: -${px2rem(32)};
-    /* top: ${px2rem(80)}; */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.primary[333]};
-
-    @media screen and (min-width: 1920px) {
-      max-width: 1920px;
-    }
-  }
+  border-bottom: 1px solid ${({ theme }) => theme.border4};
 
   .logo {
     z-index: 999;
+    left: 50%;
+    transform: translateX(-47%);
+    position: absolute;
   }
 
   a {
@@ -40,9 +28,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     gap: ${px2rem(32)};
-    position: absolute;
-    left: 50%;
-    transform: translateX(-47%);
+    height: 100%;
   }
 
   .rightContainer {
@@ -147,17 +133,16 @@ const Wrapper = styled.div`
 const StyledLink = styled(Link)<{ active: boolean; activeColor?: string }>`
   cursor: pointer;
   font-weight: 400;
-  font-size: ${px2rem(16)};
-  line-height: ${px2rem(28)};
+  font-size: ${px2rem(18)};
+  color: ${({ theme, active, activeColor }) => (active ? activeColor || theme.white : theme.text2)};
+  border-bottom: 1px solid ${({ active, activeColor }) => (active ? activeColor : 'transparent')};
   text-decoration: none !important;
-  color: ${({ theme, active, activeColor }: { theme: DefaultTheme; active: boolean; activeColor?: string }) =>
-    active ? activeColor || theme.white : theme.text2};
   font-family: 'IBMPlexMono';
   letter-spacing: -0.02em;
 
   :hover {
-    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
-    opacity: 0.7;
+    color: ${({ activeColor }) => activeColor};
+    opacity: 0.9;
   }
 `;
 

@@ -22,7 +22,7 @@ export default [
   {
     path: ROUTE_PATH.HOME,
     element: <Layout />,
-    children: [{ index: true, element: <DappsStorePage /> }],
+    children: [{ index: true, element: <Pioneers /> }],
   },
   {
     path: ROUTE_PATH.DEVELOPER,

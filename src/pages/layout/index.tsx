@@ -17,8 +17,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 ${px2rem(32)};
-  /* padding-left: 6%;
-  padding-right: 6%; */
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
       padding-left: 7%;
