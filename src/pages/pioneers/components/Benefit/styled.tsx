@@ -43,17 +43,25 @@ const Content = styled.div`
 
 // ------- Item ------
 const ImageMedium = css`
-  max-width: 150px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 const Image = styled.img`
   max-width: 260px;
   ${MediaQueryBuilder('md', ImageMedium)}
+`;
+
+const ItemMedium = css`
+  flex-direction: column;
+  align-items: start;
 `;
 const Item = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 24px;
+  ${MediaQueryBuilder('md', ItemMedium)}
 `;
 
 const ContentItem = styled.div`
