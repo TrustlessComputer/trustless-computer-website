@@ -12,6 +12,7 @@ import { RouteObject } from 'react-router-dom';
 import { Pioneers } from '@/pages/pioneers';
 
 // import ProtocolPage from '@/pages/protocol';
+// import TokenPage from '@/pages/token';
 
 export default [
   {

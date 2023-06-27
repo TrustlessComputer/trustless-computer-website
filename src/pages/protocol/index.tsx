@@ -14,10 +14,10 @@ const ProtocolPage = () => {
         you to create a DAO, DEX, NFT, token, auction lending, data storage, and so much more.
       </h6>
       <div className="header-actions">
-        <ButtonLink href="https://tcgasstation.com/" target="_blank" className="header-actions-btn">
+        <ButtonLink href="https://docs.trustless.computer/" target="_blank" className="header-actions-btn">
           <p className="button-link-text">Developer Guides</p>
         </ButtonLink>
-        <ButtonLinkSolid href={'https://tcgasstation.com/'}>
+        <ButtonLinkSolid href={'https://trustlesside.com/'}>
           <p className="button-solid-text">Deploy a Dapp</p>
         </ButtonLinkSolid>
       </div>

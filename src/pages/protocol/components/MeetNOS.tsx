@@ -37,6 +37,7 @@ export const Container = styled.div`
       max-width: 50ch;
       padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
+      color: ${({ theme }) => theme.text3};
     }
   }
 
@@ -58,7 +59,7 @@ const MeetNOSSection = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua.
         </h6>
-        <ButtonLink className="button-solid" href="https://docs.trustless.computer" target="_blank">
+        <ButtonLink className="button-solid" href="" target="_blank">
           <p className="button-link-text">{`Build a crowdsale → `}</p>
         </ButtonLink>
       </div>

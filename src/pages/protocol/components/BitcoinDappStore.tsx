@@ -44,6 +44,7 @@ export const Container = styled.div`
       max-width: 50ch;
       padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
+      color: ${({ theme }) => theme.text3};
     }
   }
 `;
@@ -62,7 +63,7 @@ const BitcoinDappStoreSection = () => {
           consequat.
         </h6>
 
-        <ButtonLink className="button-solid" href="https://docs.trustless.computer" target="_blank">
+        <ButtonLink className="button-solid" href="" target="_blank">
           <p className="button-link-text">{`Issue your BRC-721 NFT collection → `}</p>
         </ButtonLink>
       </div>
