@@ -1,8 +1,10 @@
 import px2rem from '@/utils/px2rem';
-import styled from 'styled-components';
 import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import IconSVG from '@/components/IconSVG';
 import IcTrustlessHola from '@/assets/icons/ic-trustlest-hola.svg';
+
+import styled, { css } from 'styled-components';
+import { MediaQueryBuilder } from '@/theme';
 
 export const Container = styled.div`
   padding: ${px2rem(45)};
@@ -12,6 +14,15 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.primary['2e']};
   border-radius: 5px;
 
+  gap: ${px2rem(30)};
+
+  ${MediaQueryBuilder(
+    'xl',
+    css`
+      flex-direction: column;
+    `,
+  )}
+
   .left-view {
     display: flex;
     flex-direction: column;
@@ -19,12 +30,27 @@ export const Container = styled.div`
     margin-right: 30px;
     gap: ${px2rem(10)};
 
+    ${MediaQueryBuilder(
+      'xl',
+      css`
+        flex: 1;
+      `,
+    )}
+
     .title {
       font-size: 34px;
       font-weight: 700;
       line-height: 58px;
       text-align: left;
       max-width: 20ch;
+
+      ${MediaQueryBuilder(
+        'xl',
+        css`
+          text-align: center;
+          max-width: 40ch;
+        `,
+      )}
     }
 
     .desc {
@@ -35,12 +61,26 @@ export const Container = styled.div`
       padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
       color: ${({ theme }) => theme.text3};
+
+      ${MediaQueryBuilder(
+        'xl',
+        css`
+          text-align: center;
+        `,
+      )}
     }
 
     .get-tc-btn {
       min-width: 200px;
       display: flex;
       justify-content: center;
+
+      ${MediaQueryBuilder(
+        'xl',
+        css`
+          align-self: center;
+        `,
+      )}
     }
   }
 
@@ -50,6 +90,20 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    .img {
+      ${MediaQueryBuilder(
+        'xl',
+        css`
+          scale: 0.8;
+        `,
+      )}
+      ${MediaQueryBuilder(
+        'md',
+        css`
+          scale: 0.6;
+        `,
+      )}
+    }
   }
 `;
 
@@ -63,12 +117,12 @@ const IntroduceSection = () => {
           financial activities and participating in on-chain games on Bitcoin.
         </h6>
         <ButtonLink className="button-solid get-tc-btn" href="https://tcgasstation.com/" target="_blank">
-          <p className="button-link-text get-tc-text">{`Get TC`}</p>
+          <p className="button-link-text">{`Get TC`}</p>
         </ButtonLink>
       </div>
 
       <div className="right-view">
-        <IconSVG src={IcTrustlessHola} maxWidth="380" />
+        <IconSVG src={IcTrustlessHola} maxWidth="380" className="img" />
       </div>
     </Container>
   );

@@ -2,7 +2,8 @@ import IcBitcoinNetwork from '@/assets/icons/ic-btc-network.svg';
 import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import IconSVG from '@/components/IconSVG';
 import px2rem from '@/utils/px2rem';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { MediaQueryBuilder } from '@/theme';
 
 export const Container = styled.div`
   padding: ${px2rem(45)};
@@ -11,6 +12,20 @@ export const Container = styled.div`
   align-items: center;
 
   background-color: ${({ theme }) => theme.primary['2e']};
+
+  ${MediaQueryBuilder(
+    'lg',
+    css`
+      flex-direction: column;
+    `,
+  )}
+
+  ${MediaQueryBuilder(
+    'md',
+    css`
+      flex-direction: column;
+    `,
+  )}
 
   .left-view {
     flex: 1;
@@ -33,6 +48,14 @@ export const Container = styled.div`
       line-height: 44px;
       text-align: left;
       max-width: 20ch;
+
+      ${MediaQueryBuilder(
+        'lg',
+        css`
+          text-align: center;
+          max-width: 40ch;
+        `,
+      )}
     }
 
     .desc {
@@ -45,6 +68,23 @@ export const Container = styled.div`
       padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
       color: ${({ theme }) => theme.text3};
+
+      ${MediaQueryBuilder(
+        'lg',
+        css`
+          text-align: center;
+          max-width: 100ch;
+        `,
+      )}
+    }
+
+    .btn {
+      ${MediaQueryBuilder(
+        'lg',
+        css`
+          align-self: center;
+        `,
+      )}
     }
   }
 `;
@@ -65,7 +105,7 @@ const SmartContractOnBitcoinSection = () => {
           est laborum.
         </h6>
 
-        <ButtonLink className="button-solid" href="" target="_blank">
+        <ButtonLink className="button-solid btn" href="" target="_blank">
           <p className="button-link-text">{`Issue your BRC-20 token → `}</p>
         </ButtonLink>
       </div>

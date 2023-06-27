@@ -1,8 +1,9 @@
 import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import IconSVG from '@/components/IconSVG';
 import px2rem from '@/utils/px2rem';
-import styled from 'styled-components';
 import IcNosLayers from '@/assets/icons/ic-nos-layers.svg';
+import styled, { css } from 'styled-components';
+import { MediaQueryBuilder } from '@/theme';
 
 export const Container = styled.div`
   padding: ${px2rem(45)};
@@ -13,6 +14,20 @@ export const Container = styled.div`
 
   background-color: ${({ theme }) => theme.primary.brand};
 
+  ${MediaQueryBuilder(
+    'lg',
+    css`
+      flex-direction: column;
+    `,
+  )}
+
+  ${MediaQueryBuilder(
+    'md',
+    css`
+      flex-direction: column;
+    `,
+  )}
+  
   .left-view {
     flex: 1;
     display: flex;
@@ -26,6 +41,14 @@ export const Container = styled.div`
       line-height: 44px;
       text-align: left;
       max-width: 20ch;
+
+      ${MediaQueryBuilder(
+        'lg',
+        css`
+          text-align: center;
+          max-width: 30ch;
+        `,
+      )}
     }
 
     .desc {
@@ -38,6 +61,14 @@ export const Container = styled.div`
       padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
       color: ${({ theme }) => theme.text3};
+
+      ${MediaQueryBuilder(
+        'lg',
+        css`
+          text-align: center;
+          max-width: 100ch;
+        `,
+      )}
     }
   }
 
@@ -47,6 +78,15 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+  }
+
+  .btn {
+    ${MediaQueryBuilder(
+      'lg',
+      css`
+        align-self: center;
+      `,
+    )}
   }
 `;
 
@@ -59,7 +99,7 @@ const MeetNOSSection = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua.
         </h6>
-        <ButtonLink className="button-solid" href="" target="_blank">
+        <ButtonLink className="button-solid btn" href="" target="_blank">
           <p className="button-link-text">{`Build a crowdsale → `}</p>
         </ButtonLink>
       </div>

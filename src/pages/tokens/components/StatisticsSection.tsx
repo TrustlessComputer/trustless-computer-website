@@ -1,11 +1,19 @@
 import px2rem from '@/utils/px2rem';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { MediaQueryBuilder } from '@/theme';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
 
   gap: ${px2rem(30)};
+
+  ${MediaQueryBuilder(
+    'xl',
+    css`
+      flex-direction: column;
+    `,
+  )}
 
   .column {
     display: flex;
