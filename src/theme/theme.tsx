@@ -10,6 +10,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
 
 export const ThemedGlobalStyle = createGlobalStyle`
 
+
   html{
     font-size: 16px;
     color: ${({ theme }: { theme: DefaultTheme }) => theme.bg1};
@@ -64,6 +65,8 @@ export const ThemedGlobalStyle = createGlobalStyle`
     display:none;
   }
 
-
+  body {
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.white};
+  }
 
 `;

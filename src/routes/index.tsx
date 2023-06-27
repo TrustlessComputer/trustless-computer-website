@@ -11,6 +11,8 @@ import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { Pioneers } from '@/pages/pioneers';
 
+import ProtocolPage from '@/pages/protocol';
+
 export default [
   {
     path: ROUTE_PATH.NOT_FOUND,
@@ -20,7 +22,7 @@ export default [
   {
     path: ROUTE_PATH.HOME,
     element: <Layout />,
-    children: [{ index: true, element: <DappsStorePage /> }],
+    children: [{ index: true, element: <ProtocolPage /> }],
   },
   {
     path: ROUTE_PATH.DEVELOPER,
