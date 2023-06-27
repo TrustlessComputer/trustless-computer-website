@@ -46,6 +46,7 @@ const ImageMedium = css`
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+  display: none;
 `;
 const Image = styled.img`
   width: 260px;
