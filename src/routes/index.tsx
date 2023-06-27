@@ -11,8 +11,8 @@ import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { Pioneers } from '@/pages/pioneers';
 
-// import ProtocolPage from '@/pages/protocol';
-// import TokenPage from '@/pages/token';
+import ProtocolPage from '@/pages/protocol';
+import TokensPage from '@/pages/tokens';
 
 export default [
   {
@@ -23,7 +23,12 @@ export default [
   {
     path: ROUTE_PATH.HOME,
     element: <Layout />,
-    children: [{ index: true, element: <Pioneers /> }],
+    children: [{ index: true, element: <ProtocolPage /> }],
+  },
+  {
+    path: ROUTE_PATH.TOKENS,
+    element: <Layout />,
+    children: [{ index: true, element: <TokensPage /> }],
   },
   {
     path: ROUTE_PATH.DEVELOPER,

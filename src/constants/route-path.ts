@@ -10,6 +10,6 @@ export const ROUTE_PATH = {
   DEVELOPER: '/developer',
   DEPLOY: 'https://trustlesside.com/',
   PIONEERS: '/pioneers',
-  TOKENS: '/tokens ',
+  TOKENS: '/tokens',
   COMPUTER: '/computer',
 };

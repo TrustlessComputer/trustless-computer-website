@@ -4,7 +4,7 @@ import IntroduceSection from './components/IntroduceSection';
 import DescriptionSection from './components/DescriptionSection';
 import StatisticsSection from './components/StatisticsSection';
 
-const TokenPage = () => {
+const TokensPage = () => {
   return (
     <Container>
       <div className="content-wrapper">
@@ -17,4 +17,4 @@ const TokenPage = () => {
   );
 };
 
-export default TokenPage;
+export default TokensPage;
