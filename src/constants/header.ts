@@ -7,12 +7,12 @@ export const MENU_HEADER = [
     route: ROUTE_PATH.PROTOCOL,
     activePath: '',
   },
-  {
-    id: 'menu-2',
-    name: 'Computer',
-    route: ROUTE_PATH.COMPUTER,
-    activePath: ROUTE_PATH.COMPUTER,
-  },
+  // {
+  //   id: 'menu-2',
+  //   name: 'Computer',
+  //   route: ROUTE_PATH.COMPUTER,
+  //   activePath: ROUTE_PATH.COMPUTER,
+  // },
   {
     id: 'menu-3',
     name: 'Tokens',

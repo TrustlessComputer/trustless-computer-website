@@ -42,16 +42,16 @@ export const Container = styled.div`
   }
 `;
 
-const formatPrice = (amount?: number) => {
-  if (!amount) return '0.0';
-  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-};
+// const formatPrice = (amount?: number) => {
+//   if (!amount) return '0.0';
+//   return amount.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+// };
 
 const StatisticsSection = () => {
-  const price = 10;
-  const circulatingSupply = 0;
-  const totalSupply = 10000;
-
+  const price = 12;
+  // const circulatingSupply = 0;
+  // const totalSupply = 100000000;
+  const totalSupply = '100,000,000';
   return (
     <Container>
       <div className="column">
@@ -59,13 +59,13 @@ const StatisticsSection = () => {
         <p className="description">Price</p>
       </div>
 
-      <div className="column">
+      {/* <div className="column">
         <h5 className="title">{`${circulatingSupply}`}</h5>
         <p className="description">Circulating supply</p>
-      </div>
+      </div> */}
 
       <div className="column">
-        <h5 className="title">{`${formatPrice(totalSupply)}`}</h5>
+        <h5 className="title">{`${totalSupply}`}</h5>
         <p className="description">Total supply</p>
       </div>
     </Container>
