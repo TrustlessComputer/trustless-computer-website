@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import { MediaQueryBuilder } from '@/theme';
 import * as L from '@/pages/pioneers/components/Share';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import px2rem from '@/utils/px2rem';
 
 // ------- Container ------
@@ -18,14 +16,19 @@ const Container = styled(L.BorderBox)`
 // ------- Content ------
 const ContentLG = css`
   margin-top: 20px;
+  grid-template-columns: 1fr;
+  gap: 24px;
 `;
-const Content = styled(Row)`
+const Content = styled.div`
   margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   ${MediaQueryBuilder('lg', ContentLG)}
 `;
 
 // ------- Item ------
-const Item = styled(Col)`
+const Item = styled.div`
   .title {
     padding-bottom: ${px2rem(16)};
   }

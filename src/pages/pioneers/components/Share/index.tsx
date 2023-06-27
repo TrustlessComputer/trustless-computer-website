@@ -14,7 +14,7 @@ const Title = styled(Text)`
 
 // ------- Container ------
 const BorderBoxLarge = css`
-  padding: 16px;
+  padding: 24px;
 `;
 
 const BorderBox = styled.div`

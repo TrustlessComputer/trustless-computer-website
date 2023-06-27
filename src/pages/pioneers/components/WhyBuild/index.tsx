@@ -40,10 +40,10 @@ const Contents: IContent[] = [
   },
 ];
 
-const Reason = React.memo(() => {
+const WhyBuild = React.memo(() => {
   const renderItem = (item: IContent, index: number) => {
     return (
-      <S.Item key={item.title} lg={6} md={12}>
+      <S.Item key={item.title}>
         <Text color="white" size="24" fontWeight="semibold" className="title">
           {item.title}
         </Text>
@@ -63,4 +63,4 @@ const Reason = React.memo(() => {
   );
 });
 
-export default Reason;
+export default WhyBuild;
