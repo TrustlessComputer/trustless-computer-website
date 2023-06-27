@@ -15,7 +15,7 @@ export const MENU_HEADER = [
   // },
   {
     id: 'menu-3',
-    name: 'Tokens',
+    name: 'Token',
     route: ROUTE_PATH.TOKENS,
     activePath: ROUTE_PATH.TOKENS,
   },
