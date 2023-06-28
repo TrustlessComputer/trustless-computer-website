@@ -18,12 +18,16 @@ const Wrapper = styled.div`
     transform: translateX(-47%);
     position: absolute;
 
-    p {
+    a {
       font-weight: 800;
       font-size: ${px2rem(20)};
       line-height: ${px2rem(28)};
       color: #e5e5e5;
       font-family: 'IBMPlexMono';
+
+      :hover {
+        text-decoration: none;
+      }
     }
   }
 

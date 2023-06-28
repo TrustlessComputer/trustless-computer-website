@@ -10,6 +10,16 @@ export const Container = styled.div`
     padding-bottom: ${px2rem(24)};
   }
 
+  .text-layer {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
+    font-weight: 500;
+    margin-bottom: ${px2rem(16)};
+  }
+
   .header {
     font-size: ${px2rem(44)};
     line-height: ${px2rem(54)};

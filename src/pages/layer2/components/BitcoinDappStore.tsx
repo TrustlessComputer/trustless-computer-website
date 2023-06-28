@@ -61,14 +61,11 @@ export const Container = styled.div`
     }
 
     .desc {
-      font-size: ${px2rem(18)};
-      font-weight: 500;
-      line-height: ${px2rem(28)};
-      letter-spacing: -0.01em;
-      text-align: left;
+      display: flex;
+      flex-direction: column;
       max-width: 50ch;
-      color: #5b5b5b;
       margin-bottom: ${px2rem(12)};
+      gap: ${px2rem(8)};
 
       ${MediaQueryBuilder(
         'lg',
@@ -77,6 +74,15 @@ export const Container = styled.div`
           max-width: 100ch;
         `,
       )}
+    }
+
+    .text {
+      font-size: ${px2rem(18)};
+      font-weight: 500;
+      line-height: ${px2rem(28)};
+      letter-spacing: -0.01em;
+      text-align: left;
+      color: #5b5b5b;
     }
 
     .content {
@@ -106,12 +112,18 @@ const SmartContractOnBitcoinSection = () => {
       <div className="right-view">
         <h4 className="title">How does it work?</h4>
         <h6 className="desc">
-          NOS reuses the battle-tested Optimism codebase. It is a modified version of the OP Stack that adds support for
-          Bitcoin. <br></br>
-          <br></br> Like Optimism, NOS uses Optimistic Rollup, a fancy way of describing a blockchain that piggybacks
-          off the security of another blockchain.<br></br>
-          <br></br> In this case, NOS takes advantage of the consensus mechanism of Bitcoin instead of its own. This is
-          possible thanks to the Trustless Computer protocol, which brings smart contract capability to Bitcoin.
+          <p className="text">
+            NOS reuses the battle-tested Optimism codebase. It is a modified version of the OP Stack that adds support
+            for Bitcoin.
+          </p>
+          <p className="text">
+            Like Optimism, NOS uses Optimistic Rollup, a fancy way of describing a blockchain that piggybacks off the
+            security of another blockchain.
+          </p>
+          <p className="text">
+            In this case, NOS takes advantage of the consensus mechanism of Bitcoin instead of its own. This is possible
+            thanks to the Trustless Computer protocol, which brings smart contract capability to Bitcoin.
+          </p>
         </h6>
       </div>
     </Container>

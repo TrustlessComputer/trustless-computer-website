@@ -105,7 +105,7 @@ const SmartContractOnBitcoinSection = () => {
   return (
     <Container>
       <div className="left-view">
-        <IconSVG src={IcDappGroup} maxWidth="450" />
+        <IconSVG src={IcDappGroup} maxWidth="480" />
       </div>
       <div className="right-view">
         <h4 className="title">Explore dapps on Bitcoin.</h4>
@@ -135,7 +135,7 @@ const SmartContractOnBitcoinSection = () => {
             </Text>
             <img alt="icon" className="icon" src={IcArrow} />
           </ButtonArrowLink>
-          <ButtonArrowLink href="https://smartinscription.xyz/" target="_blank">
+          <ButtonArrowLink href="https://twitter.com/punk3700/status/1669014135206731776" target="_blank">
             <Text className="text" size="medium" fontWeight="semibold">
               Infrastructure: Bitcoin File System
             </Text>

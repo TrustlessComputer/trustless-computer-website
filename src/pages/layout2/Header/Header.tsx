@@ -31,7 +31,7 @@ const Header = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
       <div className="logo">
-        <p>Trustless Computer</p>
+        <a href="">Trustless Computer</a>
       </div>
       {/* <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />

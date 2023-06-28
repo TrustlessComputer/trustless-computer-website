@@ -1,11 +1,10 @@
-import IcNosLayers from '@/assets/icons/ic-dapp-layer2.svg';
-import IconSVG from '@/components/IconSVG';
+import IcArrow from '@/assets/icons/ic-arrow-right-2.svg';
+import IcNosLayers from '@/assets/icons/ic-dapp-layer2.png';
+import { ButtonArrowLink } from '@/components/ButtonLink/ButtonLink.styled';
+import Text from '@/components/Text';
 import { MediaQueryBuilder } from '@/theme';
 import px2rem from '@/utils/px2rem';
 import styled, { css } from 'styled-components';
-import { ButtonArrowLink } from '@/components/ButtonLink/ButtonLink.styled';
-import Text from '@/components/Text';
-import IcArrow from '@/assets/icons/ic-arrow-right-2.svg';
 
 export const Container = styled.div`
   padding: ${px2rem(60)} ${px2rem(75)};
@@ -86,6 +85,9 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    img {
+      max-width: 450px;
+    }
   }
 
   .btn {
@@ -109,12 +111,6 @@ const MeetNOSSection = () => {
         </h6>
 
         <div className="content">
-          <ButtonArrowLink href="https://newbitcoindex.com/" target="_blank" color="#4185EC">
-            <Text className="text" size="medium" fontWeight="semibold">
-              Finance: New Bitcoin DEX
-            </Text>
-            <img alt="icon" className="icon" src={IcArrow} />
-          </ButtonArrowLink>
           <ButtonArrowLink href="https://dgames.gg/" target="_blank" color="#4185EC">
             <Text className="text" size="medium" fontWeight="semibold">
               Gaming: Satoshi’s Gambit
@@ -125,7 +121,7 @@ const MeetNOSSection = () => {
       </div>
 
       <div className="right-view">
-        <IconSVG src={IcNosLayers} maxWidth="450" />
+        <img src={IcNosLayers} />
       </div>
     </Container>
   );

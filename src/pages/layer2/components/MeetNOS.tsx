@@ -53,14 +53,20 @@ export const Container = styled.div`
     }
 
     .desc {
-      font-size: ${px2rem(18)};
-      font-weight: 500;
-      line-height: ${px2rem(28)};
-      letter-spacing: -0.01em;
-      text-align: left;
-      max-width: 50ch;
-      color: #5b5b5b;
+      p {
+        font-size: ${px2rem(18)};
+        font-weight: 500;
+        line-height: ${px2rem(28)};
+        letter-spacing: -0.01em;
+        text-align: left;
+        max-width: 50ch;
+        color: #5b5b5b;
+      }
+
+      display: flex;
+      flex-direction: column;
       margin-bottom: ${px2rem(12)};
+      gap: ${px2rem(8)};
 
       ${MediaQueryBuilder(
         'lg',
@@ -97,11 +103,15 @@ const MeetNOSSection = () => {
       <div className="left-view">
         <h4 className="title">Secure scaling for Bitcoin.</h4>
         <h6 className="desc">
-          NOS is a fast, stable, and scalable Bitcoin L2 blockchain. <br></br>
-          <br></br> Increasing Bitcoin capability in terms of speed is fundamental to the mass adoption of decentralized
-          applications on Bitcoin.<br></br>
-          <br></br> The main goal of NOS (or “Nitrous Oxide”) is to turbocharge Bitcoin transactions (reduce transaction
-          latency) without sacrificing decentralization or security.
+          <p>NOS is a fast, stable, and scalable Bitcoin L2 blockchain. </p>
+          <p>
+            Increasing Bitcoin capability in terms of speed is fundamental to the mass adoption of decentralized
+            applications on Bitcoin.
+          </p>
+          <p>
+            The main goal of NOS (or “Nitrous Oxide”) is to turbocharge Bitcoin transactions (reduce transaction
+            latency) without sacrificing decentralization or security.
+          </p>
         </h6>
       </div>
 

@@ -9,6 +9,7 @@ const ProtocolPage = () => {
   return (
     <Container>
       <div className="header-container">
+        <p className="text-layer">LAYER 2</p>
         <h2 className="header">
           NOS is a low-cost and lightning-fast Bitcoin L2 blockchain powered by Trustless Computer.
         </h2>

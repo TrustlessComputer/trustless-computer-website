@@ -11,6 +11,17 @@ export const Container = styled.div`
     background-color: #4185ec;
   }
 
+  .text-layer {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: ${px2rem(24)};
+    line-height: ${px2rem(34)};
+    font-weight: 500;
+    margin-bottom: ${px2rem(16)};
+    color: white;
+  }
+
   .header {
     font-size: ${px2rem(44)};
     line-height: ${px2rem(54)};

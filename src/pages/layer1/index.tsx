@@ -9,6 +9,7 @@ const ProtocolPage = () => {
   return (
     <Container>
       <div className="header-container">
+        <p className="text-layer">LAYER 1</p>
         <h2 className="header">Launch your decentralized applications (dapps) on Bitcoin.</h2>
         {/* <h6 className="header-desc">
           Trustless Computer is a layer-1 protocol that broadens the utility of Bitcoin beyond a cryptocurrency.
