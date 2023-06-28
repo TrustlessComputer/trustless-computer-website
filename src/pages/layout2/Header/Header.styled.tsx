@@ -56,6 +56,9 @@ const Wrapper = styled.div`
         display: flex;
         align-items: center;
         gap: ${px2rem(8)};
+        :hover {
+          color: #1c1c1c !important;
+        }
       }
 
       p {
