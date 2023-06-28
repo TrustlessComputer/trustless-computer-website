@@ -55,6 +55,7 @@ export const darkTheme = {
   bg3: '#404040',
   bg4: '#cecece',
   bg5: '#f2f2f2',
+  bg6: commonTheme.primary['2e'],
 
   // Text
   text1: '#F5F5F5',
@@ -69,6 +70,7 @@ export const darkTheme = {
   border1: '#2c2c2c',
   border2: '#5b5b5b',
   border3: '#cecece',
+  border4: commonTheme.primary['333'],
 
   // Button
   btn1: '#1A73E8',
@@ -92,6 +94,7 @@ export const lightTheme = {
   bg3: '#F8F8F8',
   bg4: '#cecece',
   bg5: '#f2f2f2',
+  bg6: commonTheme.primary['2e'],
 
   // Text
   text1: commonTheme.black,
@@ -106,6 +109,7 @@ export const lightTheme = {
   border1: '#e3e2e2',
   border2: '#F2F4F5',
   border3: '#1A73E8',
+  border4: commonTheme.primary['333'],
 
   // Button
   btn1: '#282828',

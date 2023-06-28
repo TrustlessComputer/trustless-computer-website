@@ -9,6 +9,10 @@ import px2rem from '@/utils/px2rem';
 const HEADER_HEIGHT = 80;
 const FO0TER_HEIGHT = 80;
 
+export const WrapContainer = styled.div`
+  background-color: white;
+`;
+
 export const Container = styled.div`
   min-height: 100vh;
   max-width: 1920px;
@@ -35,17 +39,19 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Layout = () => {
+const Layout2 = () => {
   return (
-    <Container>
-      <Meta />
-      <Header height={HEADER_HEIGHT} />
-      <ContentWrapper>
-        <Outlet />
-      </ContentWrapper>
-      <Footer height={FO0TER_HEIGHT} />
-    </Container>
+    <WrapContainer>
+      <Container>
+        <Meta />
+        <Header height={HEADER_HEIGHT} />
+        <ContentWrapper>
+          <Outlet />
+        </ContentWrapper>
+        <Footer height={FO0TER_HEIGHT} />
+      </Container>
+    </WrapContainer>
   );
 };
 
-export default Layout;
+export default Layout2;
