@@ -9,7 +9,10 @@ const TitleLarge = css`
 
 const Title = styled(Text)`
   font-size: ${px2rem(48)} !important;
-  ${MediaQueryBuilder('lg', TitleLarge)}
+  font-family: 'IBMPlexMono';
+  letter-spacing: -0.01em !important;
+  line-height: ${px2rem(58)};
+  ${MediaQueryBuilder('lg', TitleLarge)};
 `;
 
 // ------- Container ------

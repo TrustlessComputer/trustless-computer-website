@@ -1,16 +1,19 @@
-import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
 import IconSVG from '@/components/IconSVG';
 import px2rem from '@/utils/px2rem';
-import IcNosLayers from '@/assets/icons/ic-nos-layers.svg';
+import IcNosLayers from '@/assets/icons/ic-how-layer1.svg';
 import styled, { css } from 'styled-components';
 import { MediaQueryBuilder } from '@/theme';
+import { ButtonArrowLink } from '@/components/ButtonLink/ButtonLink.styled';
+import IcArrow from '@/assets/icons/ic-arrow-right.svg';
+import Text from '@/components/Text';
 
 export const Container = styled.div`
-  padding: ${px2rem(45)};
+  padding: ${px2rem(60)} ${px2rem(48)};
   padding-left: ${px2rem(75)};
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: ${px2rem(16)};
 
   background-color: ${({ theme }) => theme.primary.brand};
 
@@ -36,31 +39,32 @@ export const Container = styled.div`
     gap: ${px2rem(10)};
 
     .title {
-      font-size: 34px;
+      font-size: ${px2rem(30)};
       font-weight: 700;
-      line-height: 44px;
+      line-height: ${px2rem(38)};
       text-align: left;
-      max-width: 20ch;
+      max-width: 32ch;
+      font-family: 'IBMPlexMono';
+      letter-spacing: -0.01em !important;
 
       ${MediaQueryBuilder(
         'lg',
         css`
           text-align: center;
-          max-width: 30ch;
+          max-width: 40ch;
         `,
       )}
     }
 
     .desc {
-      font-size: 20px;
+      font-size: ${px2rem(18)};
       font-weight: 500;
-      line-height: 30px;
+      line-height: ${px2rem(28)};
       letter-spacing: -0.01em;
       text-align: left;
       max-width: 50ch;
-      padding-top: ${px2rem(10)};
-      padding-bottom: ${px2rem(10)};
       color: ${({ theme }) => theme.text3};
+      margin-bottom: ${px2rem(12)};
 
       ${MediaQueryBuilder(
         'lg',
@@ -81,6 +85,7 @@ export const Container = styled.div`
   }
 
   .btn {
+    margin-top: ${px2rem(16)};
     ${MediaQueryBuilder(
       'lg',
       css`
@@ -94,14 +99,23 @@ const MeetNOSSection = () => {
   return (
     <Container>
       <div className="left-view">
-        <h4 className="title">Need speed? Meet NOS, 2-second block time.</h4>
+        <h4 className="title">How does it work?</h4>
         <h6 className="desc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
+          Trustless Computer is a state machine similar to Ethereum-VM that utilizes the Bitcoin blockchain as a data
+          layer to achieve transaction-level consensus. This approach allows Trustless Computer to function as a
+          general-purpose state machine while taking advantage of the Bitcoin blockchain’s security and data
+          availability without requiring additional modules, such as network or consensus protocols.
         </h6>
-        <ButtonLink className="button-solid btn" href="" target="_blank">
-          <p className="button-link-text">{`Build a crowdsale → `}</p>
-        </ButtonLink>
+
+        <ButtonArrowLink
+          href="https://docs.trustless.computer/trustless-computer/layer-1-trustless-computer"
+          target="_blank"
+        >
+          <Text className="text" size="medium" fontWeight="semibold">
+            Learn more
+          </Text>
+          <img alt="icon" className="icon" src={IcArrow} />
+        </ButtonArrowLink>
       </div>
 
       <div className="right-view">

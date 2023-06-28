@@ -46,24 +46,22 @@ const IntroduceSectionSection = () => {
   return (
     <Container>
       <div className="column">
-        <h5 className="title">Bitcoin dapps fuel</h5>
+        <h5 className="title">The lifeblood of Bitcoin dapps</h5>
         <p className="description">
-          TC serves as the lifeblood of Trustless Computer, facilitating the payment of transaction fees for all dapp
-          activities on the Bitcoin network.
+          TC fuels Bitcoin dapps, facilitating the payment of transaction fees for all dapp activities on Bitcoin.
         </p>
       </div>
 
       <div className="column">
         <h5 className="title">Uses for TC grow every day</h5>
         <p className="description">
-          As Trustless Computer enables programmability on Bitcoin, developers have the freedom to utilize TC in
-          numerous ways, such as streaming TC, token swapping, earning interest, obtaining stablecoins, and making
-          in-game purchases, among others.
+          As Trustless Computer enables programmability on Bitcoin, developers have the free to utilize TC in numerous
+          ways, such as DeFi, GameFi, DEX, DAO, and more.
         </p>
       </div>
 
       <div className="column">
-        <h5 className="title">Rewards for Trustless Computer nodes</h5>
+        <h5 className="title">Run a node and earn TC</h5>
         <p className="description">
           Nodes play a crucial role in validating and recording Trustless Computer transactions, ensuring the seamless
           functioning of Bitcoin dapps. In return, nodes receive the transaction fees collected in TC during this

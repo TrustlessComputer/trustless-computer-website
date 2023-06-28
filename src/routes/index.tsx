@@ -4,6 +4,7 @@ import NotFound from '@/pages/404';
 import ConnectWallet from '@/pages/connect-wallet';
 import Home from '@/pages/home';
 import Layout from '@/pages/layout';
+import Layout2 from '@/pages/layout2';
 import DappsStorePage from '@/pages/store';
 import UseTrustless from '@/pages/use-trustless-computer';
 import Wallet from '@/pages/wallet';
@@ -11,7 +12,9 @@ import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { Pioneers } from '@/pages/pioneers';
 
-import ProtocolPage from '@/pages/protocol';
+import Layer1Page from '@/pages/layer1';
+import Layer2Page from '@/pages/layer2';
+
 import TokensPage from '@/pages/tokens';
 
 export default [
@@ -23,7 +26,12 @@ export default [
   {
     path: ROUTE_PATH.HOME,
     element: <Layout />,
-    children: [{ index: true, element: <ProtocolPage /> }],
+    children: [{ index: true, element: <Layer1Page /> }],
+  },
+  {
+    path: ROUTE_PATH.LAYER2,
+    element: <Layout2 />,
+    children: [{ index: true, element: <Layer2Page /> }],
   },
   {
     path: ROUTE_PATH.TOKENS,

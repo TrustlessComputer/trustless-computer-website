@@ -72,6 +72,7 @@ const ContentItem = styled.div`
   .content {
     line-height: 180% !important;
     margin-left: 12px;
+    color: #e5e5e5;
   }
   .spacing {
     width: 6px;

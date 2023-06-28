@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  border-bottom: 1px solid ${({ theme }) => theme.border4};
+  border-bottom: 1px solid #4185ec;
 
   .logo {
     z-index: 999;
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
       font-weight: 800;
       font-size: ${px2rem(20)};
       line-height: ${px2rem(28)};
-      color: #e5e5e5;
+      color: #1c1c1c;
       font-family: 'IBMPlexMono';
     }
   }
@@ -56,6 +56,10 @@ const Wrapper = styled.div`
         display: flex;
         align-items: center;
         gap: ${px2rem(8)};
+      }
+
+      p {
+        color: #1c1c1c !important;
       }
 
       .icon {
@@ -149,7 +153,7 @@ const StyledLink = styled(Link)<{ active: boolean; activeColor?: string; color?:
   cursor: pointer;
   font-weight: 400;
   font-size: ${px2rem(16)};
-  color: ${({ theme, active, activeColor, color }) => (active ? activeColor || theme.white : color || theme.text2)};
+  color: ${({ theme, active, activeColor, color }) => (active ? activeColor || theme.white : color || '#1C1C1C')};
   border-bottom: 1px solid ${({ active, activeColor }) => (active ? activeColor : 'transparent')};
   text-decoration: none !important;
   font-family: 'IBMPlexMono';

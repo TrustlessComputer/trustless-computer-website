@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 import { createGlobalStyle, DefaultTheme, ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { getTheme } from '@/theme/index';
+import { ScreenMarginTop } from '@/theme/css/margin.top';
+import { ScreenMarginBottom } from '@/theme/css/margin.bottom';
+import { ScreenMarginLeft } from '@/theme/css/margin.left';
+import { ScreenMarginRight } from '@/theme/css/margin.right';
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   const darkMode = true;
@@ -59,6 +63,11 @@ export const ThemedGlobalStyle = createGlobalStyle`
     button {
       font-family: 'IBMPlexMono';
     }
+
+    ${ScreenMarginTop}
+    ${ScreenMarginBottom}
+    ${ScreenMarginLeft}
+    ${ScreenMarginRight}
 }
 
   summary::-webkit-details-marker {

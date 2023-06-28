@@ -48,7 +48,7 @@ const WhyBuild = React.memo(() => {
           {item.title}
         </Text>
         {item.contents.map(content => (
-          <Text key={item.title + index} size="medium">
+          <Text className="text-content" key={item.title + index} size="regular">
             {content}
           </Text>
         ))}
@@ -57,7 +57,7 @@ const WhyBuild = React.memo(() => {
   };
   return (
     <S.Container>
-      <L.Title fontWeight="bold">Why BUIDL on Bitcoin?</L.Title>
+      <L.Title>Why BUIDL on Bitcoin?</L.Title>
       <S.Content className="g-4 gx-5">{Contents.map(renderItem)}</S.Content>
     </S.Container>
   );

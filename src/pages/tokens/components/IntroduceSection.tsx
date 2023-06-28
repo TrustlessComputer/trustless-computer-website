@@ -113,8 +113,8 @@ const IntroduceSection = () => {
       <div className="left-view">
         <h2 className="title">What is TC?</h2>
         <h6 className="desc">
-          TC stands for Trustless Computer's native cryptocurrency, which is utilized for engaging in decentralized
-          financial activities and participating in on-chain games on Bitcoin.
+          TC is the native cryptocurrency of Trustless Computer. When you use a Bitcoin dapp powered by Trustless
+          Computer, you’ll pay a transaction fee in TC.
         </h6>
         <ButtonLink className="button-solid get-tc-btn" href="https://tcgasstation.com/" target="_blank">
           <p className="button-link-text">{`Get TC`}</p>

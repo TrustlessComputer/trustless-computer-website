@@ -43,7 +43,7 @@ const Benefit = React.memo(() => {
             {item.title}
           </Text>
           {item.contents.map(content => (
-            <Text key={item.title + index} size="medium" className="content">
+            <Text key={item.title + index} size="regular" className="content">
               &#8226; <span className="spacing" />
               {content}
             </Text>
@@ -56,11 +56,11 @@ const Benefit = React.memo(() => {
     <S.Container>
       <S.Liner />
       <S.Box>
-        <L.Title fontWeight="bold">The Pioneers</L.Title>
-        <S.SubTitle size="20" color="text3">
+        <L.Title>The Pioneers</L.Title>
+        <S.SubTitle className="mt-16" size="medium" color="text3">
           Welcome to The Pioneers!
         </S.SubTitle>
-        <S.SubTitle size="20" color="text3">
+        <S.SubTitle size="medium" color="text3">
           Bitcoin summer has just started and now is the best time to be The Pioneer BUIDLers on Bitcoin. You can build
           the first dApps on Bitcoin in the following categories (but not limited to)
         </S.SubTitle>

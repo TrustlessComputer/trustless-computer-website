@@ -32,6 +32,11 @@ const Item = styled.div`
   .title {
     padding-bottom: ${px2rem(16)};
   }
+
+  .text-content {
+    color: #e5e5e5;
+    margin-bottom: ${px2rem(16)};
+  }
 `;
 
 export { Container, Content, Item };

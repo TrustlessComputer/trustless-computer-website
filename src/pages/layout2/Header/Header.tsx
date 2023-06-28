@@ -1,14 +1,12 @@
-import IcLink from '@/assets/icons/ic-link.svg';
-import IcLogo from '@/assets/icons/logo.svg';
+import IcLink from '@/assets/icons/ic-link-2.svg';
 import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
+import Text from '@/components/Text';
 import { MENU_HEADER } from '@/constants/header';
-import { ROUTE_PATH } from '@/constants/route-path';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { StyledLink, Wrapper } from './Header.styled';
 import MenuMobile from './MenuMobile';
-import Text from '@/components/Text';
 
 const Header = ({ height }: { height: number }) => {
   const refMenu = useRef<HTMLDivElement | null>(null);
@@ -46,7 +44,7 @@ const Header = ({ height }: { height: number }) => {
               active={isActive}
               to={{ pathname: item.route }}
               key={item.id}
-              activeColor={'#F9D03F'}
+              activeColor={'#4185EC'}
               style={{ lineHeight: `${height}px` }}
             >
               {item.name}

@@ -2,18 +2,26 @@ import px2rem from '@/utils/px2rem';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding-top: ${px2rem(58)};
   display: flex;
   flex-direction: column;
 
+  .header-container {
+    padding-top: ${px2rem(88)};
+    padding-bottom: ${px2rem(40)};
+    background-color: #4185ec;
+  }
+
   .header {
-    font-size: ${px2rem(48)};
-    line-height: (58 / 48);
+    font-size: ${px2rem(44)};
+    line-height: ${px2rem(54)};
     font-weight: 700;
-    max-width: 25ch;
+    max-width: 48ch;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    font-family: 'IBMPlexMono';
+    letter-spacing: -0.02em !important;
+    color: white;
 
     @media screen and (max-width: 426px) {
       font-size: ${px2rem(40)};
@@ -22,8 +30,8 @@ export const Container = styled.div`
 
   .header-desc {
     font-weight: 400;
-    font-size: ${px2rem(20)};
-    line-height: ${px2rem(30)};
+    font-size: ${px2rem(18)};
+    line-height: ${px2rem(28)};
 
     margin-left: auto;
     margin-right: auto;
@@ -31,6 +39,7 @@ export const Container = styled.div`
     letter-spacing: -0.01em;
     max-width: 960px;
     margin-top: ${px2rem(16)};
+    color: #e5e5e5;
   }
 
   .header-actions {
@@ -39,8 +48,8 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    gap: ${px2rem(30)};
-    margin-top: ${px2rem(24)};
+    gap: ${px2rem(24)};
+    margin-top: ${px2rem(40)};
     margin-bottom: ${px2rem(68)};
 
     .submitBtn {

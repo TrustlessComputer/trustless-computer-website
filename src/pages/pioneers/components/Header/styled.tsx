@@ -33,7 +33,8 @@ const Image = styled.img`
 const Content = styled.div`
   flex: 1;
   .lbl-content {
-    margin-top: ${px2rem(18)};
+    margin-top: ${px2rem(20)};
+    color: #e5e5e5;
   }
 `;
 
