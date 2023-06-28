@@ -69,8 +69,7 @@ export const ButtonArrowLink = styled.a<{ color?: string }>`
     text-decoration: underline;
     font-weight: 500;
     font-size: ${px2rem(16)};
-    line-height: ${px2rem(24)};
-    text-align: center;
+    line-height: ${px2rem(28)};
     letter-spacing: 0.01em;
     color: ${({ color }: { color?: string }) => color || '#f9d03f'};
     font-family: 'IBMPlexMono' !important;

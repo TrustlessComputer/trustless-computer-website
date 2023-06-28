@@ -82,6 +82,16 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        svg {
+          margin-top: 16px;
+          max-width: 340px;
+        }
+      `,
+    )}
   }
 
   .btn {

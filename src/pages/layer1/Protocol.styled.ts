@@ -1,5 +1,6 @@
+import { MediaQueryBuilder } from '@/theme';
 import px2rem from '@/utils/px2rem';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -59,6 +60,13 @@ export const Container = styled.div`
     gap: ${px2rem(24)};
     margin-top: ${px2rem(40)};
     margin-bottom: ${px2rem(68)};
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        flex-direction: column;
+      `,
+    )}
 
     .submitBtn {
       padding: ${px2rem(15)} ${px2rem(24)};

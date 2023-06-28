@@ -10,8 +10,8 @@ const TokensPage = () => {
       <div className="content-wrapper">
         <IntroduceSection />
         <DescriptionSection />
-        <div className="lineBreak" />
-        <StatisticsSection />
+        {/* <div className="lineBreak" />
+        <StatisticsSection /> */}
       </div>
     </Container>
   );

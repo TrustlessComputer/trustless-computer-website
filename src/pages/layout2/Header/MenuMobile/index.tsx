@@ -37,7 +37,8 @@ const MenuMobile = React.forwardRef(({ onCloseMenu }: IProp, ref: ForwardedRef<H
               to={item.route}
               key={item.id}
               onClick={onCloseMenu}
-              activeColor="#F9D03F"
+              activeColor="#4185ec"
+              color="white"
             >
               {item.name}
             </StyledLink>

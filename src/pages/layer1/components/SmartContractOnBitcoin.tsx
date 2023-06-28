@@ -37,6 +37,15 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        svg {
+          max-width: 340px;
+        }
+      `,
+    )}
   }
 
   .right-view {
