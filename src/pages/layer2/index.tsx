@@ -1,11 +1,9 @@
-import { Container } from './Protocol.styled';
-import { ButtonLink, ButtonLinkSolid } from '@/components/ButtonLink/ButtonLink.styled';
+import { ButtonLink } from '@/components/ButtonLink/ButtonLink.styled';
+import ContentItem from './components/ContentItem';
+import { Contents } from './constant';
+import { Container } from './Layer2.styled';
 
-import SmartContractOnBitcoin from './components/SmartContractOnBitcoin';
-import MeetNOS from './components/MeetNOS';
-import BitcoinDappStore from './components/BitcoinDappStore';
-
-const ProtocolPage = () => {
+const Layer2Page = () => {
   return (
     <Container>
       <div className="header-container">
@@ -22,16 +20,16 @@ const ProtocolPage = () => {
           >
             <p className="button-link-text">NOS Developer Guides</p>
           </ButtonLink>
-          <ButtonLinkSolid href={'https://trustlessbridge.io/'} color="#ffffff" target="_blank">
+          {/* <ButtonLinkSolid href={'https://trustlessbridge.io/'} color="#ffffff" target="_blank">
             <p className="button-solid-text">Bridge to NOS</p>
-          </ButtonLinkSolid>
+          </ButtonLinkSolid> */}
         </div>
       </div>
-      <MeetNOS />
-      <BitcoinDappStore />
-      <SmartContractOnBitcoin />
+      {Contents.map((content, index) => (
+        <ContentItem item={content} index={index} />
+      ))}
     </Container>
   );
 };
 
-export default ProtocolPage;
+export default Layer2Page;

@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import px2rem from '@/utils/px2rem';
+import { MediaQueryBuilder } from '@/theme';
 
 export const ButtonLink = styled.a<{ disabled?: boolean; background?: string }>`
   padding: ${px2rem(14)} ${px2rem(24)};
@@ -73,12 +74,28 @@ export const ButtonArrowLink = styled.a<{ color?: string }>`
     letter-spacing: 0.01em;
     color: ${({ color }: { color?: string }) => color || '#f9d03f'};
     font-family: 'IBMPlexMono' !important;
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        font-size: ${px2rem(14)};
+        line-height: ${px2rem(24)};
+      `,
+    )}
   }
 
   .icon {
     width: ${px2rem(20)};
     height: ${px2rem(20)};
     cursor: pointer;
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        width: ${px2rem(16)};
+        height: ${px2rem(16)};
+      `,
+    )}
   }
   :hover {
     opacity: 0.8;

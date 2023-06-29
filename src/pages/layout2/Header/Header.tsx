@@ -1,5 +1,5 @@
 import IcLink from '@/assets/icons/ic-link-2.svg';
-import IcOpenMenu from '@/assets/icons/ic_hambuger.svg';
+import IcOpenMenu from '@/assets/icons/ic_hambuger_black.svg';
 import Text from '@/components/Text';
 import { MENU_HEADER } from '@/constants/header';
 import { gsap } from 'gsap';
@@ -31,7 +31,7 @@ const Header = ({ height }: { height: number }) => {
   return (
     <Wrapper style={{ height }}>
       <div className="logo">
-        <a href="">Trustless Computer</a>
+        <a href="/">Trustless Computer</a>
       </div>
       {/* <Link className="logo" to={ROUTE_PATH.HOME}>
         <img alt="logo" src={IcLogo} />

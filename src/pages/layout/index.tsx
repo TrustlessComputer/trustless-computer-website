@@ -19,8 +19,8 @@ export const Container = styled.div`
   padding: 0 ${px2rem(32)};
 
   ${({ theme }: { theme: DefaultTheme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
-      padding-left: 7%;
-      padding-right: 7%;
+      padding-left: 5%;
+      padding-right: 5%;
   `}
 `;
 
