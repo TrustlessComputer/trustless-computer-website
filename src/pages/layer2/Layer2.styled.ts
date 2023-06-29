@@ -8,7 +8,15 @@ export const Container = styled.div`
 
   .header-container {
     padding-top: ${px2rem(88)};
-    padding-bottom: ${px2rem(24)};
+    padding-bottom: ${px2rem(40)};
+    background-color: #4185ec;
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        padding-top: ${px2rem(68)};
+      `,
+    )}
   }
 
   .text-layer {
@@ -19,22 +27,29 @@ export const Container = styled.div`
     line-height: ${px2rem(34)};
     font-weight: 500;
     margin-bottom: ${px2rem(16)};
+    color: white;
   }
 
   .header {
     font-size: ${px2rem(44)};
     line-height: ${px2rem(54)};
     font-weight: 700;
-    max-width: 35ch;
+    max-width: 48ch;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     font-family: 'IBMPlexMono';
     letter-spacing: -0.02em !important;
+    color: white;
 
-    @media screen and (max-width: 426px) {
-      font-size: ${px2rem(40)};
-    }
+    ${MediaQueryBuilder(
+      'lg',
+      css`
+        max-width: 80vw;
+        font-size: ${px2rem(34)};
+        line-height: ${px2rem(44)};
+      `,
+    )}
   }
 
   .header-desc {
@@ -65,6 +80,9 @@ export const Container = styled.div`
       'md',
       css`
         flex-direction: column;
+        margin-top: ${px2rem(24)};
+        gap: ${px2rem(16)};
+        margin-bottom: ${px2rem(28)};
       `,
     )}
 

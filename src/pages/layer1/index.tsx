@@ -1,20 +1,14 @@
-import { Container } from './Protocol.styled';
 import { ButtonLink, ButtonLinkSolid } from '@/components/ButtonLink/ButtonLink.styled';
+import ContentItem from './components/ContentItem';
+import { Contents } from './constant';
+import { Container } from './Layer1.styled';
 
-import SmartContractOnBitcoin from './components/SmartContractOnBitcoin';
-import MeetNOS from './components/MeetNOS';
-import BitcoinDappStore from './components/BitcoinDappStore';
-
-const ProtocolPage = () => {
+const Layer1Page = () => {
   return (
     <Container>
       <div className="header-container">
         <p className="text-layer">LAYER 1</p>
         <h2 className="header">Launch your decentralized applications (dapps) on Bitcoin.</h2>
-        {/* <h6 className="header-desc">
-          Trustless Computer is a layer-1 protocol that broadens the utility of Bitcoin beyond a cryptocurrency.
-          Allowing you to create a DAO, DEX, NFT, token, auction lending, data storage, and so much more.
-        </h6> */}
         <div className="header-actions">
           <ButtonLink href="https://docs.trustless.computer/" target="_blank" className="header-actions-btn">
             <p className="button-link-text">Developer Guides</p>
@@ -24,12 +18,11 @@ const ProtocolPage = () => {
           </ButtonLinkSolid>
         </div>
       </div>
-
-      <SmartContractOnBitcoin />
-      <MeetNOS />
-      <BitcoinDappStore />
+      {Contents.map((content, index) => (
+        <ContentItem item={content} index={index} />
+      ))}
     </Container>
   );
 };
 
-export default ProtocolPage;
+export default Layer1Page;

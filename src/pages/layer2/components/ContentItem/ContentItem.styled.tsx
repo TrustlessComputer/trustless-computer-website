@@ -1,16 +1,14 @@
-import IcNosLayers from '@/assets/icons/ic-nos-scaling.svg';
-import IconSVG from '@/components/IconSVG';
 import { MediaQueryBuilder } from '@/theme';
 import px2rem from '@/utils/px2rem';
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
-  padding: ${px2rem(60)} ${px2rem(75)};
+export const Container = styled.div<{ isLeftSide: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: ${px2rem(16)};
-  background-color: #fafafa;
+  background-color: ${({ isLeftSide }) => (isLeftSide ? '#fafafa' : 'transparent')};
+  padding: ${px2rem(60)} ${({ isLeftSide }) => (isLeftSide ? px2rem(75) : px2rem(48))};
 
   ${MediaQueryBuilder(
     'lg',
@@ -46,8 +44,8 @@ export const Container = styled.div`
       ${MediaQueryBuilder(
         'lg',
         css`
-          text-align: center;
-          max-width: 40ch;
+          min-width: 75vw;
+          font-size: ${px2rem(24)};
         `,
       )}
     }
@@ -71,10 +69,17 @@ export const Container = styled.div`
       ${MediaQueryBuilder(
         'lg',
         css`
-          text-align: center;
-          max-width: 100ch;
+          p {
+            max-width: 100ch;
+            font-size: ${px2rem(16)};
+          }
         `,
       )}
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: ${px2rem(12)};
     }
   }
 
@@ -84,6 +89,34 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    img {
+      max-width: 520px;
+    }
+
+    ${MediaQueryBuilder(
+      'lg',
+      css`
+        svg {
+          max-width: 440px;
+        }
+        img {
+          max-width: 440px;
+        }
+      `,
+    )}
+
+    ${MediaQueryBuilder(
+      'md',
+      css`
+        svg {
+          max-width: 340px;
+        }
+        img {
+          max-width: 340px;
+        }
+      `,
+    )}
   }
 
   .btn {
@@ -96,30 +129,3 @@ export const Container = styled.div`
     )}
   }
 `;
-
-const MeetNOSSection = () => {
-  return (
-    <Container>
-      <div className="left-view">
-        <h4 className="title">Secure scaling for Bitcoin.</h4>
-        <h6 className="desc">
-          <p>NOS is a fast, stable, and scalable Bitcoin L2 blockchain. </p>
-          <p>
-            Increasing Bitcoin capability in terms of speed is fundamental to the mass adoption of decentralized
-            applications on Bitcoin.
-          </p>
-          <p>
-            The main goal of NOS (or “Nitrous Oxide”) is to turbocharge Bitcoin transactions (reduce transaction
-            latency) without sacrificing decentralization or security.
-          </p>
-        </h6>
-      </div>
-
-      <div className="right-view">
-        <IconSVG src={IcNosLayers} maxWidth="450" />
-      </div>
-    </Container>
-  );
-};
-
-export default MeetNOSSection;
