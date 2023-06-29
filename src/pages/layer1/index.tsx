@@ -11,7 +11,7 @@ const Layer1Page = () => {
         <h2 className="header">Launch your decentralized applications (dapps) on Bitcoin.</h2>
         <div className="header-actions">
           <ButtonLink href="https://docs.trustless.computer/" target="_blank" className="header-actions-btn">
-            <p className="button-link-text">Developer Guides</p>
+            <p className="button-link-text">TC Developer Guides</p>
           </ButtonLink>
           <ButtonLinkSolid href={'https://tcgasstation.com/'} target="_blank">
             <p className="button-solid-text">Get TC</p>

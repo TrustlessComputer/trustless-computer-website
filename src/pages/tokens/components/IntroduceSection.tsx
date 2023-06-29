@@ -7,19 +7,20 @@ import styled, { css } from 'styled-components';
 import { MediaQueryBuilder } from '@/theme';
 
 export const Container = styled.div`
-  padding: ${px2rem(45)};
+  padding: ${px2rem(45)} 6%;
   display: flex;
   flex-direction: row;
-
+  align-items: center;
   background-color: ${({ theme }) => theme.primary['2e']};
-  border-radius: 5px;
 
-  gap: ${px2rem(30)};
+  gap: ${px2rem(120)};
 
   ${MediaQueryBuilder(
     'xl',
     css`
+      padding: ${px2rem(24)} 3%;
       flex-direction: column;
+      gap: ${px2rem(30)};
     `,
   )}
 
@@ -38,9 +39,9 @@ export const Container = styled.div`
     )}
 
     .title {
-      font-size: 34px;
+      font-size: ${px2rem(34)};
       font-weight: 700;
-      line-height: 58px;
+      line-height: ${px2rem(44)};
       text-align: left;
       max-width: 20ch;
 
@@ -54,11 +55,10 @@ export const Container = styled.div`
     }
 
     .desc {
-      font-size: 20px;
+      font-size: ${px2rem(18)};
       font-weight: 500;
-      line-height: 30px;
+      line-height: ${px2rem(28)};
       text-align: left;
-      padding-top: ${px2rem(10)};
       padding-bottom: ${px2rem(10)};
       color: ${({ theme }) => theme.text3};
 
@@ -74,6 +74,7 @@ export const Container = styled.div`
       min-width: 200px;
       display: flex;
       justify-content: center;
+      margin-top: ${px2rem(8)};
 
       ${MediaQueryBuilder(
         'xl',

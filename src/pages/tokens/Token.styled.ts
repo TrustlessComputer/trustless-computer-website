@@ -8,7 +8,7 @@ export const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  padding: ${px2rem(45)};
+  /* padding: ${px2rem(45)}; */
   padding-top: ${px2rem(95)};
   padding-bottom: 0;
 
@@ -30,7 +30,6 @@ export const Container = styled.div`
     
   .content-wrapper {
     flex: 1;
-    max-width: 85%;
 
     ${MediaQueryBuilder(
       'lg',

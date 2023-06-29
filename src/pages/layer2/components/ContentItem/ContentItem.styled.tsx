@@ -7,7 +7,7 @@ export const Container = styled.div<{ isLeftSide: boolean }>`
   flex-direction: row;
   align-items: center;
   gap: ${px2rem(16)};
-  background-color: ${({ isLeftSide }) => (isLeftSide ? '#fafafa' : 'transparent')};
+  background-color: ${({ isLeftSide }) => (!isLeftSide ? '#fafafa' : 'transparent')};
   padding: ${px2rem(60)} ${({ isLeftSide }) => (isLeftSide ? px2rem(75) : px2rem(48))};
 
   ${MediaQueryBuilder(
