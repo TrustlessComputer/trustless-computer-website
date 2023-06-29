@@ -11,7 +11,7 @@ const FO0TER_HEIGHT = 80;
 
 export const Container = styled.div`
   min-height: 100vh;
-  max-width: 1920px;
+  max-width: ${px2rem(1920)};
   margin-left: auto;
   margin-right: auto;
   display: flex;

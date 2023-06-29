@@ -6,6 +6,7 @@ export interface IContentLayer1 {
   title: string;
   desc: string;
   img: any;
+  maxSize?: number;
   contents: {
     title: string;
     link: string;
@@ -14,9 +15,10 @@ export interface IContentLayer1 {
 
 export const Contents: IContentLayer1[] = [
   {
-    title: 'Write smart contract on Bitcoin',
+    title: 'Write smart contract on Bitcoin.',
     desc: 'Trustless Computer is a layer-1 protocol that broadens the utility of Bitcoin beyond a cryptocurrency. Allowing you to create a DAO, DEX, NFT, token, auction lending, data storage, and so much more.',
     img: IcBitcoinNetwork,
+    maxSize: 600,
     contents: [
       {
         title: 'Issue your own token on Bitcoin',

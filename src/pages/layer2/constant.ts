@@ -7,6 +7,7 @@ export interface IContentLayer2 {
   desc: string[];
   img: any;
   isPng?: boolean;
+  maxSize?: number;
   contents?: {
     title: string;
     link: string;
@@ -22,6 +23,7 @@ export const Contents: IContentLayer2[] = [
       'The main goal of NOS (or “Nitrous Oxide”) is to turbocharge Bitcoin transactions (reduce transaction latency) without sacrificing decentralization or security.',
     ],
     img: IcNosLayers,
+    maxSize: 600,
   },
   {
     title: 'How does it work?',
@@ -38,6 +40,7 @@ export const Contents: IContentLayer2[] = [
       'L2 is perfect for dapps that need speed. Discover the first dapps on Bitcoin. Here are some of our favorites.',
     ],
     img: IcDappGroup,
+    maxSize: 600,
     isPng: true,
     contents: [
       {

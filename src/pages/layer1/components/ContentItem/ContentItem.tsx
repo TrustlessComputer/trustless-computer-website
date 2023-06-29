@@ -12,7 +12,7 @@ const ContentItem = (props: { item: IContentLayer1; index: number }) => {
     <Container isLeftSide={isLeftSide}>
       {isLeftSide && (
         <div className="left-view">
-          <IconSVG src={item.img} maxWidth="520" />
+          <IconSVG src={item.img} maxWidth={`${item.maxSize || 520}`} />
         </div>
       )}
       <div className="right-view">
@@ -31,7 +31,7 @@ const ContentItem = (props: { item: IContentLayer1; index: number }) => {
       </div>
       {!isLeftSide && (
         <div className="left-view">
-          <IconSVG src={item.img} maxWidth="520" />
+          <IconSVG src={item.img} maxWidth={`${item.maxSize || 520}`} />
         </div>
       )}
     </Container>
